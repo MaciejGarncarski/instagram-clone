@@ -1,0 +1,19 @@
+{
+    "components/**/*.{js,jsx,ts,tsx}": [
+        "eslint --max-warnings=0",
+        "prettier -w"
+      ],
+    "pages/**/*.{js,jsx,ts,tsx}": [
+        "eslint --max-warnings=0",
+        "prettier -w"
+    ],
+    "components/**/*.{css,scss}": [
+        "prettier -w"
+    ],
+    "styles/**/*.{css,scss}": [
+        "prettier -w"
+    ],
+    "./**/*.{json,css,scss,md}": [
+        "prettier -w"
+    ]
+}
