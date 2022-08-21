@@ -1,0 +1,86 @@
+@use '/styles/common.scss';
+
+.heading {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+  color: var(--text-color);
+  display: inline;
+
+  & > a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  &::before {
+    content: '';
+    width: 100%;
+    height: 28%;
+    border-radius: 0.07em;
+    background-color: var(--primary-color);
+    position: absolute;
+    bottom: 0.2em;
+    left: 0;
+    z-index: -1;
+  }
+}
+
+.h2 {
+  font-size: 2.3rem;
+
+  @include common.breakpoint('sm') {
+    font-size: 2.8rem;
+  }
+
+  @include common.breakpoint('xl') {
+    font-size: 3.2rem;
+  }
+}
+
+.h3 {
+  font-size: 2.1rem;
+
+  @include common.breakpoint('sm') {
+    font-size: 2.6rem;
+  }
+
+  @include common.breakpoint('xl') {
+    font-size: 3rem;
+  }
+}
+
+.h4 {
+  font-size: 2rem;
+
+  @include common.breakpoint('sm') {
+    font-size: 2.5rem;
+  }
+
+  @include common.breakpoint('xl') {
+    font-size: 2.9rem;
+  }
+}
+
+.h5 {
+  font-size: 1.9rem;
+
+  @include common.breakpoint('sm') {
+    font-size: 2.4rem;
+  }
+
+  @include common.breakpoint('xl') {
+    font-size: 2.8rem;
+  }
+}
+
+.h6 {
+  font-size: 1.8rem;
+
+  @include common.breakpoint('sm') {
+    font-size: 2.3rem;
+  }
+
+  @include common.breakpoint('xl') {
+    font-size: 2.7rem;
+  }
+}

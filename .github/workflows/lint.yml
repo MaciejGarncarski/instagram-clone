@@ -116,5 +116,5 @@ jobs:
       - name: 📥 Download deps
         run: pnpm install
         
-      - name: 🃏 Run jest
-        run: pnpm test
+      # - name: 🃏 Run jest
+      #   run: pnpm test

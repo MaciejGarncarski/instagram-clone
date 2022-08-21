@@ -1,0 +1,51 @@
+@use '/styles/common.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 12rem;
+  width: 100%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  font-size: 2.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 10px;
+    width: 100%;
+    background-color: var(--primary-color);
+  }
+}
+
+.label {
+  text-transform: uppercase;
+  font-weight: 500;
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.25rem;
+  transition: var(--transition-fast);
+  transition-property: bottom, transform;
+}
+
+.input {
+  background: transparent;
+  padding: 1.25rem 2.5rem;
+  padding-bottom: 1.75rem;
+  border: 3px solid var(--primary-color);
+  border-bottom: none;
+  border-radius: 0.5rem;
+
+  &:focus + .label,
+  &--active + .label {
+    bottom: 2.6em;
+  }
+}

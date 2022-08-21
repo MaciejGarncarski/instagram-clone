@@ -9,17 +9,30 @@
     "lint": "next lint",
     "format": "prettier -w .",
     "format:check": "prettier -c .",
-    "lint-strict-fix": "eslint --max-warnings=0 --fix components pages && pnpm format",
+    "lint-strict-fix": "eslint --fix components pages && pnpm format",
     "prepare": "husky install",
     "test": "jest",
     "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.7",
+    "@prisma/client": "^4.2.1",
+    "@supabase/auth-helpers-nextjs": "^0.2.7",
+    "@supabase/auth-helpers-react": "^0.2.3",
+    "@supabase/supabase-js": "^1.35.6",
+    "@tanstack/react-query": "^4.2.1",
+    "@tanstack/react-query-devtools": "^4.2.1",
+    "clsx": "^1.2.1",
+    "framer-motion": "^7.2.0",
     "jest": "^28.1.3",
     "next": "12.2.5",
+    "next-pwa": "5.5.4",
+    "next-seo": "^5.5.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sass": "^1.54.4"
+    "react-hook-form": "^7.34.2",
+    "sass": "^1.54.4",
+    "zod": "^3.18.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
@@ -43,6 +56,18 @@
     "jest-environment-jsdom": "^28.1.3",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "prisma": "^4.2.1",
     "typescript": "4.7.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{css,scss}": [
+      "prettier -w"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier -w"
+    ]
   }
 }
