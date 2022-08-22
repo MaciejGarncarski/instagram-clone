@@ -13,18 +13,17 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
-    const { user, error } = await supabaseClient.auth.signIn({
+    const { error } = await supabaseClient.auth.signIn({
       email: email,
       password: password,
     });
 
     if (error) {
       setError(error);
+      return null;
     }
 
-    if (user) {
-      router.push('/', undefined, { shallow: true });
-    }
+    router.push('/profile');
   };
 
   return (
