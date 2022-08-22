@@ -27,7 +27,7 @@ const Profile: NextPage<ProfileProps> = ({ user }) => {
     throw new Error('wyjebnalooooo');
   };
 
-  const { data } = useQuery(['profile'], fetcher);
+  const { data } = useQuery(['profile', { userID: user.id }], fetcher);
 
   if (data) {
     return (
