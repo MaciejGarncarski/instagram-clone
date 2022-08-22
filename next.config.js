@@ -17,4 +17,7 @@ module.exports = withPWA({
       allowFutureImage: true,
     },
   },
+  images: {
+    domains: ['oqnfzlvubfrreyslpyah.supabase.co'],
+  },
 });

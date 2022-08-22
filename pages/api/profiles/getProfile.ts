@@ -1,12 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import { prismaClient } from '@/prisma/client';
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const prisma = new PrismaClient();
+
   const body = JSON.parse(req.body);
   try {
-    const prismaData = await prismaClient.profiles.findUnique({
+    const prismaData = await prisma.profiles.findUnique({
       where: {
         id: body.id,
       },
