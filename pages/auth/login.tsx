@@ -1,10 +1,11 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { ApiError } from '@supabase/supabase-js';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
+
+import { supabase } from '@/lib/supabase';
 
 import { AuthForm, FormValues } from '@/components/auth/authForm/AuthForm';
 
@@ -13,7 +14,7 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
-    const { error } = await supabaseClient.auth.signIn({
+    const { error } = await supabase.auth.signIn({
       email: email,
       password: password,
     });
@@ -23,7 +24,7 @@ const Login: NextPage = () => {
       return null;
     }
 
-    router.push('/profile');
+    router.push('/account');
   };
 
   return (
@@ -34,6 +35,14 @@ const Login: NextPage = () => {
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+  if (user) {
+    return { props: { user }, redirect: { destination: '/' } };
+  }
+  return { props: {} };
 };
 
 export default Login;

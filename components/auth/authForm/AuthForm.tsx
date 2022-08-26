@@ -9,8 +9,8 @@ import styles from './authForm.module.scss';
 
 import { Heading } from '@/components/heading/Heading';
 
-import { Error } from '../error/Error';
-import { Input } from '../input/Input';
+import { Error } from '../../input/error/Error';
+import { Input } from '../../input/Input';
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -64,16 +64,16 @@ export const AuthForm = ({ error, onSubmit, heading }: AuthFormProps) => {
         <Input
           type='email'
           label='email'
-          register={register}
           isDirty={dirtyFields.email}
           error={errors.email}
+          {...register('email')}
         />
         <Input
           type='password'
           label='password'
-          register={register}
           isDirty={dirtyFields.password}
           error={errors.password}
+          {...register('password')}
         />
         {error && <Error message={error.message} />}
       </div>

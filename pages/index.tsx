@@ -1,10 +1,13 @@
-import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
   return (
     <div>
       <main>
+        <Link href='api/auth/logout' shallow>
+          log out
+        </Link>
         <h1>eloelo</h1>
       </main>
     </div>
@@ -12,5 +15,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-export const getServerSideProps = withPageAuth({ redirectTo: '/login' });

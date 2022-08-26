@@ -5,8 +5,6 @@ specifiers:
   '@commitlint/config-conventional': ^17.0.3
   '@hookform/resolvers': ^2.9.7
   '@prisma/client': ^4.2.1
-  '@supabase/auth-helpers-nextjs': ^0.2.7
-  '@supabase/auth-helpers-react': ^0.2.3
   '@supabase/supabase-js': ^1.35.6
   '@tanstack/react-query': ^4.2.1
   '@tanstack/react-query-devtools': ^4.2.1
@@ -19,6 +17,7 @@ specifiers:
   '@types/testing-library__jest-dom': ^5.14.5
   '@typescript-eslint/eslint-plugin': ^5.33.1
   '@typescript-eslint/parser': ^5.33.1
+  axios: ^0.27.2
   clsx: ^1.2.1
   eslint: 8.22.0
   eslint-config-next: 12.2.5
@@ -31,6 +30,7 @@ specifiers:
   instagram-clone: 'link:'
   jest: ^28.1.3
   jest-environment-jsdom: ^28.1.3
+  jotai: ^1.8.0
   lint-staged: ^13.0.3
   next: 12.2.5
   next-pwa: 5.5.4
@@ -47,15 +47,15 @@ specifiers:
 dependencies:
   '@hookform/resolvers': 2.9.7_react-hook-form@7.34.2
   '@prisma/client': 4.2.1_prisma@4.2.1
-  '@supabase/auth-helpers-nextjs': 0.2.7
-  '@supabase/auth-helpers-react': 0.2.3
   '@supabase/supabase-js': 1.35.6
   '@tanstack/react-query': 4.2.1_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.2.1_32b63s5o6uo6n4n6pi5xgs6jfq
+  axios: 0.27.2
   clsx: 1.2.1
   framer-motion: 7.2.0_biqbaboplfbrettd7655fr4n2y
   instagram-clone: 'link:'
   jest: 28.1.3_@types+node@18.7.6
+  jotai: 1.8.0_react@18.2.0
   next: 12.2.5_ivfob5dyaiglqb5g2zdrumbbbm
   next-pwa: 5.5.4_next@12.2.5
   next-seo: 5.5.0_3xcjr4wz26biff45sz3jtokgje
@@ -2080,24 +2080,6 @@ packages:
     dependencies:
       '@sinonjs/commons': 1.8.3
 
-  /@supabase/auth-helpers-nextjs/0.2.7:
-    resolution: {integrity: sha512-3+UMfE+wXBKswnzVL/hg1IYt3+POay+/B/Fn2hV8MaiffRpDdOG8zDSOIwsiNUz4KVZYOVa8IPvyh2AJqXwfMQ==}
-    dependencies:
-      '@supabase/auth-helpers-shared': 0.1.3
-    dev: false
-
-  /@supabase/auth-helpers-react/0.2.3:
-    resolution: {integrity: sha512-r2XIajhZed4lvdoJ9sD/YNy/5b1Zturj2A9Ye2PcswBuuOkf1iAC+aAYPoSWllbgYpTC5hCHmcbG5yErcZyNmQ==}
-    dependencies:
-      '@supabase/auth-helpers-shared': 0.1.3
-    dev: false
-
-  /@supabase/auth-helpers-shared/0.1.3:
-    resolution: {integrity: sha512-Rwpa8LG21guoJ+CC/6bXObHjuhnNygV/9QqdNFA9a3pEJL6R/fGBxMaV3/6uEdnYIjY1V4CUpcqEzC1BC3mVfw==}
-    dependencies:
-      jose: 4.9.0
-    dev: false
-
   /@supabase/functions-js/1.3.4:
     resolution: {integrity: sha512-yYVgkECjv7IZEBKBI3EB5Q7R1p0FJ10g8Q9N7SWKIHUU6i6DnbEGHIMFLyQRm1hmiNWD8fL7bRVEYacmTRJhHw==}
     dependencies:
@@ -2824,7 +2806,6 @@ packages:
 
   /asynckit/0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: true
 
   /at-least-node/1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
@@ -2841,6 +2822,15 @@ packages:
     resolution: {integrity: sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==}
     engines: {node: '>=4'}
     dev: true
+
+  /axios/0.27.2:
+    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+    dependencies:
+      follow-redirects: 1.15.1
+      form-data: 4.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /axobject-query/2.2.0:
     resolution: {integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==}
@@ -3199,7 +3189,6 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
-    dev: true
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -3476,7 +3465,6 @@ packages:
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
-    dev: true
 
   /detect-newline/3.1.0:
     resolution: {integrity: sha512-TLz+x/vEXm/Y7P7wn1EJFNLxYpUD4TgMosxY6fAVJUnJMbupHBOncxyWUG9OpTaH9EBD7uFI5LfEgmMOc54DsA==}
@@ -4161,6 +4149,16 @@ packages:
     resolution: {integrity: sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==}
     dev: true
 
+  /follow-redirects/1.15.1:
+    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /form-data/4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
     engines: {node: '>= 6'}
@@ -4168,7 +4166,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-    dev: true
 
   /framer-motion/7.2.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-D24ZHtbtdpiaByamNYiVXafVU6JfBxjrVlR1beyNupJL80haaDE23xS4dR0b/Qb64frtw/Mpdd9VYwSCv+UtSw==}
@@ -5231,8 +5228,41 @@ packages:
       - ts-node
     dev: false
 
-  /jose/4.9.0:
-    resolution: {integrity: sha512-RgaqEOZLkVO+ViN3KkN44XJt9g7+wMveUv59sVLaTxONcUPc8ZpfqOCeLphVBZyih2dgkvZ0Ap1CNcokvY7Uyw==}
+  /jotai/1.8.0_react@18.2.0:
+    resolution: {integrity: sha512-B77a5hIDGCxePYrYBpHP6YePGyNwivA+vXO6QME+8+t3V0y+OHwwnHu4Wy/LWEChE/G8vI+K7P2tlToT8Zmjng==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      '@tanstack/query-core': '*'
+      '@urql/core': '*'
+      immer: '*'
+      optics-ts: '*'
+      react: '>=16.8'
+      valtio: '*'
+      wonka: '*'
+      xstate: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@tanstack/query-core':
+        optional: true
+      '@urql/core':
+        optional: true
+      immer:
+        optional: true
+      optics-ts:
+        optional: true
+      valtio:
+        optional: true
+      wonka:
+        optional: true
+      xstate:
+        optional: true
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /js-tokens/4.0.0:
@@ -5583,14 +5613,12 @@ packages:
   /mime-db/1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /mime-types/2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.52.0
-    dev: true
 
   /mimic-fn/2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}

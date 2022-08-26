@@ -2,22 +2,24 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Body = {
-  id: string;
-  avatarUrl: string;
-};
+export const ACCEPTED_IMG_TYPES = ['image/jpeg', 'image/jpg', 'image/webp', 'image/png'];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const prisma = new PrismaClient();
-  const body: Body = JSON.parse(req.body);
-  console.log(body);
+  // const isValidIMG = ACCEPTED_IMG_TYPES.includes(fileType);
+
+  // if (!isValidIMG) {
+  //   res.status(400).send('Invalid image type!');
+  //   return;
+  // }
+
   try {
     const prismaData = await prisma.profiles.update({
       where: {
-        id: body.id,
+        id: req.body.id,
       },
       data: {
-        avatar_url: body.avatarUrl,
+        avatar_url: req.body.avatarURL,
       },
     });
 

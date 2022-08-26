@@ -7,8 +7,10 @@ import { Nav } from './nav/Nav';
 export const Header = () => {
   return (
     <header className={styles.header}>
-      <Link href='/' shallow>
-        <a className={styles.link}>Gram-Gram</a>
+      <Link href='/'>
+        <a className={styles.link}>
+          <h1 className={styles.heading}>Gram-Gram</h1>
+        </a>
       </Link>
       <Nav />
     </header>

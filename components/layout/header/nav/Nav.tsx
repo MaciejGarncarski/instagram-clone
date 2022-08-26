@@ -17,7 +17,7 @@ type Routes = {
 const routes: Array<Routes> = [
   { to: '/favorite', name: 'favorite', icon: bookmark },
   { to: '/new-post', name: 'add post', icon: add },
-  { to: '/profile', name: 'profile', icon: profile },
+  { to: '/account', name: 'account', icon: profile },
 ];
 
 export const Nav = () => {

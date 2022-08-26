@@ -1,10 +1,15 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+type Body = {
+  id: string;
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const prisma = new PrismaClient();
 
-  const body = JSON.parse(req.body);
+  const body: Body = JSON.parse(req.body);
+
   try {
     const prismaData = await prisma.profiles.findUnique({
       where: {
@@ -14,6 +19,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).send(prismaData);
   } catch (e) {
-    res.status(500).send(`Wrong api call`);
+    res.status(400).send(`Wrong api call`);
   }
 }

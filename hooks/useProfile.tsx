@@ -1,8 +1,11 @@
 import { profiles } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
 
-const fetcher = async (userIDStringified: string): Promise<profiles> => {
-  const res = await fetch('api/profiles/getProfile', {
+import { userAtom } from '@/store/store';
+
+const fetcher = async (userIDStringified: string): Promise<profiles | null> => {
+  const res = await fetch('/api/profiles/getProfile', {
     method: 'POST',
     body: userIDStringified,
   });
@@ -12,12 +15,16 @@ const fetcher = async (userIDStringified: string): Promise<profiles> => {
   throw new Error('Error while loading user profile');
 };
 
-export const useProfile = (userID: string) => {
+export const useProfile = () => {
+  const [user] = useAtom(userAtom);
+
   const userIDStringified = JSON.stringify({
-    id: userID,
+    id: user?.id,
   });
 
-  const { data, error, refetch } = useQuery(['my-profile'], () => fetcher(userIDStringified));
+  const profile = useQuery([`profile ${user?.id}`], () => {
+    return fetcher(userIDStringified);
+  });
 
-  return { data, error, refetch };
+  return { ...profile };
 };
