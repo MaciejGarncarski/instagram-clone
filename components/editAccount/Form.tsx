@@ -27,7 +27,6 @@ export type FormValues = z.infer<typeof formSchema>;
 export const Form = () => {
   const [mutationError, setMutationError] = useState<string | undefined>(undefined);
   const { data: userData } = useProfile();
-
   const userName = isString(userData?.username);
   const userWebsite = isString(userData?.website);
   const userBio = isString(userData?.bio);
