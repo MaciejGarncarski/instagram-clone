@@ -1,11 +1,9 @@
 .label {
   text-transform: uppercase;
-  height: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .optional {

@@ -7,7 +7,7 @@ import { SubmitHandler } from 'react-hook-form';
 
 import { supabase } from '@/lib/supabase';
 
-import { AuthForm, FormValues } from '@/components/auth/authForm/AuthForm';
+import { Form, FormValues } from '@/components/auth/form/Form';
 
 const Register: NextPage = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const Register: NextPage = () => {
     <>
       <NextSeo title='Register' />
       <main>
-        <AuthForm heading='register' onSubmit={onSubmit} error={error} />
+        <Form heading='register' onSubmit={onSubmit} error={error} />
       </main>
     </>
   );

@@ -5,7 +5,6 @@ import { useProfile } from '@/hooks/useProfile';
 import styles from './avatarContainer.module.scss';
 
 import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
-import { Heading } from '@/components/heading/Heading';
 
 export const AvatarContainer = () => {
   const avatarRef = useRef<HTMLInputElement>(null);
@@ -22,7 +21,7 @@ export const AvatarContainer = () => {
     <div className={styles['avatar-container']}>
       <UserAvatar className={styles.avatar} ref={avatarRef} />
       <div className={styles['avatar-change']}>
-        <Heading size='h2'>{userData?.username ?? 'Loading..'}</Heading>
+        {userData?.username && <h2>{userData.username}</h2>}
         <button type='button' className={styles['avatar-button']} onClick={onClick}>
           Change profile photo
         </button>

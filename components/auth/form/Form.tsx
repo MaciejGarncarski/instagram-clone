@@ -5,12 +5,10 @@ import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import styles from './authForm.module.scss';
+import styles from './form.module.scss';
 
-import { Heading } from '@/components/heading/Heading';
-
-import { Error } from '../../input/error/Error';
-import { Input } from '../../input/Input';
+import { Error } from '../input/error/Error';
+import { Input } from '../input/Input';
 
 const formSchema = z.object({
   email: z.string().email().min(1),
@@ -19,13 +17,13 @@ const formSchema = z.object({
 
 export type FormValues = z.infer<typeof formSchema>;
 
-type AuthFormProps = {
+type FormProps = {
   error: ApiError | null;
   onSubmit: SubmitHandler<FormValues>;
   heading: 'register' | 'login';
 };
 
-export const AuthForm = ({ error, onSubmit, heading }: AuthFormProps) => {
+export const Form = ({ error, onSubmit, heading }: FormProps) => {
   const {
     register,
     handleSubmit,
@@ -43,22 +41,20 @@ export const AuthForm = ({ error, onSubmit, heading }: AuthFormProps) => {
     if (heading === 'register') {
       return (
         <p>
-          Already gram-gram user? <br /> <Link href='/auth/login'>Login here. </Link>
+          Already fake instagram user? <br /> <Link href='/auth/login'>Login here. </Link>
         </p>
       );
     }
     return (
       <p>
-        Not an gram-gram user? <br /> <Link href='/auth/register'>Register here. </Link>
+        Not an fake instagram user? <br /> <Link href='/auth/register'>Register here. </Link>
       </p>
     );
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <Heading size='h1' className={styles.heading}>
-        {heading}
-      </Heading>
+      <h1>{heading}</h1>
 
       <div className={styles.wrapper}>
         <Input

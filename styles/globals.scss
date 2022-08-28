@@ -6,16 +6,25 @@
 *::after {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-  --bg-color: hsl(200, 40%, 95%);
+  --bg-color: hsl(200, 100%, 100%);
   --text-color: hsl(0, 0%, 14%);
-  --primary-color: hsl(205, 100%, 70%);
+  --primary-color: hsl(160, 60%, 50%);
+  --primary-color-rgb: 51, 204, 153;
   --secondary-color: hsl(200, 20%, 90%);
   --error-color: hsl(5, 65%, 50%);
   --warning-color: hsl(36, 100%, 50%);
+
+  --gradient: linear-gradient(to bottom right, var(--primary-color), rgb(0, 140, 140));
+
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  --box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  --gray-border: 2px solid hsl(120, 0%, 70%);
 }
 
 html {
@@ -40,13 +49,4 @@ button {
   border: 0;
   font-size: inherit;
   font-family: inherit;
-}
-
-.app-container {
-  @include mixins.max-width;
-  margin-top: 2rem;
-
-  @include common.breakpoint('lg') {
-    margin-top: 6rem;
-  }
 }

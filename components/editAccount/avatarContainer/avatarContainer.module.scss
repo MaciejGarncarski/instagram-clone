@@ -1,9 +1,17 @@
+@use '/styles/common.scss';
+
 .avatar-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 3rem;
-  width: 100%;
+  gap: 2rem;
+  flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    gap: 10rem;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .avatar-change {

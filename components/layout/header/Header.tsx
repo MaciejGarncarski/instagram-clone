@@ -9,7 +9,7 @@ export const Header = () => {
     <header className={styles.header}>
       <Link href='/'>
         <a className={styles.link}>
-          <h1 className={styles.heading}>Gram-Gram</h1>
+          <h1 className={styles.heading}>Fake Instagram</h1>
         </a>
       </Link>
       <Nav />

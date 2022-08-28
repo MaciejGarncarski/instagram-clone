@@ -9,7 +9,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';
 import { bio, username, website } from '@/utils/editAccountValidation';
 
-import styles from './editAccountForm.module.scss';
+import styles from './form.module.scss';
 
 import { AvatarContainer } from './avatarContainer/AvatarContainer';
 import { Buttons } from './buttons/Buttons';
@@ -22,9 +22,9 @@ const formSchema = z.object({
   website: website,
 });
 
-export type EditValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
-export const EditAccountForm = () => {
+export const Form = () => {
   const [mutationError, setMutationError] = useState<string | undefined>(undefined);
   const { data: userData } = useProfile();
 
@@ -39,7 +39,7 @@ export const EditAccountForm = () => {
     handleSubmit,
     reset,
     formState: { errors, isValid, isDirty },
-  } = useForm<EditValues>({
+  } = useForm<FormValues>({
     mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,7 +51,7 @@ export const EditAccountForm = () => {
 
   const { isLoading, mutate } = useUpdateProfile();
 
-  const onSubmit: SubmitHandler<EditValues> = async ({ username, bio, website }) => {
+  const onSubmit: SubmitHandler<FormValues> = async ({ username, bio, website }) => {
     mutate(
       { username, bio, website, userID },
       {

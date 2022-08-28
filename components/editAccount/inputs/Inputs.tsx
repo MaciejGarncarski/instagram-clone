@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { ChangeEvent, useEffect } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
 
 import { isString } from '@/lib/isString';
@@ -8,19 +9,21 @@ import styles from './inputs.module.scss';
 
 import { Loader } from '@/components/loader/Loader';
 
+import { charCountAtom } from '@/store/store';
+
 import { EditInput } from './editInput/EditInput';
 import { TextArea } from './editInput/TextArea';
-import { EditValues } from '../EditAccountForm';
+import { FormValues } from '../Form';
 
 type InputsProps = {
-  errors: FieldErrors<EditValues>;
-  register: UseFormRegister<EditValues>;
-  reset: UseFormReset<EditValues>;
+  errors: FieldErrors<FormValues>;
+  register: UseFormRegister<FormValues>;
+  reset: UseFormReset<FormValues>;
 };
 
 export const Inputs = ({ errors, register, reset }: InputsProps) => {
   const { data } = useProfile();
-  const [charCount, setCharCount] = useState(data?.bio?.length ?? 0);
+  const [, setCharCount] = useAtom(charCountAtom);
 
   const handleTextArea = (changeEv: ChangeEvent<HTMLTextAreaElement>) => {
     const value = changeEv.target.value;
@@ -38,7 +41,7 @@ export const Inputs = ({ errors, register, reset }: InputsProps) => {
       website: isString(data.website),
       bio: isString(data.bio),
     });
-  }, [data, reset]);
+  }, [data, reset, setCharCount]);
 
   if (data) {
     return (
@@ -54,7 +57,6 @@ export const Inputs = ({ errors, register, reset }: InputsProps) => {
         <TextArea
           label='bio'
           error={errors.bio}
-          charCount={charCount}
           optional
           {...register('bio', { onChange: handleTextArea })}
         />

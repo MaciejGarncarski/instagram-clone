@@ -20,13 +20,9 @@ export const EditInput = forwardRef<Ref, EditInputProps>(
     return (
       <div className={styles['input-container']}>
         <Label label={label} optional={optional} />
-        <input
-          ref={ref}
-          className={clsx(error && styles['input--active'], styles.input)}
-          type={type}
-          id={label}
-          {...props}
-        />
+        <div className={clsx(error && styles['gradient--error'], styles.gradient)}>
+          <input ref={ref} className={styles.input} type={type} id={label} {...props} />
+        </div>
         {error && <p className={styles.error}>{error.message}</p>}
       </div>
     );

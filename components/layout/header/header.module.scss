@@ -3,40 +3,31 @@
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  @include mixins.max-width;
 }
 
 .heading {
-  font-size: 5rem;
-  line-height: 1.1;
+  font-size: 2.5em;
   text-align: center;
 }
 
 .link {
-  text-transform: uppercase;
   text-decoration: none;
-  color: var(--text-color);
   font-weight: 700;
   position: relative;
-  padding: 0 3px;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-  &::before {
-    content: '';
-    width: 100%;
-    height: 28%;
-    background-color: var(--primary-color);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    transition: height var(--transition-fast);
-  }
+  background-size: 200% 200%;
+  background-position: left;
+  background-image: linear-gradient(130deg, var(--primary-color), #00864e, rgb(118, 247, 204));
 
-  &:hover::before,
-  &:focus::before {
-    height: 100%;
+  transition: background-position var(--transition-slow);
+
+  &:hover,
+  &:focus {
+    background-position: right;
   }
 }

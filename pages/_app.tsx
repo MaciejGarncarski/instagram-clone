@@ -31,13 +31,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Layout>
-      <NextSeo titleTemplate='%s | GRAM-GRAM' defaultTitle='GRAM-GRAM' />
+      <NextSeo titleTemplate='%s | Fake Instagram' defaultTitle='Fake Instagram' />
       <QueryClientProvider client={queryClient}>
         <MotionConfig reducedMotion='user'>
-          <div className='app-container'>
-            <Component {...pageProps} />
-            <ReactQueryDevtools />
-          </div>
+          <Component {...pageProps} />
+          <ReactQueryDevtools />
         </MotionConfig>
       </QueryClientProvider>
     </Layout>

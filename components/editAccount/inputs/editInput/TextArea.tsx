@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useAtom } from 'jotai';
 import { forwardRef, TextareaHTMLAttributes } from 'react';
 import { FieldError } from 'react-hook-form';
 
@@ -6,22 +7,23 @@ import { BIO_MAX_LENGTH } from '@/utils/editAccountValidation';
 
 import styles from './editInput.module.scss';
 
+import { charCountAtom } from '@/store/store';
+
 import { Label } from './label/Label';
 
 type EditInputProps = {
   label: string;
   error: FieldError | undefined;
-  charCount: number | undefined;
   optional?: boolean;
 } & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
-  ({ label, error, charCount, optional, ...props }, ref) => {
-    const charNumber = typeof charCount === 'number' ? charCount : 0;
+  ({ label, error, optional, ...props }, ref) => {
+    const [charCount] = useAtom(charCountAtom);
 
     const countClass = clsx(styles.count, {
-      [styles['count--warning']]: charNumber > 90,
-      [styles['count--error']]: charNumber > 110,
+      [styles['count--warning']]: charCount > 90,
+      [styles['count--error']]: charCount > 110,
     });
 
     return (
@@ -31,13 +33,15 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
           <p className={countClass}>
             {charCount ?? 0}/{BIO_MAX_LENGTH}
           </p>
-          <textarea
-            ref={ref}
-            className={styles['text-area']}
-            maxLength={BIO_MAX_LENGTH}
-            id={label}
-            {...props}
-          />
+          <div className={styles.gradient}>
+            <textarea
+              ref={ref}
+              className={styles['text-area']}
+              maxLength={BIO_MAX_LENGTH}
+              id={label}
+              {...props}
+            />
+          </div>
           <p>{error?.message}</p>
         </div>
       </div>

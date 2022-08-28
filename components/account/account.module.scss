@@ -1,14 +1,13 @@
 @use '/styles/common.scss';
+@use '/styles/mixins.scss';
 
-.container {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-  place-content: center;
-
-  @include common.breakpoint('lg') {
-    grid-template-columns: 1fr 2fr;
-  }
+.account {
+  width: min(90rem, 80%);
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10rem;
+  padding: 8rem 0;
 }
 
 .user-info {

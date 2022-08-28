@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Gram-Gram",
-    "short_name": "Gram-Gram",
+    "name": "Fake Instagram",
+    "short_name": "Fake Instagram",
     "description": "Instagram clone",
     
     "icons": [

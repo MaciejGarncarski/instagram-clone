@@ -1,0 +1,48 @@
+@use '/styles/common.scss';
+
+.buttons {
+  display: flex;
+  gap: 2rem;
+  justify-self: center;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    flex-direction: row;
+  }
+}
+
+.gradient {
+  padding: 4px;
+  background-image: var(--gradient);
+  border-radius: 0.2em;
+}
+
+.cancel,
+.submit {
+  padding: 1rem 3rem;
+  text-transform: capitalize;
+  transition: opacity var(--transition-fast);
+  box-shadow: var(--box-shadow);
+  font-weight: 500;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.cancel {
+  border: none;
+  background-color: transparent;
+  background-color: #fff;
+  width: 100%;
+}
+
+.submit {
+  background-image: var(--gradient);
+  border-radius: 0.2em;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}

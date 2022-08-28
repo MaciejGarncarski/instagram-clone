@@ -12,11 +12,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const prismaData = await prisma.profiles.findUnique({
       where: {
-        id: body.id ?? '',
+        id: body.id,
       },
     });
 
-    res.status(200).send(prismaData);
+    if (prismaData) {
+      res.status(200).send(prismaData);
+    } else {
+      res.status(400);
+    }
   } catch (e) {
     res.status(400).send(`Wrong api call`);
   }

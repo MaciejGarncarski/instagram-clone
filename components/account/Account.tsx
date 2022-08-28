@@ -7,46 +7,27 @@ import { useProfile } from '@/hooks/useProfile';
 import styles from './account.module.scss';
 
 import { UserAvatar } from './userAvatar/UserAvatar';
-import { Heading } from '../heading/Heading';
 import { Loader } from '../loader/Loader';
 
 export const Account = () => {
-  const { data, error } = useProfile();
-
+  const { data, error, isLoading } = useProfile();
   if (error) {
     return (
       <>
         <NextSeo title='Profile' />
         <main>
-          <Heading size='h2'>Error</Heading>
+          <h2>Error</h2>
         </main>
       </>
     );
   }
 
-  if (data) {
+  if (isLoading) {
     return (
       <>
-        <NextSeo title='Profile' />
-        <main className={styles.container}>
-          <UserAvatar />
-
-          <div className={styles['user-info']}>
-            <div className={styles.info}>
-              <Heading size='h2'>{data.username ?? 'Loading...'}</Heading>
-              <Link href='/account/edit' passHref>
-                <motion.a
-                  whileTap={{ scale: 0.9 }}
-                  whileHover={{ scale: 1.04 }}
-                  className={styles.edit}
-                >
-                  Edit Profile
-                </motion.a>
-              </Link>
-            </div>
-            {data.website && <p>🌍 {data.website}</p>}
-            {data.bio && <p>💭 {data.bio}</p>}
-          </div>
+        <NextSeo title='Loading profile' />
+        <main>
+          <Loader />
         </main>
       </>
     );
@@ -54,9 +35,27 @@ export const Account = () => {
 
   return (
     <>
-      <NextSeo title='Loading profile' />
-      <main>
-        <Loader />
+      <NextSeo title='Profile' />
+      <main className={styles.account}>
+        <UserAvatar />
+
+        <div className={styles['user-info']}>
+          <div className={styles.info}>
+            <h2>{data?.username ?? 'Loading...'}</h2>
+
+            <Link href='/account/edit' passHref>
+              <motion.a
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.04 }}
+                className={styles.edit}
+              >
+                Edit Profile
+              </motion.a>
+            </Link>
+          </div>
+          {data?.website && <p>🌍 {data?.website}</p>}
+          {data?.bio && <p>💭 {data?.bio}</p>}
+        </div>
       </main>
     </>
   );

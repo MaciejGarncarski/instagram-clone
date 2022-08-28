@@ -7,7 +7,7 @@ import { SubmitHandler } from 'react-hook-form';
 
 import { supabase } from '@/lib/supabase';
 
-import { AuthForm, FormValues } from '@/components/auth/authForm/AuthForm';
+import { Form, FormValues } from '@/components/auth/form/Form';
 
 const Login: NextPage = () => {
   const [error, setError] = useState<ApiError | null>(null);
@@ -31,7 +31,7 @@ const Login: NextPage = () => {
     <>
       <NextSeo title='Login' />
       <main>
-        <AuthForm heading='login' onSubmit={onSubmit} error={error} />
+        <Form heading='login' onSubmit={onSubmit} error={error} />
       </main>
     </>
   );

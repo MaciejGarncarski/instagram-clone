@@ -24,7 +24,7 @@
 
 .label:hover > .overlay,
 .input:focus + .label > .overlay {
-  background-color: rgb(220, 220, 220, 0.8);
+  background-color: rgb(var(--primary-color-rgb), 0.8);
   opacity: 1;
   cursor: pointer;
 }

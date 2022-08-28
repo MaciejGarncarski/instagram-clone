@@ -4,13 +4,13 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import { supabase } from '@/lib/supabase';
 
-import { EditAccountForm } from '@/components/editAccountForm/EditAccountForm';
+import { Form } from '@/components/editAccount/Form';
 
 import { userAtom } from '@/store/store';
 
 const EditPage: NextPage<{ user: User }> = ({ user }) => {
   useHydrateAtoms([[userAtom, user]]);
-  return <EditAccountForm />;
+  return <Form />;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
