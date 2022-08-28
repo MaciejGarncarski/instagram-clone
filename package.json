@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "test": "jest",
     "typecheck": "tsc --noEmit --incremental false",
-    "prebuild": "prisma generate"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
