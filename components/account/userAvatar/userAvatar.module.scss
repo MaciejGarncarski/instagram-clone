@@ -1,13 +1,9 @@
 .container {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
   border-radius: 50%;
-  --image-width: clamp(15rem, 24vw, 22rem);
-  height: var(--image-width);
-  width: var(--image-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .error {
@@ -21,6 +17,7 @@
   width: 1px;
   height: 1px;
   opacity: 0;
+  clip-path: polygon(0, 0, 0, 0);
 }
 
 .label:hover > .overlay,
@@ -41,11 +38,11 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
   border: 5px solid var(--primary-color);
-  width: 100%;
-  height: 100%;
+  width: clamp(14rem, 16vw, 18rem);
+  height: clamp(14rem, 16vw, 18rem);
 }
 
 .overlay {
@@ -53,18 +50,18 @@
   height: 100%;
   position: absolute;
   font-size: 3rem;
-  opacity: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
   color: transparent;
   transition: all var(--transition-fast);
 }
 
 .image {
-  width: 100%;
+  object-fit: cover;
   height: 100%;
-  aspect-ratio: 1 / 1;
+  width: 100%;
 }
 
 .loading {

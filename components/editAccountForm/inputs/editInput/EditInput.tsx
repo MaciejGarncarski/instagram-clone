@@ -4,21 +4,22 @@ import { FieldError } from 'react-hook-form';
 
 import styles from './editInput.module.scss';
 
+import { Label } from './label/Label';
+
 type EditInputProps = {
   type?: JSX.IntrinsicElements['input']['type'];
   label: string;
+  optional?: boolean;
   error: FieldError | undefined;
 };
 
 type Ref = HTMLInputElement;
 
 export const EditInput = forwardRef<Ref, EditInputProps>(
-  ({ type, error, label, ...props }, ref) => {
+  ({ type, error, label, optional, ...props }, ref) => {
     return (
       <div className={styles['input-container']}>
-        <label htmlFor={label} className={styles.label}>
-          {label}
-        </label>
+        <Label label={label} optional={optional} />
         <input
           ref={ref}
           className={clsx(error && styles['input--active'], styles.input)}
@@ -26,6 +27,7 @@ export const EditInput = forwardRef<Ref, EditInputProps>(
           id={label}
           {...props}
         />
+        {error && <p className={styles.error}>{error.message}</p>}
       </div>
     );
   }

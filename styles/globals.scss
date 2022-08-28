@@ -11,9 +11,10 @@
 :root {
   --bg-color: hsl(200, 40%, 95%);
   --text-color: hsl(0, 0%, 14%);
-  --primary-color: hsl(130, 65%, 65%);
+  --primary-color: hsl(205, 100%, 70%);
   --secondary-color: hsl(200, 20%, 90%);
   --error-color: hsl(5, 65%, 50%);
+  --warning-color: hsl(36, 100%, 50%);
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -31,7 +32,7 @@ body {
     Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-size: clamp(100%, calc(1rem + 2vw), 24px);
+  font-size: clamp(100%, calc(1rem + 2vw), 22px);
 }
 
 input,

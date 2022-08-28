@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import Image from 'next/future/image';
 import { useEffect, useState } from 'react';
 
-import styles from './userAvatar.module.scss';
-
 import { useProfile } from '@/hooks/useProfile';
+
+import styles from './userAvatar.module.scss';
 
 import defaultIMG from '@/images/account.svg';
 import sync from '@/images/sync.svg';
@@ -32,13 +32,14 @@ export const AvatarImage = () => {
   }, [profileData]);
 
   const sizes = {
-    width: 200,
-    height: 200,
+    width: 130,
+    height: 130,
   };
 
   if (isFetching) {
     return <Loader />;
   }
+
   if (isError) {
     return (
       <Image

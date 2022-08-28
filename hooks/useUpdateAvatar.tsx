@@ -18,7 +18,7 @@ export const useUpdateAvatar = () => {
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries([`profile ${user?.id}`]);
+        return queryClient.invalidateQueries(['profile']);
       },
     }
   );

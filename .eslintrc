@@ -51,10 +51,10 @@
            "groups": [
              // ext library & side effect imports
              ["^@?\\w", "^\\u0000"],
-             // {s}css files
-             ["^.+\\.s?css$"],
              // Lib and hooks
              ["^@/lib", "^@/hooks", "^@/utils"],
+             // {s}css files
+             ["^.+\\.s?css$"],
              // static data
              ["^@/data"],
              // components

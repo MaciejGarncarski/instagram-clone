@@ -20,7 +20,7 @@ const UserProfile: NextPage<UserType> = ({ user }) => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { user } = await supabase.auth.api.getUserByCookie(req);
   if (user === null) {
-    return { props: { user }, redirect: { destination: '/auth/login' } };
+    return { props: {}, redirect: { destination: '/auth/login' } };
   }
   return { props: { user } };
 };

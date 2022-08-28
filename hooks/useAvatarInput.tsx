@@ -1,21 +1,22 @@
 import { useAtom } from 'jotai';
 import { ChangeEvent, useEffect } from 'react';
 
+import { updateAvatar, uploadAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
 
 import { userAtom } from '@/store/store';
 
 import { supabase } from '../lib/supabase';
 
-export const useHandleChange = (setError: (error: string) => void) => {
+export const useAvatarInput = (setError: (error: string) => void) => {
   const [user] = useAtom(userAtom);
-  const avatarMutation = useUpdateAvatar();
+  const { isError, mutate } = useUpdateAvatar();
 
   useEffect(() => {
-    if (avatarMutation.isError) {
+    if (isError) {
       setError('Error on image');
     }
-  }, [avatarMutation.isError, setError]);
+  }, [isError, setError]);
 
   const handleChange = async (changeEv: ChangeEvent<HTMLInputElement>) => {
     if (!changeEv.target.files) {
@@ -28,21 +29,20 @@ export const useHandleChange = (setError: (error: string) => void) => {
       return null;
     }
 
-    const { error } = await supabase.storage
-      .from('avatars')
-      .update(`${user?.id}.jpg`, selectedFile, {
-        cacheControl: '10080',
-        upsert: false,
-      });
+    const { error: updateError } = await updateAvatar(selectedFile, user?.id);
 
-    if (error) {
-      setError('Error occurred when uploading avatar');
-      return null;
+    if (updateError) {
+      const { error: uploadError } = await uploadAvatar(selectedFile, user?.id);
+
+      if (uploadError) {
+        setError('Error occurred when uploading avatar');
+        return null;
+      }
     }
 
     const { signedURL: avatarURL, error: avatarURLError } = await supabase.storage
       .from('avatars')
-      .createSignedUrl(`${user?.id}.jpg`, 3600);
+      .createSignedUrl(`${user?.id}.jpg`, 31536000);
 
     if (avatarURLError) {
       setError('Error occurred when uploading avatar');
@@ -54,7 +54,7 @@ export const useHandleChange = (setError: (error: string) => void) => {
       return null;
     }
 
-    avatarMutation.mutate({ avatarURL: avatarURL });
+    mutate({ avatarURL: avatarURL });
   };
 
   return handleChange;

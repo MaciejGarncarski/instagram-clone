@@ -43,13 +43,13 @@ export const AuthForm = ({ error, onSubmit, heading }: AuthFormProps) => {
     if (heading === 'register') {
       return (
         <p>
-          Already gram-gram user? <br /> <Link href='/login'>Login here. </Link>
+          Already gram-gram user? <br /> <Link href='/auth/login'>Login here. </Link>
         </p>
       );
     }
     return (
       <p>
-        Not an gram-gram user? <br /> <Link href='/register'>Register here. </Link>
+        Not an gram-gram user? <br /> <Link href='/auth/register'>Register here. </Link>
       </p>
     );
   };

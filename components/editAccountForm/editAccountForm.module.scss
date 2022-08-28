@@ -1,0 +1,28 @@
+@use '/styles/mixins.scss';
+@use '/styles/common.scss';
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: max-content;
+  margin-inline: auto;
+  row-gap: 3rem;
+  padding-bottom: 5rem;
+  column-gap: 7rem;
+  margin-bottom: 6rem;
+
+  @include common.breakpoint('lg') {
+    row-gap: 10rem;
+  }
+}
+
+.error {
+  font-size: 2.5rem;
+  font-weight: 700;
+  max-width: 40rem;
+  color: var(--error-color);
+  text-align: center;
+  margin: 0 auto;
+}

@@ -2,6 +2,10 @@ import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Body = {
+  email: string;
+  username: string;
+  website: string;
+  bio: string;
   id: string;
 };
 
@@ -10,14 +14,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const body: Body = req.body;
 
   try {
-    const prismaData = await prisma.profiles.findUnique({
+    await prisma.profiles.update({
       where: {
-        id: body.id ?? '',
+        id: body.id,
+      },
+      data: {
+        email: body.email,
+        username: body.username,
+        bio: body.bio,
+        website: body.website,
       },
     });
-
-    res.status(200).send(prismaData);
+    res.status(200).send('ok');
   } catch (e) {
-    res.status(400).send(`Wrong api call`);
+    res.status(400);
   }
 }

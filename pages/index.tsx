@@ -1,13 +1,18 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
+
+import { supabase } from '@/lib/supabase';
 
 const Home: NextPage = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
   return (
     <div>
       <main>
-        <Link href='api/auth/logout' shallow>
-          log out
-        </Link>
+        {/* <Link href='api/auth/logout'>log out</Link> */}
+        <button type='button' onClick={handleLogout}>
+          logout
+        </button>
         <h1>eloelo</h1>
       </main>
     </div>

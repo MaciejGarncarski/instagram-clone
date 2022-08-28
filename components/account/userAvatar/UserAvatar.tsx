@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import Image from 'next/future/image';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
+
+import { useAvatarInput } from '@/hooks/useAvatarInput';
 
 import styles from './userAvatar.module.scss';
-
-import { useHandleChange } from '@/hooks/useHandleChange';
 
 import edit from '@/images/edit.svg';
 
@@ -14,14 +14,15 @@ type UserAvatarProps = {
   className?: string;
 };
 
-export const UserAvatar = ({ className }: UserAvatarProps) => {
+export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(({ className }, ref) => {
   const [error, setError] = useState('');
 
-  const handleChange = useHandleChange(setError);
+  const handleChange = useAvatarInput(setError);
 
   return (
-    <div className={clsx(className, styles.container)}>
+    <div className={styles.container}>
       <input
+        ref={ref}
         id='set-avatar'
         type='file'
         accept='.jpg, .jpeg, .png'
@@ -29,13 +30,13 @@ export const UserAvatar = ({ className }: UserAvatarProps) => {
         name='set-avatar'
         onChange={handleChange}
       />
-      <label className={styles.label} htmlFor='set-avatar'>
+      <label className={clsx(styles.label, className)} htmlFor='set-avatar'>
         <div className={styles.overlay} title='change avatar'>
           <Image src={edit} alt='edit avatar' />
         </div>
         <AvatarImage />
       </label>
-      <p className={styles.error}>{error}</p>
+      <p>{error}</p>
     </div>
   );
-};
+});
