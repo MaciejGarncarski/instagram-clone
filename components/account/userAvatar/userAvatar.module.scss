@@ -9,6 +9,8 @@
 .error {
   color: var(--error-color);
   font-weight: 700;
+  position: absolute;
+  bottom: -5rem;
   text-align: center;
 }
 

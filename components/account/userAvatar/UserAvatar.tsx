@@ -1,10 +1,13 @@
 import clsx from 'clsx';
+import { useAtom } from 'jotai';
 import Image from 'next/future/image';
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 
 import { useAvatarInput } from '@/hooks/useAvatarInput';
 
 import styles from './userAvatar.module.scss';
+
+import { changeAvatarError } from '@/store/store';
 
 import edit from '@/images/edit.svg';
 
@@ -15,9 +18,8 @@ type UserAvatarProps = {
 };
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(({ className }, ref) => {
-  const [error, setError] = useState('');
-
-  const handleChange = useAvatarInput(setError);
+  const [error] = useAtom(changeAvatarError);
+  const handleChange = useAvatarInput();
 
   return (
     <div className={styles.container}>
@@ -36,7 +38,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(({ class
         </div>
         <AvatarImage />
       </label>
-      <p>{error}</p>
+      <p className={styles.error}>{error}</p>
     </div>
   );
 });

@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Body = {
-  email: string;
   username: string;
   website: string;
   bio: string;
@@ -19,7 +18,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         id: body.id,
       },
       data: {
-        email: body.email,
         username: body.username,
         bio: body.bio,
         website: body.website,

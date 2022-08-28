@@ -4,15 +4,21 @@ import { ChangeEvent, useEffect } from 'react';
 import { updateAvatar, uploadAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
 
-import { userAtom } from '@/store/store';
+import { changeAvatarError, userAtom } from '@/store/store';
 
 import { supabase } from '../lib/supabase';
 
-export const useAvatarInput = (setError: (error: string) => void) => {
+const VALID_IMG_TYPES = ['jpg', 'webp', 'jpeg', 'png'].map((type) => `image/${type}`);
+
+export const useAvatarInput = () => {
   const [user] = useAtom(userAtom);
+  const [, setError] = useAtom(changeAvatarError);
   const { isError, mutate } = useUpdateAvatar();
 
   useEffect(() => {
+    if (!isError) {
+      setError(null);
+    }
     if (isError) {
       setError('Error on image');
     }
@@ -24,8 +30,10 @@ export const useAvatarInput = (setError: (error: string) => void) => {
     }
 
     const selectedFile = changeEv.target.files[0];
+    const isIMGTypeValid = VALID_IMG_TYPES.includes(selectedFile.type);
 
-    if (!selectedFile.type) {
+    if (!selectedFile.type || !isIMGTypeValid) {
+      setError('Invalid image type!');
       return null;
     }
 

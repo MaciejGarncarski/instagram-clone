@@ -33,7 +33,7 @@ export const Account = () => {
 
           <div className={styles['user-info']}>
             <div className={styles.info}>
-              <Heading size='h2'>{data.username ?? data.email}</Heading>
+              <Heading size='h2'>{data.username ?? 'Loading...'}</Heading>
               <Link href='/account/edit' passHref>
                 <motion.a
                   whileTap={{ scale: 0.9 }}

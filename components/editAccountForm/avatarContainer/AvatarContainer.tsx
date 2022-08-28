@@ -22,7 +22,7 @@ export const AvatarContainer = () => {
     <div className={styles['avatar-container']}>
       <UserAvatar className={styles.avatar} ref={avatarRef} />
       <div className={styles['avatar-change']}>
-        <Heading size='h2'>{userData?.username ?? 'No username'}</Heading>
+        <Heading size='h2'>{userData?.username ?? 'Loading..'}</Heading>
         <button type='button' className={styles['avatar-button']} onClick={onClick}>
           Change profile photo
         </button>

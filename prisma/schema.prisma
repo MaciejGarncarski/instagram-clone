@@ -8,11 +8,9 @@ datasource db {
 }
 
 model profiles {
-  id         String    @id @db.Uuid
-  updated_at DateTime? @db.Timestamptz(6)
-  email      String?
-  username   String?   @unique
+  id         String  @id @db.Uuid
+  username   String? @unique
   avatar_url String?
   website    String?
-  bio        String?   @db.VarChar
+  bio        String? @db.VarChar
 }

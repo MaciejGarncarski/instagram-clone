@@ -1,13 +1,14 @@
 .avatar-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 3rem;
   width: 100%;
 }
 
 .avatar-change {
   display: flex;
+  justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   gap: 2rem;
@@ -24,6 +25,6 @@
 
 .avatar {
   border-width: 3px;
-  width: 10rem;
-  height: 10rem;
+  width: 15rem;
+  height: 15rem;
 }

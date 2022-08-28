@@ -7,7 +7,6 @@ import { userAtom } from '@/store/store';
 
 export const useProfile = () => {
   const [user] = useAtom(userAtom);
-
   const getProfile: () => Promise<profiles> = async () => {
     const response = await axios.post('/api/profiles/getProfile', {
       id: user?.id,
@@ -16,6 +15,5 @@ export const useProfile = () => {
   };
 
   const profile = useQuery(['profile'], getProfile);
-
   return { ...profile };
 };

@@ -32,6 +32,7 @@ export const Inputs = ({ errors, register, reset }: InputsProps) => {
     if (!data) {
       return;
     }
+    setCharCount(data?.bio?.length ?? 0);
     reset({
       username: isString(data.username),
       website: isString(data.website),
