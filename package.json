@@ -12,7 +12,8 @@
     "lint-strict-fix": "eslint --fix components pages && pnpm format",
     "prepare": "husky install",
     "test": "jest",
-    "typecheck": "tsc --noEmit --incremental false"
+    "typecheck": "tsc --noEmit --incremental false",
+    "prebuild": "prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
