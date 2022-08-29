@@ -19,17 +19,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={styles.wrapper}>
         <div className={styles['input-container']}>
-          <input
-            ref={ref}
-            className={clsx(styles.input, isDirty && styles['input--active'])}
-            type={type}
-            id={label}
-            autoComplete='on'
-            {...props}
-          />
-          <label htmlFor={label} className={styles.label}>
-            {label}
-          </label>
+          <div className={styles.gradient}>
+            <input
+              ref={ref}
+              className={clsx(styles.input, isDirty && styles['input--active'])}
+              type={type}
+              id={label}
+              autoComplete='on'
+              {...props}
+            />
+            <label htmlFor={label} className={styles.label}>
+              {label}
+            </label>
+          </div>
         </div>
         {error?.message && <Error message={error.message} />}
       </div>

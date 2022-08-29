@@ -9,17 +9,21 @@
 
   @include common.breakpoint('lg') {
     gap: 10rem;
+
     flex-direction: row;
-    justify-content: space-between;
   }
 }
 
 .avatar-change {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   gap: 2rem;
+
+  @include common.breakpoint('lg') {
+    align-items: flex-start;
+  }
 }
 
 .avatar-button {
@@ -32,7 +36,6 @@
 }
 
 .avatar {
-  border-width: 3px;
-  width: 15rem;
-  height: 15rem;
+  width: 16rem;
+  height: 16rem;
 }

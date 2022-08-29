@@ -6,9 +6,12 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: min(60rem, 90%);
   gap: 5rem;
-  margin: 8rem auto;
+  padding: 0 4rem;
+
+  @include common.breakpoint('lg') {
+    padding: 0 14rem;
+  }
 }
 
 .error {

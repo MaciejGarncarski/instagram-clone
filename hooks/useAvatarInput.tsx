@@ -1,28 +1,21 @@
+import axios from 'axios';
 import { useAtom } from 'jotai';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 
 import { updateAvatar, uploadAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
 
-import { changeAvatarError, userAtom } from '@/store/store';
+import { changeAvatarError } from '@/store/store';
 
+import { useUser } from './useUser';
 import { supabase } from '../lib/supabase';
 
 const VALID_IMG_TYPES = ['jpg', 'webp', 'jpeg', 'png'].map((type) => `image/${type}`);
 
 export const useAvatarInput = () => {
-  const [user] = useAtom(userAtom);
+  const { user } = useUser();
   const [, setError] = useAtom(changeAvatarError);
-  const { isError, mutate } = useUpdateAvatar();
-
-  useEffect(() => {
-    if (!isError) {
-      setError(null);
-    }
-    if (isError) {
-      setError('Error on image');
-    }
-  }, [isError, setError]);
+  const { mutate } = useUpdateAvatar();
 
   const handleChange = async (changeEv: ChangeEvent<HTMLInputElement>) => {
     if (!changeEv.target.files) {
@@ -32,7 +25,11 @@ export const useAvatarInput = () => {
     const selectedFile = changeEv.target.files[0];
     const isIMGTypeValid = VALID_IMG_TYPES.includes(selectedFile.type);
 
-    if (!selectedFile.type || !isIMGTypeValid) {
+    if (!selectedFile.type) {
+      return null;
+    }
+
+    if (!isIMGTypeValid) {
       setError('Invalid image type!');
       return null;
     }
@@ -62,7 +59,18 @@ export const useAvatarInput = () => {
       return null;
     }
 
-    mutate({ avatarURL: avatarURL });
+    mutate(
+      { avatarURL: avatarURL },
+      {
+        onError: (error) => {
+          if (axios.isAxiosError(error)) {
+            if (typeof error.response?.data === 'string') {
+              setError(error.response?.data);
+            }
+          }
+        },
+      }
+    );
   };
 
   return handleChange;

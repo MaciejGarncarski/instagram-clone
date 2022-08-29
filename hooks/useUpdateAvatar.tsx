@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useAtom } from 'jotai';
 
-import { userAtom } from '@/store/store';
+import { useUser } from './useUser';
 
 type Mutation = {
   avatarURL: string;
@@ -10,11 +9,11 @@ type Mutation = {
 
 export const useUpdateAvatar = () => {
   const queryClient = useQueryClient();
-  const [user] = useAtom(userAtom);
+  const { user } = useUser();
 
   return useMutation(
     ({ avatarURL }: Mutation) => {
-      return axios.post('/api/profiles/updateAvatar', { id: user?.id, avatarURL: avatarURL });
+      return axios.patch('/api/profiles/updateAvatar', { id: user?.id, avatarURL: avatarURL });
     },
     {
       onSuccess: () => {

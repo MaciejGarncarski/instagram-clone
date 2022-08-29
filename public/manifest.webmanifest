@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Fake Instagram",
-    "short_name": "Fake Instagram",
+    "name": "Delayedgram",
+    "short_name": "Delayedgram",
     "description": "Instagram clone",
     
     "icons": [

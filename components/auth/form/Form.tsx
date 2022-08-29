@@ -1,18 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ApiError } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import styles from './form.module.scss';
 
+import { AnotherAuthOption } from './anotherAuthOption/AnotherAuthOption';
 import { Error } from '../input/error/Error';
 import { Input } from '../input/Input';
 
 const formSchema = z.object({
-  email: z.string().email().min(1),
-  password: z.string().min(6).max(10),
+  email: z.string().email().min(5),
+  password: z.string().min(6, { message: 'Password must contain at least 6 characters' }).max(10),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
@@ -37,24 +37,9 @@ export const Form = ({ error, onSubmit, heading }: FormProps) => {
     },
   });
 
-  const RedirectLink = () => {
-    if (heading === 'register') {
-      return (
-        <p>
-          Already fake instagram user? <br /> <Link href='/auth/login'>Login here. </Link>
-        </p>
-      );
-    }
-    return (
-      <p>
-        Not an fake instagram user? <br /> <Link href='/auth/register'>Register here. </Link>
-      </p>
-    );
-  };
-
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <h1>{heading}</h1>
+      <h1 className={styles.heading}>{heading}</h1>
 
       <div className={styles.wrapper}>
         <Input
@@ -76,11 +61,7 @@ export const Form = ({ error, onSubmit, heading }: FormProps) => {
       <motion.button className={styles.button} type='submit' disabled={!isDirty || !isValid}>
         continue
       </motion.button>
-      <RedirectLink />
-      <div className={styles.or}>
-        <hr />
-        or
-      </div>
+      <AnotherAuthOption type={heading} />
     </form>
   );
 };

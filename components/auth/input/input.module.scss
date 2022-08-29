@@ -11,19 +11,9 @@
 .input-container {
   display: flex;
   flex-direction: column;
-  position: relative;
   width: 100%;
   font-size: 2.5rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 10px;
-    width: 100%;
-    background-color: var(--primary-color);
-  }
+  position: relative;
 }
 
 .label {
@@ -37,15 +27,20 @@
 }
 
 .input {
-  background: transparent;
-  padding: 1.25rem 2.5rem;
-  padding-bottom: 1.75rem;
-  border: 3px solid var(--primary-color);
-  border-bottom: none;
-  border-radius: 0.5rem;
+  background: var(--bg-color);
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
 
   &:focus + .label,
   &--active + .label {
     bottom: 2.6em;
   }
+}
+
+.gradient {
+  background-image: var(--gradient);
+  border-radius: 0.5rem;
+  padding: 4px;
+  width: 100%;
 }

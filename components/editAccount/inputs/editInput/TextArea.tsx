@@ -22,8 +22,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
     const [charCount] = useAtom(charCountAtom);
 
     const countClass = clsx(styles.count, {
-      [styles['count--warning']]: charCount > 90,
-      [styles['count--error']]: charCount > 110,
+      [styles['count--warning']]: charCount >= BIO_MAX_LENGTH * 0.46,
+      [styles['count--error']]: charCount >= BIO_MAX_LENGTH * 0.8,
     });
 
     return (

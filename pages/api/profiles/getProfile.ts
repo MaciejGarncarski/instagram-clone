@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (prismaData) {
       res.status(200).send(prismaData);
     } else {
-      res.status(400);
+      res.status(400).send('Couldnt get profile');
     }
   } catch (e) {
     res.status(400).send(`Wrong api call`);

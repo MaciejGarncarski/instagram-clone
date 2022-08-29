@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { UseFormReset } from 'react-hook-form';
 
 import { isString } from '@/lib/isString';
-import { useProfile } from '@/hooks/useProfile';
+import { useUser } from '@/hooks/useUser';
 
 import styles from './buttons.module.scss';
 
@@ -17,7 +17,7 @@ type ButtonsProps = {
 };
 
 export const Buttons = ({ disabled, reset }: ButtonsProps) => {
-  const { data } = useProfile();
+  const { data } = useUser();
   const [, setCharCount] = useAtom(charCountAtom);
 
   const handleReset = () => {

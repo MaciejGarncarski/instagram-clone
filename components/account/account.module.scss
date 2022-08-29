@@ -2,36 +2,93 @@
 @use '/styles/mixins.scss';
 
 .account {
-  width: min(90rem, 80%);
+  width: min(85rem, 80%);
   margin: 0 auto;
   display: flex;
-  justify-content: flex-start;
-  gap: 10rem;
-  padding: 8rem 0;
+  justify-content: center;
+  gap: 3rem;
+  align-items: center;
+  flex-direction: column;
+
+  @include common.breakpoint('xl') {
+    flex-direction: row;
+
+    gap: 8rem;
+  }
 }
+
+// .avatar {
+//   width: 20rem;
+//   height: 20rem;
+
+//   @include common.breakpoint('xl') {
+//     flex-grow: 1;
+//   }
+// }
 
 .user-info {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   max-width: 40ch;
+  flex-grow: 2;
+
+  @include common.breakpoint('xl') {
+    align-items: flex-start;
+    margin: unset;
+  }
 }
 
-.info {
-  gap: 4rem;
+.username-container {
+  gap: 1rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+
+  @include common.breakpoint('xl') {
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
+.username {
+  font-size: 2em;
+  font-weight: 400;
 }
 
 .edit {
   color: var(--text-color);
   text-decoration: none;
-  background-color: var(--primary-color);
-  padding: 0.5rem 2rem;
+  background-image: var(--gradient);
+  padding: 0.5rem 2.5rem;
   border-radius: 0.2em;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
+}
+
+.stats-list {
+  gap: 6rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.stat-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    flex-direction: row;
+  }
+}
+
+.stat-count {
+  font-weight: 700;
 }

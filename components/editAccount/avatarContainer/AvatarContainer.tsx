@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useUser } from '@/hooks/useUser';
 
 import styles from './avatarContainer.module.scss';
 
@@ -9,7 +9,7 @@ import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
 export const AvatarContainer = () => {
   const avatarRef = useRef<HTMLInputElement>(null);
 
-  const { data: userData } = useProfile();
+  const { data: userData } = useUser();
 
   const onClick = () => {
     if (!avatarRef.current) {

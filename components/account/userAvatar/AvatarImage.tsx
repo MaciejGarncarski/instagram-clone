@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/future/image';
 import { useEffect, useState } from 'react';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useUser } from '@/hooks/useUser';
 
 import styles from './userAvatar.module.scss';
 
@@ -22,7 +22,7 @@ const Loader = () => {
 };
 
 export const AvatarImage = () => {
-  const { data: profileData, isFetching, isError } = useProfile();
+  const { data: profileData, isFetching, isError } = useUser();
   const [src, setSrc] = useState<string>(defaultIMG);
 
   useEffect(() => {
@@ -47,6 +47,8 @@ export const AvatarImage = () => {
         src={defaultIMG}
         {...sizes}
         alt='user profile picture'
+        placeholder='blur'
+        blurDataURL={defaultIMG}
         priority
       />
     );

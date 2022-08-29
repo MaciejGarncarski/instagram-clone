@@ -1,0 +1,26 @@
+.popup {
+  display: flex;
+  font-size: 1.5em;
+  background-color: red;
+  background-color: var(--bg-color);
+  padding: 0.5em 1em;
+  position: relative;
+}
+
+.gradient {
+  padding: 6px;
+  border-radius: 0.2em;
+  background-image: var(--gradient);
+  width: min(120rem, 80%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

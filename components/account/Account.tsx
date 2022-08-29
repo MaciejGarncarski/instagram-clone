@@ -2,16 +2,18 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useUser } from '@/hooks/useUser';
 
 import styles from './account.module.scss';
 
+import { Text } from './text/Text';
 import { UserAvatar } from './userAvatar/UserAvatar';
 import { Loader } from '../loader/Loader';
 
 export const Account = () => {
-  const { data, error, isLoading } = useProfile();
-  if (error) {
+  const { data, error, isLoading } = useUser();
+
+  if (error || !data) {
     return (
       <>
         <NextSeo title='Profile' />
@@ -37,11 +39,11 @@ export const Account = () => {
     <>
       <NextSeo title='Profile' />
       <main className={styles.account}>
-        <UserAvatar />
+        <UserAvatar className={styles.avatar} />
 
         <div className={styles['user-info']}>
-          <div className={styles.info}>
-            <h2>{data?.username ?? 'Loading...'}</h2>
+          <div className={styles['username-container']}>
+            <h2 className={styles.username}>{data?.username ?? 'no username'}</h2>
 
             <Link href='/account/edit' passHref>
               <motion.a
@@ -53,8 +55,28 @@ export const Account = () => {
               </motion.a>
             </Link>
           </div>
-          {data?.website && <p>🌍 {data?.website}</p>}
-          {data?.bio && <p>💭 {data?.bio}</p>}
+          <div className={styles.stats}>
+            <dl className={styles['stats-list']}>
+              <div className={styles['stat-container']}>
+                <dd className={styles['stat-count']}>0</dd>
+                <dt>posts</dt>
+              </div>
+              <div className={styles['stat-container']}>
+                <dd className={styles['stat-count']}>0</dd>
+                <dt>followers</dt>
+              </div>
+              <div className={styles['stat-container']}>
+                <dd className={styles['stat-count']}>0</dd>
+                <dt>following</dt>
+              </div>
+            </dl>
+          </div>
+          {data.bio && <Text>{data.bio}</Text>}
+          {data.website && (
+            <a href={data.website} target='_blank' rel='noopener noreferrer'>
+              {data.website}
+            </a>
+          )}
         </div>
       </main>
     </>

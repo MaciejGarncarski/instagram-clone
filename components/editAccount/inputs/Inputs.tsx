@@ -3,11 +3,9 @@ import { ChangeEvent, useEffect } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
 
 import { isString } from '@/lib/isString';
-import { useProfile } from '@/hooks/useProfile';
+import { useUser } from '@/hooks/useUser';
 
 import styles from './inputs.module.scss';
-
-import { Loader } from '@/components/loader/Loader';
 
 import { charCountAtom } from '@/store/store';
 
@@ -22,7 +20,7 @@ type InputsProps = {
 };
 
 export const Inputs = ({ errors, register, reset }: InputsProps) => {
-  const { data } = useProfile();
+  const { data } = useUser();
   const [, setCharCount] = useAtom(charCountAtom);
 
   const handleTextArea = (changeEv: ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,26 +41,22 @@ export const Inputs = ({ errors, register, reset }: InputsProps) => {
     });
   }, [data, reset, setCharCount]);
 
-  if (data) {
-    return (
-      <div className={styles.inputs}>
-        <EditInput type='text' label='username' error={errors.username} {...register('username')} />
-        <EditInput
-          type='text'
-          label='website'
-          optional
-          error={errors.website}
-          {...register('website')}
-        />
-        <TextArea
-          label='bio'
-          error={errors.bio}
-          optional
-          {...register('bio', { onChange: handleTextArea })}
-        />
-      </div>
-    );
-  }
-
-  return <Loader />;
+  return (
+    <div className={styles.inputs}>
+      <EditInput type='text' label='username' error={errors.username} {...register('username')} />
+      <EditInput
+        type='text'
+        label='website'
+        optional
+        error={errors.website}
+        {...register('website')}
+      />
+      <TextArea
+        label='bio'
+        error={errors.bio}
+        optional
+        {...register('bio', { onChange: handleTextArea })}
+      />
+    </div>
+  );
 };

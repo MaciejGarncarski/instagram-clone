@@ -24,6 +24,7 @@
   background-color: var(--secondary-color);
 
   @include common.breakpoint('lg') {
+    padding: 0;
     gap: 7rem;
     justify-content: space-evenly;
     box-shadow: none;

@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Layout>
-      <NextSeo titleTemplate='%s | Fake Instagram' defaultTitle='Fake Instagram' />
+      <NextSeo titleTemplate='%s | Delayedgram' defaultTitle='Delayedgram' />
       <QueryClientProvider client={queryClient}>
         <MotionConfig reducedMotion='user'>
           <Component {...pageProps} />

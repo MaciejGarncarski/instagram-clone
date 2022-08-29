@@ -9,6 +9,7 @@ datasource db {
 
 model profiles {
   id         String  @id @db.Uuid
+  profile_id Int     @db.SmallInt @unique @default(autoincrement())
   username   String? @unique
   avatar_url String?
   website    String?

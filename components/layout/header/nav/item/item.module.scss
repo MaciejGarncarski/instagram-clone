@@ -15,7 +15,7 @@
     z-index: -1;
     transform: scale(0);
     transition: transform var(--transition-fast);
-    background-color: var(--primary-color);
+    background-image: var(--gradient);
   }
 
   &:hover::before,

@@ -14,10 +14,9 @@
   padding: 3px;
   border-radius: 4px;
   overflow: hidden;
-
-  &:has(.input:focus) {
-    background: black;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &--error {
     background: var(--error-color);
@@ -27,9 +26,10 @@
 .input {
   padding: 1rem 2rem;
   width: 100%;
+  transition: background-color var(--transition-fast);
 
   &:focus {
-    background-color: var(--secondary-color);
+    background-color: var(--bg-color);
   }
 }
 
@@ -50,19 +50,18 @@
   max-height: 40rem;
   overflow: auto;
   resize: vertical;
+  transition: background-color var(--transition-fast);
 
   &:focus {
-    background-color: var(--secondary-color);
+    background-color: var(--bg-color);
   }
 }
 
 .count {
-  margin-right: 1rem;
-  font-size: 2.5rem;
-  font-weight: 500;
+  font-weight: 400;
   position: absolute;
-  top: -3rem;
-  right: 1rem;
+  top: -1.5em;
+  right: 0.5rem;
 
   &--warning {
     color: var(--warning-color);
@@ -78,6 +77,4 @@
   justify-self: center;
   color: var(--error-color);
   text-align: center;
-  max-width: 35rem;
-  font-size: 2.5rem;
 }

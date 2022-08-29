@@ -1,19 +1,15 @@
 import { User } from '@supabase/supabase-js';
-import { useHydrateAtoms } from 'jotai/utils';
 import type { GetServerSideProps, NextPage } from 'next';
 
 import { supabase } from '@/lib/supabase';
 
 import { Account } from '@/components/account/Account';
 
-import { userAtom } from '@/store/store';
-
 type UserType = {
   user: User;
 };
 
-const UserProfile: NextPage<UserType> = ({ user }) => {
-  useHydrateAtoms([[userAtom, user]]);
+const UserProfile: NextPage<UserType> = () => {
   return <Account />;
 };
 
