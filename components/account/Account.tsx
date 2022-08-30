@@ -13,7 +13,7 @@ import { Loader } from '../loader/Loader';
 export const Account = () => {
   const { data, error, isLoading } = useUser();
 
-  if (error || !data) {
+  if (error) {
     return (
       <>
         <NextSeo title='Profile' />
@@ -33,6 +33,10 @@ export const Account = () => {
         </main>
       </>
     );
+  }
+
+  if (!data) {
+    return null;
   }
 
   return (

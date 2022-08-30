@@ -17,33 +17,42 @@ import { AvatarImage } from './AvatarImage';
 
 type UserAvatarProps = {
   className?: string;
+  editable?: boolean;
 };
 
-export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(({ className }, ref) => {
-  const [error, setError] = useAtom(changeAvatarError);
-  const handleChange = useAvatarInput();
+export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
+  ({ className, editable }, ref) => {
+    const [error, setError] = useAtom(changeAvatarError);
+    const handleChange = useAvatarInput();
+    const handlePopupClose = () => setError(null);
 
-  const handlePopupClose = () => setError(null);
-  console.log(error);
-
-  return (
-    <div className={styles.container}>
-      <input
-        ref={ref}
-        id='set-avatar'
-        type='file'
-        accept='.jpg, .jpeg, .png'
-        className={styles.input}
-        name='set-avatar'
-        onChange={handleChange}
-      />
-      <label className={clsx(styles.label, className)} htmlFor='set-avatar'>
-        <div className={styles.overlay} title='change avatar'>
-          <Image src={edit} alt='edit avatar' />
+    if (editable) {
+      return (
+        <div className={clsx(className, styles.container)}>
+          <input
+            ref={ref}
+            id='set-avatar'
+            type='file'
+            accept='.jpg, .jpeg, .png'
+            className={styles.input}
+            name='set-avatar'
+            onChange={handleChange}
+          />
+          <label className={styles.label} htmlFor='set-avatar'>
+            <div className={styles.overlay} title='change avatar'>
+              <Image src={edit} alt='edit avatar' />
+            </div>
+            <AvatarImage />
+          </label>
+          {error && <Popup isError text={error} handleClose={handlePopupClose} />}
         </div>
+      );
+    }
+
+    return (
+      <div className={clsx(className, styles.container)}>
         <AvatarImage />
-      </label>
-      {error && <Popup isError text={error} handleClose={handlePopupClose} />}
-    </div>
-  );
-});
+      </div>
+    );
+  }
+);

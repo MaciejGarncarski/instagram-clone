@@ -11,7 +11,7 @@ import { charCountAtom } from '@/store/store';
 
 import { EditInput } from './editInput/EditInput';
 import { TextArea } from './editInput/TextArea';
-import { FormValues } from '../Form';
+import { FormValues } from '../EditAccount';
 
 type InputsProps = {
   errors: FieldErrors<FormValues>;

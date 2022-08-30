@@ -1,0 +1,88 @@
+@use '/styles/common.scss';
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    gap: 4rem;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.avatar-change {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  @include common.breakpoint('lg') {
+    display: grid;
+    column-gap: 6rem;
+    row-gap: 2rem;
+    grid-template-columns: auto 1fr;
+    min-height: 15rem;
+    width: 100%;
+  }
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  grid-column: 1 / 3;
+  justify-content: space-around;
+  align-items: center;
+  justify-self: center;
+  flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    flex-direction: row;
+  }
+}
+
+.avatar-button {
+  padding: 0;
+  cursor: pointer;
+  font-weight: 700;
+  background: var(--gradient);
+  padding: 0.4em 1.5em;
+  border-radius: 0.25em;
+  margin: 1rem 0;
+
+  &--red {
+    color: var(--bg-color);
+    background: var(--error-color);
+  }
+}
+
+.modal-text {
+  justify-self: center;
+  text-align: center;
+  align-self: center;
+  font-size: 2em;
+  color: var(--bg-color);
+  font-weight: 900;
+}
+
+.margin {
+  min-height: 25rem;
+
+  @include common.breakpoint('lg') {
+    padding: 0 1em;
+    grid-column: span 2;
+    min-height: 35rem;
+  }
+}
+
+.loader {
+  justify-self: center;
+
+  @include common.breakpoint('lg') {
+    grid-column: span 2;
+  }
+}

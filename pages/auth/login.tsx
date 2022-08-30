@@ -40,7 +40,7 @@ const Login: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { user } = await supabase.auth.api.getUserByCookie(req);
   if (user) {
-    return { props: { user }, redirect: { destination: '/' } };
+    return { props: { user }, redirect: { permanent: false, destination: '/account' } };
   }
   return { props: {} };
 };

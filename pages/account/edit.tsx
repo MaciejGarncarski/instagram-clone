@@ -3,16 +3,16 @@ import { GetServerSideProps, NextPage } from 'next';
 
 import { supabase } from '@/lib/supabase';
 
-import { Form } from '@/components/editAccount/Form';
+import { EditAccount } from '@/components/editAccount/EditAccount';
 
 const EditPage: NextPage<{ user: User }> = () => {
-  return <Form />;
+  return <EditAccount />;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { user } = await supabase.auth.api.getUserByCookie(req);
   if (user === null) {
-    return { props: {}, redirect: { destination: '/auth/login' } };
+    return { props: {}, redirect: { permanent: false, destination: '/auth/login' } };
   }
   return { props: { user } };
 };

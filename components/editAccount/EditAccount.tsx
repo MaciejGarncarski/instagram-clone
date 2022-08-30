@@ -9,9 +9,9 @@ import { useUpdateProfile } from '@/hooks/useUpdateProfile';
 import { useUser } from '@/hooks/useUser';
 import { bio, username, website } from '@/utils/editAccountValidation';
 
-import styles from './form.module.scss';
+import styles from './editAccount.module.scss';
 
-import { AvatarContainer } from './avatarContainer/AvatarContainer';
+import { AvatarSection } from './avatarSection/AvatarSection';
 import { Buttons } from './buttons/Buttons';
 import { Inputs } from './inputs/Inputs';
 import { Loader } from '../loader/Loader';
@@ -24,9 +24,10 @@ const formSchema = z.object({
 
 export type FormValues = z.infer<typeof formSchema>;
 
-export const Form = () => {
+export const EditAccount = () => {
   const [mutationError, setMutationError] = useState<string | undefined>(undefined);
   const { data } = useUser();
+
   const userName = isString(data?.username);
   const userWebsite = isString(data?.website);
   const userBio = isString(data?.bio);
@@ -54,7 +55,9 @@ export const Form = () => {
     mutate(
       { username, bio, website, userID },
       {
-        onSuccess: () => setMutationError(undefined),
+        onSuccess: () => {
+          setMutationError(undefined);
+        },
         onError: (error) => {
           if (error instanceof TypeError) {
             setMutationError(error.message);
@@ -68,7 +71,10 @@ export const Form = () => {
     return (
       <>
         <NextSeo title='Updating profile' />
-        <Loader text='Updating your profile' />
+        <div>
+          <p>Updating your profile</p>
+          <Loader />
+        </div>
       </>
     );
   }
@@ -78,7 +84,8 @@ export const Form = () => {
       <NextSeo title='Edit profile' />
 
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-        <AvatarContainer />
+        <AvatarSection />
+        {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
         <Inputs errors={errors} register={register} reset={reset} />
         {mutationError && <p className={styles.error}>{mutationError}</p>}
         <Buttons disabled={!isDirty || !isValid} reset={reset} />

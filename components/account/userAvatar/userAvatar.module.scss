@@ -2,15 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-image: var(--gradient);
   padding: 5px;
 
-  width: clamp(13rem, 20vw, 17rem);
-  height: clamp(13rem, 20vw, 17rem);
+  width: 13rem;
+  aspect-ratio: 1 / 1;
 
   border-radius: 50%;
-  margin: 0 auto;
 }
 
 .error {
@@ -55,23 +53,21 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  font-size: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
-  color: transparent;
   transition: all var(--transition-fast);
 }
 
 .image {
-  object-fit: cover;
+  border-radius: 50%;
   height: 100%;
-  width: 100%;
 }
 
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5rem;
 }

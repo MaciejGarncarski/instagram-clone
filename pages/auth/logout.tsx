@@ -18,7 +18,7 @@ const Logout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <Loader text='logging out' />;
+  return <Loader />;
 };
 
 export default Logout;

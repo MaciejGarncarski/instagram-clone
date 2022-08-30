@@ -1,0 +1,67 @@
+@use '/styles/common.scss';
+
+.overlay {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.1);
+  backdrop-filter: blur(7px);
+}
+
+.modal {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  place-content: center;
+  row-gap: 2rem;
+  width: min(70rem, 90%);
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  background-image: var(--gradient);
+  border: none;
+  border-radius: 0.6rem;
+  box-shadow: var(--box-shadow);
+
+  @include common.breakpoint('lg') {
+    row-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.button {
+  padding: 0.75rem 2rem;
+  min-width: 25rem;
+  cursor: pointer;
+  border-radius: 0.25em;
+  font-weight: 700;
+  text-transform: uppercase;
+  justify-self: center;
+
+  &:focus {
+    outline: 4px solid var(--text-color);
+    outline-offset: 6px;
+  }
+
+  @include common.breakpoint('lg') {
+    justify-self: center;
+  }
+}
+
+.cancel {
+  @include common.breakpoint('lg') {
+    grid-column: 1 / 2;
+  }
+}
+
+.accept {
+  background-color: var(--error-color);
+  color: var(--bg-color);
+
+  @include common.breakpoint('lg') {
+    grid-column: 2 / 3;
+  }
+}

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { FormValues } from '@/components/editAccount/Form';
+import { FormValues } from '@/components/editAccount/EditAccount';
 
 type UpdateProfileArgs = FormValues & {
   userID: string;

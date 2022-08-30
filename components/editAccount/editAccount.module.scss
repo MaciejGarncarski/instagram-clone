@@ -6,12 +6,16 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  gap: 5rem;
-  padding: 0 4rem;
+  gap: 3rem;
 
   @include common.breakpoint('lg') {
-    padding: 0 14rem;
+    padding: 0 25rem;
   }
+}
+
+.no-username {
+  font-size: 1.75em;
+  text-align: center;
 }
 
 .error {

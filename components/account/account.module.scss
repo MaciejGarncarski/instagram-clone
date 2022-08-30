@@ -10,21 +10,18 @@
   align-items: center;
   flex-direction: column;
 
-  @include common.breakpoint('xl') {
+  @include common.breakpoint('lg') {
     flex-direction: row;
 
     gap: 8rem;
   }
 }
 
-// .avatar {
-//   width: 20rem;
-//   height: 20rem;
-
-//   @include common.breakpoint('xl') {
-//     flex-grow: 1;
-//   }
-// }
+.avatar {
+  @include common.breakpoint('lg') {
+    flex-grow: 1;
+  }
+}
 
 .user-info {
   display: flex;
@@ -32,12 +29,12 @@
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  max-width: 40ch;
   flex-grow: 2;
+  width: 100%;
 
-  @include common.breakpoint('xl') {
+  @include common.breakpoint('lg') {
     align-items: flex-start;
-    margin: unset;
+    width: auto;
   }
 }
 
@@ -48,7 +45,7 @@
   align-items: center;
   flex-direction: column;
 
-  @include common.breakpoint('xl') {
+  @include common.breakpoint('lg') {
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
@@ -71,15 +68,18 @@
   cursor: pointer;
 }
 
-.stats-list {
-  gap: 6rem;
-  display: flex;
-  justify-content: space-between;
+.stats {
   width: 100%;
+}
+
+.stats-list {
+  display: flex;
+  gap: 3rem;
 }
 
 .stat-container {
   display: flex;
+  flex: 1 0;
   gap: 1rem;
   align-items: center;
   flex-direction: column;

@@ -21,10 +21,13 @@
 .cancel,
 .submit {
   padding: 1rem 3rem;
-  text-transform: capitalize;
   transition: opacity var(--transition-fast);
   box-shadow: var(--box-shadow);
-  font-weight: 500;
+  font-weight: 700;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   &:not(:disabled) {
     cursor: pointer;

@@ -15,10 +15,11 @@ const VALID_IMG_TYPES = ['jpg', 'webp', 'jpeg', 'png'].map((type) => `image/${ty
 export const useAvatarInput = () => {
   const { user } = useUser();
   const [, setError] = useAtom(changeAvatarError);
+
   const { mutate } = useUpdateAvatar();
 
   const handleChange = async (changeEv: ChangeEvent<HTMLInputElement>) => {
-    if (!changeEv.target.files) {
+    if (!changeEv.target.files || !changeEv.target.files[0]) {
       return null;
     }
 

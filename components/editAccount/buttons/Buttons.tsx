@@ -9,7 +9,7 @@ import styles from './buttons.module.scss';
 
 import { charCountAtom } from '@/store/store';
 
-import { FormValues } from '../Form';
+import { FormValues } from '../EditAccount';
 
 type ButtonsProps = {
   disabled: boolean;

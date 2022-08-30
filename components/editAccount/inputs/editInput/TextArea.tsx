@@ -21,18 +21,25 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
   ({ label, error, optional, ...props }, ref) => {
     const [charCount] = useAtom(charCountAtom);
 
-    const countClass = clsx(styles.count, {
-      [styles['count--warning']]: charCount >= BIO_MAX_LENGTH * 0.46,
-      [styles['count--error']]: charCount >= BIO_MAX_LENGTH * 0.8,
+    const progress = Math.round((100 * charCount) / BIO_MAX_LENGTH);
+
+    const progressClass = clsx(styles['progress-container'], {
+      [styles['progress-container--warning']]: charCount >= BIO_MAX_LENGTH * 0.46,
+      [styles['progress-container--error']]: charCount >= BIO_MAX_LENGTH * 0.8,
     });
 
     return (
       <div className={styles['input-container']}>
         <Label label={label} optional={optional} />
         <div className={styles['text-area-container']}>
-          <p className={countClass}>
-            {charCount ?? 0}/{BIO_MAX_LENGTH}
-          </p>
+          <div
+            className={progressClass}
+            style={{
+              backgroundImage: `conic-gradient(var(--progress-color) ${progress}%, var(--bg-color) ${progress}%)`,
+            }}
+          >
+            <div className={styles.progress}>{charCount}</div>
+          </div>
           <div className={styles.gradient}>
             <textarea
               ref={ref}
