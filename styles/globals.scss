@@ -12,13 +12,13 @@
 :root {
   --bg-color: hsl(200, 40%, 98%);
   --text-color: hsl(0, 0%, 14%);
-  --primary-color: hsl(160, 60%, 50%);
+  --primary-color: hsl(180, 100%, 30%);
   --primary-color-rgb: 51, 204, 153;
   --secondary-color: hsl(200, 20%, 90%);
   --error-color: hsl(5, 65%, 50%);
   --warning-color: hsl(36, 100%, 50%);
 
-  --gradient: linear-gradient(to bottom right, var(--primary-color), rgb(0, 150, 150));
+  --gradient: linear-gradient(to bottom right, var(--primary-color), hsl(180, 100%, 30%));
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -49,4 +49,16 @@ button {
   border: 0;
   font-size: inherit;
   font-family: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

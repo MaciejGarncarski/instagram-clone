@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const username = z
   .string({ required_error: 'Username is required!', invalid_type_error: 'Invalid username!' })
-  .min(4, 'Username must contain at least 4 characters!')
+  .min(4, 'Username is too short!')
   .max(17, 'Username is too long!');
 
 export const website = z.string().max(30);

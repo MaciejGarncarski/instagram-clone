@@ -46,7 +46,7 @@ export const AvatarSection = () => {
             className={styles['avatar-button']}
             onClick={handleChangeProfilePhoto}
           >
-            {data?.avatar_url ? 'Change' : 'Add'} photo
+            Change photo
           </button>
           {data?.avatar_url && (
             <button

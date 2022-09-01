@@ -17,12 +17,6 @@
   }
 }
 
-.avatar {
-  @include common.breakpoint('lg') {
-    flex-grow: 1;
-  }
-}
-
 .user-info {
   display: flex;
   flex-direction: column;
@@ -59,7 +53,7 @@
 }
 
 .edit {
-  color: var(--text-color);
+  color: var(--bg-color);
   text-decoration: none;
   background-image: var(--gradient);
   padding: 0.5rem 2.5rem;

@@ -27,8 +27,6 @@ export const AvatarImage = () => {
         src={defaultIMG}
         {...sizes}
         alt='user profile picture'
-        placeholder='blur'
-        blurDataURL={defaultIMG}
         priority
       />
     );

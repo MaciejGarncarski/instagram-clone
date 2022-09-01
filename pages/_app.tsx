@@ -1,11 +1,16 @@
-import { QueryClient, QueryClientConfig, QueryClientProvider } from '@tanstack/react-query';
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { UserProvider } from '@supabase/auth-helpers-react';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientConfig,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import axios from 'axios';
 import { MotionConfig } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import { NextSeo } from 'next-seo';
-
-import { supabase } from '@/lib/supabase';
+import { useState } from 'react';
 
 import '../styles/globals.scss';
 
@@ -20,25 +25,22 @@ function MyApp({ Component, pageProps }: AppProps) {
       },
     },
   };
-  const queryClient = new QueryClient(queryOptions);
-
-  supabase.auth.onAuthStateChange((event, session) => {
-    axios.post('/api/auth/', {
-      event,
-      session,
-    });
-  });
+  const [queryClient] = useState(() => new QueryClient(queryOptions));
 
   return (
-    <Layout>
-      <NextSeo titleTemplate='%s | Delayedgram' defaultTitle='Delayedgram' />
+    <UserProvider supabaseClient={supabaseClient}>
       <QueryClientProvider client={queryClient}>
-        <MotionConfig reducedMotion='user'>
-          <Component {...pageProps} />
+        <Hydrate state={pageProps.dehydratedState}>
+          <Layout>
+            <NextSeo titleTemplate='%s | Delayedgram' defaultTitle='Delayedgram' />
+            <MotionConfig reducedMotion='user'>
+              <Component {...pageProps} />
+            </MotionConfig>
+          </Layout>
           <ReactQueryDevtools />
-        </MotionConfig>
+        </Hydrate>
       </QueryClientProvider>
-    </Layout>
+    </UserProvider>
   );
 }
 

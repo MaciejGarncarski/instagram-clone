@@ -6,7 +6,7 @@
   padding: 5px;
 
   width: 13rem;
-  aspect-ratio: 1 / 1;
+  height: 13rem;
 
   border-radius: 50%;
 }
@@ -63,6 +63,7 @@
 .image {
   border-radius: 50%;
   height: 100%;
+  width: 100%;
 }
 
 .loading {

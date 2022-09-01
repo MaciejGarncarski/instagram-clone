@@ -1,3 +1,4 @@
+import { getUser } from '@supabase/auth-helpers-nextjs';
 import { ApiError } from '@supabase/supabase-js';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -21,9 +22,8 @@ const Login: NextPage = () => {
 
     if (error) {
       setError(error);
-      return null;
+      return;
     }
-
     router.push('/account');
   };
 
@@ -31,18 +31,18 @@ const Login: NextPage = () => {
     <>
       <NextSeo title='Login' />
       <main>
-        <Form heading='login' onSubmit={onSubmit} error={error} />
+        <Form heading='login' onSubmit={onSubmit} authError={error} />
       </main>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { user } = await getUser(ctx);
   if (user) {
     return { props: { user }, redirect: { permanent: false, destination: '/account' } };
   }
-  return { props: {} };
+  return { props: { user } };
 };
 
 export default Login;

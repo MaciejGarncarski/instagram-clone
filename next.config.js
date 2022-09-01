@@ -18,6 +18,6 @@ module.exports = withPWA({
     },
   },
   images: {
-    domains: ['oqnfzlvubfrreyslpyah.supabase.co'],
+    domains: [`${process.env.NEXT_PUBLIC_SUPABASE_URL_START}.supabase.co`],
   },
 });

@@ -5,20 +5,21 @@ import { FieldError } from 'react-hook-form';
 
 import { BIO_MAX_LENGTH } from '@/utils/editAccountValidation';
 
-import styles from './editInput.module.scss';
+import styles from './input.module.scss';
 
 import { charCountAtom } from '@/store/store';
 
-import { Label } from './label/Label';
+import { Error } from './error/Error';
 
 type EditInputProps = {
   label: string;
   error: FieldError | undefined;
   optional?: boolean;
+  isDirty: boolean;
 } & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
-  ({ label, error, optional, ...props }, ref) => {
+  ({ label, error, optional, isDirty, ...props }, ref) => {
     const [charCount] = useAtom(charCountAtom);
 
     const progress = Math.round((100 * charCount) / BIO_MAX_LENGTH);
@@ -30,7 +31,6 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
 
     return (
       <div className={styles['input-container']}>
-        <Label label={label} optional={optional} />
         <div className={styles['text-area-container']}>
           <div
             className={progressClass}
@@ -40,16 +40,18 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
           >
             <div className={styles.progress}>{charCount}</div>
           </div>
-          <div className={styles.gradient}>
-            <textarea
-              ref={ref}
-              className={styles['text-area']}
-              maxLength={BIO_MAX_LENGTH}
-              id={label}
-              {...props}
-            />
-          </div>
-          <p>{error?.message}</p>
+          <textarea
+            ref={ref}
+            className={styles['text-area']}
+            maxLength={BIO_MAX_LENGTH}
+            id={label}
+            {...props}
+          />
+          <label className={clsx(styles.label, isDirty && styles['label--dirty'])}>
+            {label}
+            {optional && <span className={styles.optional}>(optional)</span>}
+          </label>
+          {error?.message && <Error message={error.message} />}
         </div>
       </div>
     );

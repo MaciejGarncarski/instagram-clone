@@ -7,8 +7,8 @@ import { z } from 'zod';
 import styles from './form.module.scss';
 
 import { AnotherAuthOption } from './anotherAuthOption/AnotherAuthOption';
-import { Error } from '../input/error/Error';
-import { Input } from '../input/Input';
+import { Error } from '../../input/error/Error';
+import { Input } from '../../input/Input';
 
 const formSchema = z.object({
   email: z.string().email().min(5),
@@ -18,12 +18,12 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 type FormProps = {
-  error: ApiError | null;
+  authError: ApiError | null;
   onSubmit: SubmitHandler<FormValues>;
   heading: 'register' | 'login';
 };
 
-export const Form = ({ error, onSubmit, heading }: FormProps) => {
+export const Form = ({ authError, onSubmit, heading }: FormProps) => {
   const {
     register,
     handleSubmit,
@@ -41,23 +41,21 @@ export const Form = ({ error, onSubmit, heading }: FormProps) => {
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={styles.heading}>{heading}</h1>
 
-      <div className={styles.wrapper}>
-        <Input
-          type='email'
-          label='email'
-          isDirty={dirtyFields.email}
-          error={errors.email}
-          {...register('email')}
-        />
-        <Input
-          type='password'
-          label='password'
-          isDirty={dirtyFields.password}
-          error={errors.password}
-          {...register('password')}
-        />
-        {error && <Error message={error.message} />}
-      </div>
+      <Input
+        type='email'
+        label='email'
+        isDirty={dirtyFields.email}
+        error={errors.email}
+        {...register('email')}
+      />
+      <Input
+        type='password'
+        label='password'
+        isDirty={dirtyFields.password}
+        error={errors.password}
+        {...register('password')}
+      />
+      {authError && <Error message={authError.message} />}
       <motion.button className={styles.button} type='submit' disabled={!isDirty || !isValid}>
         continue
       </motion.button>

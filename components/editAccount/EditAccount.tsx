@@ -38,6 +38,7 @@ export const EditAccount = () => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isValid, isDirty },
   } = useForm<FormValues>({
     mode: 'onChange',
@@ -48,6 +49,8 @@ export const EditAccount = () => {
       bio: userBio,
     },
   });
+
+  const watchFields = watch();
 
   const { isLoading, mutate } = useUpdateProfile();
 
@@ -86,7 +89,8 @@ export const EditAccount = () => {
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
         <AvatarSection />
         {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
-        <Inputs errors={errors} register={register} reset={reset} />
+        <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />
+
         {mutationError && <p className={styles.error}>{mutationError}</p>}
         <Buttons disabled={!isDirty || !isValid} reset={reset} />
       </form>

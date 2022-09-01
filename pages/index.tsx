@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <main>
-        <Link href='/auth/logout'>log out</Link>
+        <Link href='/api/auth/logout'>log out</Link>
         <h1>eloelo</h1>
       </main>
     </div>

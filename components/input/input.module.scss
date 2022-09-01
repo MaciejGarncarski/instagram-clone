@@ -1,0 +1,108 @@
+@use '/styles/common.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 2.5rem;
+  position: relative;
+}
+
+@mixin label-active {
+  font-size: 0.9em;
+  top: -1rem;
+  background-color: var(--bg-color);
+}
+
+.input {
+  background: var(--bg-color);
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 3px solid var(--primary-color);
+  border-radius: 0.6rem;
+
+  &--error {
+    border-color: var(--error-color);
+  }
+
+  &:focus + .label {
+    @include label-active;
+  }
+}
+
+.label {
+  display: flex;
+  gap: 1rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  position: absolute;
+  left: 1rem;
+  line-height: 1;
+  padding: 0 1.5rem;
+  background-color: transparent;
+  top: 1.75rem;
+  transition: var(--transition-fast);
+  transition-property: top, transform, font-size, background-color;
+
+  cursor: text;
+
+  &--dirty {
+    @include label-active;
+  }
+}
+
+.optional {
+  text-transform: lowercase;
+}
+
+.text-area {
+  display: flex;
+  width: 100%;
+  resize: vertical;
+  min-height: 15rem;
+  max-height: 30rem;
+  padding: 2rem 1.5rem;
+  font-size: inherit;
+  font-family: inherit;
+  border: 3px solid var(--primary-color);
+  border-radius: 0.6rem;
+
+  &:focus + .label {
+    @include label-active;
+  }
+}
+
+.progress-container {
+  position: absolute;
+  right: -2rem;
+  top: -2rem;
+
+  padding: 4px;
+  border-radius: 50%;
+
+  --progress-color: var(--primary-color);
+
+  &--warning {
+    --progress-color: var(--warning-color);
+  }
+
+  &--error {
+    --progress-color: var(--error-color);
+  }
+}
+
+.progress {
+  background-color: var(--bg-color);
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}

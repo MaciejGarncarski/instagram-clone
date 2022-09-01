@@ -1,3 +1,4 @@
+import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { ApiError } from '@supabase/supabase-js';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -22,7 +23,6 @@ const Register: NextPage = () => {
     if (error) {
       setError(error);
     }
-    console.log(user);
     if (user) {
       router.push('/account');
     }
@@ -32,18 +32,11 @@ const Register: NextPage = () => {
     <>
       <NextSeo title='Register' />
       <main>
-        <Form heading='register' onSubmit={onSubmit} error={error} />
+        <Form heading='register' onSubmit={onSubmit} authError={error} />
       </main>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req);
-  if (user) {
-    return { props: { user }, redirect: { permanent: false, destination: '/account' } };
-  }
-  return { props: {} };
-};
-
+export const getServerSideProps: GetServerSideProps = withPageAuth({ redirectTo: '/account' });
 export default Register;

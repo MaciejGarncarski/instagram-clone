@@ -50,10 +50,11 @@ export const Modal = ({ children, onAccept, onCancel, acceptText, cancelText }: 
         animate={{ y: 0, opacity: 1 }}
         initial={{ y: 200, opacity: 0 }}
         exit={{
-          scale: 0.5,
+          scale: 0.6,
           opacity: 0,
           transition: {
             type: 'tween',
+            duration: 0.2,
           },
         }}
         transition={{ type: 'spring' }}

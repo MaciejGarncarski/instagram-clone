@@ -1,7 +1,9 @@
+import { getUser, withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import type { GetServerSideProps, NextPage } from 'next';
 
-import { supabase } from '@/lib/supabase';
+import { getProfile } from '@/hooks/useUser';
 
 import { Account } from '@/components/account/Account';
 
@@ -13,12 +15,15 @@ const UserProfile: NextPage<UserType> = () => {
   return <Account />;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req);
-  if (!user) {
-    return { props: {}, redirect: { permanent: false, destination: '/auth/login' } };
-  }
-  return { props: { user } };
-};
+export const getServerSideProps: GetServerSideProps = withPageAuth({
+  redirectTo: '/auth/login',
+  async getServerSideProps(ctx) {
+    const queryClient = new QueryClient();
+    const { user } = await getUser(ctx);
+
+    await queryClient.prefetchQuery(['profile'], () => getProfile(user.id));
+    return { props: { user, dehydratedState: dehydrate(queryClient) } };
+  },
+});
 
 export default UserProfile;

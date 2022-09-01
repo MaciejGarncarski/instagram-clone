@@ -7,19 +7,21 @@ import { useUser } from '@/hooks/useUser';
 
 import styles from './inputs.module.scss';
 
+import { Input } from '@/components/input/Input';
+
 import { charCountAtom } from '@/store/store';
 
-import { EditInput } from './editInput/EditInput';
-import { TextArea } from './editInput/TextArea';
 import { FormValues } from '../EditAccount';
+import { TextArea } from '../../input/TextArea';
 
-type InputsProps = {
-  errors: FieldErrors<FormValues>;
-  register: UseFormRegister<FormValues>;
-  reset: UseFormReset<FormValues>;
+type InputsProps<T> = {
+  errors: FieldErrors<T>;
+  register: UseFormRegister<T>;
+  reset: UseFormReset<T>;
+  fieldsValues: T;
 };
 
-export const Inputs = ({ errors, register, reset }: InputsProps) => {
+export const Inputs = ({ errors, register, reset, fieldsValues }: InputsProps<FormValues>) => {
   const { data } = useUser();
   const [, setCharCount] = useAtom(charCountAtom);
 
@@ -43,11 +45,18 @@ export const Inputs = ({ errors, register, reset }: InputsProps) => {
 
   return (
     <div className={styles.inputs}>
-      <EditInput type='text' label='username' error={errors.username} {...register('username')} />
-      <EditInput
+      <Input
+        type='text'
+        label='username'
+        isDirty={fieldsValues.username !== ''}
+        error={errors.username}
+        {...register('username')}
+      />
+      <Input
         type='text'
         label='website'
         optional
+        isDirty={fieldsValues.website !== ''}
         error={errors.website}
         {...register('website')}
       />
@@ -55,6 +64,7 @@ export const Inputs = ({ errors, register, reset }: InputsProps) => {
         label='bio'
         error={errors.bio}
         optional
+        isDirty={fieldsValues.bio !== ''}
         {...register('bio', { onChange: handleTextArea })}
       />
     </div>

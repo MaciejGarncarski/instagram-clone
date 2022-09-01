@@ -1,10 +1,10 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
   justify-content: center;
   align-items: center;
   width: 30ch;
+  gap: 4rem;
   margin-inline: auto;
 }
 
@@ -13,15 +13,6 @@
   font-weight: 900;
   letter-spacing: 2px;
   margin-bottom: 2.5rem;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
-  justify-content: center;
-  width: 100%;
-  align-items: center;
 }
 
 .button {

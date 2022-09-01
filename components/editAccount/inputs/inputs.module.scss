@@ -3,11 +3,7 @@
 .inputs {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
-  @include common.breakpoint('lg') {
-    gap: 4rem;
-  }
+  gap: 4rem;
 }
 
 .loader {

@@ -1,4 +1,3 @@
-import { profiles } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -6,18 +5,18 @@ import { useEffect } from 'react';
 
 import { supabase } from '@/lib/supabase';
 
+export const getProfile = async (id: string | undefined) => {
+  const response = await axios.post('/api/profiles/getProfile', {
+    id: id,
+  });
+  return response.data;
+};
+
 export const useUser = () => {
   const sessionUser = supabase.auth.user();
   const router = useRouter();
 
-  const getProfile: () => Promise<profiles> = async () => {
-    const response = await axios.post('/api/profiles/getProfile', {
-      id: sessionUser?.id,
-    });
-    return response.data;
-  };
-
-  const profile = useQuery(['profile'], getProfile);
+  const profile = useQuery(['profile'], () => getProfile(sessionUser?.id));
 
   useEffect(() => {
     if (profile.data?.username === null) {
