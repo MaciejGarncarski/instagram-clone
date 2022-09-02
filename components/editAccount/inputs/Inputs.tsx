@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
 
 import { isString } from '@/lib/isString';
-import { useUser } from '@/hooks/useUser';
+import { useProfile } from '@/hooks/useProfile';
 
 import styles from './inputs.module.scss';
 
@@ -22,7 +22,7 @@ type InputsProps<T> = {
 };
 
 export const Inputs = ({ errors, register, reset, fieldsValues }: InputsProps<FormValues>) => {
-  const { data } = useUser();
+  const { data } = useProfile();
   const [, setCharCount] = useAtom(charCountAtom);
 
   const handleTextArea = (changeEv: ChangeEvent<HTMLTextAreaElement>) => {

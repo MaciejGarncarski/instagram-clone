@@ -1,3 +1,4 @@
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import axios from 'axios';
 import { useAtom } from 'jotai';
 import { ChangeEvent } from 'react';
@@ -7,13 +8,12 @@ import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
 
 import { changeAvatarError } from '@/store/store';
 
-import { useUser } from './useUser';
-import { supabase } from '../lib/supabase';
+import { useProfile } from './useProfile';
 
 const VALID_IMG_TYPES = ['jpg', 'webp', 'jpeg', 'png'].map((type) => `image/${type}`);
 
 export const useAvatarInput = () => {
-  const { user } = useUser();
+  const { user } = useProfile();
   const [, setError] = useAtom(changeAvatarError);
 
   const { mutate } = useUpdateAvatar();
@@ -46,7 +46,7 @@ export const useAvatarInput = () => {
       }
     }
 
-    const { signedURL: avatarURL, error: avatarURLError } = await supabase.storage
+    const { signedURL: avatarURL, error: avatarURLError } = await supabaseClient.storage
       .from('avatars')
       .createSignedUrl(`${user?.id}.jpg`, 31536000);
 

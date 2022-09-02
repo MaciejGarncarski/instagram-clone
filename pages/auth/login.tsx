@@ -1,12 +1,10 @@
-import { getUser } from '@supabase/auth-helpers-nextjs';
+import { getUser, supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { ApiError } from '@supabase/supabase-js';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-
-import { supabase } from '@/lib/supabase';
 
 import { Form, FormValues } from '@/components/auth/form/Form';
 
@@ -15,7 +13,7 @@ const Login: NextPage = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
-    const { error } = await supabase.auth.signIn({
+    const { error } = await supabaseClient.auth.signIn({
       email: email,
       password: password,
     });
@@ -24,7 +22,10 @@ const Login: NextPage = () => {
       setError(error);
       return;
     }
-    router.push('/account');
+
+    setTimeout(() => {
+      router.push('/account');
+    }, 1000);
   };
 
   return (

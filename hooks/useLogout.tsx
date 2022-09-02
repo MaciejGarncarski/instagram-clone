@@ -1,19 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { useUser } from './useUser';
-
-export const useUpdateAvatar = () => {
+export const useLogout = () => {
   const queryClient = useQueryClient();
-  const { user } = useUser();
 
   return useMutation(
     () => {
-      return axios.patch('/api/logout');
+      return axios('/api/auth/logout');
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(['profile']);
+        queryClient.setQueryData(['profile'], null);
       },
     }
   );

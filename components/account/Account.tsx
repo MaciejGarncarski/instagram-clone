@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import { useEffect } from 'react';
 
-import { useUser } from '@/hooks/useUser';
+import { useProfile } from '@/hooks/useProfile';
 
 import styles from './account.module.scss';
 
@@ -11,7 +13,15 @@ import { UserAvatar } from './userAvatar/UserAvatar';
 import { Loader } from '../loader/Loader';
 
 export const Account = () => {
-  const { data, error, isLoading } = useUser();
+  const { data, error, isLoading } = useProfile();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data?.username === null) {
+      router.push('/account/edit');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.username]);
 
   if (error) {
     return (

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
-import { useUser } from '@/hooks/useUser';
+import { useProfile } from '@/hooks/useProfile';
 
 import styles from './avatarSection.module.scss';
 
@@ -15,7 +15,7 @@ export const AvatarSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const avatarRef = useRef<HTMLInputElement>(null);
 
-  const { data, isLoading } = useUser();
+  const { data, isLoading } = useProfile();
 
   const openModal = () => setModalOpen(true);
 
@@ -59,9 +59,7 @@ export const AvatarSection = () => {
           )}
         </div>
       </motion.section>
-      <AnimatePresence>
-        {modalOpen && <AvatarModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
-      </AnimatePresence>
+      <AnimatePresence>{modalOpen && <AvatarModal setModalOpen={setModalOpen} />}</AnimatePresence>
     </div>
   );
 };

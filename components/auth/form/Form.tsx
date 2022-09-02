@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import styles from './form.module.scss';
 
-import { AnotherAuthOption } from './anotherAuthOption/AnotherAuthOption';
+import { AuthRedirect } from './authRedirect/AuthRedirect';
 import { Error } from '../../input/error/Error';
 import { Input } from '../../input/Input';
 
@@ -59,7 +59,7 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
       <motion.button className={styles.button} type='submit' disabled={!isDirty || !isValid}>
         continue
       </motion.button>
-      <AnotherAuthOption type={heading} />
+      <AuthRedirect type={heading} />
     </form>
   );
 };

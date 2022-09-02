@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import styles from './anotherAuthOption.module.scss';
+import styles from './authRedirect.module.scss';
 
-type AnotherAuthOptionProps = {
+type AuthRedirectProps = {
   type: 'login' | 'register';
 };
 
@@ -11,7 +11,7 @@ type Text = {
   link: string;
 };
 
-export const AnotherAuthOption = ({ type }: AnotherAuthOptionProps) => {
+export const AuthRedirect = ({ type }: AuthRedirectProps) => {
   const loginText: Text = {
     text: 'Not an delayedgram user?',
     link: 'Register here',
@@ -29,7 +29,7 @@ export const AnotherAuthOption = ({ type }: AnotherAuthOptionProps) => {
 
   return (
     <div className={styles.container}>
-      <h3>{information}</h3>
+      <p>{information}</p>
       <Link href={`/auth/${href}`}>
         <a className={styles.link}>{linkText}</a>
       </Link>

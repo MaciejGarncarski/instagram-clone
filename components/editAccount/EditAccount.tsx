@@ -5,8 +5,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { isString } from '@/lib/isString';
+import { useProfile } from '@/hooks/useProfile';
 import { useUpdateProfile } from '@/hooks/useUpdateProfile';
-import { useUser } from '@/hooks/useUser';
 import { bio, username, website } from '@/utils/editAccountValidation';
 
 import styles from './editAccount.module.scss';
@@ -26,7 +26,7 @@ export type FormValues = z.infer<typeof formSchema>;
 
 export const EditAccount = () => {
   const [mutationError, setMutationError] = useState<string | undefined>(undefined);
-  const { data } = useUser();
+  const { data } = useProfile();
 
   const userName = isString(data?.username);
   const userWebsite = isString(data?.website);

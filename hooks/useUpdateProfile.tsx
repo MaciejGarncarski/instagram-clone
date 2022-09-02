@@ -21,7 +21,7 @@ export const useUpdateProfile = () => {
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(['profile']);
+        queryClient.invalidateQueries(['profile']);
       },
     }
   );

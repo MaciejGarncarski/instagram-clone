@@ -1,8 +1,8 @@
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useState } from 'react';
 
-import { supabase } from '@/lib/supabase';
 import { useDeleteAvatar } from '@/hooks/useDeleteAvatar';
-import { useUser } from '@/hooks/useUser';
+import { useProfile } from '@/hooks/useProfile';
 
 import styles from './avatarSection.module.scss';
 
@@ -10,12 +10,11 @@ import { Loader } from '@/components/loader/Loader';
 import { Modal } from '@/components/modal/Modal';
 
 type AvatarModalProps = {
-  modalOpen: boolean;
   setModalOpen: (open: boolean) => void;
 };
 
-export const AvatarModal = ({ modalOpen, setModalOpen }: AvatarModalProps) => {
-  const { data } = useUser();
+export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
+  const { data } = useProfile();
   const { mutate } = useDeleteAvatar();
   const [removingAvatar, setRemovingAvatar] = useState<boolean>(false);
 
@@ -24,7 +23,7 @@ export const AvatarModal = ({ modalOpen, setModalOpen }: AvatarModalProps) => {
       return;
     }
 
-    const { error } = await supabase.storage.from('avatars').remove([data?.avatar_url]);
+    const { error } = await supabaseClient.storage.from('avatars').remove([data?.avatar_url]);
 
     if (error) {
       return;

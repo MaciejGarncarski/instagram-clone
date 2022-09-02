@@ -22,23 +22,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
   ({ label, error, optional, isDirty, ...props }, ref) => {
     const [charCount] = useAtom(charCountAtom);
 
-    const progress = Math.round((100 * charCount) / BIO_MAX_LENGTH);
-
-    const progressClass = clsx(styles['progress-container'], {
-      [styles['progress-container--warning']]: charCount >= BIO_MAX_LENGTH * 0.46,
-      [styles['progress-container--error']]: charCount >= BIO_MAX_LENGTH * 0.8,
-    });
-
     return (
       <div className={styles['input-container']}>
         <div className={styles['text-area-container']}>
-          <div
-            className={progressClass}
-            style={{
-              backgroundImage: `conic-gradient(var(--progress-color) ${progress}%, var(--bg-color) ${progress}%)`,
-            }}
-          >
-            <div className={styles.progress}>{charCount}</div>
+          <div className={styles.progress}>
+            {charCount} / {BIO_MAX_LENGTH}
           </div>
           <textarea
             ref={ref}
@@ -47,8 +35,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, EditInputProps>(
             id={label}
             {...props}
           />
-          <label className={clsx(styles.label, isDirty && styles['label--dirty'])}>
-            {label}
+          <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>
+            <span className={styles['label-text']}>{label}</span>
             {optional && <span className={styles.optional}>(optional)</span>}
           </label>
           {error?.message && <Error message={error.message} />}

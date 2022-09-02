@@ -1,7 +1,6 @@
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-
-import { supabase } from '@/lib/supabase';
 
 import { Loader } from '@/components/loader/Loader';
 
@@ -10,7 +9,7 @@ const Logout = () => {
 
   useEffect(() => {
     const logout = async () => {
-      await supabase.auth.signOut();
+      await supabaseClient.auth.signOut();
       router.push('/');
     };
     logout();

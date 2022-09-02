@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { useUser } from './useUser';
+import { useProfile } from './useProfile';
 
 type Mutation = {
   avatarURL: string;
@@ -9,7 +9,7 @@ type Mutation = {
 
 export const useUpdateAvatar = () => {
   const queryClient = useQueryClient();
-  const { user } = useUser();
+  const { user } = useProfile();
 
   return useMutation(
     ({ avatarURL }: Mutation) => {
@@ -17,7 +17,7 @@ export const useUpdateAvatar = () => {
     },
     {
       onSuccess: () => {
-        return queryClient.invalidateQueries(['profile']);
+        queryClient.invalidateQueries(['profile']);
       },
     }
   );

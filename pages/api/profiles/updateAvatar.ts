@@ -1,22 +1,14 @@
 import { PrismaClient } from '@prisma/client';
+import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-import { supabase } from '@/lib/supabase';
 
 export const ACCEPTED_IMG_TYPES = ['image/jpeg', 'image/jpg', 'image/webp', 'image/png'];
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient();
-
-  const { user } = await supabase.auth.api.getUserByCookie(req);
 
   if (req.method !== 'PATCH') {
     res.status(405).send('Only PATCH requests allowed');
-    return;
-  }
-
-  if (!user) {
-    res.status(401).send('Unauthorized');
     return;
   }
 
@@ -34,6 +26,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (e) {
     res.status(400).send(`Wrong api call ${e}`);
   }
-};
+});
 
 export default handler;

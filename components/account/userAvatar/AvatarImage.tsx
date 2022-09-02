@@ -1,6 +1,6 @@
 import Image from 'next/future/image';
 
-import { useUser } from '@/hooks/useUser';
+import { useProfile } from '@/hooks/useProfile';
 
 import styles from './userAvatar.module.scss';
 
@@ -9,7 +9,7 @@ import { Loader } from '@/components/loader/Loader';
 import defaultIMG from '@/images/account.svg';
 
 export const AvatarImage = () => {
-  const { data: profileData, isFetching, isError } = useUser();
+  const { data: profileData, isFetching, isError } = useProfile();
 
   const sizes = {
     width: 130,

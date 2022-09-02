@@ -2,14 +2,14 @@ import clsx from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
 
-import { useUser } from '@/hooks/useUser';
+import { useProfile } from '@/hooks/useProfile';
 
 import styles from './nav.module.scss';
 
 import defaultImg from '@/images/account.svg';
 
 export const AccountLink = () => {
-  const { data } = useUser();
+  const { data } = useProfile();
 
   if (data?.avatar_url) {
     return (

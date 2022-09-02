@@ -32,7 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>
-            {label}
+            <span className={styles['label-text']}>{label}</span>
             {optional && <span className={styles.optional}>(optional)</span>}
           </label>
         </div>
