@@ -7,8 +7,6 @@ import { useAvatarInput } from '@/hooks/useAvatarInput';
 
 import styles from './userAvatar.module.scss';
 
-import { Popup } from '@/components/popup/Popup';
-
 import { changeAvatarError } from '@/store/store';
 
 import edit from '@/images/edit.svg';
@@ -23,8 +21,7 @@ type UserAvatarProps = {
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
   ({ className, editable }, ref) => {
     const [error, setError] = useAtom(changeAvatarError);
-    const handleChange = useAvatarInput();
-    const handlePopupClose = () => setError(null);
+    const { handleChange, isUpdating } = useAvatarInput();
 
     if (editable) {
       return (
@@ -44,7 +41,6 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             </div>
             <AvatarImage />
           </label>
-          {error && <Popup isError text={error} handleClose={handlePopupClose} />}
         </div>
       );
     }

@@ -1,7 +1,7 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import axios from 'axios';
 import { useAtom } from 'jotai';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { updateAvatar, uploadAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
@@ -15,7 +15,7 @@ const VALID_IMG_TYPES = ['jpg', 'webp', 'jpeg', 'png'].map((type) => `image/${ty
 export const useAvatarInput = () => {
   const { user } = useProfile();
   const [, setError] = useAtom(changeAvatarError);
-
+  const [isUpdating, setIsUpdating] = useState(false);
   const { mutate } = useUpdateAvatar();
 
   const handleChange = async (changeEv: ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +60,7 @@ export const useAvatarInput = () => {
       return null;
     }
 
+    setIsUpdating(true);
     mutate(
       { avatarURL: avatarURL },
       {
@@ -70,9 +71,10 @@ export const useAvatarInput = () => {
             }
           }
         },
+        onSettled: () => setIsUpdating(false),
       }
     );
   };
 
-  return handleChange;
+  return { handleChange, isUpdating };
 };

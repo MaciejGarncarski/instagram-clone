@@ -4,11 +4,11 @@
   display: flex;
   gap: 2rem;
   justify-self: center;
-  justify-content: space-between;
-  flex-direction: column;
+  justify-content: space-evenly;
+  flex-direction: row;
 
   @include common.breakpoint('lg') {
-    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
@@ -20,7 +20,7 @@
 
 .cancel,
 .submit {
-  padding: 0.75rem 3rem;
+  padding: 0.75rem 1.5rem;
   transition: opacity var(--transition-fast);
   box-shadow: var(--box-shadow);
   font-weight: 700;

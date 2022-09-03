@@ -9,8 +9,12 @@
   gap: 3rem;
   margin-bottom: 5rem;
 
+  @include common.breakpoint('sm') {
+    padding: 0 5rem;
+  }
+
   @include common.breakpoint('lg') {
-    padding: 0 25rem;
+    padding: 0 min(25rem, 20%);
   }
 }
 

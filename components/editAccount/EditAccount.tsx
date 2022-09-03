@@ -14,7 +14,7 @@ import styles from './editAccount.module.scss';
 import { AvatarSection } from './avatarSection/AvatarSection';
 import { Buttons } from './buttons/Buttons';
 import { Inputs } from './inputs/Inputs';
-import { Loader } from '../loader/Loader';
+import { Popup } from '../popup/Popup';
 
 const formSchema = z.object({
   username,
@@ -70,18 +70,6 @@ export const EditAccount = () => {
     );
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <NextSeo title='Updating profile' />
-        <div>
-          <p>Updating your profile</p>
-          <Loader />
-        </div>
-      </>
-    );
-  }
-
   return (
     <>
       <NextSeo title='Edit profile' />
@@ -90,6 +78,7 @@ export const EditAccount = () => {
         <AvatarSection />
         {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
         <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />
+        {isLoading && <Popup>Updating profile</Popup>}
 
         {mutationError && <p className={styles.error}>{mutationError}</p>}
         <Buttons disabled={!isDirty || !isValid} reset={reset} />

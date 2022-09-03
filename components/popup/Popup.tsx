@@ -1,27 +1,57 @@
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ReactNode, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './popup.module.scss';
 
 type PopupProps = {
-  text: string;
+  children: ReactNode;
   isError?: boolean;
-  handleClose: () => void;
+  timeout?: number;
 };
 
-export const Popup = ({ text, isError, handleClose }: PopupProps) => {
+export const Popup = ({ children, isError, timeout }: PopupProps) => {
   const parent = document.querySelector('#popup') as HTMLDivElement;
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    if (!timeout) {
+      return;
+    }
+
+    setTimeout(() => {
+      setIsVisible(false);
+    }, timeout * 1000);
+  }, [timeout]);
 
   return createPortal(
-    <motion.div className={styles.gradient} animate={{ y: -100 }}>
-      <div className={styles.popup}>
-        <button type='button' className={styles['close-btn']} onClick={handleClose}>
-          close
-        </button>
-        <p className={clsx(isError && styles.error, styles.text)}>{text}</p>
-      </div>
-    </motion.div>,
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          className={clsx(isError && styles.error, styles.popup)}
+          animate={{ y: -50, opacity: 1 }}
+          initial={{ y: 0, opacity: 0 }}
+          exit={{
+            scale: 0.6,
+            opacity: 0,
+            transition: {
+              type: 'tween',
+              duration: 0.2,
+            },
+          }}
+        >
+          {children}
+          {timeout && (
+            <motion.div
+              animate={{ scaleX: 0, transition: { duration: timeout, type: 'linear' } }}
+              initial={{ scaleY: 1 }}
+              className={clsx(isError && styles['progress--error'], styles.progress)}
+            ></motion.div>
+          )}
+        </motion.div>
+      )}
+    </AnimatePresence>,
     parent
   );
 };

@@ -1,26 +1,34 @@
 .popup {
-  display: flex;
-  font-size: 1.5em;
-  background-color: red;
-  background-color: var(--bg-color);
-  padding: 0.5em 1em;
-  position: relative;
-}
-
-.gradient {
   padding: 6px;
   border-radius: 0.2em;
-  background-image: var(--gradient);
-  width: min(120rem, 80%);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  background-color: rgb(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  width: min(40rem, 36%);
+  position: fixed;
+  padding: 2.5rem 5rem;
+  font-weight: 900;
+  box-shadow: var(--primary-color) 0 0 1px 3px;
+
+  text-align: center;
+  top: 20rem;
+  right: 5rem;
   margin: 0 auto;
 }
 
-.close-btn {
+.error {
+  box-shadow: var(--error-color) 0 0 1px 3px;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  background-color: var(--primary-color);
   position: absolute;
-  right: 0;
-  top: 0;
+  bottom: -3px;
+  left: 0;
+  transform-origin: left;
+
+  &--error {
+    background-color: var(--error-color);
+  }
 }
