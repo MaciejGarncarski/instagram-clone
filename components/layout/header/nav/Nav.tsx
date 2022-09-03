@@ -30,7 +30,7 @@ export const Nav = () => {
               <Link href={to} passHref>
                 <a className={styles.link}>
                   <Image className={styles.img} src={icon} alt={name} />
-                  <span className='visually-hidden'>{name}</span>
+                  <span className='sr-only'>{name}</span>
                 </a>
               </Link>
             </li>

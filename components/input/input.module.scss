@@ -10,48 +10,69 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-size: 2.5rem;
   position: relative;
 }
 
 @mixin label-active {
-  font-size: 0.75em;
-  top: 1.5rem;
-  background-color: var(--bg-color);
-  color: var(--primary-color);
+  top: 0.15em;
+  font-size: 0.85em;
+  color: hsl(165, 50%, 30%);
 }
 
 .input {
   background: var(--bg-color);
   width: 100%;
-  padding: 3.5rem 1.5rem 0.75rem 1.5rem;
-  border: 3px solid var(--primary-color);
-  border-radius: 0.6rem;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 0.25em;
+  border-color: rgb(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-color, var(--primary-color)) 0 0 0 1px;
+  padding: 1.1em 0.35em 0.15em 0.35em;
+  line-height: 1.5;
+  outline: none;
 
-  &--error {
-    border-color: var(--error-color);
-  }
+  --shadow-color: transparent;
 
   &:focus + .label {
     @include label-active;
+  }
+
+  &:focus,
+  &--dirty {
+    border-color: var(--primary-color);
+  }
+
+  &:focus {
+    --shadow-color: var(--primary-color);
+  }
+
+  &--error {
+    border-color: var(--error-color);
+
+    & + .label {
+      color: var(--error-color);
+    }
+
+    &:focus {
+      --shadow-color: var(--error-color);
+      border-color: var(--error-color);
+
+      & + .label {
+        color: var(--error-color);
+      }
+    }
   }
 }
 
 .label {
   display: flex;
   gap: 0.5rem;
+  left: 0.6em;
   font-weight: 500;
+  top: 0.65em;
   position: absolute;
-  left: 0.5rem;
-  line-height: 1;
-  padding: 0 1.5rem;
-  background-color: transparent;
-  top: 3.25rem;
-  transition: var(--transition-fast);
-  transition-property: top, transform, font-size, background-color;
-  color: hsl(165, 50%, 20%);
-
-  cursor: text;
+  transition: all var(--transition-fast);
+  color: rgb(0, 0, 0, 0.6);
 
   &--dirty {
     @include label-active;

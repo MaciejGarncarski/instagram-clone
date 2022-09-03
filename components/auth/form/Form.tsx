@@ -11,8 +11,11 @@ import { Error } from '../../input/error/Error';
 import { Input } from '../../input/Input';
 
 const formSchema = z.object({
-  email: z.string().email().min(5),
-  password: z.string().min(6, { message: 'Password must contain at least 6 characters' }).max(10),
+  email: z.string().email(),
+  password: z
+    .string()
+    .min(6, { message: 'Password must contain at least 6 characters' })
+    .max(10, { message: 'Password is too long!' }),
 });
 
 export type FormValues = z.infer<typeof formSchema>;
