@@ -1,13 +1,19 @@
 import { PrismaClient } from '@prisma/client';
+import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Body = {
   id: string;
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient();
   const body: Body = req.body;
+
+  if (!body.id) {
+    res.status(400).send('No user id provided.');
+    return;
+  }
 
   try {
     const prismaData = await prisma.profiles.findUnique({
@@ -20,4 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (e) {
     res.status(400).send(`Wrong api call`);
   }
-}
+});
+
+export default handler;

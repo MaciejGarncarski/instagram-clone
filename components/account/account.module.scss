@@ -2,7 +2,7 @@
 @use '/styles/mixins.scss';
 
 .account {
-  width: min(85rem, 80%);
+  width: 80%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -50,6 +50,11 @@
 .username {
   font-size: 2em;
   font-weight: 400;
+  text-align: center;
+
+  @include common.breakpoint('lg') {
+    text-align: left;
+  }
 }
 
 .edit {

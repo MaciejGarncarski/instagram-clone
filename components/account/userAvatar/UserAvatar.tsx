@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useAtom } from 'jotai';
 import Image from 'next/future/image';
 import { forwardRef } from 'react';
 
@@ -7,7 +6,7 @@ import { useAvatarInput } from '@/hooks/useAvatarInput';
 
 import styles from './userAvatar.module.scss';
 
-import { changeAvatarError } from '@/store/store';
+import { Popup } from '@/components/popup/Popup';
 
 import edit from '@/images/edit.svg';
 
@@ -20,8 +19,7 @@ type UserAvatarProps = {
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
   ({ className, editable }, ref) => {
-    const [error, setError] = useAtom(changeAvatarError);
-    const { handleChange, isUpdating } = useAvatarInput();
+    const { handleChange, isUpdated, error } = useAvatarInput();
 
     if (editable) {
       return (
@@ -41,6 +39,12 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             </div>
             <AvatarImage />
           </label>
+          {isUpdated && <Popup timeout={6}>Success update picture</Popup>}
+          {error && (
+            <Popup isError timeout={6}>
+              {error}
+            </Popup>
+          )}
         </div>
       );
     }

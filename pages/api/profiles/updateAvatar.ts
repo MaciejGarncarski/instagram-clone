@@ -2,8 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export const ACCEPTED_IMG_TYPES = ['image/jpeg', 'image/jpg', 'image/webp', 'image/png'];
-
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient();
 

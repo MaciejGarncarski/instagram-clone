@@ -34,16 +34,14 @@ export const Buttons = ({ disabled, reset }: ButtonsProps) => {
 
   return (
     <div className={styles.buttons}>
-      <div className={styles.gradient}>
-        <motion.button
-          whileTap={whileTap}
-          type='button'
-          onClick={handleReset}
-          className={styles.cancel}
-        >
-          reset
-        </motion.button>
-      </div>
+      <motion.button
+        whileTap={whileTap}
+        type='button'
+        onClick={handleReset}
+        className={styles.cancel}
+      >
+        reset
+      </motion.button>
       <motion.button
         whileFocus={disabled ? {} : whileActive}
         whileHover={disabled ? {} : whileActive}

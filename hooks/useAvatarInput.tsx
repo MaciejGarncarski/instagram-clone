@@ -1,28 +1,28 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import axios from 'axios';
-import { useAtom } from 'jotai';
 import { ChangeEvent, useState } from 'react';
 
 import { updateAvatar, uploadAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
 
-import { changeAvatarError } from '@/store/store';
-
 import { useProfile } from './useProfile';
 
-const VALID_IMG_TYPES = ['jpg', 'webp', 'jpeg', 'png'].map((type) => `image/${type}`);
+export const VALID_IMG_TYPES = ['jpg', 'jpeg', 'png'].map((type) => `image/${type}`);
 
 export const useAvatarInput = () => {
-  const { user } = useProfile();
-  const [, setError] = useAtom(changeAvatarError);
-  const [isUpdating, setIsUpdating] = useState(false);
   const { mutate } = useUpdateAvatar();
+  const { user } = useProfile();
+
+  const [error, setError] = useState<string | null>(null);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const handleChange = async (changeEv: ChangeEvent<HTMLInputElement>) => {
     if (!changeEv.target.files || !changeEv.target.files[0]) {
       return null;
     }
 
+    setError(null);
+    setIsUpdated(false);
     const selectedFile = changeEv.target.files[0];
     const isIMGTypeValid = VALID_IMG_TYPES.includes(selectedFile.type);
 
@@ -32,7 +32,7 @@ export const useAvatarInput = () => {
 
     if (!isIMGTypeValid) {
       setError('Invalid image type!');
-      return null;
+      return;
     }
 
     const { error: updateError } = await updateAvatar(selectedFile, user?.id);
@@ -42,7 +42,7 @@ export const useAvatarInput = () => {
 
       if (uploadError) {
         setError('Error occurred when uploading avatar');
-        return null;
+        return;
       }
     }
 
@@ -52,15 +52,14 @@ export const useAvatarInput = () => {
 
     if (avatarURLError) {
       setError('Error occurred when uploading avatar');
-      return null;
+      return;
     }
 
     if (!avatarURL) {
       setError('Error while downloading avatar');
-      return null;
+      return;
     }
 
-    setIsUpdating(true);
     mutate(
       { avatarURL: avatarURL },
       {
@@ -71,10 +70,10 @@ export const useAvatarInput = () => {
             }
           }
         },
-        onSettled: () => setIsUpdating(false),
+        onSuccess: () => setIsUpdated(true),
       }
     );
   };
 
-  return { handleChange, isUpdating };
+  return { handleChange, isUpdated, error };
 };

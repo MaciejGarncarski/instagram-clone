@@ -12,6 +12,7 @@
 
   @include common.breakpoint('lg') {
     width: auto;
+    padding-bottom: 0;
     margin: unset;
     position: static;
   }

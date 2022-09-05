@@ -22,7 +22,7 @@
 .input {
   background: var(--bg-color);
   width: 100%;
-  border-width: 3px;
+  border-width: 2px;
   border-style: solid;
   border-radius: 0.25em;
   border-color: rgb(0, 0, 0, 0.4);
@@ -90,7 +90,7 @@
 }
 
 .text-area-container {
-  padding-top: 4rem;
+  padding-top: 1.5em;
   border-radius: 0.6rem;
   border: 3px solid var(--primary-color);
 }
@@ -101,7 +101,7 @@
   resize: vertical;
   min-height: 15rem;
   max-height: 30rem;
-  padding: 0 1.5rem;
+  padding: 0 0.35em;
   font-size: inherit;
   font-family: inherit;
   border: none;

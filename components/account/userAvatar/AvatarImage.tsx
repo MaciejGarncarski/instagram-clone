@@ -9,14 +9,14 @@ import { Loader } from '@/components/loader/Loader';
 import defaultIMG from '@/images/account.svg';
 
 export const AvatarImage = () => {
-  const { data: profileData, isFetching, isError } = useProfile();
+  const { data: profileData, isLoading, isError } = useProfile();
 
   const sizes = {
     width: 130,
     height: 130,
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <Loader variant='white' />;
   }
 

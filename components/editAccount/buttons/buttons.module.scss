@@ -12,18 +12,14 @@
   }
 }
 
-.gradient {
-  padding: 4px;
-  background-image: var(--gradient);
-  border-radius: 0.25em;
-}
-
 .cancel,
 .submit {
   padding: 0.75rem 1.5rem;
   transition: opacity var(--transition-fast);
   box-shadow: var(--box-shadow);
   font-weight: 700;
+  border-radius: 0.25em;
+  flex-grow: 0;
 
   &::first-letter {
     text-transform: uppercase;
@@ -35,16 +31,13 @@
 }
 
 .cancel {
-  border: none;
   background-color: transparent;
-  background-color: #fff;
-  width: 100%;
+  border: 4px solid var(--primary-color);
 }
 
 .submit {
   background-image: var(--gradient);
   color: var(--bg-color);
-  border-radius: 0.25em;
 
   &:disabled {
     opacity: 0.5;

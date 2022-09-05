@@ -1,5 +1,9 @@
 @use '/styles/common.scss';
 
+.avatar {
+  justify-self: center;
+}
+
 .avatar-container {
   display: flex;
   justify-content: center;
