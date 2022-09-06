@@ -14,7 +14,7 @@ import { charCountAtom } from '@/store/store';
 import { FormValues } from '../EditAccount';
 import { TextArea } from '../../input/TextArea';
 
-type InputsProps<T> = {
+type InputsProps<T extends FormValues> = {
   errors: FieldErrors<T>;
   register: UseFormRegister<T>;
   reset: UseFormReset<T>;

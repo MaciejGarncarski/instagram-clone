@@ -20,8 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const queryOptions: QueryClientConfig = {
     defaultOptions: {
       queries: {
-        retry: 2,
-        refetchOnWindowFocus: false,
+        retry: 1,
       },
     },
   };

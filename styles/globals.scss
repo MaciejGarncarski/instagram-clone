@@ -63,3 +63,24 @@ button {
   white-space: nowrap;
   border: 0;
 }
+
+.popup {
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 5rem;
+  margin: 0 auto;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: min(30rem, 60%);
+
+  @include common.breakpoint('lg') {
+    top: 20rem;
+    right: 5rem;
+    left: unset;
+  }
+}

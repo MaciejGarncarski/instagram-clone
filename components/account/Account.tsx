@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useEffect } from 'react';
 
 import { useProfile } from '@/hooks/useProfile';
 
@@ -14,14 +12,6 @@ import { Loader } from '../loader/Loader';
 
 export const Account = () => {
   const { data, error, isLoading } = useProfile();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (data?.username === null) {
-      router.push('/account/edit');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.username]);
 
   if (error) {
     return (
@@ -34,7 +24,7 @@ export const Account = () => {
     );
   }
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return (
       <>
         <NextSeo title='Loading profile' />
@@ -43,10 +33,6 @@ export const Account = () => {
         </main>
       </>
     );
-  }
-
-  if (!data) {
-    return null;
   }
 
   return (

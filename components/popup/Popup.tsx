@@ -12,8 +12,8 @@ type PopupProps = {
 };
 
 export const Popup = ({ children, isError, timeout }: PopupProps) => {
-  const parent = document.querySelector('#popup') as HTMLDivElement;
   const [isVisible, setIsVisible] = useState(true);
+  const parent = document.querySelector('.popup') as HTMLDivElement;
 
   useEffect(() => {
     if (!timeout) {
@@ -30,8 +30,8 @@ export const Popup = ({ children, isError, timeout }: PopupProps) => {
       {isVisible && (
         <motion.div
           className={clsx(isError && styles.error, styles.popup)}
-          animate={{ y: -50, opacity: 1 }}
-          initial={{ y: 0, opacity: 0 }}
+          animate={{ translateY: 0, opacity: 1 }}
+          initial={{ translateY: 50, opacity: 0 }}
           exit={{
             scale: 0.6,
             opacity: 0,

@@ -23,9 +23,7 @@ const Login: NextPage = () => {
       return;
     }
 
-    setTimeout(() => {
-      router.push('/account');
-    }, 1000);
+    router.push('/account');
   };
 
   return (

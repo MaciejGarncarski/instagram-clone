@@ -79,7 +79,6 @@ export const EditAccount = () => {
         {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
         <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />
         {isLoading && <Popup>Updating profile</Popup>}
-
         {mutationError && <p className={styles.error}>{mutationError}</p>}
         <Buttons disabled={!isDirty || !isValid} reset={reset} />
       </form>

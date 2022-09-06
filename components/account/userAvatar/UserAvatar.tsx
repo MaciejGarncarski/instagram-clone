@@ -39,7 +39,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             </div>
             <AvatarImage />
           </label>
-          {isUpdated && <Popup timeout={6}>Success update picture</Popup>}
+          {isUpdated && <Popup timeout={6}>Updated profile picture 😎</Popup>}
           {error && (
             <Popup isError timeout={6}>
               {error}

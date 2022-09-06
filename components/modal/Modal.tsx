@@ -31,8 +31,7 @@ const btnProps = {
 
 export const Modal = ({ children, onAccept, onCancel, acceptText, cancelText }: ModalProps) => {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
-
-  const parent = document.querySelector('#modal') as HTMLDivElement;
+  const parent = document.querySelector('.modal') as HTMLDivElement;
 
   useEffect(() => {
     if (!closeBtnRef.current) {
