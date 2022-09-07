@@ -76,6 +76,7 @@
 
 .margin {
   min-height: 25rem;
+  grid-column: 1 / 3;
 
   @include common.breakpoint('sm') {
     padding: 0 1em;

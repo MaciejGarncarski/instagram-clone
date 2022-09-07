@@ -30,9 +30,9 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isDirty, isValid },
+    formState: { errors, dirtyFields },
   } = useForm<FormValues>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
@@ -59,7 +59,7 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
         {...register('password')}
       />
       {authError && <Error message={authError.message} />}
-      <motion.button className={styles.button} type='submit' disabled={!isDirty || !isValid}>
+      <motion.button className={styles.button} type='submit'>
         continue
       </motion.button>
       <AuthRedirect type={heading} />

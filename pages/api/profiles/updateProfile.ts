@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { supabaseClient, withApiAuth } from '@supabase/auth-helpers-nextjs';
+import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Body = {
@@ -11,15 +11,9 @@ type Body = {
 
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient();
-  const { user } = await supabaseClient.auth.api.getUserByCookie(req);
 
   if (req.method !== 'POST') {
     res.status(405).send('Only POST requests allowed');
-    return;
-  }
-
-  if (!user) {
-    res.status(401).send('Unauthorized');
     return;
   }
 
