@@ -1,14 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ApiError } from '@supabase/supabase-js';
-import { motion } from 'framer-motion';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import styles from './form.module.scss';
 
+import { Button } from '@/components/common/Button';
+
 import { AuthRedirect } from './authRedirect/AuthRedirect';
-import { Error } from '../../input/error/Error';
-import { Input } from '../../input/Input';
+import { Error } from '../../common/input/error/Error';
+import { Input } from '../../common/input/Input';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -59,9 +60,9 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
         {...register('password')}
       />
       {authError && <Error message={authError.message} />}
-      <motion.button className={styles.button} type='submit'>
+      <Button className={styles.button} type='submit'>
         continue
-      </motion.button>
+      </Button>
       <AuthRedirect type={heading} />
     </form>
   );

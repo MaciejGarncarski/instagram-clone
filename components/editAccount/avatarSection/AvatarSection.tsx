@@ -7,6 +7,7 @@ import { useProfile } from '@/hooks/useProfile';
 import styles from './avatarSection.module.scss';
 
 import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
+import { Button } from '@/components/common/Button';
 import { Loader } from '@/components/loader/Loader';
 
 import { AvatarModal } from './AvatarModal';
@@ -41,21 +42,21 @@ export const AvatarSection = () => {
         <h2>{data?.username ?? 'No username'}</h2>
 
         <div className={styles.buttons}>
-          <button
+          <Button
             type='button'
             className={styles['avatar-button']}
             onClick={handleChangeProfilePhoto}
           >
-            Change photo
-          </button>
+            {data?.avatar_url ? 'Change' : 'Add'} photo
+          </Button>
           {data?.avatar_url && (
-            <button
+            <Button
               type='button'
               className={clsx(styles['avatar-button'], styles['avatar-button--red'])}
               onClick={openModal}
             >
               Remove photo
-            </button>
+            </Button>
           )}
         </div>
       </motion.section>

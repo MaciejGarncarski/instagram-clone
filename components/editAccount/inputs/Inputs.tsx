@@ -7,12 +7,12 @@ import { useProfile } from '@/hooks/useProfile';
 
 import styles from './inputs.module.scss';
 
-import { Input } from '@/components/input/Input';
+import { Input } from '@/components/common/input/Input';
 
 import { charCountAtom } from '@/store/store';
 
 import { FormValues } from '../EditAccount';
-import { TextArea } from '../../input/TextArea';
+import { TextArea } from '../../common/input/TextArea';
 
 type InputsProps<T extends FormValues> = {
   errors: FieldErrors<T>;

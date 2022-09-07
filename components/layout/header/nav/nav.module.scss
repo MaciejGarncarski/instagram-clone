@@ -27,7 +27,7 @@
   box-shadow: var(--box-shadow);
   border: 2px solid var(--primary-color);
   background-color: rgb(var(--primary-color-rgb), 0.7);
-  border-radius: 0.45em;
+  border-radius: var(--radius-medium);
   backdrop-filter: blur(6px);
 
   @include common.breakpoint('lg') {

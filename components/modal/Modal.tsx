@@ -1,9 +1,11 @@
 import clsx from 'clsx';
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ReactNode, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './modal.module.scss';
+
+import { Button } from '../common/Button';
 
 type ModalProps = {
   children: ReactNode;
@@ -11,22 +13,6 @@ type ModalProps = {
   cancelText: string;
   onAccept: () => void;
   onCancel: () => void;
-};
-
-const buttonAnimation: Variants = {
-  onHover: {
-    scale: 1.1,
-  },
-  onTap: {
-    scale: 0.9,
-  },
-};
-
-const btnProps = {
-  variants: buttonAnimation,
-  whileHover: 'onHover',
-  whileFocus: 'onHover',
-  whileTap: 'onTap',
 };
 
 export const Modal = ({ children, onAccept, onCancel, acceptText, cancelText }: ModalProps) => {
@@ -59,23 +45,19 @@ export const Modal = ({ children, onAccept, onCancel, acceptText, cancelText }: 
         transition={{ type: 'spring' }}
       >
         {children}
-        <motion.button
-          ref={closeBtnRef}
-          {...btnProps}
-          className={clsx(styles.button, styles.cancel)}
-          type='button'
-          onClick={onCancel}
-        >
-          {cancelText}
-        </motion.button>
-        <motion.button
-          {...btnProps}
-          className={clsx(styles.button, styles.accept)}
-          type='button'
-          onClick={onAccept}
-        >
-          {acceptText}
-        </motion.button>
+        <div className={styles.buttons}>
+          <Button
+            ref={closeBtnRef}
+            className={clsx(styles.button, styles.cancel)}
+            type='button'
+            onClick={onCancel}
+          >
+            {cancelText}
+          </Button>
+          <Button className={clsx(styles.button, styles.accept)} type='button' onClick={onAccept}>
+            {acceptText}
+          </Button>
+        </div>
       </motion.div>
     </div>,
     parent

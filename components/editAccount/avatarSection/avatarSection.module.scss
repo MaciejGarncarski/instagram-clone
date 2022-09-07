@@ -56,7 +56,7 @@
   font-weight: 700;
   background: var(--gradient);
   padding: 1rem 3rem;
-  border-radius: 0.25em;
+  border-radius: var(--radius-small);
   margin: 1rem 0;
   color: var(--bg-color);
 
@@ -75,13 +75,10 @@
 }
 
 .margin {
-  min-height: 25rem;
-  grid-column: 1 / 3;
+  min-height: 20rem;
 
   @include common.breakpoint('sm') {
-    padding: 0 1em;
-    grid-column: span 2;
-    min-height: 35rem;
+    min-height: 30rem;
   }
 }
 

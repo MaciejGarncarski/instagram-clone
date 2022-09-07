@@ -18,7 +18,7 @@
   background-image: var(--gradient);
   color: var(--bg-color);
   border: 3px solid var(--primary-color);
-  border-radius: 0.3em;
+  border-radius: var(--radius-small);
   padding: 0.3em 1em;
   text-transform: uppercase;
   font-weight: 700;

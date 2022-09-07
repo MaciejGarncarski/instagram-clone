@@ -1,4 +1,3 @@
-import { motion, Variant } from 'framer-motion';
 import { useAtom } from 'jotai';
 import { UseFormReset } from 'react-hook-form';
 
@@ -6,6 +5,8 @@ import { isString } from '@/lib/isString';
 import { useProfile } from '@/hooks/useProfile';
 
 import styles from './buttons.module.scss';
+
+import { Button } from '@/components/common/Button';
 
 import { charCountAtom } from '@/store/store';
 
@@ -29,29 +30,14 @@ export const Buttons = ({ disabled, reset }: ButtonsProps) => {
     });
   };
 
-  const whileTap: Variant = { scale: 0.95 };
-  const whileActive: Variant = { scale: 1.05 };
-
   return (
     <div className={styles.buttons}>
-      <motion.button
-        whileTap={whileTap}
-        type='button'
-        onClick={handleReset}
-        className={styles.cancel}
-      >
+      <Button className={styles.cancel} type='button' onClick={handleReset}>
         reset
-      </motion.button>
-      <motion.button
-        whileFocus={disabled ? {} : whileActive}
-        whileHover={disabled ? {} : whileActive}
-        whileTap={disabled ? {} : whileTap}
-        type='submit'
-        className={styles.submit}
-        disabled={disabled}
-      >
+      </Button>
+      <Button type='submit' onClick={handleReset} className={styles.submit} disabled={disabled}>
         confirm changes
-      </motion.button>
+      </Button>
     </div>
   );
 };

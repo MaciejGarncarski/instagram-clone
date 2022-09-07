@@ -8,33 +8,45 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0, 0.35);
+  background-color: rgb(40, 40, 40, 0.4);
 }
 
 .modal {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr auto;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
   row-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
   width: min(70rem, 90%);
   margin: 0 auto;
   padding: 6rem 3rem;
-  background-image: var(--gradient);
+  background-color: rgb(var(--primary-color-rgb), 0.85);
+  backdrop-filter: blur(6px);
   border: none;
-  border-radius: 0.6rem;
+  border-radius: 1.8rem;
   box-shadow: var(--box-shadow);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+  justify-content: center;
+  gap: 3rem;
 
   @include common.breakpoint('lg') {
-    row-gap: 2rem;
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
   }
 }
 
 .button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.9rem 2.5rem;
   cursor: pointer;
-  border-radius: 0.25em;
+  border-radius: var(--radius-small);
   font-weight: 700;
   text-transform: uppercase;
   justify-self: center;
