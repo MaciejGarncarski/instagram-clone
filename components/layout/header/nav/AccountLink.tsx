@@ -6,7 +6,7 @@ import { useProfile } from '@/hooks/useProfile';
 
 import styles from './nav.module.scss';
 
-import defaultImg from '@/images/account.svg';
+import defaultImg from '~/images/account.svg';
 
 export const AccountLink = () => {
   const { data } = useProfile();

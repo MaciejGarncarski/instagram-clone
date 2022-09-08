@@ -6,7 +6,7 @@ import styles from './userAvatar.module.scss';
 
 import { Loader } from '@/components/loader/Loader';
 
-import defaultIMG from '@/images/account.svg';
+import defaultIMG from '~/images/account.svg';
 
 export const AvatarImage = () => {
   const { data, isLoading, isError } = useProfile();

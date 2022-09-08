@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import styles from './nav.module.scss';
 
-import add from '@/images/add.svg';
-import bookmark from '@/images/bookmark.svg';
-
 import { AccountLink } from './AccountLink';
+
+import add from '~/images/add.svg';
+import bookmark from '~/images/bookmark.svg';
 
 type Routes = {
   to: string;

@@ -8,9 +8,9 @@ import styles from './userAvatar.module.scss';
 
 import { Popup } from '@/components/popup/Popup';
 
-import edit from '@/images/edit.svg';
-
 import { AvatarImage } from './AvatarImage';
+
+import edit from '~/images/edit.svg';
 
 type UserAvatarProps = {
   className?: string;
