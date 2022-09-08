@@ -61,7 +61,7 @@ jobs:
         run: pnpm install
 
       - name: 🔎 Type check
-        run: pnpm typecheck
+        run: pnpm tsc
 
   prettier:
     name: 💅 Prettier

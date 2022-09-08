@@ -12,7 +12,6 @@
     "lint-strict-fix": "eslint --fix components pages && pnpm format",
     "prepare": "husky install",
     "test": "jest",
-    "typecheck": "tsc --noEmit --incremental false",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {

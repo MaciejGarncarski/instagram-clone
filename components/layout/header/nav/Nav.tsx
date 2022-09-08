@@ -1,5 +1,4 @@
 import Image from 'next/future/image';
-import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
 import styles from './nav.module.scss';
@@ -12,7 +11,7 @@ import bookmark from '~/images/bookmark.svg';
 type Routes = {
   to: string;
   name: string;
-  icon: StaticImageData;
+  icon: string;
 };
 
 const routes: Array<Routes> = [
