@@ -35,7 +35,7 @@ export const Buttons = ({ disabled, reset }: ButtonsProps) => {
       <Button className={styles.cancel} type='button' onClick={handleReset}>
         reset
       </Button>
-      <Button type='submit' onClick={handleReset} className={styles.submit} disabled={disabled}>
+      <Button type='submit' className={styles.submit} disabled={disabled}>
         confirm changes
       </Button>
     </div>
