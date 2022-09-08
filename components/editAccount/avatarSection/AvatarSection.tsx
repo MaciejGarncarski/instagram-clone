@@ -7,7 +7,7 @@ import { useProfile } from '@/hooks/useProfile';
 import styles from './avatarSection.module.scss';
 
 import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
-import { Button } from '@/components/common/Button';
+import { Button } from '@/components/common/button/Button';
 import { Loader } from '@/components/loader/Loader';
 
 import { AvatarModal } from './AvatarModal';

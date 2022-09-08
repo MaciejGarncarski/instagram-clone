@@ -22,33 +22,22 @@ export const AvatarImage = () => {
 
   if (isError) {
     return (
-      <Image
-        className={styles.image}
-        src={defaultIMG}
-        {...sizes}
-        alt='user profile picture'
-        priority
-      />
+      <Image className={styles.image} src={defaultIMG} fill alt='user profile picture' priority />
     );
   }
 
   if (!data?.avatar_url) {
     return (
-      <Image
-        className={styles.image}
-        src={defaultIMG}
-        {...sizes}
-        alt='user profile picture'
-        priority
-      />
+      <Image className={styles.image} src={defaultIMG} fill alt='user profile picture' priority />
     );
   }
 
   return (
     <Image
+      fill
+      sizes='130'
       className={styles.image}
       src={data?.avatar_url ?? defaultIMG}
-      {...sizes}
       alt='user profile picture'
       priority
     />

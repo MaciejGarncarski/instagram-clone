@@ -108,7 +108,8 @@
 
   &:focus {
     outline: none;
-    border-radius: var(--radius-small);
+    border-top-left-radius: var(--radius-medium);
+    border-top-right-radius: var(--radius-medium);
     border-color: var(--primary-color);
 
     & + .label {

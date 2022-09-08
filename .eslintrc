@@ -9,7 +9,8 @@
        "@typescript-eslint",
        "simple-import-sort",
        "unused-imports",
-       "prettier"
+       "prettier",
+       "jsx-a11y"
      ],
      "extends": [
        "eslint:recommended",

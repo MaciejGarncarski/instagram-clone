@@ -1,0 +1,9 @@
+.button {
+  padding: 0.4em 0.9em;
+  border-radius: var(--radius-small);
+  font-weight: 700;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}

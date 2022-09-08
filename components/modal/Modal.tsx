@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 
 import styles from './modal.module.scss';
 
-import { Button } from '../common/Button';
+import { Button } from '../common/button/Button';
 
 type ModalProps = {
   children: ReactNode;

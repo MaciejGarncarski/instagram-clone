@@ -1,4 +1,5 @@
 @use '/styles/common.scss';
+@use '/styles/mixins.scss';
 
 .overlay {
   position: fixed;
@@ -44,10 +45,7 @@
 }
 
 .button {
-  padding: 0.9rem 2.5rem;
-  cursor: pointer;
   border-radius: var(--radius-small);
-  font-weight: 700;
   text-transform: uppercase;
   justify-self: center;
 

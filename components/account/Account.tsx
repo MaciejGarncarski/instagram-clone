@@ -28,7 +28,7 @@ export const Account = () => {
     return (
       <>
         <NextSeo title='Loading profile' />
-        <main>
+        <main className={styles.loader}>
           <Loader />
         </main>
       </>

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import styles from './form.module.scss';
 
-import { Button } from '@/components/common/Button';
+import { Button } from '@/components/common/button/Button';
 
 import { AuthRedirect } from './authRedirect/AuthRedirect';
 import { Error } from '../../common/input/error/Error';

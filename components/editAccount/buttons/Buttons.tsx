@@ -6,7 +6,7 @@ import { useProfile } from '@/hooks/useProfile';
 
 import styles from './buttons.module.scss';
 
-import { Button } from '@/components/common/Button';
+import { Button } from '@/components/common/button/Button';
 
 import { charCountAtom } from '@/store/store';
 
@@ -32,7 +32,7 @@ export const Buttons = ({ disabled, reset }: ButtonsProps) => {
 
   return (
     <div className={styles.buttons}>
-      <Button className={styles.cancel} type='button' onClick={handleReset}>
+      <Button className={styles.cancel} type='button' disabled={disabled} onClick={handleReset}>
         reset
       </Button>
       <Button type='submit' className={styles.submit} disabled={disabled}>

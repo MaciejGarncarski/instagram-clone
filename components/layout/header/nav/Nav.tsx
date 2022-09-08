@@ -28,7 +28,7 @@ export const Nav = () => {
             <li key={name} className={styles.item}>
               <Link href={to} passHref>
                 <a className={styles.link}>
-                  <Image className={styles.img} src={icon} alt={name} />
+                  <Image width={70} height={70} className={styles.img} src={icon} alt={name} />
                   <span className='sr-only'>{name}</span>
                 </a>
               </Link>

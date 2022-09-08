@@ -12,12 +12,8 @@ module.exports = withPWA({
     runtimeCaching,
     disable: process.env.NODE_ENV === 'development',
   },
-  experimental: {
-    images: {
-      allowFutureImage: true,
-    },
-  },
   images: {
+    allowFutureImage: true,
     domains: [`${process.env.NEXT_PUBLIC_SUPABASE_URL_START}.supabase.co`],
   },
 });
