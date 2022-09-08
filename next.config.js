@@ -20,21 +20,4 @@ module.exports = withPWA({
   images: {
     domains: [`${process.env.NEXT_PUBLIC_SUPABASE_URL_START}.supabase.co`],
   },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            typescript: true,
-            icon: true,
-          },
-        },
-      ],
-    });
-
-    return config;
-  },
 });

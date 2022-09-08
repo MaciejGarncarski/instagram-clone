@@ -30,11 +30,11 @@ jobs:
       - name: Download deps
         run: pnpm install
 
-      - name: Check types
-        run: pnpm typecheck
-
       - name: Check linting
         run: pnpm lint-strict-fix
+        
+      - name: Check types
+        run: pnpm typecheck
 
       - name: Check commits messages
         uses: wagoid/commitlint-github-action@v5
