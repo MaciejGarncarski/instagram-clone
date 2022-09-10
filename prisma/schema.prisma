@@ -16,7 +16,9 @@ model profiles {
   bio        String? @db.VarChar
 }
 
-// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
-// model users_posts {
-// 
-// }
+model posts {
+  id         String @id @unique @default(uuid()) @db.Uuid
+  avatar_url String?
+  likes      Int?
+  author     String @db.Uuid     
+}

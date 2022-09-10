@@ -1,9 +1,21 @@
 .button {
-  padding: 0.4em 0.9em;
+  padding: 0.45em 0.75em;
   border-radius: var(--radius-small);
-  font-weight: 700;
+  font-weight: 500;
+
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+
+  outline-offset: 0.15em;
+
+  &:focus {
+    outline: 3px solid var(--text-color);
+  }
 
   &:not(:disabled) {
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(110%);
+    }
   }
 }

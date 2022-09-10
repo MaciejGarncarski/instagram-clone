@@ -1,6 +1,19 @@
 @use '/styles/common.scss';
 @use '/styles/mixins.scss';
 
+.hr {
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 0, 0, 0) 10%,
+    var(--primary-color),
+    rgb(0, 0, 0, 0) 90%
+  );
+  margin-top: 7.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-small);
+  border: none;
+}
+
 .account {
   width: 80%;
   margin: 0 auto;

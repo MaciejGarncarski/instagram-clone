@@ -6,9 +6,9 @@ import { useProfile } from '@/hooks/useProfile';
 
 import styles from './account.module.scss';
 
-import { Text } from './text/Text';
-import { UserAvatar } from './userAvatar/UserAvatar';
-import { Loader } from '../loader/Loader';
+import { Text } from '@/components/account/text/Text';
+import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
+import { Loader } from '@/components/loader/Loader';
 
 export const Account = () => {
   const { data, error, isLoading } = useProfile();
@@ -36,7 +36,7 @@ export const Account = () => {
   }
 
   return (
-    <>
+    <div className={styles.profile}>
       <NextSeo title='Profile' />
       <main className={styles.account}>
         <UserAvatar className={styles.avatar} />
@@ -79,6 +79,7 @@ export const Account = () => {
           )}
         </div>
       </main>
-    </>
+      <hr className={styles.hr} />
+    </div>
   );
 };

@@ -20,7 +20,7 @@
   background-image: var(--gradient);
   color: var(--bg-color);
   border: 3px solid var(--primary-color);
-  text-transform: uppercase;
+  text-transform: capitalize;
   background-size: 200% 200%;
   background-position: left;
   transition: background-position var(--transition-slow);
