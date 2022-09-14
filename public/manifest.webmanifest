@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Delayedgram",
-    "short_name": "Delayedgram",
+    "name": "DelayGram",
+    "short_name": "DelayGram",
     "description": "Instagram clone",
     
     "icons": [

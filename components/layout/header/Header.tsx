@@ -9,7 +9,7 @@ export const Header = () => {
     <header className={styles.header}>
       <Link href='/'>
         <a className={styles.link}>
-          <h1 className={styles.heading}>Delayedgram</h1>
+          <h1 className={styles.heading}>Delaygram</h1>
         </a>
       </Link>
       <Nav />

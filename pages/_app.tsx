@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <UserProvider supabaseClient={supabaseClient}>
       <QueryClientProvider client={queryClient}>
         <Layout>
-          <NextSeo titleTemplate='%s | Delayedgram' defaultTitle='Delayedgram' />
+          <NextSeo titleTemplate='%s | Delaygram' defaultTitle='Delaygram' />
           <MotionConfig reducedMotion='user'>
             <Component {...pageProps} />
           </MotionConfig>

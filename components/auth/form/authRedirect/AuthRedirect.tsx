@@ -13,12 +13,12 @@ type Text = {
 
 export const AuthRedirect = ({ type }: AuthRedirectProps) => {
   const loginText: Text = {
-    text: 'Not an delayedgram user?',
+    text: 'Not an delaygram user?',
     link: 'Register here',
   };
 
   const registerText: Text = {
-    text: 'Already an delayedgram user?',
+    text: 'Already an delaygram user?',
     link: 'Login here',
   };
 
