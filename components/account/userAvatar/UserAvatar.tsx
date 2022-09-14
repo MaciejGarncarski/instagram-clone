@@ -6,8 +6,6 @@ import { useAvatarInput } from '@/hooks/useAvatarInput';
 
 import styles from './userAvatar.module.scss';
 
-import { Popup } from '@/components/popup/Popup';
-
 import { AvatarImage } from './AvatarImage';
 
 import edit from '~/images/edit.svg';
@@ -19,7 +17,7 @@ type UserAvatarProps = {
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
   ({ className, editable }, ref) => {
-    const { handleChange, isUpdated, error } = useAvatarInput();
+    const { handleChange } = useAvatarInput();
 
     if (editable) {
       return (
@@ -39,12 +37,6 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             </div>
             <AvatarImage />
           </label>
-          {isUpdated && <Popup timeout={6}>Updated profile picture 😎</Popup>}
-          {error && (
-            <Popup isError timeout={6}>
-              {error}
-            </Popup>
-          )}
         </div>
       );
     }

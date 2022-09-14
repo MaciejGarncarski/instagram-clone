@@ -87,3 +87,26 @@ button {
     left: unset;
   }
 }
+
+div.Toastify__progress-bar {
+  height: 6px;
+}
+
+div.Toastify__toast {
+  --toastify-color-success: var(--primary-color);
+  --toastify-color-progress-success: var(--primary-color);
+  --toastify-icon-color-success: var(--primary-color);
+  --border-color: var(--primary-color);
+  --toastify-text-color-light: var(--text-color);
+
+  margin-bottom: 2rem;
+  border-radius: var(--radius-small);
+  border: 3px solid var(--border-color);
+
+  &--error {
+    --toastify-color-error: var(--error-color);
+    --toastify-color-progress-error: var(--error-color);
+    --toastify-icon-color-error: var(--error-color);
+    --border-color: var(--error-color);
+  }
+}

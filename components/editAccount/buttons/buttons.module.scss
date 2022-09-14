@@ -5,6 +5,7 @@
   display: flex;
   gap: 2rem;
   justify-self: center;
+  align-items: center;
   justify-content: space-between;
   flex-direction: row;
 }
@@ -13,6 +14,7 @@
 .submit {
   box-shadow: var(--box-shadow);
   border-radius: var(--radius-small);
+
   flex-grow: 0;
 
   &::first-letter {
@@ -31,7 +33,7 @@
 .cancel {
   background-color: transparent;
   color: var(--text-color);
-  border: 3px solid var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .submit {

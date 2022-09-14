@@ -1,6 +1,7 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { updateAvatar, uploadAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
@@ -14,7 +15,6 @@ export const useAvatarInput = () => {
   const { user } = useProfile();
 
   const [error, setError] = useState<string | null>(null);
-  const [isUpdated, setIsUpdated] = useState(false);
 
   const handleChange = async (changeEv: ChangeEvent<HTMLInputElement>) => {
     if (!changeEv.target.files || !changeEv.target.files[0]) {
@@ -22,7 +22,6 @@ export const useAvatarInput = () => {
     }
 
     setError(null);
-    setIsUpdated(false);
     const selectedFile = changeEv.target.files[0];
     const isIMGTypeValid = VALID_IMG_TYPES.includes(selectedFile.type);
 
@@ -66,14 +65,15 @@ export const useAvatarInput = () => {
         onError: (error) => {
           if (axios.isAxiosError(error)) {
             if (typeof error.response?.data === 'string') {
-              setError(error.response?.data);
+              setError(error.response.data);
+              toast.error(error.response.data);
             }
           }
         },
-        onSuccess: () => setIsUpdated(true),
+        onSuccess: () => toast.success('Updated profile picture'),
       }
     );
   };
 
-  return { handleChange, isUpdated, error };
+  return { handleChange, error };
 };

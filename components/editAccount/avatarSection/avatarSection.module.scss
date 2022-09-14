@@ -30,7 +30,7 @@
   @include common.breakpoint('lg') {
     display: grid;
     column-gap: 6rem;
-    row-gap: 2rem;
+    row-gap: 3rem;
     grid-template-columns: 0.5fr 1fr;
     min-height: 15rem;
     width: 100%;
@@ -51,14 +51,13 @@
   }
 }
 
-.avatar-button {
-  background: var(--gradient);
+button.avatar-button {
   border-radius: var(--radius-small);
   margin: 1rem 0;
   color: var(--bg-color);
 
   &--red {
-    background: var(--error-color);
+    background-color: var(--error-color);
   }
 }
 

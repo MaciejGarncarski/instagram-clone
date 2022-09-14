@@ -1,9 +1,10 @@
 .button {
-  padding: 0.45em 0.75em;
+  padding: 0.3em 0.75em;
   border-radius: var(--radius-small);
-  font-weight: 500;
-
+  text-transform: uppercase;
+  font-weight: 700;
   background-color: var(--primary-color);
+  border: 3px solid transparent;
   color: var(--bg-color);
 
   outline-offset: 0.15em;

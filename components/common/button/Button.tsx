@@ -18,11 +18,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <motion.button
         ref={ref}
         type={type}
-        whileTap={disabled ? {} : { scale: 0.93 }}
-        whileHover={disabled ? {} : { scale: 1.07 }}
-        whileFocus={disabled ? {} : { scale: 1.07 }}
+        whileTap={disabled ? {} : { scale: 0.94 }}
+        whileHover={disabled ? {} : { scale: 1.04 }}
+        whileFocus={disabled ? {} : { scale: 1.04 }}
         disabled={disabled}
-        className={clsx(styles.button, className)}
+        className={clsx(className, styles.button)}
         {...other}
       >
         {children}
