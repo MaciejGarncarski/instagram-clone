@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ApiError } from '@supabase/supabase-js';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
 
 import styles from './form.module.scss';
@@ -8,7 +10,6 @@ import styles from './form.module.scss';
 import { Button } from '@/components/common/button/Button';
 
 import { AuthRedirect } from './authRedirect/AuthRedirect';
-import { Error } from '../../common/input/error/Error';
 import { Input } from '../../common/input/Input';
 
 const formSchema = z.object({
@@ -41,6 +42,12 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
     },
   });
 
+  useEffect(() => {
+    if (authError) {
+      toast.error(authError.message);
+    }
+  }, [authError]);
+
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={styles.heading}>{heading}</h1>
@@ -59,7 +66,6 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
         error={errors.password}
         {...register('password')}
       />
-      {authError && <Error message={authError.message} />}
       <Button className={styles.button} type='submit'>
         continue
       </Button>
