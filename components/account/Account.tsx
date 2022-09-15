@@ -47,8 +47,8 @@ export const Account = () => {
 
             <Link href='/account/edit' passHref>
               <motion.a
-                whileTap={{ scale: 0.9 }}
-                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.06 }}
                 className={styles.edit}
               >
                 Edit Profile
@@ -79,7 +79,6 @@ export const Account = () => {
           )}
         </div>
       </main>
-      <hr className={styles.hr} />
     </div>
   );
 };

@@ -32,11 +32,11 @@ export const Buttons = ({ disabled, reset }: ButtonsProps) => {
 
   return (
     <div className={styles.buttons}>
-      <Button className={styles.cancel} type='button' disabled={disabled} onClick={handleReset}>
+      <Button className={styles.reset} type='button' disabled={disabled} onClick={handleReset}>
         reset
       </Button>
       <Button type='submit' className={styles.submit} disabled={disabled}>
-        confirm changes
+        confirm
       </Button>
     </div>
   );

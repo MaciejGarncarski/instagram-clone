@@ -10,10 +10,9 @@
   flex-direction: row;
 }
 
-.cancel,
+.reset,
 .submit {
   box-shadow: var(--box-shadow);
-  border-radius: var(--radius-small);
 
   flex-grow: 0;
 
@@ -30,7 +29,7 @@
   }
 }
 
-.cancel {
+.reset {
   background-color: transparent;
   color: var(--text-color);
   border-color: var(--primary-color);
@@ -38,5 +37,4 @@
 
 .submit {
   background-image: var(--gradient);
-  color: var(--bg-color);
 }

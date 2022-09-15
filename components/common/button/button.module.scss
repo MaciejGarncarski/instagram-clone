@@ -1,13 +1,17 @@
 .button {
-  padding: 0.3em 0.75em;
+  padding: 0.4em 1em;
   border-radius: var(--radius-small);
-  text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
   background-color: var(--primary-color);
   border: 3px solid transparent;
-  color: var(--bg-color);
-
+  letter-spacing: 0.5px;
+  color: white;
+  font-weight: 700;
   outline-offset: 0.15em;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   &:focus {
     outline: 3px solid var(--text-color);
@@ -16,7 +20,6 @@
   &:not(:disabled) {
     &:hover {
       cursor: pointer;
-      filter: brightness(110%);
     }
   }
 }

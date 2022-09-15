@@ -80,12 +80,12 @@
 
 .edit {
   color: var(--bg-color);
+  border-radius: var(--radius-small);
   text-decoration: none;
   background-image: var(--gradient);
   padding: 0.5rem 2.5rem;
   font-weight: 700;
   text-transform: uppercase;
-  border-radius: var(--radius-small);
 }
 
 .stats {

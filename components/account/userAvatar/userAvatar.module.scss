@@ -30,18 +30,15 @@
 }
 
 .input:focus + .label {
-  outline: 3px solid black;
-  outline-offset: 8px;
+  box-shadow: var(--text-color) 0 0 1px 7px;
   transition: all var(--transition-fast);
 }
 
 .label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
   border-radius: 50%;
   overflow: hidden;
+  box-shadow: var(--primary-color) 0 0 0 7px;
   height: 100%;
   width: 100%;
 }
@@ -63,7 +60,7 @@
 }
 
 .image {
-  border: 7px solid var(--primary-color);
+  box-shadow: var(--primary-color) 0 0 0 7px;
   border-radius: 50%;
 }
 

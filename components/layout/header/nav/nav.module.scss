@@ -5,7 +5,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: min(30rem, 90%);
+  width: min(25rem, 90%);
   margin: 0 auto;
   z-index: 1;
   padding-bottom: calc(env(safe-area-inset-bottom) + 2rem);
@@ -23,21 +23,20 @@
   list-style: none;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   box-shadow: var(--box-shadow);
-  border: 2px solid var(--primary-color);
-  background-color: rgb(var(--primary-color-rgb), 0.7);
-  border-radius: var(--radius-medium);
+  background-image: var(--gradient);
+  border-radius: 16px;
   backdrop-filter: blur(6px);
 
   @include common.breakpoint('lg') {
+    box-shadow: none;
     border: none;
     border-radius: none;
     padding: 0;
     gap: 4rem;
     justify-content: space-evenly;
-    box-shadow: none;
-    background-color: transparent;
+    background: none;
   }
 }
 
@@ -72,8 +71,8 @@
 
 .img {
   border-radius: 50%;
-  max-width: 4rem;
-  max-height: 4rem;
+  max-width: 3.5rem;
+  max-height: 3.5rem;
 
   @include common.breakpoint('lg') {
     max-width: 5rem;
