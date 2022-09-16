@@ -35,6 +35,7 @@ specifiers:
   jotai: ^1.8.0
   lint-staged: ^13.0.3
   next: 12.3.0
+  next-progress: ^2.2.0
   next-pwa: 5.5.4
   next-seo: ^5.5.0
   prettier: ^2.7.1
@@ -62,6 +63,7 @@ dependencies:
   jest: 28.1.3_@types+node@18.7.6
   jotai: 1.8.2_react@18.2.0
   next: 12.3.0_lnsx63j3ytqgpjfukmjayorsou
+  next-progress: 2.2.0_next@12.3.0+react@18.2.0
   next-pwa: 5.5.4_next@12.3.0
   next-seo: 5.5.0_c3hne4hwj64hb7tofigd3bvkji
   react: 18.2.0
@@ -5666,6 +5668,17 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  /next-progress/2.2.0_next@12.3.0+react@18.2.0:
+    resolution: {integrity: sha512-g6VBoaj2SfUhKiBSJW/7ju06Ks3r3mUK79HdrLJ7fmvnjeyHPViAKLQDsMN1QIoBcTqN1hR7A8sISiMfm01qmQ==}
+    peerDependencies:
+      next: '>=6.0.0'
+      react: '>=16.0.0'
+    dependencies:
+      next: 12.3.0_lnsx63j3ytqgpjfukmjayorsou
+      nprogress: 0.2.0
+      react: 18.2.0
+    dev: false
+
   /next-pwa/5.5.4_next@12.3.0:
     resolution: {integrity: sha512-EgB2MQWGR8oZDzY6US+/D0LOCUhPZYCgeqRVBYDxQWNi0N6XfQOoZPw2COIrg/eMt/rB0M+/mquhAQACs5v4Ag==}
     peerDependencies:
@@ -5810,6 +5823,10 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
+    dev: false
 
   /nwsapi/2.2.1:
     resolution: {integrity: sha512-JYOWTeFoS0Z93587vRJgASD5Ut11fYl5NyihP3KrYBvMe1FRRs6RN7m20SA/16GM4P6hTnZjT+UmDOt38UeXNg==}

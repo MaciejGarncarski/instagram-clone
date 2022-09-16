@@ -4,6 +4,7 @@ import { QueryClient, QueryClientConfig, QueryClientProvider } from '@tanstack/r
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MotionConfig } from 'framer-motion';
 import type { AppProps } from 'next/app';
+import NextProgress from 'next-progress';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 
@@ -26,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <Layout>
           <NextSeo titleTemplate='%s | Delaygram' defaultTitle='Delaygram' />
+          <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
           <MotionConfig reducedMotion='user'>
             <Component {...pageProps} />
           </MotionConfig>
