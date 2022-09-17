@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { NextSeo } from 'next-seo';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -57,6 +58,9 @@ export const EditAccount = () => {
       { username, bio, website, userID },
       {
         onError: (error) => {
+          if (axios.isAxiosError(error)) {
+            toast.error('Failed to update profile');
+          }
           if (error instanceof TypeError) {
             toast.error(error.message);
           }

@@ -14,7 +14,6 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <div className='modal'></div>
-          <div className='popup'></div>
         </body>
       </Html>
     );

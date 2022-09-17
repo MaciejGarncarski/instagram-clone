@@ -17,11 +17,7 @@ div.avatar {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-
-  @include common.breakpoint('lg') {
-    gap: 3rem;
-  }
+  gap: 3rem;
 }
 
 .avatar-container {

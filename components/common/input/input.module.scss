@@ -34,6 +34,11 @@
     @include label-active;
   }
 
+  &[type='password'],
+  &--padding-right {
+    padding-right: 1.75em;
+  }
+
   &:focus,
   &--dirty {
     border-color: var(--primary-color);
@@ -46,7 +51,7 @@
   &--error {
     border-color: var(--error-color);
 
-    & + .label {
+    & ~ .label {
       color: var(--error-color);
     }
 
@@ -54,11 +59,20 @@
       --shadow-color: rgb(var(--error-color-rgb), 0.6);
       border-color: var(--error-color);
 
-      & + .label {
+      & ~ .label {
         color: var(--error-color);
       }
     }
   }
+}
+
+.toggler {
+  position: absolute;
+  background-color: transparent;
+  right: 0.6rem;
+  padding: 1rem 0.2rem;
+  bottom: 0.3em;
+  cursor: pointer;
 }
 
 .label {

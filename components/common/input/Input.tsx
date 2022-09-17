@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { FieldError } from 'react-hook-form';
 
 import styles from './input.module.scss';
@@ -16,6 +16,10 @@ type InputProps = {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ type, label, isDirty, error, optional, ...props }, ref) => {
+    const [isShown, setIsShown] = useState<boolean>(false);
+
+    const handleShow = () => setIsShown((prevState) => !prevState);
+
     return (
       <div className={styles.wrapper}>
         <div className={styles['input-container']}>
@@ -24,13 +28,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className={clsx(
               styles.input,
               isDirty && styles['input--dirty'],
-              error && styles['input--error']
+              error && styles['input--error'],
+              isShown && styles['input--padding-right']
             )}
-            type={type}
+            type={isShown ? 'text' : type}
             id={label}
             autoComplete='on'
             {...props}
           />
+          {type === 'password' && (
+            <button type='button' className={styles.toggler} onClick={handleShow}>
+              {isShown ? '🕶️' : '👀'}
+            </button>
+          )}
           <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>
             <span className={styles['label-text']}>{label}</span>
             {optional && <span className={styles.optional}>(optional)</span>}

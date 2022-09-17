@@ -7,9 +7,18 @@
   max-width: 50rem;
 }
 
-.img {
+.label {
   background-color: var(--secondary-color);
   border-radius: var(--radius-medium);
   min-height: 35rem;
   width: 80%;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  border: 2px solid var(--primary-color);
+}
+
+.preview {
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }

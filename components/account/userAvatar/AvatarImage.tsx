@@ -11,24 +11,33 @@ import defaultIMG from '~/images/account.svg';
 export const AvatarImage = () => {
   const { data, isLoading, isError } = useProfile();
 
-  const sizes = {
-    width: 130,
-    height: 130,
-  };
-
   if (isLoading) {
     return <Loader variant='white' />;
   }
 
   if (isError) {
     return (
-      <Image className={styles.image} src={defaultIMG} fill alt='user profile picture' priority />
+      <Image
+        className={styles.image}
+        src={defaultIMG}
+        fill
+        sizes='130'
+        alt='user profile picture'
+        priority
+      />
     );
   }
 
   if (!data?.avatar_url) {
     return (
-      <Image className={styles.image} src={defaultIMG} fill alt='user profile picture' priority />
+      <Image
+        className={styles.image}
+        src={defaultIMG}
+        fill
+        sizes='130'
+        alt='user profile picture'
+        priority
+      />
     );
   }
 

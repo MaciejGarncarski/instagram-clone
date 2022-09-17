@@ -30,7 +30,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
         website: body.website,
       },
     });
-    res.status(200).send('ok');
+    res.status(200).send('success');
   } catch (e) {
     res.status(400).send(e);
   }
