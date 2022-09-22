@@ -24,7 +24,7 @@ const Login: NextPage = () => {
     }
 
     setTimeout(() => {
-      router.push('/account');
+      router.replace('/account', undefined, { shallow: true });
     }, 1000);
   };
 
@@ -41,7 +41,7 @@ const Login: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { user } = await getUser(ctx);
   if (user) {
-    return { props: { user }, redirect: { permanent: false, destination: '/account' } };
+    return { props: { user }, redirect: { permanent: true, destination: '/account' } };
   }
   return { props: { user } };
 };
