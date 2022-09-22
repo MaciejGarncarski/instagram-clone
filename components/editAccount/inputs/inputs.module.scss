@@ -1,5 +1,11 @@
+@use '/styles/common.scss';
+
 .inputs {
   display: flex;
   flex-direction: column;
   gap: 4rem;
+}
+
+.loader {
+  min-height: 15rem;
 }

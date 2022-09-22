@@ -1,69 +1,91 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { NextSeo } from 'next-seo';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
+
+import { isString } from '@/lib/isString';
+import { useProfile } from '@/hooks/useProfile';
+import { useUpdateProfile } from '@/hooks/useUpdateProfile';
+import { bio, username, website } from '@/utils/editAccountValidation';
 
 import styles from './editAccount.module.scss';
 
-import { useProfile } from '@/hooks/useProfile';
-
-import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
-
+import { AvatarSection } from './avatarSection/AvatarSection';
 import { Buttons } from './buttons/Buttons';
 import { Inputs } from './inputs/Inputs';
-import { Heading } from '../heading/Heading';
 
 const formSchema = z.object({
-  email: z.string().email(),
-  username: z.string(),
-  bio: z.string().max(200, { message: 'Your bio is too long! Max characters: 200' }),
-  website: z.string().min(6, { message: 'Password must be 6 or more characters long' }).max(20),
+  username,
+  bio,
+  website,
 });
 
-export type EditValues = z.infer<typeof formSchema>;
+export type FormValues = z.infer<typeof formSchema>;
 
 export const EditAccount = () => {
-  const { data, error } = useProfile();
+  const { data } = useProfile();
+
+  const userName = isString(data?.username);
+  const userWebsite = isString(data?.website);
+  const userBio = isString(data?.bio);
+
+  const userID = isString(data?.id);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isValid },
-  } = useForm<EditValues>({
+    reset,
+    watch,
+    formState: { errors, isValid, isDirty },
+  } = useForm<FormValues>({
     mode: 'onChange',
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: data?.email ?? '',
-      username: data?.username ?? '',
-      website: data?.website ?? '',
-      bio: data?.website ?? '',
+      username: userName,
+      website: userWebsite,
+      bio: userBio,
     },
   });
 
-  const onSubmit = () => {
-    console.log(dirtyFields);
-  };
+  const watchFields = watch();
 
-  if (error) {
-    return <p>error</p>;
-  }
+  const { mutate } = useUpdateProfile();
+
+  const onSubmit: SubmitHandler<FormValues> = async ({ username, bio, website }) => {
+    mutate(
+      { username, bio, website, userID },
+      {
+        onError: (error) => {
+          if (axios.isAxiosError(error)) {
+            toast.error('Failed to update profile');
+          }
+          if (error instanceof TypeError) {
+            toast.error(error.message);
+          }
+        },
+        onSuccess: () => {
+          toast.success('Updated!');
+        },
+      }
+    );
+  };
 
   return (
     <>
       <NextSeo title='Edit profile' />
 
-      <form className={styles.container} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-        <div className={styles['avatar-container']}>
-          <UserAvatar className={styles.avatar} />
-          <div className={styles['avatar-change']}>
-            {data?.username && <Heading size='h2'>{data.username}</Heading>}
-            <button type='button' className={styles['avatar-button']}>
-              change your avatar!
-            </button>
-          </div>
-        </div>
-        <Inputs errors={errors} register={register} />
-        <Buttons isValid={isValid} />
+      <form
+        className={styles.container}
+        id='main'
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete='off'
+      >
+        <AvatarSection />
+        {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
+        <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />
+        <Buttons disabled={!isDirty || !isValid} reset={reset} />
       </form>
     </>
   );

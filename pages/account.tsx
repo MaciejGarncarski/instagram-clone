@@ -1,28 +1,14 @@
-import { User } from '@supabase/supabase-js';
-import { useHydrateAtoms } from 'jotai/utils';
+import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import type { GetServerSideProps, NextPage } from 'next';
-
-import { supabase } from '@/lib/supabase';
 
 import { Account } from '@/components/account/Account';
 
-import { userAtom } from '@/store/store';
-
-type UserType = {
-  user: User;
-};
-
-const UserProfile: NextPage<UserType> = ({ user }) => {
-  useHydrateAtoms([[userAtom, user]]);
+const UserProfile: NextPage = () => {
   return <Account />;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req);
-  if (user === null) {
-    return { props: { user }, redirect: { destination: '/auth/login' } };
-  }
-  return { props: { user } };
-};
+export const getServerSideProps: GetServerSideProps = withPageAuth({
+  redirectTo: '/auth/login',
+});
 
 export default UserProfile;

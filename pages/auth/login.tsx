@@ -1,3 +1,4 @@
+import { getUser, supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { ApiError } from '@supabase/supabase-js';
 import type { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -5,44 +6,44 @@ import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
-import { supabase } from '@/lib/supabase';
-
-import { AuthForm, FormValues } from '@/components/auth/authForm/AuthForm';
+import { Form, FormValues } from '@/components/auth/form/Form';
 
 const Login: NextPage = () => {
   const [error, setError] = useState<ApiError | null>(null);
   const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
-    const { error } = await supabase.auth.signIn({
+    const { error } = await supabaseClient.auth.signIn({
       email: email,
       password: password,
     });
 
     if (error) {
       setError(error);
-      return null;
+      return;
     }
 
-    router.push('/account');
+    setTimeout(() => {
+      router.push('/account');
+    }, 1000);
   };
 
   return (
     <>
       <NextSeo title='Login' />
-      <main>
-        <AuthForm heading='login' onSubmit={onSubmit} error={error} />
+      <main id='main'>
+        <Form heading='login' onSubmit={onSubmit} authError={error} />
       </main>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { user } = await supabase.auth.api.getUserByCookie(req);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { user } = await getUser(ctx);
   if (user) {
-    return { props: { user }, redirect: { destination: '/' } };
+    return { props: { user }, redirect: { permanent: false, destination: '/account' } };
   }
-  return { props: {} };
+  return { props: { user } };
 };
 
 export default Login;

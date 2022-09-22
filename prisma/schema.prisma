@@ -8,11 +8,41 @@ datasource db {
 }
 
 model profiles {
-  id         String    @id @db.Uuid
-  updated_at DateTime? @db.Timestamptz(6)
-  email      String?
-  username   String?   @unique
-  avatar_url String?
-  website    String?
-  bio        String?   @db.VarChar
+  id             String           @id @db.Uuid
+  profile_id     Int              @unique @default(autoincrement()) @db.Integer
+  username       String?          @unique
+  avatar_url     String?
+  website        String?
+  bio            String?          @db.VarChar
+  posts          posts[]
+  posts_likes    posts_likes[]
+  posts_comments posts_comments[]
+}
+
+model posts {
+  id             Int              @id @default(autoincrement()) @db.Integer
+  author         profiles         @relation(fields: [author_id], references: [id])
+  author_id      String           @db.Uuid
+  description    String
+  created_at     DateTime         @default(now()) @db.Timestamptz()
+  img            String
+  posts_likes    posts_likes[]
+  posts_comments posts_comments[]
+}
+
+model posts_likes {
+  post    posts    @relation(fields: [id], references: [id])
+  id      Int      @id @db.Integer
+  user    profiles @relation(fields: [user_id], references: [id])
+  user_id String   @db.Uuid
+}
+
+model posts_comments {
+  id           Int      @id @db.Integer
+  user         profiles @relation(fields: [user_id], references: [id])
+  user_id      String   @db.Uuid
+  post         posts    @relation(fields: [post_id], references: [id])
+  post_id      Int      @db.Integer
+  created_at   DateTime @default(now()) @db.Timestamptz()
+  comment_text String   @db.Text
 }

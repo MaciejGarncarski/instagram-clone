@@ -1,12 +1,14 @@
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { UserProvider } from '@supabase/auth-helpers-react';
 import { QueryClient, QueryClientConfig, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MotionConfig } from 'framer-motion';
 import type { AppProps } from 'next/app';
+import NextProgress from 'next-progress';
 import { NextSeo } from 'next-seo';
+import { useState } from 'react';
 
 import '../styles/globals.scss';
-
-import { supabase } from '@/lib/supabase';
 
 import { Layout } from '@/components/layout/Layout';
 
@@ -14,34 +16,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   const queryOptions: QueryClientConfig = {
     defaultOptions: {
       queries: {
-        retry: 2,
-        refetchOnWindowFocus: false,
+        retry: 1,
       },
     },
   };
-  const queryClient = new QueryClient(queryOptions);
-
-  supabase.auth.onAuthStateChange((event, session) => {
-    fetch('/api/auth', {
-      method: 'POST',
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      credentials: 'same-origin',
-      body: JSON.stringify({ event, session }),
-    });
-  });
+  const [queryClient] = useState(() => new QueryClient(queryOptions));
 
   return (
-    <Layout>
-      <NextSeo titleTemplate='%s | GRAM-GRAM' defaultTitle='GRAM-GRAM' />
+    <UserProvider supabaseClient={supabaseClient}>
       <QueryClientProvider client={queryClient}>
-        <MotionConfig reducedMotion='user'>
-          <div className='app-container'>
+        <Layout>
+          <NextSeo titleTemplate='%s | Delaygram' defaultTitle='Delaygram' />
+          <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
+          <MotionConfig reducedMotion='user'>
             <Component {...pageProps} />
-            <ReactQueryDevtools />
-          </div>
-        </MotionConfig>
+          </MotionConfig>
+        </Layout>
+        <ReactQueryDevtools />
       </QueryClientProvider>
-    </Layout>
+    </UserProvider>
   );
 }
 

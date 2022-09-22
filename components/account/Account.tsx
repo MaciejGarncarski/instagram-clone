@@ -2,48 +2,34 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
-import styles from './account.module.scss';
-
 import { useProfile } from '@/hooks/useProfile';
 
-import { UserAvatar } from './userAvatar/UserAvatar';
-import { Heading } from '../heading/Heading';
+import styles from './account.module.scss';
+
+import { Text } from '@/components/account/text/Text';
+import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
+import { Loader } from '@/components/loader/Loader';
 
 export const Account = () => {
-  const { data, error } = useProfile();
+  const { data, error, isLoading } = useProfile();
+
   if (error) {
     return (
       <>
         <NextSeo title='Profile' />
         <main>
-          <Heading size='h2'>Error</Heading>
+          <h2>Error</h2>
         </main>
       </>
     );
   }
 
-  if (data) {
+  if (isLoading || !data) {
     return (
       <>
-        <NextSeo title='Profile' />
-        <main className={styles.container}>
-          <UserAvatar />
-
-          <div className={styles['user-info']}>
-            <div className={styles['user-heading']}>
-              <h2 className={styles['user-name']}>{data.username}</h2>
-              <p className={styles.email}>{data.email}</p>
-            </div>
-            <Link href='/account/edit' passHref>
-              <motion.a
-                whileTap={{ scale: 0.9 }}
-                whileHover={{ scale: 1.04 }}
-                className={styles.edit}
-              >
-                Edit Profile
-              </motion.a>
-            </Link>
-          </div>
+        <NextSeo title='Loading profile' />
+        <main className={styles.loader}>
+          <Loader />
         </main>
       </>
     );
@@ -51,8 +37,50 @@ export const Account = () => {
 
   return (
     <>
-      <NextSeo title='Loading profile' />
-      <main>loading</main>
+      <NextSeo title='Profile' />
+      <main id='main' className={styles.account}>
+        <UserAvatar className={styles.avatar} />
+
+        <div className={styles['user-info']}>
+          <div className={styles['username-container']}>
+            <h2 className={styles.username}>{data?.username ?? 'no username'}</h2>
+
+            <Link href='/account/edit' passHref>
+              <motion.a
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.06 }}
+                className={styles.edit}
+              >
+                Edit Profile
+              </motion.a>
+            </Link>
+          </div>
+          <div className={styles.stats}>
+            <dl className={styles['stats-list']}>
+              <div className={styles['stat-container']}>
+                <dd className={styles['stat-count']}>0</dd>
+                <dt>posts</dt>
+              </div>
+              <div className={styles['stat-container']}>
+                <dd className={styles['stat-count']}>0</dd>
+                <dt>followers</dt>
+              </div>
+              <div className={styles['stat-container']}>
+                <dd className={styles['stat-count']}>0</dd>
+                <dt>following</dt>
+              </div>
+            </dl>
+          </div>
+
+          {data.bio && <Text>{data.bio}</Text>}
+          {data.website && (
+            <a href={data.website} target='_blank' rel='noopener noreferrer'>
+              {data.website}
+            </a>
+          )}
+        </div>
+      </main>
+      <Link href='/api/auth/logout'>log out</Link>
     </>
   );
 };

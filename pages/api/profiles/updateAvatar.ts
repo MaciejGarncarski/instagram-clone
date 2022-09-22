@@ -1,17 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { PrismaClient } from '@prisma/client';
+import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-export const ACCEPTED_IMG_TYPES = ['image/jpeg', 'image/jpg', 'image/webp', 'image/png'];
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const prisma = new PrismaClient();
-  // const isValidIMG = ACCEPTED_IMG_TYPES.includes(fileType);
 
-  // if (!isValidIMG) {
-  //   res.status(400).send('Invalid image type!');
-  //   return;
-  // }
+  if (req.method !== 'PATCH') {
+    res.status(405).send('Only PATCH requests allowed');
+    return;
+  }
 
   try {
     const prismaData = await prisma.profiles.update({
@@ -25,6 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     res.status(200).send(prismaData);
   } catch (e) {
-    res.status(500).send(`Wrong api call ${e}`);
+    res.status(400).send(`Wrong api call ${e}`);
   }
-}
+});
+
+export default handler;

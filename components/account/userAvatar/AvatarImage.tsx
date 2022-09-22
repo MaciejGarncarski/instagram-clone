@@ -1,50 +1,40 @@
-import { motion } from 'framer-motion';
 import Image from 'next/future/image';
-import { useEffect, useState } from 'react';
-
-import styles from './userAvatar.module.scss';
 
 import { useProfile } from '@/hooks/useProfile';
 
-import defaultIMG from '@/images/account.svg';
-import sync from '@/images/sync.svg';
+import styles from './userAvatar.module.scss';
 
-const Loader = () => {
-  return (
-    <motion.div
-      className={styles.loading}
-      animate={{ rotate: -360 }}
-      transition={{ repeat: Infinity, duration: 2 }}
-    >
-      <Image src={sync} alt='updating' />
-    </motion.div>
-  );
-};
+import { Loader } from '@/components/loader/Loader';
+
+import defaultIMG from '~/images/account.svg';
 
 export const AvatarImage = () => {
-  const { data: profileData, isFetching, isError } = useProfile();
-  const [src, setSrc] = useState<string>(defaultIMG);
+  const { data, isLoading, isError } = useProfile();
 
-  useEffect(() => {
-    if (profileData && profileData.avatar_url) {
-      setSrc(profileData.avatar_url);
-    }
-  }, [profileData]);
-
-  const sizes = {
-    width: 200,
-    height: 200,
-  };
-
-  if (isFetching) {
+  if (isLoading) {
     return <Loader />;
   }
+
   if (isError) {
     return (
       <Image
         className={styles.image}
         src={defaultIMG}
-        {...sizes}
+        fill
+        sizes='130'
+        alt='user profile picture'
+        priority
+      />
+    );
+  }
+
+  if (!data?.avatar_url) {
+    return (
+      <Image
+        className={styles.image}
+        src={defaultIMG}
+        fill
+        sizes='130'
         alt='user profile picture'
         priority
       />
@@ -53,10 +43,10 @@ export const AvatarImage = () => {
 
   return (
     <Image
+      fill
+      sizes='130'
       className={styles.image}
-      onError={() => setSrc(defaultIMG)}
-      src={src ? src : defaultIMG}
-      {...sizes}
+      src={data?.avatar_url ?? defaultIMG}
       alt='user profile picture'
       priority
     />

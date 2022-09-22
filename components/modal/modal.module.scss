@@ -1,0 +1,67 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.overlay {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(40, 40, 40, 0.4);
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  width: min(70rem, 90%);
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  background-color: rgb(var(--primary-color-rgb), 0.85);
+  backdrop-filter: blur(6px);
+  border: none;
+  border-radius: 1.8rem;
+  box-shadow: var(--box-shadow);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: stretch;
+  justify-content: center;
+  gap: 3rem;
+
+  @include common.breakpoint('lg') {
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+.button {
+  border-radius: var(--radius-small);
+  text-transform: uppercase;
+  justify-self: center;
+
+  &:focus {
+    outline: 4px solid var(--text-color);
+    outline-offset: 6px;
+  }
+}
+
+.cancel {
+  grid-column: 1 / 2;
+}
+
+.accept {
+  background-color: var(--error-color);
+  color: var(--bg-color);
+
+  grid-column: 2 / 3;
+}

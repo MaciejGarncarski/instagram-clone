@@ -1,0 +1,56 @@
+@use '/styles/common.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  margin-inline: auto;
+  max-width: 50rem;
+  margin-bottom: 7rem;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+
+  @include common.breakpoint('lg') {
+    gap: 5rem;
+  }
+}
+
+.input:focus + .label,
+.label:hover {
+  box-shadow: 0 0 1px 6px rgb(var(--primary-color-rgb), 0.6);
+}
+
+.label {
+  background-color: var(--secondary-color);
+  border-radius: var(--radius-medium);
+  max-width: 100%;
+  min-width: 50%;
+  min-height: 20rem;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 5px solid var(--primary-color);
+}
+
+.img {
+  width: 8rem;
+  height: 8rem;
+}
+
+.add {
+  font-size: 2em;
+}
+
+.preview {
+  object-fit: scale-down;
+  aspect-ratio: 9 / 16;
+}

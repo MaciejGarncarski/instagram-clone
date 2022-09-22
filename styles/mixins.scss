@@ -7,19 +7,6 @@
 }
 
 @mixin max-width {
-  max-width: 90vw;
-  margin-inline: auto;
-
-  @include common.breakpoint('lg') {
-    justify-content: space-between;
-    max-width: 80vw;
-  }
-
-  @include common.breakpoint('xl') {
-    max-width: 70vw;
-  }
-
-  @include common.breakpoint('xxl') {
-    max-width: calc(1000px + 10vw);
-  }
+  margin: 0 auto;
+  width: min(50rem, 100%);
 }

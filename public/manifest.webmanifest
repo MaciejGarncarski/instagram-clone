@@ -1,11 +1,11 @@
 {
-    "theme_color": "#6cb9e0",
-    "background_color": "#6cb9e0",
+    "theme_color": "#009999",
+    "background_color": "#009999",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Gram-Gram",
-    "short_name": "Gram-Gram",
+    "name": "DelayGram",
+    "short_name": "DelayGram",
     "description": "Instagram clone",
     
     "icons": [

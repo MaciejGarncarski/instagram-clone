@@ -1,37 +1,31 @@
 @use '/styles/mixins.scss';
-
-.avatar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 4rem;
-}
-
-.avatar-change {
-  display: flex;
-  flex-direction: column;
-}
-
-.avatar-button {
-  background-color: red;
-  padding: 0;
-}
-
-.avatar {
-  --edit-page-image: clamp(10rem, 12vw, 17rem);
-  width: var(--edit-page-image);
-  height: var(--edit-page-image);
-}
+@use '/styles/common.scss';
 
 .container {
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  max-width: max-content;
-  margin-inline: auto;
-  row-gap: 3rem;
-  padding-bottom: 5rem;
-  column-gap: 7rem;
-  row-gap: 10rem;
+  gap: 3rem;
+  margin-bottom: 7rem;
+
+  @include common.breakpoint('lg') {
+    margin: 0 auto;
+    width: 70%;
+    gap: 4rem;
+  }
+}
+
+.no-username {
+  font-size: 1.75em;
+  text-align: center;
+}
+
+.error {
+  font-size: 2.5rem;
+  font-weight: 700;
+  max-width: 40rem;
+  color: var(--error-color);
+  text-align: center;
+  margin: 0 auto;
 }

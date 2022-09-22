@@ -1,13 +1,11 @@
 .container {
-  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  width: 13rem;
+  height: 13rem;
+  position: relative;
   border-radius: 50%;
-  --image-width: clamp(15rem, 24vw, 22rem);
-  height: var(--image-width);
-  width: var(--image-width);
 }
 
 .error {
@@ -21,54 +19,54 @@
   width: 1px;
   height: 1px;
   opacity: 0;
+  clip-path: polygon(0, 0, 0, 0);
 }
 
 .label:hover > .overlay,
 .input:focus + .label > .overlay {
-  background-color: rgb(220, 220, 220, 0.8);
+  background-color: rgb(var(--primary-color-rgb), 0.8);
   opacity: 1;
   cursor: pointer;
 }
 
 .input:focus + .label {
-  outline: 3px solid black;
-  outline-offset: 8px;
+  box-shadow: var(--text-color) 0 0 1px 7px;
   transition: all var(--transition-fast);
 }
 
 .label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   border-radius: 50%;
   overflow: hidden;
-  position: relative;
-  border: 5px solid var(--primary-color);
-  width: 100%;
+  box-shadow: var(--primary-color) 0 0 0 7px;
   height: 100%;
+  width: 100%;
 }
 
 .overlay {
   width: 100%;
   height: 100%;
   position: absolute;
-  font-size: 3rem;
-  opacity: 0;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: transparent;
+  opacity: 0;
   transition: all var(--transition-fast);
+
+  & > img {
+    padding: 1em;
+  }
 }
 
 .image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1 / 1;
+  box-shadow: var(--primary-color) 0 0 0 7px;
+  border-radius: 50%;
 }
 
 .loading {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 5rem;
 }
