@@ -12,7 +12,7 @@ export const AvatarImage = () => {
   const { data, isLoading, isError } = useProfile();
 
   if (isLoading) {
-    return <Loader variant='white' />;
+    return <Loader />;
   }
 
   if (isError) {

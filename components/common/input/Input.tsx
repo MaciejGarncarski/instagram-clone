@@ -33,7 +33,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
             type={isShown ? 'text' : type}
             id={label}
-            autoComplete='on'
             {...props}
           />
           {type === 'password' && (

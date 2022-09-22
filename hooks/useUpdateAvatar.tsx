@@ -11,9 +11,12 @@ export const useUpdateAvatar = () => {
   const queryClient = useQueryClient();
   const { user } = useProfile();
 
+  const now = new Date().getTime();
+
   return useMutation(
     ({ avatarURL }: Mutation) => {
-      return axios.patch('/api/profiles/updateAvatar', { id: user?.id, avatarURL: avatarURL });
+      const uncachedIMG = `${avatarURL}?cache_bust=${now}`;
+      return axios.patch('/api/profiles/updateAvatar', { id: user?.id, avatarURL: uncachedIMG });
     },
     {
       onSuccess: () => {

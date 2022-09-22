@@ -76,7 +76,12 @@ export const EditAccount = () => {
     <>
       <NextSeo title='Edit profile' />
 
-      <form className={styles.container} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+      <form
+        className={styles.container}
+        id='main'
+        onSubmit={handleSubmit(onSubmit)}
+        autoComplete='off'
+      >
         <AvatarSection />
         {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
         <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />

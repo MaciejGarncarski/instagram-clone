@@ -29,7 +29,7 @@ const Register: NextPage = () => {
   return (
     <>
       <NextSeo title='Register' />
-      <main>
+      <main id='main'>
         <Form heading='register' onSubmit={onSubmit} authError={error} />
       </main>
     </>

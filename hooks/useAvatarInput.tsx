@@ -3,12 +3,14 @@ import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { updateAvatar, uploadAvatar } from '@/lib/avatar';
+import { updateAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
 
 import { useProfile } from './useProfile';
 
-export const VALID_IMG_TYPES = ['jpg', 'jpeg', 'png'].map((type) => `image/${type}`);
+const IMG_EXTENSIONS = ['jpg', 'jpeg', 'png'];
+export const IMG_EXTENSIONS_DOTS = IMG_EXTENSIONS.map((ext) => `.${ext}`);
+export const IMG_TYPES = IMG_EXTENSIONS.map((type) => `image/${type}`);
 
 export const useAvatarInput = () => {
   const { mutate } = useUpdateAvatar();
@@ -22,8 +24,9 @@ export const useAvatarInput = () => {
     }
 
     setError(null);
+
     const selectedFile = changeEv.target.files[0];
-    const isIMGTypeValid = VALID_IMG_TYPES.includes(selectedFile.type);
+    const isIMGTypeValid = IMG_TYPES.includes(selectedFile.type);
 
     if (!selectedFile.type) {
       return null;
@@ -37,17 +40,13 @@ export const useAvatarInput = () => {
     const { error: updateError } = await updateAvatar(selectedFile, user?.id);
 
     if (updateError) {
-      const { error: uploadError } = await uploadAvatar(selectedFile, user?.id);
-
-      if (uploadError) {
-        setError('Error occurred when uploading avatar');
-        return;
-      }
+      toast.error('Error occurred when uploading avatar');
+      return;
     }
 
-    const { signedURL: avatarURL, error: avatarURLError } = await supabaseClient.storage
+    const { publicURL: avatarURL, error: avatarURLError } = supabaseClient.storage
       .from('avatars')
-      .createSignedUrl(`${user?.id}.jpg`, 31536000);
+      .getPublicUrl(`${user?.id}.jpg`);
 
     if (avatarURLError) {
       setError('Error occurred when uploading avatar');
@@ -60,7 +59,7 @@ export const useAvatarInput = () => {
     }
 
     mutate(
-      { avatarURL: avatarURL },
+      { avatarURL },
       {
         onError: (error) => {
           if (axios.isAxiosError(error)) {

@@ -1,16 +1,14 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
+import { NextSeo } from 'next-seo';
+
+import { HomePage } from '@/components/homePage/HomePage';
 
 const Home: NextPage = () => {
-  // toast('hej');
-
   return (
-    <div>
-      <main>
-        <Link href='/api/auth/logout'>log out</Link>
-        <h1>eloelo</h1>
-      </main>
-    </div>
+    <>
+      <NextSeo title='Home' />
+      <HomePage />
+    </>
   );
 };
 

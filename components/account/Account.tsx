@@ -36,9 +36,9 @@ export const Account = () => {
   }
 
   return (
-    <div className={styles.profile}>
+    <>
       <NextSeo title='Profile' />
-      <main className={styles.account}>
+      <main id='main' className={styles.account}>
         <UserAvatar className={styles.avatar} />
 
         <div className={styles['user-info']}>
@@ -71,6 +71,7 @@ export const Account = () => {
               </div>
             </dl>
           </div>
+
           {data.bio && <Text>{data.bio}</Text>}
           {data.website && (
             <a href={data.website} target='_blank' rel='noopener noreferrer'>
@@ -79,6 +80,7 @@ export const Account = () => {
           )}
         </div>
       </main>
-    </div>
+      <Link href='/api/auth/logout'>log out</Link>
+    </>
   );
 };

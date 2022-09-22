@@ -46,6 +46,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-size: clamp(100%, calc(1rem + 2vw), 22px);
+  scroll-behavior: smooth;
 }
 
 input,

@@ -23,13 +23,15 @@ const Login: NextPage = () => {
       return;
     }
 
-    router.push('/account');
+    setTimeout(() => {
+      router.push('/account');
+    }, 1000);
   };
 
   return (
     <>
       <NextSeo title='Login' />
-      <main>
+      <main id='main'>
         <Form heading='login' onSubmit={onSubmit} authError={error} />
       </main>
     </>

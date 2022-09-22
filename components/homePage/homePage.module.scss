@@ -1,0 +1,49 @@
+@use '/styles/common.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5rem;
+
+  @include common.breakpoint('lg') {
+    gap: 10rem;
+  }
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2rem;
+}
+
+.avatar-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 2rem;
+  width: 100%;
+}
+
+.author {
+  color: var(--primary-color);
+}
+
+.avatar {
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}
+
+.figcaption {
+  color: var(--text-color);
+}
+
+.img {
+  box-shadow: var(--box-shadow);
+  border-radius: 1rem;
+  border: 1px solid var(--primary-color);
+}
