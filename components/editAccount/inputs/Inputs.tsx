@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
 
 import { isString } from '@/lib/isString';
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './inputs.module.scss';
 

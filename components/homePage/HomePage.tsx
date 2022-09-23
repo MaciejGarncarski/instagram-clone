@@ -1,7 +1,7 @@
 import Image from 'next/future/image';
 import { useState } from 'react';
 
-import { useGetPosts } from '@/hooks/useGetPosts';
+import { useGetPosts } from '@/hooks/posts/useGetPosts';
 
 import styles from './homePage.module.scss';
 
@@ -40,6 +40,7 @@ export const HomePage = () => {
                 alt='post image'
                 width={300}
                 height={400}
+                priority
                 onLoad={() => setIsImgLoading(false)}
               />
               <figcaption className={styles.figcaption}>{post.description}</figcaption>

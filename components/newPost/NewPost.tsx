@@ -6,9 +6,9 @@ import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { useNewPost } from '@/hooks/posts/useNewPost';
+import { useProfile } from '@/hooks/profile/useProfile';
 import { IMG_EXTENSIONS_DOTS } from '@/hooks/useAvatarInput';
-import { useNewPost } from '@/hooks/useNewPost';
-import { useProfile } from '@/hooks/useProfile';
 
 import styles from './newPost.module.scss';
 
@@ -21,7 +21,7 @@ import { newPostPreviewAtom } from '@/store/store';
 import addImg from '~/images/add.svg';
 
 const newPostSchema = z.object({
-  description: z.string().min(5),
+  description: z.string().min(3),
 });
 
 export type postValues = z.infer<typeof newPostSchema>;
@@ -47,21 +47,24 @@ export const NewPost = () => {
   });
 
   return (
-    <>
+    <main id='main'>
       <NextSeo title='New post' />
+
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.avatar}>
           <UserAvatar className={styles.img} />
           {data?.username && <h2>{data.username}</h2>}
         </div>
 
-        <label className={styles.label}>
-          <input
-            className={clsx('sr-only', styles.input)}
-            type='file'
-            accept={acceptedExtensions}
-            onChange={handleImg}
-          />
+        <input
+          className={clsx('sr-only', styles.input)}
+          type='file'
+          accept={acceptedExtensions}
+          onChange={handleImg}
+          id='file'
+          name='new post'
+        />
+        <label className={styles.label} htmlFor='file'>
           {preview ? (
             <Image
               width={320}
@@ -71,7 +74,13 @@ export const NewPost = () => {
               alt='post preview'
             />
           ) : (
-            <Image src={addImg} width={70} height={70} alt='add photo' />
+            <Image
+              src={addImg}
+              width={70}
+              height={70}
+              className={styles.placeholder}
+              alt='add photo'
+            />
           )}
         </label>
         <Input
@@ -85,6 +94,6 @@ export const NewPost = () => {
           Add post!
         </Button>
       </form>
-    </>
+    </main>
   );
 };

@@ -26,6 +26,7 @@ model posts {
   description    String
   created_at     DateTime         @default(now()) @db.Timestamptz()
   img            String
+  img_uuid       String           @db.Uuid @default(uuid())
   posts_likes    posts_likes[]
   posts_comments posts_comments[]
 }

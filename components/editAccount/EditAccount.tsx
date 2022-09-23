@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import { z } from 'zod';
 
 import { isString } from '@/lib/isString';
-import { useProfile } from '@/hooks/useProfile';
-import { useUpdateProfile } from '@/hooks/useUpdateProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
+import { useUpdateProfile } from '@/hooks/profile/useUpdateProfile';
 import { bio, username, website } from '@/utils/editAccountValidation';
 
 import styles from './editAccount.module.scss';

@@ -2,10 +2,11 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './account.module.scss';
 
+import { Posts } from '@/components/account/posts/Posts';
 import { Text } from '@/components/account/text/Text';
 import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
 import { Loader } from '@/components/loader/Loader';
@@ -35,6 +36,8 @@ export const Account = () => {
     );
   }
 
+  const { bio, username, _count, website } = data;
+
   return (
     <>
       <NextSeo title='Profile' />
@@ -43,7 +46,7 @@ export const Account = () => {
 
         <div className={styles['user-info']}>
           <div className={styles['username-container']}>
-            <h2 className={styles.username}>{data?.username ?? 'no username'}</h2>
+            <h2 className={styles.username}>{username ?? 'no username'}</h2>
 
             <Link href='/account/edit' passHref>
               <motion.a
@@ -56,31 +59,21 @@ export const Account = () => {
             </Link>
           </div>
           <div className={styles.stats}>
-            <dl className={styles['stats-list']}>
-              <div className={styles['stat-container']}>
-                <dd className={styles['stat-count']}>0</dd>
-                <dt>posts</dt>
-              </div>
-              <div className={styles['stat-container']}>
-                <dd className={styles['stat-count']}>0</dd>
-                <dt>followers</dt>
-              </div>
-              <div className={styles['stat-container']}>
-                <dd className={styles['stat-count']}>0</dd>
-                <dt>following</dt>
-              </div>
-            </dl>
+            <div className={styles.stat}>
+              <span className={styles['stat-number']}>{_count.posts}</span>
+              <p>posts</p>
+            </div>
           </div>
-
-          {data.bio && <Text>{data.bio}</Text>}
-          {data.website && (
-            <a href={data.website} target='_blank' rel='noopener noreferrer'>
-              {data.website}
+          {bio && <Text>{bio}</Text>}
+          {website && (
+            <a href={website} target='_blank' rel='noopener noreferrer'>
+              {website}
             </a>
           )}
         </div>
       </main>
       <Link href='/api/auth/logout'>log out</Link>
+      <Posts />
     </>
   );
 };

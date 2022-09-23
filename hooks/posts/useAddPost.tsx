@@ -3,11 +3,12 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-import { useProfile } from './useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 type AddPostMutation = {
   description: string;
   imgURL: string;
+  uuid: string;
 };
 
 export const useAddPost = () => {
@@ -15,8 +16,8 @@ export const useAddPost = () => {
   const router = useRouter();
 
   return useMutation(
-    ({ description, imgURL }: AddPostMutation) => {
-      return axios.put('/api/posts/addPost', { author_id: user?.id, description, imgURL });
+    ({ description, imgURL, uuid }: AddPostMutation) => {
+      return axios.put('/api/posts/addPost', { author_id: user?.id, description, imgURL, uuid });
     },
     {
       onSuccess: () => {

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './avatarSection.module.scss';
 

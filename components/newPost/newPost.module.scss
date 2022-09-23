@@ -27,18 +27,21 @@
 }
 
 .label {
-  background-color: var(--secondary-color);
   border-radius: var(--radius-medium);
-  max-width: 100%;
-  min-width: 50%;
-  min-height: 20rem;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  border: 5px solid var(--primary-color);
+  border: 3px solid var(--primary-color);
+  transition: all var(--transition-fast);
+}
+
+.placeholder {
+  opacity: 0.3;
 }
 
 .img {
