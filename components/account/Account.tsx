@@ -14,6 +14,8 @@ import { Loader } from '@/components/loader/Loader';
 export const Account = () => {
   const { data, error, isLoading } = useProfile();
 
+  console.log({ user: data });
+
   if (error) {
     return (
       <>
