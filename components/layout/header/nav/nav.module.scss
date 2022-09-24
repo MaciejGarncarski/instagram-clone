@@ -25,9 +25,8 @@
   justify-content: space-between;
   padding: 1rem 2rem;
   box-shadow: var(--box-shadow);
-  background-image: var(--gradient);
-  border-radius: 16px;
-  backdrop-filter: blur(6px);
+  background-color: var(--secondary-color);
+  border-radius: 1.7rem;
 
   @include common.breakpoint('lg') {
     box-shadow: none;

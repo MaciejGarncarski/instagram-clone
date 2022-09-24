@@ -1,23 +1,36 @@
+@use '/styles/common.scss';
+
 .posts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   row-gap: 6rem;
-  margin-top: 5rem;
   column-gap: 3rem;
+  margin-top: 5rem;
+  width: 90%;
+  margin: 0 auto;
+
+  @include common.breakpoint('lg') {
+    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+  }
+
+  @include common.breakpoint('xxl') {
+    grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+  }
 }
 
 .post {
+  isolation: isolate;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   box-shadow: var(--box-shadow);
   padding: 1rem;
-
   gap: 1rem;
   position: relative;
   justify-self: center;
   overflow: hidden;
+  background-color: var(--secondary-color);
   border-radius: 0.75rem;
 
   &:hover > .overlay {
@@ -46,5 +59,8 @@ button.delete {
 }
 
 .post-img {
+  box-shadow: var(--box-shadow);
+  border: 4px solid var(--primary-color);
+  border-radius: 0.5rem;
   height: 90%;
 }

@@ -25,7 +25,7 @@ export const Account = () => {
     );
   }
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
       <>
         <NextSeo title='Loading profile' />
@@ -34,6 +34,10 @@ export const Account = () => {
         </main>
       </>
     );
+  }
+
+  if (!data) {
+    return null;
   }
 
   const { bio, username, _count, website } = data;
@@ -61,7 +65,7 @@ export const Account = () => {
           <div className={styles.stats}>
             <div className={styles.stat}>
               <span className={styles['stat-number']}>{_count.posts}</span>
-              <p>posts</p>
+              <p>{_count.posts > 1 ? 'posts' : 'post'}</p>
             </div>
           </div>
           {bio && <Text>{bio}</Text>}
