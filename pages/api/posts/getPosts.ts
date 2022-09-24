@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const prisma = new PrismaClient();
+import { prisma } from '@/utils/db';
 
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
     res.status(405).send('Only GET requests allowed');
     return;

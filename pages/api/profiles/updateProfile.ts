@@ -1,6 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
+
+import { prisma } from '@/utils/db';
 
 type Body = {
   username: string;
@@ -10,8 +11,6 @@ type Body = {
 };
 
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
-  const prisma = new PrismaClient();
-
   if (req.method !== 'POST') {
     res.status(405).send('Only POST requests allowed');
     return;
