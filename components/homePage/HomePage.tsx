@@ -17,6 +17,10 @@ export const HomePage = () => {
     return <Loader />;
   }
 
+  if (data.length < 1) {
+    return <h2>No posts yet.</h2>;
+  }
+
   return (
     <main id='main' className={styles.container}>
       {data.map((post) => {

@@ -17,12 +17,15 @@ export const useProfile = () => {
     ['profile'],
     async () => {
       const { data } = await axios.post('/api/profiles/getProfile', {
-        id: user?.id,
+        id: user?.id ?? '',
       });
 
       return data;
     },
-    { enabled: Boolean(user?.id), refetchOnWindowFocus: false }
+    {
+      enabled: Boolean(user?.id),
+      refetchOnWindowFocus: false,
+    }
   );
 
   return { user, ...profile };

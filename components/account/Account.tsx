@@ -1,5 +1,8 @@
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 import { useProfile } from '@/hooks/profile/useProfile';
@@ -12,29 +15,19 @@ import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
 import { Loader } from '@/components/loader/Loader';
 
 export const Account = () => {
-  const { data, error, isLoading } = useProfile();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { data, isLoading, isError, user } = useProfile();
 
-  console.log({ user: data });
-
-  if (error) {
-    return (
-      <>
-        <NextSeo title='Profile' />
-        <main>
-          <h2>Error</h2>
-        </main>
-      </>
-    );
+  if (isError) {
+    return <h2>Error</h2>;
   }
 
-  if (isLoading) {
+  if (isLoading || !user?.id) {
     return (
-      <>
-        <NextSeo title='Loading profile' />
-        <main className={styles.loader}>
-          <Loader />
-        </main>
-      </>
+      <main className={styles.loader}>
+        <Loader />
+      </main>
     );
   }
 
@@ -44,16 +37,20 @@ export const Account = () => {
 
   const { bio, username, _count, website } = data;
 
+  const handleLogout = async () => {
+    supabaseClient.auth.signOut();
+    router.push('/');
+    queryClient.setQueryData(['profile'], null);
+  };
+
   return (
     <>
       <NextSeo title='Profile' />
       <main id='main' className={styles.account}>
         <UserAvatar className={styles.avatar} />
-
         <div className={styles['user-info']}>
           <div className={styles['username-container']}>
             <h2 className={styles.username}>{username ?? 'no username'}</h2>
-
             <Link href='/account/edit' passHref>
               <motion.a
                 whileTap={{ scale: 0.94 }}
@@ -78,7 +75,7 @@ export const Account = () => {
           )}
         </div>
       </main>
-      <Link href='/api/auth/logout'>log out</Link>
+      <button onClick={handleLogout}>Log out</button>
       <Posts />
     </>
   );

@@ -16,7 +16,7 @@ export const useDeletePost = () => {
     {
       onSuccess: () => {
         toast.success('Post removed!');
-        queryClient.invalidateQueries(['profile']);
+        queryClient.setQueryData(['posts'], null);
       },
       onError: () => {
         toast.error(`Couldn't delete post`);

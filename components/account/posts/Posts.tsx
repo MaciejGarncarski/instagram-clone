@@ -1,4 +1,5 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/future/image';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -13,10 +14,10 @@ import { Loader } from '@/components/loader/Loader';
 import { Modal } from '@/components/modal/Modal';
 
 export const Posts = () => {
-  const { data } = useProfile();
-  const { mutate } = useDeletePost();
-
   const [modalOpen, setModalOpen] = useState(false);
+  const { mutate } = useDeletePost();
+  const { data } = useProfile();
+  const queryCliennt = useQueryClient();
 
   if (!data) {
     return <Loader />;
@@ -34,7 +35,15 @@ export const Posts = () => {
       return;
     }
 
-    mutate({ post_id }, { onSettled: () => setModalOpen(false) });
+    mutate(
+      { post_id },
+      {
+        onSuccess: () => {
+          queryCliennt.invalidateQueries(['profile']);
+        },
+        onSettled: () => setModalOpen(false),
+      }
+    );
   };
 
   return (
