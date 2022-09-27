@@ -1,11 +1,13 @@
-import { posts, profiles } from '@prisma/client';
+import { posts, posts_likes, profiles } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 type Profile = profiles & {
   posts: posts[];
+  posts_likes: posts_likes[];
   _count: {
+    posts_likes: number;
     posts: number;
   };
 };

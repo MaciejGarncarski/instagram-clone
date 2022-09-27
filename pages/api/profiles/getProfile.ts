@@ -11,12 +11,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       include: {
         posts: true,
         _count: {
-          select: { posts: true },
+          select: {
+            posts: true,
+          },
         },
       },
     });
     res.status(200).send(prismaData);
   } catch (e) {
+    console.log(e);
     res.status(400).send(`Wrong api call`);
   }
 };

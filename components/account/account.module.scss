@@ -3,7 +3,7 @@
 
 .account {
   width: 90%;
-  margin: 0 auto;
+  margin: 0 auto 5rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,7 @@
   @include common.breakpoint('lg') {
     flex-direction: row;
     gap: 8rem;
+    margin: 0 auto 9rem auto;
   }
 }
 
@@ -65,14 +66,35 @@
   }
 }
 
-.edit {
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.button {
   color: var(--bg-color);
   border-radius: var(--radius-small);
   text-decoration: none;
-  background-image: var(--gradient);
+  background: var(--gradient);
   padding: 0.5rem 2.5rem;
   font-weight: 700;
+  border: 0;
   text-transform: uppercase;
+
+  &--error {
+    background: var(--error-color);
+  }
+}
+
+button.button {
+  padding: 0.5rem 2.5rem;
+
+  &--error {
+    background: var(--error-color);
+  }
 }
 
 .stats {

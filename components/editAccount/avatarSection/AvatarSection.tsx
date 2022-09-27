@@ -40,6 +40,7 @@ export const AvatarSection = () => {
       >
         <div className={styles['avatar-container']}>
           <UserAvatar className={styles.avatar} ref={avatarRef} editable />
+
           <h2>{data?.username ?? 'No username'}</h2>
         </div>
 

@@ -1,5 +1,6 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useQueryClient } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -12,6 +13,7 @@ import styles from './account.module.scss';
 import { Posts } from '@/components/account/posts/Posts';
 import { Text } from '@/components/account/text/Text';
 import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
+import { Button } from '@/components/common/button/Button';
 import { Loader } from '@/components/loader/Loader';
 
 export const Account = () => {
@@ -31,36 +33,25 @@ export const Account = () => {
     );
   }
 
-  if (!data) {
-    return null;
-  }
-
-  const { bio, username, _count, website } = data;
-
   const handleLogout = async () => {
     supabaseClient.auth.signOut();
     router.push('/');
     queryClient.setQueryData(['profile'], null);
   };
 
+  if (!data) {
+    return null;
+  }
+
+  const { bio, username, _count, website } = data;
+
   return (
     <>
       <NextSeo title='Profile' />
-      <main id='main' className={styles.account}>
-        <UserAvatar className={styles.avatar} />
+      <section id='main' className={styles.account}>
+        <UserAvatar />
         <div className={styles['user-info']}>
-          <div className={styles['username-container']}>
-            <h2 className={styles.username}>{username ?? 'no username'}</h2>
-            <Link href='/account/edit' passHref>
-              <motion.a
-                whileTap={{ scale: 0.94 }}
-                whileHover={{ scale: 1.06 }}
-                className={styles.edit}
-              >
-                Edit Profile
-              </motion.a>
-            </Link>
-          </div>
+          <h2 className={styles.username}>{username ?? 'no username'}</h2>
           <div className={styles.stats}>
             <div className={styles.stat}>
               <span className={styles['stat-number']}>{_count.posts}</span>
@@ -74,8 +65,25 @@ export const Account = () => {
             </a>
           )}
         </div>
-      </main>
-      <button onClick={handleLogout}>Log out</button>
+        <div className={styles.buttons}>
+          <Link href='/account/edit' passHref>
+            <motion.a
+              whileTap={{ scale: 0.94 }}
+              whileHover={{ scale: 1.06 }}
+              className={styles.button}
+            >
+              Edit Profile
+            </motion.a>
+          </Link>
+          <Button
+            type='button'
+            className={clsx(styles.button, styles['button--error'])}
+            onClick={handleLogout}
+          >
+            Log out
+          </Button>
+        </div>
+      </section>
       <Posts />
     </>
   );
