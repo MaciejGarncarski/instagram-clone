@@ -5,7 +5,7 @@ import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 
-import { useAddPost } from '@/hooks/useAddPost';
+import { useAddPost } from '@/hooks/posts/useAddPost';
 
 import { postValues } from '@/components/newPost/NewPost';
 
@@ -58,7 +58,7 @@ export const useNewPost = () => {
       return;
     }
 
-    mutate({ description, imgURL });
+    mutate({ description, imgURL, uuid });
   };
 
   return { onSubmit, handleImg };

@@ -1,15 +1,14 @@
 import { getUser, supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { ApiError } from '@supabase/supabase-js';
 import type { GetServerSideProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { Form, FormValues } from '@/components/auth/form/Form';
 
 const Register: NextPage = () => {
-  const router = useRouter();
   const [error, setError] = useState<ApiError | null>(null);
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
@@ -22,7 +21,7 @@ const Register: NextPage = () => {
       setError(error);
     }
     if (user) {
-      router.push('/account');
+      toast.success('Registered!');
     }
   };
 

@@ -1,8 +1,8 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useState } from 'react';
 
-import { useDeleteAvatar } from '@/hooks/useDeleteAvatar';
-import { useProfile } from '@/hooks/useProfile';
+import { useDeleteAvatar } from '@/hooks/profile/useDeleteAvatar';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './avatarSection.module.scss';
 

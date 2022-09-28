@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './nav.module.scss';
 

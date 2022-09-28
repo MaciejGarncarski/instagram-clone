@@ -1,14 +1,13 @@
-import { withPageAuth } from '@supabase/auth-helpers-nextjs';
-import type { GetServerSideProps, NextPage } from 'next';
+// import { withPageAuth } from '@supabase/auth-helpers-nextjs';
+import type { NextPage } from 'next';
+
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
 import { Account } from '@/components/account/Account';
 
 const UserProfile: NextPage = () => {
+  useAuthRedirect();
   return <Account />;
 };
-
-export const getServerSideProps: GetServerSideProps = withPageAuth({
-  redirectTo: '/auth/login',
-});
 
 export default UserProfile;

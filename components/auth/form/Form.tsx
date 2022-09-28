@@ -1,9 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ApiError } from '@supabase/supabase-js';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
+
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './form.module.scss';
 
@@ -41,6 +44,18 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
       password: '',
     },
   });
+
+  const router = useRouter();
+  const { user } = useProfile();
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    router.push('/account');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   useEffect(() => {
     if (authError) {

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -26,19 +27,21 @@ model posts {
   description    String
   created_at     DateTime         @default(now()) @db.Timestamptz()
   img            String
+  img_uuid       String           @default(uuid()) @db.Uuid
   posts_likes    posts_likes[]
   posts_comments posts_comments[]
 }
 
 model posts_likes {
-  post    posts    @relation(fields: [id], references: [id])
-  id      Int      @id @db.Integer
+  id      Int      @id @default(autoincrement()) @db.Integer
+  post    posts    @relation(fields: [post_id], references: [id])
+  post_id Int      @default(autoincrement()) @db.Integer
   user    profiles @relation(fields: [user_id], references: [id])
   user_id String   @db.Uuid
 }
 
 model posts_comments {
-  id           Int      @id @db.Integer
+  id           Int      @id @default(autoincrement()) @db.Integer
   user         profiles @relation(fields: [user_id], references: [id])
   user_id      String   @db.Uuid
   post         posts    @relation(fields: [post_id], references: [id])

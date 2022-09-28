@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './avatarSection.module.scss';
 
@@ -40,6 +40,7 @@ export const AvatarSection = () => {
       >
         <div className={styles['avatar-container']}>
           <UserAvatar className={styles.avatar} ref={avatarRef} editable />
+
           <h2>{data?.username ?? 'No username'}</h2>
         </div>
 

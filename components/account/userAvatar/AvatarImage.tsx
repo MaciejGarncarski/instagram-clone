@@ -1,6 +1,6 @@
 import Image from 'next/future/image';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './userAvatar.module.scss';
 

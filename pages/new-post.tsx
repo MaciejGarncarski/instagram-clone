@@ -1,14 +1,12 @@
-import { withPageAuth } from '@supabase/auth-helpers-nextjs';
-import { GetServerSideProps, NextPage } from 'next';
+import { NextPage } from 'next';
+
+import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
 import { NewPost } from '@/components/newPost/NewPost';
 
 const NewPostPage: NextPage = () => {
+  useAuthRedirect();
   return <NewPost />;
 };
-
-export const getServerSideProps: GetServerSideProps = withPageAuth({
-  redirectTo: '/auth/login',
-});
 
 export default NewPostPage;

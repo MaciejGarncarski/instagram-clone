@@ -4,9 +4,8 @@ import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { updateAvatar } from '@/lib/avatar';
-import { useUpdateAvatar } from '@/hooks/useUpdateAvatar';
-
-import { useProfile } from './useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
+import { useUpdateAvatar } from '@/hooks/profile/useUpdateAvatar';
 
 const IMG_EXTENSIONS = ['jpg', 'jpeg', 'png'];
 export const IMG_EXTENSIONS_DOTS = IMG_EXTENSIONS.map((ext) => `.${ext}`);

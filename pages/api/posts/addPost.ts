@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
 import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
-  const prisma = new PrismaClient();
+import { prisma } from '@/utils/db';
 
+const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'PUT') {
     res.status(405).send('Only PUT requests allowed');
     return;
@@ -16,6 +15,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
         img: req.body.imgURL,
         description: req.body.description,
         author_id: req.body.author_id,
+        img_uuid: req.body.uuid,
       },
       select: {
         created_at: true,
