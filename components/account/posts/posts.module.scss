@@ -2,18 +2,10 @@
 
 .posts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   row-gap: 6rem;
   column-gap: 3rem;
   margin-top: 5rem;
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
-
-  @include common.breakpoint('lg') {
-    grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
-  }
-
-  @include common.breakpoint('xxl') {
-    grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
-  }
 }

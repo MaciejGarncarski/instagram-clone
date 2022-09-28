@@ -4,8 +4,8 @@ import { useGetPosts } from '@/hooks/posts/useGetPosts';
 
 import styles from './homePage.module.scss';
 
-import { Post } from '@/components/account/posts/post/Post';
 import { Loader } from '@/components/loader/Loader';
+import { Post } from '@/components/post/Post';
 
 export const HomePage = () => {
   const { data, isLoading } = useGetPosts();
@@ -21,7 +21,7 @@ export const HomePage = () => {
 
   return (
     <main id='main' className={styles.container}>
-      {data.map(({ id, author_id, author, description, img_uuid, img }) => {
+      {data.map(({ id, author_id, author, description, img_uuid, img, created_at }) => {
         return (
           <Post
             key={id}
@@ -31,6 +31,7 @@ export const HomePage = () => {
             description={description}
             img_uuid={img_uuid}
             img={img}
+            created_at={created_at}
           />
         );
       })}

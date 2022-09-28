@@ -24,6 +24,7 @@
     "@tanstack/react-query-devtools": "^4.2.1",
     "axios": "^0.27.2",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.5",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "framer-motion": "^7.2.0",
     "jest": "^28.1.3",

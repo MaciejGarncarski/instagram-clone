@@ -58,7 +58,12 @@ export const useNewPost = () => {
       return;
     }
 
-    mutate({ description, imgURL, uuid });
+    mutate(
+      { description, imgURL, uuid },
+      {
+        onSuccess: () => setPreview(null),
+      }
+    );
   };
 
   return { onSubmit, handleImg };
