@@ -44,6 +44,10 @@
   position: relative;
   width: 100%;
 
+  & > svg {
+    font-size: 1.75em;
+  }
+
   @include common.breakpoint('lg') {
     padding: 0.75rem;
   }
