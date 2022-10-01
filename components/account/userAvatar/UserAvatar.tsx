@@ -1,14 +1,12 @@
 import clsx from 'clsx';
-import Image from 'next/future/image';
 import { forwardRef } from 'react';
+import { BiEdit } from 'react-icons/bi';
 
 import { useAvatarInput } from '@/hooks/useAvatarInput';
 
 import styles from './userAvatar.module.scss';
 
 import { AvatarImage } from './AvatarImage';
-
-import edit from '~/images/edit.svg';
 
 type UserAvatarProps = {
   className?: string;
@@ -32,9 +30,9 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             onChange={handleChange}
           />
           <label className={styles.label} htmlFor='set-avatar'>
-            <div className={styles.overlay} title='change avatar'>
-              <Image fill sizes='130' src={edit} alt='edit avatar' />
-            </div>
+            <span className={styles.overlay} title='change avatar'>
+              <BiEdit />
+            </span>
             <AvatarImage />
           </label>
         </div>

@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
+import { apiClient } from '@/lib/apiClient';
 import { useProfile } from '@/hooks/profile/useProfile';
 
 type AddPostMutation = {
@@ -17,7 +17,7 @@ export const useAddPost = () => {
 
   return useMutation(
     ({ description, imgURL, uuid }: AddPostMutation) => {
-      return axios.put('/api/posts/addPost', { author_id: user?.id, description, imgURL, uuid });
+      return apiClient.put('/posts/addPost', { author_id: user?.id, description, imgURL, uuid });
     },
     {
       onSuccess: () => {

@@ -1,16 +1,15 @@
 import { useUser } from '@supabase/auth-helpers-react';
-import Image from 'next/future/image';
 import { useState } from 'react';
 
 import styles from './postSettings.module.scss';
-
-import dots from '~/images/dots.svg';
 
 type PostSettingsProps = {
   author_id: string;
   id: number;
   img_uuid: string;
 };
+
+import { BsThreeDots } from 'react-icons/bs';
 
 export const PostSettings = ({ author_id, id, img_uuid }: PostSettingsProps) => {
   // const [modalOpen, setModalOpen] = useAtom(postModalAtom);
@@ -32,7 +31,7 @@ export const PostSettings = ({ author_id, id, img_uuid }: PostSettingsProps) => 
               onClick={() => setIsOpen((prev) => !prev)}
             >
               <span className='sr-only'>settings</span>
-              <Image width={50} height={50} priority src={dots} alt='settings' />
+              <BsThreeDots />
             </button>
           </div>
         )}

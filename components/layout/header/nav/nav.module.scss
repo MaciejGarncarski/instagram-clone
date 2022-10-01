@@ -68,6 +68,15 @@
   }
 }
 
+.icon {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.75em;
+  color: var(--text-color);
+}
+
 .img {
   border-radius: 50%;
   max-width: 3.5rem;

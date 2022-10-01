@@ -34,6 +34,7 @@
 html {
   font-size: 62.5%;
   line-height: 1.5;
+  scroll-behavior: smooth;
 
   @include common.breakpoint('lg') {
     font-size: 50%;
@@ -47,6 +48,11 @@ body {
   color: var(--text-color);
   font-size: clamp(100%, calc(1rem + 2vw), 22px);
   scroll-behavior: smooth;
+}
+
+svg,
+path {
+  color: var(--text-color);
 }
 
 input,
@@ -68,10 +74,11 @@ input::-ms-clear {
   padding: 0;
   margin: -1px;
   overflow: hidden;
+  left: 1px;
+  top: 1px;
   clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
   white-space: nowrap;
-  border: 0;
+  border-width: 0;
 }
 
 div.Toastify__progress-bar {

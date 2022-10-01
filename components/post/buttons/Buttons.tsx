@@ -1,20 +1,16 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import Image, { StaticImageData } from 'next/future/image';
+import { ReactNode } from 'react';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { BiBookmark, BiComment, BiShare } from 'react-icons/bi';
 
 import { useGetPostsLikes } from '@/hooks/posts/useGetPostsLikes';
 import { usePostLike } from '@/hooks/posts/usePostLike';
 
-import styles from '../post.module.scss';
-
-import saveImg from '~/images/bookmark.svg';
-import commentImg from '~/images/chat.svg';
-import likeImg from '~/images/liked.svg';
-import disLikeImg from '~/images/not-liked.svg';
-import shareImg from '~/images/send.svg';
+import styles from './buttons.module.scss';
 
 type Button = {
-  img: StaticImageData;
+  icon: ReactNode;
   alt: string;
   className?: string;
   onClick?: () => void;
@@ -30,14 +26,18 @@ export const Buttons = ({ id }: ButtonProps) => {
   const { handleLike, isLiked } = usePostLike(id, data);
 
   const buttonsData: Button[] = [
-    { img: isLiked ? likeImg : disLikeImg, alt: 'like', onClick: handleLike },
-    { img: commentImg, alt: 'comment' },
-    { img: shareImg, alt: 'share' },
-    { img: saveImg, alt: 'save', className: styles.last },
+    {
+      icon: isLiked ? <AiFillHeart fill='red' /> : <AiOutlineHeart />,
+      alt: 'like',
+      onClick: handleLike,
+    },
+    { icon: <BiComment />, alt: 'comment' },
+    { icon: <BiShare />, alt: 'share' },
+    { icon: <BiBookmark />, alt: 'save', className: styles.last },
   ];
   return (
     <div className={styles.buttons}>
-      {buttonsData.map(({ img, alt, className, onClick }) => {
+      {buttonsData.map(({ icon, alt, className, onClick }) => {
         return (
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -47,7 +47,7 @@ export const Buttons = ({ id }: ButtonProps) => {
             type='button'
             className={clsx(styles.button, className ?? '')}
           >
-            <Image src={img} width={35} height={35} alt={alt} />
+            {icon}
           </motion.button>
         );
       })}

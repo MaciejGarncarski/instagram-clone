@@ -1,12 +1,11 @@
 import Image from 'next/future/image';
+import { BiUser } from 'react-icons/bi';
 
 import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './userAvatar.module.scss';
 
 import { Loader } from '@/components/loader/Loader';
-
-import defaultIMG from '~/images/account.svg';
 
 export const AvatarImage = () => {
   const { data, isLoading, isError } = useProfile();
@@ -15,30 +14,8 @@ export const AvatarImage = () => {
     return <Loader />;
   }
 
-  if (isError) {
-    return (
-      <Image
-        className={styles.image}
-        src={defaultIMG}
-        fill
-        sizes='130'
-        alt='user profile picture'
-        priority
-      />
-    );
-  }
-
-  if (!data?.avatar_url) {
-    return (
-      <Image
-        className={styles.image}
-        src={defaultIMG}
-        fill
-        sizes='130'
-        alt='user profile picture'
-        priority
-      />
-    );
+  if (isError || !data?.avatar_url) {
+    return <BiUser />;
   }
 
   return (
@@ -46,7 +23,7 @@ export const AvatarImage = () => {
       fill
       sizes='130'
       className={styles.image}
-      src={data?.avatar_url ?? defaultIMG}
+      src={data?.avatar_url}
       alt='user profile picture'
       priority
     />

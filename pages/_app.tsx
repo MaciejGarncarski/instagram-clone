@@ -1,6 +1,12 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { UserProvider } from '@supabase/auth-helpers-react';
-import { QueryClient, QueryClientConfig, QueryClientProvider } from '@tanstack/react-query';
+import {
+  DehydratedState,
+  Hydrate,
+  QueryClient,
+  QueryClientConfig,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MotionConfig } from 'framer-motion';
 import type { AppProps } from 'next/app';
@@ -12,7 +18,7 @@ import '../styles/globals.scss';
 
 import { Layout } from '@/components/layout/Layout';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedState }>) {
   const queryOptions: QueryClientConfig = {
     defaultOptions: {
       queries: {
@@ -29,7 +35,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <NextSeo titleTemplate='%s | Delaygram' defaultTitle='Delaygram' />
           <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
           <MotionConfig reducedMotion='user'>
-            <Component {...pageProps} />
+            <Hydrate state={pageProps.dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
           </MotionConfig>
         </Layout>
         <ReactQueryDevtools />

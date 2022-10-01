@@ -1,0 +1,23 @@
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding: 0 0.75em;
+  width: 100%;
+}
+
+.last {
+  margin-left: auto;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  outline-offset: 4px;
+  cursor: pointer;
+  font-size: 1.5em;
+}

@@ -1,6 +1,7 @@
 import { posts, profiles } from '@prisma/client';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { getPosts } from '@/lib/getPosts';
 
 export type Posts = {
   post: posts & {
@@ -12,14 +13,6 @@ export type Posts = {
 };
 
 export const useGetPosts = () => {
-  const getPosts = async (pageParam: number): Promise<Posts> => {
-    const { data } = await axios.post('/api/posts/getPosts', {
-      skip: pageParam,
-      take: 1,
-    });
-    return data;
-  };
-
   return useInfiniteQuery(['posts'], ({ pageParam = 0 }) => getPosts(pageParam), {
     getNextPageParam: (oldPosts, allPosts) => {
       const postCount = allPosts[0].postsCount._count.id;

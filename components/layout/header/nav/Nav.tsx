@@ -1,22 +1,21 @@
-import Image from 'next/future/image';
 import Link from 'next/link';
+import { ReactNode } from 'react';
+import { BiBookmark } from 'react-icons/bi';
+import { CgAddR } from 'react-icons/cg';
 
 import styles from './nav.module.scss';
 
 import { AccountLink } from './AccountLink';
 
-import add from '~/images/add.svg';
-import bookmark from '~/images/bookmark.svg';
-
 type Routes = {
   to: string;
   name: string;
-  icon: string;
+  icon: ReactNode;
 };
 
 const routes: Array<Routes> = [
-  { to: '/favorite', name: 'favorite', icon: bookmark },
-  { to: '/new-post', name: 'add post', icon: add },
+  { to: '/favorite', name: 'favorite', icon: <BiBookmark /> },
+  { to: '/new-post', name: 'add post', icon: <CgAddR /> },
 ];
 
 export const Nav = () => {
@@ -28,7 +27,7 @@ export const Nav = () => {
             <li key={name} className={styles.item}>
               <Link href={to} passHref>
                 <a className={styles.link}>
-                  <Image width={70} height={70} className={styles.img} src={icon} alt={name} />
+                  <span className={styles.icon}>{icon}</span>
                   <span className='sr-only'>{name}</span>
                 </a>
               </Link>

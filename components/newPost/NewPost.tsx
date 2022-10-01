@@ -4,6 +4,7 @@ import { useAtom } from 'jotai';
 import Image from 'next/future/image';
 import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
+import { CgAddR } from 'react-icons/cg';
 import { z } from 'zod';
 
 import { useNewPost } from '@/hooks/posts/useNewPost';
@@ -17,8 +18,6 @@ import { Button } from '@/components/common/button/Button';
 import { Input } from '@/components/common/input/Input';
 
 import { newPostPreviewAtom } from '@/store/store';
-
-import addImg from '~/images/add.svg';
 
 const newPostSchema = z.object({
   description: z.string().min(3),
@@ -74,13 +73,7 @@ export const NewPost = () => {
               alt='post preview'
             />
           ) : (
-            <Image
-              src={addImg}
-              width={70}
-              height={70}
-              className={styles.placeholder}
-              alt='add photo'
-            />
+            <CgAddR size={90} />
           )}
         </label>
         <Input
