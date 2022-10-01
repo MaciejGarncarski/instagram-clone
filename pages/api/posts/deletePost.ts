@@ -26,7 +26,6 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
     });
     res.status(200).send('200');
   } catch (e) {
-    console.log('post del', e);
     res.status(400).send('400');
   }
 });

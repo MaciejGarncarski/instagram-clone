@@ -1,38 +1,38 @@
-import { profiles } from '@prisma/client';
+import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Image from 'next/future/image';
 
+import { Posts } from '@/hooks/posts/useGetPosts';
 import { useGetPostsLikes } from '@/hooks/posts/useGetPostsLikes';
 
 import styles from './post.module.scss';
 
+import { Loader } from '@/components/loader/Loader';
 import { Buttons } from '@/components/post/buttons/Buttons';
 import { PostSettings } from '@/components/post/postSettings/PostSettings';
 
 type PostProps = {
   id: number;
-  img: string;
-  img_uuid: string;
-  description: string;
-  author_id: string;
-  author?: profiles;
-  created_at: Date;
 };
 
 dayjs.extend(relativeTime);
 
-export const Post = ({
-  id,
-  img,
-  img_uuid,
-  description,
-  author,
-  author_id,
-  created_at,
-}: PostProps) => {
+export const Post = ({ id }: PostProps) => {
   const { data } = useGetPostsLikes(id);
-  const createdAt = dayjs(created_at).fromNow();
+  const queryClient = useQueryClient();
+
+  const posts = queryClient.getQueryData<InfiniteData<Posts>>(['posts']);
+  const allPosts = posts?.pages.flatMap((post) => post.post);
+  const postsData = allPosts?.find((post) => post.id === id);
+
+  if (!postsData) {
+    return <Loader />;
+  }
+
+  const createdAt = dayjs(postsData.created_at).fromNow();
+
+  const { author, author_id, img, img_uuid, description } = postsData;
 
   return (
     <div className={styles.container}>
@@ -40,8 +40,8 @@ export const Post = ({
       <div className={styles.author}>
         <Image
           className={styles.avatar}
-          src={author?.avatar_url ?? ''}
-          alt={`${author?.username} profile picture`}
+          src={author.avatar_url ?? ''}
+          alt={`${author.username} profile picture`}
           width={35}
           height={35}
           priority
@@ -62,7 +62,7 @@ export const Post = ({
           <p className={styles.likes}>
             {data?.likes !== 0 && data?.likes && (
               <>
-                <span className={styles.bold}>{data?.likes}</span>
+                <span className={styles.bold}>{data.likes}</span>
                 <span>{data?.likes > 1 ? 'likes' : 'like'}</span>
               </>
             )}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { useGetPosts } from '@/hooks/posts/useGetPosts';
 
@@ -8,33 +8,30 @@ import { Loader } from '@/components/loader/Loader';
 import { Post } from '@/components/post/Post';
 
 export const HomePage = () => {
-  const { data, isLoading } = useGetPosts();
-  const [isImgLoading, setIsImgLoading] = useState<boolean>(true);
+  const { data, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
+  const allPosts = data?.pages.flatMap((post) => post.post);
 
-  if (isLoading || !data) {
+  if (isLoading || !data || !allPosts) {
     return <Loader />;
   }
 
-  if (data.length < 1) {
+  if (data.pages.length < 1) {
     return <h2>No posts yet.</h2>;
   }
 
   return (
-    <main id='main' className={styles.container}>
-      {data.map(({ id, author_id, author, description, img_uuid, img, created_at }) => {
-        return (
-          <Post
-            key={id}
-            id={id}
-            author={author}
-            author_id={author_id}
-            description={description}
-            img_uuid={img_uuid}
-            img={img}
-            created_at={created_at}
-          />
-        );
-      })}
-    </main>
+    <InfiniteScroll
+      hasMore={hasNextPage ?? false}
+      next={() => fetchNextPage()}
+      loader={<Loader />}
+      dataLength={allPosts.length}
+      style={{ overflow: 'hidden' }}
+    >
+      <main id='main' className={styles.container}>
+        {allPosts.map(({ id }) => {
+          return <Post key={id} id={id} />;
+        })}
+      </main>
+    </InfiniteScroll>
   );
 };

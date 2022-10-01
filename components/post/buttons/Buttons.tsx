@@ -42,7 +42,7 @@ export const Buttons = ({ id }: ButtonProps) => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileFocus={{ scale: 1.1 }}
-            onClick={onClick}
+            onClick={onClick ? onClick : () => null}
             key={alt}
             type='button'
             className={clsx(styles.button, className ?? '')}

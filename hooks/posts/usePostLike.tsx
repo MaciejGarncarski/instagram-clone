@@ -17,9 +17,26 @@ export const usePostLike = (id: number, data?: Likes) => {
   const isLikedByUser = data?.likesData?.user_id === user?.id;
   const [isLiked, setIsLiked] = useState<boolean>(isLikedByUser);
 
-  const onSuccess = () => {
-    queryClient.invalidateQueries(['posts', { post_id: id }]);
-    queryClient.invalidateQueries(['posts']);
+  const onSuccess = (type: 'like' | 'dislike') => {
+    queryClient.setQueryData<Likes>(['post', { post_id: id }], (oldData) => {
+      if (!oldData) {
+        return undefined;
+      }
+
+      if (type === 'dislike') {
+        return {
+          ...oldData,
+          likes: oldData.likes - 1,
+        };
+      }
+
+      return {
+        ...oldData,
+        likes: oldData.likes + 1,
+      };
+    });
+
+    queryClient.invalidateQueries(['post', { post_id: id }]);
     setIsLiked((prev) => !prev);
   };
 
@@ -34,7 +51,7 @@ export const usePostLike = (id: number, data?: Likes) => {
       });
     },
     {
-      onSuccess,
+      onSuccess: () => onSuccess('dislike'),
     }
   );
 
@@ -46,26 +63,16 @@ export const usePostLike = (id: number, data?: Likes) => {
       });
     },
     {
-      onSuccess,
+      onSuccess: () => onSuccess('like'),
     }
   );
 
   const handleLike = () => {
     if (isLiked) {
-      postDislike.mutate(
-        { post_like_id: data?.likesData?.id },
-        {
-          onSuccess,
-        }
-      );
+      postDislike.mutate({ post_like_id: data?.likesData?.id });
     }
     if (!isLiked) {
-      postLike.mutate(
-        { post_id: id },
-        {
-          onSuccess,
-        }
-      );
+      postLike.mutate({ post_id: id });
     }
   };
 

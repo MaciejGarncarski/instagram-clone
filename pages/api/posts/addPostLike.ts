@@ -17,7 +17,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     res.status(200).send(likePost);
   } catch (e) {
-    console.log('like', e);
     res.status(400).send('400');
   }
 };

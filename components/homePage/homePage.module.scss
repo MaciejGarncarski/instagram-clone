@@ -2,12 +2,13 @@
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   gap: 5rem;
-
-  margin-bottom: 5rem;
+  min-height: 100vh;
+  margin-bottom: 8rem;
+  width: 100%;
 
   @include common.breakpoint('lg') {
     gap: 10rem;
