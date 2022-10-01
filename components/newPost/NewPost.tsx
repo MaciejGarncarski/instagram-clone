@@ -27,10 +27,8 @@ const newPostSchema = z.object({
 export type postValues = z.infer<typeof newPostSchema>;
 
 export const NewPost = () => {
-  const [preview, setPreview] = useAtom(newPostPreviewAtom);
+  const [preview] = useAtom(newPostPreviewAtom);
   const { data } = useProfile();
-
-  setPreview(null);
 
   const { handleImg, onSubmit } = useNewPost();
 

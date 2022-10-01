@@ -1,0 +1,31 @@
+.overlay {
+  position: absolute;
+  width: 80%;
+  height: 40%;
+  z-index: 1;
+  left: 10%;
+  top: 0;
+  background-color: rgba(var(--primary-color-rgb), 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  flex-direction: column;
+}
+
+.container {
+  position: absolute;
+  right: 1rem;
+  top: 1.25rem;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  align-items: center;
+}
+
+.button {
+  cursor: pointer;
+  background-color: transparent;
+  position: relative;
+}

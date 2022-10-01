@@ -1,23 +1,36 @@
 import { posts, profiles } from '@prisma/client';
-import { useUser } from '@supabase/auth-helpers-react';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-type Post = {
-  author: profiles;
-} & posts;
+export type Posts = {
+  post: posts & {
+    author: profiles;
+  };
+  postsCount: {
+    _count: { id: number };
+  };
+};
 
 export const useGetPosts = () => {
-  const { user } = useUser();
+  const getPosts = async (pageParam: number): Promise<Posts> => {
+    const { data } = await axios.post('/api/posts/getPosts', {
+      skip: pageParam,
+      take: 1,
+    });
+    return data;
+  };
 
-  const posts = useQuery<Post[] | undefined>(
-    ['posts'],
-    async () => {
-      const { data } = await axios.get('/api/posts/getPosts');
-      return data;
+  return useInfiniteQuery(['posts'], ({ pageParam = 0 }) => getPosts(pageParam), {
+    getNextPageParam: (oldPosts, allPosts) => {
+      const postCount = allPosts[0].postsCount._count.id;
+
+      if (postCount <= allPosts.indexOf(oldPosts) + 1) {
+        return undefined;
+      }
+
+      return allPosts.indexOf(oldPosts) + 1;
     },
-    { refetchOnWindowFocus: false }
-  );
 
-  return { user, ...posts };
+    refetchOnWindowFocus: false,
+  });
 };
