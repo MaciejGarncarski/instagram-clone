@@ -72,7 +72,7 @@ export const Account = ({ userID }: AccountProps) => {
           )}
         </div>
         <div className={styles.buttons}>
-          <Link href='/account/edit' passHref>
+          <Link href='/profile/edit' passHref>
             <motion.a
               whileTap={{ scale: 0.94 }}
               whileHover={{ scale: 1.06 }}
