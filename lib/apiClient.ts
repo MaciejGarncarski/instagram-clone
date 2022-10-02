@@ -7,6 +7,7 @@ const url = dev ? 'http://localhost:3000' : `https://${process.env.NEXT_PUBLIC_V
 export const apiClient = axios.create({
   baseURL: `${url}/api`,
   headers: {
+    'Access-Control-Allow-Origin': '*',
     'Content-type': 'application/json',
   },
 });
