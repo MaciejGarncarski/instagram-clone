@@ -6,6 +6,9 @@ import { getPosts } from '@/lib/getPosts';
 import { HomePage } from '@/components/homePage/HomePage';
 
 const Home: NextPage = () => {
+  const url = process.env.NEXT_PUBLIC_VERCEL_URL;
+  console.log(url);
+
   return <HomePage />;
 };
 
