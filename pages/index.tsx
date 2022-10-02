@@ -1,23 +1,26 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import type { NextPage } from 'next';
+
+import { getPosts } from '@/lib/getPosts';
+import { getPostsCount } from '@/lib/getPostsCount';
 
 import { HomePage } from '@/components/homePage/HomePage';
 
 const Home: NextPage = () => {
-  const url = process.env.NEXT_PUBLIC_VERCEL_URL;
-  console.log(url);
-
   return <HomePage />;
 };
 
-// export const getServerSideProps = async () => {
-//   const queryClient = new QueryClient();
-//   await queryClient.fetchQuery(['posts'], () => getPosts(0));
+export const getServerSideProps = async () => {
+  const queryClient = new QueryClient();
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   };
-// };
+  await queryClient.fetchQuery(['posts'], () => getPosts(0));
+  await queryClient.fetchQuery(['posts count'], getPostsCount);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+};
 
 export default Home;
