@@ -1,9 +1,9 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { apiClient } from '@/lib/apiClient';
-import { useProfile } from '@/hooks/profile/useProfile';
 
 type AddPostMutation = {
   description: string;
@@ -12,7 +12,7 @@ type AddPostMutation = {
 };
 
 export const useAddPost = () => {
-  const { user } = useProfile();
+  const { user } = useUser();
   const router = useRouter();
 
   return useMutation(

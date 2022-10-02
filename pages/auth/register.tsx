@@ -38,7 +38,7 @@ const Register: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { user } = await getUser(ctx);
   if (user) {
-    return { props: { user }, redirect: { permanent: false, destination: '/account' } };
+    return { props: { user }, redirect: { permanent: false, destination: '/my-account' } };
   }
   return { props: { user } };
 };

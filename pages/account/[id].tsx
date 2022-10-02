@@ -1,10 +1,14 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
+import { Account } from '@/components/account/Account';
+
 const UserAccount: NextPage = () => {
   const router = useRouter();
 
-  return <p>{JSON.stringify(router.query)}</p>;
+  const userID = typeof router.query.id === 'string' ? router.query.id : '';
+
+  return <Account userID={userID} />;
 };
 
 export default UserAccount;

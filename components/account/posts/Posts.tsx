@@ -2,18 +2,25 @@ import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './posts.module.scss';
 
+import { Post } from '@/components/account/post/Post';
 import { Loader } from '@/components/loader/Loader';
 
-export const Posts = () => {
-  const { data } = useProfile();
+type PostProps = {
+  userID: string;
+};
+
+export const Posts = ({ userID }: PostProps) => {
+  const { data } = useProfile(userID);
 
   if (!data) {
     return <Loader />;
   }
 
   return (
-    <section aria-labelledby='user posts' className={styles.posts}>
-      xd
-    </section>
+    <main className={styles.posts}>
+      {data.posts.map(({ id }) => {
+        return <Post key={id} id={id} userID={userID} />;
+      })}
+    </main>
   );
 };

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import Image from 'next/future/image';
@@ -28,6 +29,7 @@ export type postValues = z.infer<typeof newPostSchema>;
 export const NewPost = () => {
   const [preview] = useAtom(newPostPreviewAtom);
   const { data } = useProfile();
+  const { user } = useUser();
 
   const { handleImg, onSubmit } = useNewPost();
 
@@ -51,7 +53,7 @@ export const NewPost = () => {
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.avatar}>
-          <UserAvatar className={styles.img} />
+          <UserAvatar userID={user?.id ?? ''} className={styles.img} />
           {data?.username && <h2>{data.username}</h2>}
         </div>
 

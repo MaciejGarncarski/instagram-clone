@@ -1,9 +1,8 @@
 import { posts, posts_likes, profiles } from '@prisma/client';
-import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-type Profile = profiles & {
+export type Profile = profiles & {
   posts: posts[];
   posts_likes: posts_likes[];
   _count: {
@@ -12,23 +11,21 @@ type Profile = profiles & {
   };
 };
 
-export const useProfile = () => {
-  const { user } = useUser();
-
+export const useProfile = (userID?: string) => {
   const profile = useQuery<Profile | undefined>(
-    ['profile'],
+    ['profile', { id: userID }],
     async () => {
       const { data } = await axios.post('/api/profiles/getProfile', {
-        id: user?.id ?? '',
+        id: userID,
       });
 
       return data;
     },
     {
-      enabled: Boolean(user?.id),
+      enabled: Boolean(userID),
       refetchOnWindowFocus: false,
     }
   );
 
-  return { user, ...profile };
+  return { ...profile };
 };

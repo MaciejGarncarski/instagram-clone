@@ -37,7 +37,7 @@ const Login: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { user } = await getUser(ctx);
   if (user) {
-    return { props: { user }, redirect: { permanent: true, destination: '/account' } };
+    return { props: { user }, redirect: { permanent: true, destination: '/my-account' } };
   }
   return { props: { user } };
 };

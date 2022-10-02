@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
@@ -8,12 +9,13 @@ import { useProfile } from '@/hooks/profile/useProfile';
 import styles from './nav.module.scss';
 
 export const AccountLink = () => {
-  const { data } = useProfile();
+  const { user } = useUser();
+  const { data } = useProfile(user?.id);
 
   if (data?.avatar_url) {
     return (
       <li className={styles.item}>
-        <Link href='/account' passHref>
+        <Link href='/my-account' passHref>
           <a className={styles.link}>
             <Image
               className={clsx(styles.img, styles.border)}
@@ -31,7 +33,7 @@ export const AccountLink = () => {
 
   return (
     <li className={styles.item}>
-      <Link href='/account' passHref>
+      <Link href='/my-account' passHref>
         <a className={styles.link}>
           <BiUser />
           <span className='sr-only'>user account</span>

@@ -1,5 +1,6 @@
 // import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { getUser } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
 import type { GetServerSidePropsContext, NextPage } from 'next';
 
@@ -10,7 +11,9 @@ import { Account } from '@/components/account/Account';
 
 const UserProfile: NextPage = () => {
   useAuthRedirect();
-  return <Account />;
+  const { user } = useUser();
+
+  return <Account userID={user?.id ?? ''} />;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

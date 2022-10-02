@@ -7,15 +7,19 @@ import styles from './userAvatar.module.scss';
 
 import { Loader } from '@/components/loader/Loader';
 
-export const AvatarImage = () => {
-  const { data, isLoading, isError } = useProfile();
+type AvatarImageProps = {
+  userID: string;
+};
+
+export const AvatarImage = ({ userID }: AvatarImageProps) => {
+  const { data, isLoading, isError } = useProfile(userID);
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (isError || !data?.avatar_url) {
-    return <BiUser />;
+    return <BiUser size={90} />;
   }
 
   return (

@@ -1,10 +1,10 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { updateAvatar } from '@/lib/avatar';
-import { useProfile } from '@/hooks/profile/useProfile';
 import { useUpdateAvatar } from '@/hooks/profile/useUpdateAvatar';
 
 const IMG_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -13,7 +13,7 @@ export const IMG_TYPES = IMG_EXTENSIONS.map((type) => `image/${type}`);
 
 export const useAvatarInput = () => {
   const { mutate } = useUpdateAvatar();
-  const { user } = useProfile();
+  const { user } = useUser();
 
   const [error, setError] = useState<string | null>(null);
 

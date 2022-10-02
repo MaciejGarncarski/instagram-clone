@@ -2,6 +2,7 @@ import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Image from 'next/future/image';
+import Link from 'next/link';
 
 import { Posts } from '@/hooks/posts/useGetPosts';
 import { useGetPostsLikes } from '@/hooks/posts/useGetPostsLikes';
@@ -23,7 +24,7 @@ export const Post = ({ id }: PostProps) => {
   const queryClient = useQueryClient();
 
   const posts = queryClient.getQueryData<InfiniteData<Posts>>(['posts']);
-  const allPosts = posts?.pages.flatMap((post) => post.post);
+  const allPosts = posts?.pages.flatMap((post) => post);
   const postsData = allPosts?.find((post) => post.id === id);
 
   if (!postsData) {
@@ -46,7 +47,11 @@ export const Post = ({ id }: PostProps) => {
           height={35}
           priority
         />
-        <h2 className={styles.username}>{author && author.username}</h2>
+        <Link href={`/account/${author_id}`}>
+          <a className={styles.link}>
+            <h2 className={styles.username}>{author && author.username}</h2>
+          </a>
+        </Link>
       </div>
       <figure key={id} className={styles.post}>
         <Image

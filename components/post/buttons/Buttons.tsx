@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiComment, BiShare } from 'react-icons/bi';
 
@@ -47,6 +48,7 @@ export const Buttons = ({ id }: ButtonProps) => {
             type='button'
             className={clsx(styles.button, className ?? '')}
           >
+            <span className='sr-only'>{alt}</span>
             {icon}
           </motion.button>
         );

@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
@@ -17,6 +18,7 @@ export const AvatarSection = () => {
   const avatarRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading } = useProfile();
+  const { user } = useUser();
 
   const openModal = () => setModalOpen(true);
 
@@ -27,7 +29,7 @@ export const AvatarSection = () => {
     avatarRef.current.click();
   };
 
-  if (isLoading) {
+  if (isLoading || !user?.id) {
     return <Loader />;
   }
 
@@ -39,7 +41,7 @@ export const AvatarSection = () => {
         className={styles['avatar-section']}
       >
         <div className={styles['avatar-container']}>
-          <UserAvatar className={styles.avatar} ref={avatarRef} editable />
+          <UserAvatar className={styles.avatar} ref={avatarRef} userID={user.id} editable />
 
           <h2>{data?.username ?? 'No username'}</h2>
         </div>

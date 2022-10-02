@@ -1,4 +1,5 @@
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -16,10 +17,15 @@ import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
 import { Button } from '@/components/common/button/Button';
 import { Loader } from '@/components/loader/Loader';
 
-export const Account = () => {
+type AccountProps = {
+  userID: string;
+};
+
+export const Account = ({ userID }: AccountProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { data, isLoading, isError, user } = useProfile();
+  const { user } = useUser();
+  const { data, isLoading, isError } = useProfile(userID);
 
   if (isError) {
     return <h2>Error</h2>;
@@ -36,7 +42,7 @@ export const Account = () => {
   const handleLogout = async () => {
     supabaseClient.auth.signOut();
     router.push('/');
-    queryClient.setQueryData(['profile'], null);
+    queryClient.setQueryData(['profile', user?.id], null);
   };
 
   if (!data) {
@@ -49,7 +55,7 @@ export const Account = () => {
     <>
       <NextSeo title='Profile' />
       <section id='main' className={styles.account}>
-        <UserAvatar />
+        <UserAvatar userID={userID} />
         <div className={styles['user-info']}>
           <h2 className={styles.username}>{username ?? 'no username'}</h2>
           <div className={styles.stats}>
@@ -84,7 +90,7 @@ export const Account = () => {
           </Button>
         </div>
       </section>
-      <Posts />
+      <Posts userID={userID} />
     </>
   );
 };

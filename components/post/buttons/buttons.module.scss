@@ -1,8 +1,10 @@
+@use '/styles/common.scss';
+
 .buttons {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 1em;
   margin-top: 1rem;
   padding: 0 0.75em;
   width: 100%;
@@ -19,5 +21,9 @@
   background-color: transparent;
   outline-offset: 4px;
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1.75em;
+
+  @include common.breakpoint('lg') {
+    font-size: 1.5em;
+  }
 }

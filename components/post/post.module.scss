@@ -44,6 +44,12 @@
   }
 }
 
+.link {
+  text-decoration: none;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
 .username {
   font-size: 1.25em;
   font-weight: 700;

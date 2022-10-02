@@ -1,7 +1,6 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-
-import { useProfile } from './useProfile';
 
 type Mutation = {
   avatarURL: string;
@@ -9,7 +8,7 @@ type Mutation = {
 
 export const useUpdateAvatar = () => {
   const queryClient = useQueryClient();
-  const { user } = useProfile();
+  const { user } = useUser();
 
   const now = new Date().getTime();
 
