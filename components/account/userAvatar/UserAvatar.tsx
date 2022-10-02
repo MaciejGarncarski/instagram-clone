@@ -32,9 +32,9 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
           />
           <label className={styles.label} htmlFor='set-avatar'>
             <span className={styles.overlay} title='change avatar'>
-              <BiEdit />
+              <BiEdit size={50} />
             </span>
-            <AvatarImage userID='xd' />
+            <AvatarImage userID={userID} />
           </label>
         </div>
       );

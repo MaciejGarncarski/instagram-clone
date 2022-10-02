@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useUser } from '@supabase/auth-helpers-react';
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -25,13 +26,15 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 export const EditAccount = () => {
-  const { data } = useProfile();
+  const { user } = useUser();
+  const { data } = useProfile(user?.id);
 
   const userName = isString(data?.username);
   const userWebsite = isString(data?.website);
   const userBio = isString(data?.bio);
 
   const userID = isString(data?.id);
+  const profileID = data?.profile_id ?? 0;
 
   const {
     register,
@@ -55,7 +58,7 @@ export const EditAccount = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async ({ username, bio, website }) => {
     mutate(
-      { username, bio, website, userID },
+      { username, bio, website, userID, profileID },
       {
         onError: (error) => {
           if (axios.isAxiosError(error)) {

@@ -42,7 +42,8 @@ export const useDeletePost = () => {
       { post_id },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(['profile']);
+          queryClient.invalidateQueries(['posts']);
+          queryClient.invalidateQueries(['posts count']);
         },
         onSettled: () => setModalOpen(false),
       }

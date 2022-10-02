@@ -17,8 +17,8 @@ export const AvatarSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const avatarRef = useRef<HTMLInputElement>(null);
 
-  const { data, isLoading } = useProfile();
   const { user } = useUser();
+  const { data, isLoading } = useProfile(user?.id);
 
   const openModal = () => setModalOpen(true);
 
@@ -42,7 +42,6 @@ export const AvatarSection = () => {
       >
         <div className={styles['avatar-container']}>
           <UserAvatar className={styles.avatar} ref={avatarRef} userID={user.id} editable />
-
           <h2>{data?.username ?? 'No username'}</h2>
         </div>
 

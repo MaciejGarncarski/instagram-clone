@@ -52,7 +52,7 @@ export const Form = ({ authError, onSubmit, heading }: FormProps) => {
       return;
     }
 
-    router.push('/account');
+    router.push('/profile/me');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 

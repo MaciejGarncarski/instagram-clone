@@ -15,7 +15,7 @@ export const AccountLink = () => {
   if (data?.avatar_url) {
     return (
       <li className={styles.item}>
-        <Link href='/my-account' passHref>
+        <Link href='/profile/me' passHref>
           <a className={styles.link}>
             <Image
               className={clsx(styles.img, styles.border)}
@@ -33,7 +33,7 @@ export const AccountLink = () => {
 
   return (
     <li className={styles.item}>
-      <Link href='/my-account' passHref>
+      <Link href='/profile/me' passHref>
         <a className={styles.link}>
           <BiUser />
           <span className='sr-only'>user account</span>

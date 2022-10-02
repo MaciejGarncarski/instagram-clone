@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -20,6 +21,7 @@ type PostProps = {
 dayjs.extend(relativeTime);
 
 export const Post = ({ id }: PostProps) => {
+  const { user } = useUser();
   const { data } = useGetPostsLikes(id);
   const queryClient = useQueryClient();
 
@@ -37,7 +39,6 @@ export const Post = ({ id }: PostProps) => {
 
   return (
     <div className={styles.container}>
-      <PostSettings id={id} author_id={author_id} img_uuid={img_uuid} />
       <div className={styles.author}>
         <Image
           className={styles.avatar}
@@ -47,11 +48,14 @@ export const Post = ({ id }: PostProps) => {
           height={35}
           priority
         />
-        <Link href={`/account/${author_id}`}>
+        <Link href={`/profile/${author_id}`}>
           <a className={styles.link}>
             <h2 className={styles.username}>{author && author.username}</h2>
           </a>
         </Link>
+        {author_id === user?.id && (
+          <PostSettings id={id} author_id={author_id} img_uuid={img_uuid} />
+        )}
       </div>
       <figure key={id} className={styles.post}>
         <Image

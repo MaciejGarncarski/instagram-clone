@@ -1,7 +1,6 @@
 @use '/styles/common.scss';
 
 .container {
-  position: relative;
   border-radius: 0.75rem;
   border: 1px solid rgb(30, 30, 30, 0.35);
   background-color: white;
@@ -25,10 +24,10 @@
 }
 
 .author {
-  padding: 0.75em 1em;
+  padding: 0.5em 0.75em;
   display: flex;
   justify-content: flex-start;
-  gap: 1em;
+  gap: 0.75em;
   align-items: center;
 }
 
@@ -37,10 +36,10 @@
   border-radius: 50%;
   height: var(--avatar-size);
   width: var(--avatar-size);
-  border: 3px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
 
   @include common.breakpoint('lg') {
-    --avatar-size: 5.5rem;
+    --avatar-size: 5rem;
   }
 }
 
@@ -51,12 +50,12 @@
 }
 
 .username {
-  font-size: 1.25em;
-  font-weight: 700;
+  font-size: 1em;
+  font-weight: 500;
 }
 
 .footer {
-  padding: 0 1em;
+  padding: 0 0.75em;
   padding-bottom: 2rem;
   display: flex;
   width: 100%;
@@ -65,7 +64,7 @@
 }
 
 .bold {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .likes {

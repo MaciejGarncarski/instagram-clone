@@ -3,34 +3,30 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from '@/utils/db';
 
-type Body = {
-  username: string;
-  website: string;
-  bio: string;
-  id: string;
-};
-
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
-    res.status(405).send('Only POST requests allowed');
+  if (req.method !== 'PATCH') {
+    res.status(405).send('Only PATCH requests allowed');
     return;
   }
 
-  const body: Body = req.body;
+  const { website, id, bio, username, profile_id } = req.body;
 
   try {
-    await prisma.profiles.update({
+    const updatedProfile = await prisma.profiles.update({
       where: {
-        id: body.id,
+        id: id,
       },
       data: {
-        username: body.username,
-        bio: body.bio,
-        website: body.website,
+        username: username,
+        bio: bio,
+        profile_id: profile_id,
+        website: website,
       },
     });
     res.status(200).send('success');
+    return updatedProfile;
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
