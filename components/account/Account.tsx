@@ -49,7 +49,7 @@ export const Account = ({ userID }: AccountProps) => {
     return null;
   }
 
-  const { bio, username, _count, website } = data;
+  const { bio, username, _count, website, profile_id } = data;
 
   return (
     <>
@@ -57,7 +57,7 @@ export const Account = ({ userID }: AccountProps) => {
       <section id='main' className={styles.account}>
         <UserAvatar userID={userID} />
         <div className={styles['user-info']}>
-          <h2 className={styles.username}>{username ?? 'no username'}</h2>
+          <h2 className={styles.username}>{username ?? `user-${profile_id}`}</h2>
           <div className={styles.stats}>
             <div className={styles.stat}>
               <span className={styles['stat-number']}>{_count.posts}</span>
@@ -71,24 +71,26 @@ export const Account = ({ userID }: AccountProps) => {
             </a>
           )}
         </div>
-        <div className={styles.buttons}>
-          <Link href='/profile/edit' passHref>
-            <motion.a
-              whileTap={{ scale: 0.94 }}
-              whileHover={{ scale: 1.06 }}
-              className={styles.button}
+        {userID === user.id && (
+          <div className={styles.buttons}>
+            <Link href='/profile/edit' passHref>
+              <motion.a
+                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.06 }}
+                className={styles.button}
+              >
+                Edit Profile
+              </motion.a>
+            </Link>
+            <Button
+              type='button'
+              className={clsx(styles.button, styles['button--error'])}
+              onClick={handleLogout}
             >
-              Edit Profile
-            </motion.a>
-          </Link>
-          <Button
-            type='button'
-            className={clsx(styles.button, styles['button--error'])}
-            onClick={handleLogout}
-          >
-            Log out
-          </Button>
-        </div>
+              Log out
+            </Button>
+          </div>
+        )}
       </section>
       <Posts userID={userID} />
     </>

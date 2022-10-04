@@ -5,10 +5,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: min(25rem, 90%);
-  margin: 0 auto;
+  width: 100%;
   z-index: 1;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 2rem);
 
   @include common.breakpoint('lg') {
     width: auto;
@@ -22,11 +20,11 @@
   display: flex;
   list-style: none;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  box-shadow: var(--box-shadow);
-  background-color: var(--secondary-color);
-  border-radius: 1.7rem;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0.5em 1em;
+  border-top: 1px solid rgb(0, 0, 0, 0.25);
+  background-color: white;
 
   @include common.breakpoint('lg') {
     box-shadow: none;
@@ -45,7 +43,7 @@
   width: 100%;
 
   & > svg {
-    font-size: 1.75em;
+    font-size: 1.5em;
   }
 
   @include common.breakpoint('lg') {
@@ -77,8 +75,12 @@
   position: relative;
   justify-content: center;
   align-items: center;
-  font-size: 1.75em;
+  font-size: 1.6em;
   color: var(--text-color);
+
+  @include common.breakpoint('lg') {
+    font-size: 1.75em;
+  }
 }
 
 .img {

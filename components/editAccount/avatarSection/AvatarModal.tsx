@@ -10,13 +10,16 @@ import { Loader } from '@/components/loader/Loader';
 import { Modal } from '@/components/modal/Modal';
 
 type AvatarModalProps = {
+  modalOpen: boolean;
   setModalOpen: (open: boolean) => void;
 };
 
-export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
+export const AvatarModal = ({ modalOpen, setModalOpen }: AvatarModalProps) => {
   const { data } = useProfile();
   const { mutate } = useDeleteAvatar();
   const [removingAvatar, setRemovingAvatar] = useState<boolean>(false);
+
+  const closeModal = () => setModalOpen(false);
 
   const handleRemovePhoto = async () => {
     if (typeof data?.avatar_url !== 'string') {
@@ -41,21 +44,24 @@ export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
 
   return (
     <Modal
-      acceptText='remove photo'
-      cancelText='cancel'
-      onAccept={handleRemovePhoto}
-      onCancel={() => setModalOpen(false)}
+      isOpen={modalOpen}
+      setIsOpen={setModalOpen}
+      // onAccept={handleRemovePhoto}
+      // onCancel={() => setModalOpen(false)}
     >
-      <div className={styles.margin}>
-        {removingAvatar ? (
-          <>
-            <p className={styles['modal-text']}>Removing your photo</p>
-            <Loader variant='white' className={styles.loader} />
-          </>
-        ) : (
-          <p className={styles['modal-text']}>Do you really want to delete your photo?</p>
-        )}
-      </div>
+      {removingAvatar ? (
+        <>
+          <Modal.Text>Removing your photo</Modal.Text>
+          <Loader variant='white' className={styles.loader} />
+        </>
+      ) : (
+        <Modal.Text>Do you really want to delete your photo?</Modal.Text>
+      )}
+
+      <Modal.Button variant='red' onClick={handleRemovePhoto}>
+        Remove photo
+      </Modal.Button>
+      <Modal.Button onClick={closeModal}>Cancel</Modal.Button>
     </Modal>
   );
 };

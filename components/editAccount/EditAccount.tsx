@@ -86,7 +86,6 @@ export const EditAccount = () => {
         autoComplete='off'
       >
         <AvatarSection />
-        {data?.username === null && <h3 className={styles['no-username']}>Set your username!</h3>}
         <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />
         <Buttons disabled={!isDirty || !isValid} reset={reset} />
       </form>

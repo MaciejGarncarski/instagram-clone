@@ -42,7 +42,7 @@ export const AvatarSection = () => {
       >
         <div className={styles['avatar-container']}>
           <UserAvatar className={styles.avatar} ref={avatarRef} userID={user.id} editable />
-          <h2>{data?.username ?? 'No username'}</h2>
+          <h2>{data?.username ?? `user-${data?.profile_id}`}</h2>
         </div>
 
         <div className={styles.buttons}>
@@ -64,7 +64,9 @@ export const AvatarSection = () => {
           )}
         </div>
       </motion.section>
-      <AnimatePresence>{modalOpen && <AvatarModal setModalOpen={setModalOpen} />}</AnimatePresence>
+      <AnimatePresence>
+        {modalOpen && <AvatarModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+      </AnimatePresence>
     </>
   );
 };

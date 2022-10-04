@@ -19,7 +19,7 @@ export const Posts = ({ userID }: PostProps) => {
   return (
     <main className={styles.posts}>
       {data.posts.map(({ id }) => {
-        return <Post key={id} id={id} userID={userID} />;
+        return <Post key={id} postID={id} userID={userID} />;
       })}
     </main>
   );

@@ -12,8 +12,11 @@ import { Account } from '@/components/account/Account';
 const UserProfile: NextPage = () => {
   useAuthRedirect();
   const { user } = useUser();
+  if (!user) {
+    return null;
+  }
 
-  return <Account userID={user?.id ?? ''} />;
+  return <Account userID={user.id} />;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

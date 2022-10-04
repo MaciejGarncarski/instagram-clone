@@ -1,24 +1,24 @@
 // import styles from './post.module.scss';
 
-import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/future/image';
 
-import { Profile } from '@/hooks/profile/useProfile';
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import { Loader } from '@/components/loader/Loader';
 
 type PostProps = {
-  id: number;
+  postID: number;
   userID: string;
 };
 
-export const Post = ({ id, userID }: PostProps) => {
-  const queryClient = useQueryClient();
+export const Post = ({ postID, userID }: PostProps) => {
+  const { data } = useProfile(userID);
 
-  const posts = queryClient.getQueryData<Profile>(['profile', { id: userID }]);
-  console.log(posts);
-  const postData = posts?.posts.find((post) => post.id === id);
-  console.log(postData);
+  if (!data?.posts) {
+    return <Loader />;
+  }
+
+  const postData = data.posts.find(({ id }) => id === postID);
 
   if (!postData) {
     return <Loader />;

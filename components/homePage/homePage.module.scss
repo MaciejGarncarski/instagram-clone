@@ -5,13 +5,18 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  gap: 5rem;
   min-height: 100vh;
-  padding-bottom: 8rem;
+  padding: 8rem 0;
   width: 100%;
+  gap: 2rem;
+
+  @include common.breakpoint('sm') {
+    padding: 8rem 4rem;
+  }
 
   @include common.breakpoint('lg') {
-    gap: 10rem;
+    padding: 0 0 8rem 0;
+    gap: 7rem;
   }
 }
 

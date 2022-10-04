@@ -26,6 +26,7 @@
     "clsx": "^1.2.1",
     "dayjs": "^1.11.5",
     "eslint-plugin-jsx-a11y": "^6.6.1",
+    "focus-trap-react": "^10.0.0",
     "framer-motion": "^7.2.0",
     "jest": "^28.1.3",
     "jotai": "^1.8.0",

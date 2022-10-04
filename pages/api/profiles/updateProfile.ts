@@ -26,7 +26,6 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
     res.status(200).send('success');
     return updatedProfile;
   } catch (e) {
-    console.log(e);
     res.status(400).send(e);
   }
 });

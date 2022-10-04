@@ -21,11 +21,11 @@ export const useGetPosts = () => {
         return undefined;
       }
 
-      if (postCount <= allPosts.indexOf(oldPosts) + 1) {
+      if (postCount <= allPosts.length * 2) {
         return undefined;
       }
 
-      return allPosts.indexOf(oldPosts) + 1;
+      return allPosts.length * 2;
     },
 
     refetchOnWindowFocus: false,

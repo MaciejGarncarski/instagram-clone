@@ -19,7 +19,7 @@ export const AvatarImage = ({ userID }: AvatarImageProps) => {
   }
 
   if (isError || !data?.avatar_url) {
-    return <BiUser size={90} />;
+    return <BiUser className={styles.placeholder} />;
   }
 
   return (

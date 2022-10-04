@@ -14,7 +14,7 @@ export const usePostLike = (id: number, data?: Likes) => {
   const queryClient = useQueryClient();
   const { user } = useUser();
 
-  const isLikedByUser = data?.likesData?.user_id === user?.id;
+  const isLikedByUser = Boolean(user?.id) && data?.likesData?.user_id === user?.id;
   const [isLiked, setIsLiked] = useState<boolean>(isLikedByUser);
 
   const onSuccess = (type: 'like' | 'dislike') => {
@@ -41,8 +41,8 @@ export const usePostLike = (id: number, data?: Likes) => {
   };
 
   useEffect(() => {
-    setIsLiked(data?.likesData?.user_id === user?.id);
-  }, [data?.likesData?.user_id, user?.id]);
+    setIsLiked(isLikedByUser);
+  }, [isLikedByUser]);
 
   const postDislike = useMutation(
     ({ post_like_id }: PostLike) => {

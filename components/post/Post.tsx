@@ -10,6 +10,7 @@ import { useGetPostsLikes } from '@/hooks/posts/useGetPostsLikes';
 
 import styles from './post.module.scss';
 
+import { UserAvatar } from '@/components/account/userAvatar/UserAvatar';
 import { Loader } from '@/components/loader/Loader';
 import { Buttons } from '@/components/post/buttons/Buttons';
 import { PostSettings } from '@/components/post/postSettings/PostSettings';
@@ -40,17 +41,12 @@ export const Post = ({ id }: PostProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.author}>
-        <Image
-          className={styles.avatar}
-          src={author.avatar_url ?? ''}
-          alt={`${author.username} profile picture`}
-          width={35}
-          height={35}
-          priority
-        />
         <Link href={`/profile/${author_id}`}>
           <a className={styles.link}>
-            <h2 className={styles.username}>{author && author.username}</h2>
+            <UserAvatar userID={author_id} className={styles.avatar} />
+            <h2 className={styles.username}>
+              {(author && author.username) ?? `user-${author.profile_id}`}
+            </h2>
           </a>
         </Link>
         {author_id === user?.id && (
