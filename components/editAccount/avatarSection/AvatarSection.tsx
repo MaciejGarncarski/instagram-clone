@@ -18,7 +18,7 @@ export const AvatarSection = () => {
   const avatarRef = useRef<HTMLInputElement>(null);
 
   const { user } = useUser();
-  const { data, isLoading } = useProfile(user?.id);
+  const { data, isLoading } = useProfile();
 
   const openModal = () => setModalOpen(true);
 

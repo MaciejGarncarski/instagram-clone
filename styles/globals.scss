@@ -15,7 +15,7 @@
   --primary-color: hsl(180, 100%, 30%);
   --primary-color-rgb: 51, 204, 153;
   --secondary-color: hsl(180, 50%, 70%);
-  --error-color: hsl(5, 86%, 53%);
+  --error-color: hsl(5, 99%, 46%);
   --error-color-rgb: 210, 58, 45;
   --warning-color: hsl(36, 100%, 50%);
 
@@ -27,7 +27,7 @@
   --box-shadow: rgba(50, 50, 93, 0.2) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 5px -3px;
   --gray-border: 2px solid hsl(120, 0%, 70%);
 
-  --radius-small: 1rem;
+  --radius-small: 0.25em;
   --radius-medium: 0.45em;
 }
 
@@ -89,14 +89,10 @@ div.Toastify__toast {
   --toastify-color-success: var(--primary-color);
   --toastify-color-progress-success: var(--primary-color);
   --toastify-icon-color-success: var(--primary-color);
-  --border-color: var(--primary-color);
   --toastify-text-color-light: var(--text-color);
   --toastify-color-light: #fff;
-  backdrop-filter: blur(10px);
-
   margin-bottom: 2rem;
   border-radius: var(--radius-small);
-  border: 3px solid var(--border-color);
 
   &--error {
     --toastify-color-error: var(--error-color);

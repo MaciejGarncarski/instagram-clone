@@ -1,4 +1,3 @@
-import { useUser } from '@supabase/auth-helpers-react';
 import { useAtom } from 'jotai';
 import { ChangeEvent, useEffect } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
@@ -23,8 +22,7 @@ type InputsProps<T extends FormValues> = {
 };
 
 export const Inputs = ({ errors, register, reset, fieldsValues }: InputsProps<FormValues>) => {
-  const { user } = useUser();
-  const { data } = useProfile(user?.id);
+  const { data } = useProfile();
   const [, setCharCount] = useAtom(charCountAtom);
 
   const handleTextArea = (changeEv: ChangeEvent<HTMLTextAreaElement>) => {

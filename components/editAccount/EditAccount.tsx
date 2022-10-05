@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useUser } from '@supabase/auth-helpers-react';
 import axios from 'axios';
 import { NextSeo } from 'next-seo';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -26,8 +25,7 @@ const formSchema = z.object({
 export type FormValues = z.infer<typeof formSchema>;
 
 export const EditAccount = () => {
-  const { user } = useUser();
-  const { data } = useProfile(user?.id);
+  const { data } = useProfile();
 
   const userName = isString(data?.username);
   const userWebsite = isString(data?.website);

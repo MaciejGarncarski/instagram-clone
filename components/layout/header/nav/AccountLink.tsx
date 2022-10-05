@@ -1,4 +1,3 @@
-import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
@@ -9,8 +8,7 @@ import { useProfile } from '@/hooks/profile/useProfile';
 import styles from './nav.module.scss';
 
 export const AccountLink = () => {
-  const { user } = useUser();
-  const { data } = useProfile(user?.id);
+  const { data } = useProfile();
 
   if (data?.avatar_url) {
     return (

@@ -22,11 +22,10 @@ export const useAvatarInput = () => {
       return null;
     }
 
-    setError(null);
-
     const selectedFile = changeEv.target.files[0];
     const isIMGTypeValid = IMG_TYPES.includes(selectedFile.type);
 
+    setError(null);
     if (!selectedFile.type) {
       return null;
     }
@@ -35,6 +34,8 @@ export const useAvatarInput = () => {
       setError('Invalid image type!');
       return;
     }
+
+    const addingImage = toast.loading('Uploading new image...');
 
     const { error: updateError } = await updateAvatar(selectedFile, user?.id);
 
@@ -68,7 +69,14 @@ export const useAvatarInput = () => {
             }
           }
         },
-        onSuccess: () => toast.success('Updated profile picture'),
+        onSuccess: () => {
+          toast.update(addingImage, {
+            render: 'Updated profile picture',
+            type: 'success',
+            isLoading: false,
+            autoClose: 4000,
+          });
+        },
       }
     );
   };

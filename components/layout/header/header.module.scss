@@ -5,7 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
   position: fixed;
   width: 100%;
   background-color: white;
@@ -13,7 +12,11 @@
   z-index: 2;
   top: 0;
 
+  box-shadow: 0 2px 6px rgb(0, 0, 0, 0.15);
+
   @include common.breakpoint('lg') {
+    box-shadow: none;
+    margin-bottom: 3rem;
     position: static;
     border: 0;
     background-color: transparent;

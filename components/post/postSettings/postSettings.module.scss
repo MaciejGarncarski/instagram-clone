@@ -16,4 +16,9 @@
   justify-content: center;
   align-items: center;
   font-size: 1.25em;
+  transform: rotate(90deg);
+
+  @include common.breakpoint('lg') {
+    transform: rotate(0);
+  }
 }

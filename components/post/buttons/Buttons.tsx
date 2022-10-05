@@ -32,8 +32,8 @@ export const Buttons = ({ id }: ButtonProps) => {
       alt: 'like',
       onClick: handleLike,
     },
-    { icon: <BiComment />, alt: 'comment' },
-    { icon: <BiShare />, alt: 'share' },
+    { icon: <BiComment style={{ transform: 'scaleX(-1)' }} />, alt: 'comment' },
+    { icon: <BiShare style={{ transform: 'scaleX(-1)' }} />, alt: 'share' },
     { icon: <BiBookmark />, alt: 'save', className: styles.last },
   ];
   return (

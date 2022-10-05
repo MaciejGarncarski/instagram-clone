@@ -30,7 +30,7 @@
 }
 
 .input:focus + .label {
-  box-shadow: var(--text-color) 0 0 1px 7px;
+  box-shadow: var(--text-color) 0 0 1px 4px;
   transition: all var(--transition-fast);
 }
 
@@ -38,7 +38,7 @@
   position: relative;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: var(--primary-color) 0 0 0 7px;
+  box-shadow: var(--primary-color) 0 0 3px 2px;
   height: 100%;
   width: 100%;
 }
@@ -60,7 +60,7 @@
 }
 
 .image {
-  box-shadow: var(--primary-color) 0 0 0 7px;
+  box-shadow: var(--primary-color) 0 0 3px 2px;
   border-radius: 50%;
 }
 

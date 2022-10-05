@@ -2,6 +2,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { motion } from 'framer-motion';
 import Image from 'next/future/image';
 import Link from 'next/link';
 
@@ -36,48 +37,53 @@ export const Post = ({ id }: PostProps) => {
 
   const createdAt = dayjs(postsData.created_at).fromNow();
 
+  const postDate = dayjs(postsData.created_at).format('YYYY/MM/DD');
+
   const { author, author_id, img, img_uuid, description } = postsData;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.author}>
+    <article className={styles.container}>
+      <header className={styles.author}>
         <Link href={`/profile/${author_id}`}>
-          <a className={styles.link}>
+          <motion.a whileTap={{ y: -2, scale: 0.9 }} className={styles.link}>
             <UserAvatar userID={author_id} className={styles.avatar} />
             <h2 className={styles.username}>
               {(author && author.username) ?? `user-${author.profile_id}`}
             </h2>
-          </a>
+          </motion.a>
         </Link>
         {author_id === user?.id && (
           <PostSettings id={id} author_id={author_id} img_uuid={img_uuid} />
         )}
-      </div>
-      <figure key={id} className={styles.post}>
-        <Image
-          className={styles['post-img']}
-          src={img}
-          alt='post'
-          width={240}
-          height={500}
-          priority
-        />
+      </header>
+      <div key={id} className={styles.post}>
+        <figure className={styles.figure}>
+          <Image
+            className={styles['post-img']}
+            src={img}
+            alt='post'
+            width={240}
+            height={500}
+            priority
+          />
+        </figure>
         <Buttons id={id} />
-        <div className={styles.footer}>
-          <p className={styles.likes}>
-            {data?.likes !== 0 && data?.likes && (
-              <>
-                <span className={styles.bold}>{data.likes}</span>
-                <span>{data?.likes > 1 ? 'likes' : 'like'}</span>
-              </>
-            )}
+        <footer className={styles.footer}>
+          {data?.likes !== 0 && data?.likes && (
+            <p className={styles.likes}>
+              <span className={styles.bold}>{data.likes}</span>
+              <span>{data?.likes > 1 ? 'likes' : 'like'}</span>
+            </p>
+          )}
+          <p className={styles.description}>
+            <span className={styles.bold}>{author?.username}</span>
+            {description}
           </p>
-          <figcaption className={styles.description}>
-            <span className={styles.bold}>{author?.username}</span> {description}
-          </figcaption>
-          <p className={styles.created}>{createdAt}</p>
-        </div>
-      </figure>
-    </div>
+          <time dateTime={postDate} className={styles.created}>
+            {createdAt}
+          </time>
+        </footer>
+      </div>
+    </article>
   );
 };
