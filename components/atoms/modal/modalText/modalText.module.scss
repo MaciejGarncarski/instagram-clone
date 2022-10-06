@@ -1,0 +1,12 @@
+@use '/styles/common.scss';
+
+.text {
+  background-color: var(--bg-color);
+  flex: 1 0 5em;
+  border-radius: 0.6em 0.6em 0 0;
+  padding: 0 2em;
+
+  @include common.breakpoint('lg') {
+    padding: 0 0.5em;
+  }
+}

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import { Account } from '@/components/account/Account';
+import { Account } from '@/components/pages/account/Account';
 
 const UserAccount: NextPage = () => {
   const router = useRouter();

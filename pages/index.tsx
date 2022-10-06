@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import { getPosts } from '@/lib/getPosts';
 import { getPostsCount } from '@/lib/getPostsCount';
 
-import { HomePage } from '@/components/homePage/HomePage';
+import { HomePage } from '@/components/pages/homePage/HomePage';
 
 const Home: NextPage = () => {
   return <HomePage />;

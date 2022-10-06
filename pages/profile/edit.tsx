@@ -6,7 +6,7 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { apiClient } from '@/lib/apiClient';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
-import { EditAccount } from '@/components/editAccount/EditAccount';
+import { EditAccount } from '@/components/pages/editAccount/EditAccount';
 
 const EditPage: NextPage<{ user: User }> = () => {
   useAuthRedirect();

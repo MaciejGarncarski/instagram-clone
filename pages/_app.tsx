@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
     <UserProvider supabaseClient={supabaseClient}>
       <QueryClientProvider client={queryClient}>
         <Layout>
-          <NextSeo titleTemplate='%s | Delaygram' defaultTitle='Delaygram' />
+          <NextSeo />
           <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
           <MotionConfig reducedMotion='user'>
             <Hydrate state={pageProps.dehydratedState}>

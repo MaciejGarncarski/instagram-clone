@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
-import { NewPost } from '@/components/newPost/NewPost';
+import { NewPost } from '@/components/pages/newPost/NewPost';
 
 const NewPostPage: NextPage = () => {
   useAuthRedirect();

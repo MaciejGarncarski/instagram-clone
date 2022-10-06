@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { Form, FormValues } from '@/components/auth/form/Form';
+import { Form, FormValues } from '@/components/organisms/form/Form';
 
 const Register: NextPage = () => {
   const [error, setError] = useState<ApiError | null>(null);

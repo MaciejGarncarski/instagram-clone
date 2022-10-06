@@ -1,0 +1,26 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.overlay {
+  background-color: rgba(30, 30, 30, 0.6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+  flex-direction: column;
+  width: max(20%, 30rem);
+}

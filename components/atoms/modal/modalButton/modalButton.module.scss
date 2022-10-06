@@ -1,0 +1,22 @@
+@use '/styles/mixins.scss';
+@use '/styles/common.scss';
+
+.button {
+  @include mixins.modal-item;
+  @include mixins.modal-button-link;
+  flex: 1 0 6rem;
+  border-block: 1px solid #d0d0d0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--red {
+    font-weight: 700;
+    color: var(--error-color);
+  }
+
+  @include common.breakpoint('lg') {
+    flex: 1 0 8rem;
+  }
+}

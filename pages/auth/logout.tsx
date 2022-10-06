@@ -2,7 +2,7 @@ import { supabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { Loader } from '@/components/loader/Loader';
+import { Loader } from '@/components/atoms/loader/Loader';
 
 const Logout = () => {
   const router = useRouter();

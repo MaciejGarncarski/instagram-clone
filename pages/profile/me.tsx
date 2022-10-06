@@ -7,7 +7,7 @@ import type { GetServerSidePropsContext, NextPage } from 'next';
 import { apiClient } from '@/lib/apiClient';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
-import { Account } from '@/components/account/Account';
+import { Account } from '@/components/pages/account/Account';
 
 const UserProfile: NextPage = () => {
   useAuthRedirect();

@@ -7,7 +7,7 @@ import { v4 } from 'uuid';
 
 import { useAddPost } from '@/hooks/posts/useAddPost';
 
-import { postValues } from '@/components/newPost/NewPost';
+import { postValues } from '@/components/pages/newPost/NewPost';
 
 import { newPostPreviewAtom } from '@/store/store';
 

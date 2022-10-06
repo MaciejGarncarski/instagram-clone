@@ -24,7 +24,7 @@
   width: 100%;
   padding: 0.5em 1em;
   border-top: 1px solid rgb(0, 0, 0, 0.25);
-  background-color: white;
+  background-color: var(--white);
 
   @include common.breakpoint('lg') {
     box-shadow: none;
@@ -63,7 +63,7 @@
     z-index: -1;
     transform: scale(0);
     transition: transform var(--transition-fast);
-    background-color: var(--secondary-color);
+    background-image: var(--gradient);
   }
 
   &:hover::before,

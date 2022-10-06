@@ -1,0 +1,33 @@
+.button {
+  padding: 0.4em 1em;
+  border-radius: var(--radius-medium);
+  // background-image: var(--gradient);
+  background-color: var(--primary-color);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: white;
+  font-weight: 700;
+  outline-offset: 0.15em;
+
+  &--red {
+    background: var(--error-color);
+  }
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
+  &:focus {
+    outline: 3px solid var(--text-color);
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
