@@ -11,7 +11,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MotionConfig } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import NextProgress from 'next-progress';
-import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 
 import '../styles/globals.scss';
@@ -23,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
     defaultOptions: {
       queries: {
         retry: 1,
+        refetchOnWindowFocus: false,
       },
     },
   };
@@ -31,15 +31,14 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
   return (
     <UserProvider supabaseClient={supabaseClient}>
       <QueryClientProvider client={queryClient}>
-        <Layout>
-          <NextSeo />
+        <MotionConfig reducedMotion='user'>
           <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
-          <MotionConfig reducedMotion='user'>
-            <Hydrate state={pageProps.dehydratedState}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <Layout>
               <Component {...pageProps} />
-            </Hydrate>
-          </MotionConfig>
-        </Layout>
+            </Layout>
+          </Hydrate>
+        </MotionConfig>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </UserProvider>

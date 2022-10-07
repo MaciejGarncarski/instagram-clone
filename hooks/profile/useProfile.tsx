@@ -26,7 +26,6 @@ export const useProfile = (userID?: string) => {
     },
     {
       enabled: Boolean(userID),
-      refetchOnWindowFocus: false,
     }
   );
 

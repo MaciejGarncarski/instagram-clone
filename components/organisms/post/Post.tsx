@@ -33,7 +33,7 @@ export const Post = ({ id }: PostProps) => {
   const allPosts = posts?.pages.flatMap((post) => post);
   const postData = allPosts?.find((post) => post.id === id);
 
-  if (!postData || !user) {
+  if (!postData) {
     return <Loader />;
   }
 

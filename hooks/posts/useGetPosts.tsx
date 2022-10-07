@@ -9,9 +9,7 @@ export type Posts = posts & {
 };
 
 export const useGetPosts = () => {
-  const postsCount = useQuery<Prisma.AggregatePosts>(['posts count'], getPostsCount, {
-    refetchOnWindowFocus: false,
-  });
+  const postsCount = useQuery<Prisma.AggregatePosts>(['posts count'], getPostsCount);
 
   return useInfiniteQuery(['posts'], ({ pageParam = 0 }) => getPosts(pageParam), {
     getNextPageParam: (oldPosts, allPosts) => {
@@ -27,7 +25,5 @@ export const useGetPosts = () => {
 
       return allPosts.length * 2;
     },
-
-    refetchOnWindowFocus: false,
   });
 };
