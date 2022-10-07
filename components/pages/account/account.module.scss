@@ -3,7 +3,7 @@
 
 .account {
   width: 70%;
-  margin: 0 auto 5rem auto;
+  margin: 4rem auto 5rem auto;
   row-gap: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -20,10 +20,12 @@
 
 .avatar {
   width: 10rem;
+  height: 10rem;
   justify-self: center;
 
   @include common.breakpoint('lg') {
     width: 20rem;
+    height: 20rem;
   }
 }
 

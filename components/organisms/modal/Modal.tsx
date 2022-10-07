@@ -41,6 +41,7 @@ export const Modal = ({ children, setIsOpen }: ModalProps) => {
       <FocusTrap
         focusTrapOptions={{
           allowOutsideClick: true,
+          initialFocus: false,
         }}
       >
         <motion.div

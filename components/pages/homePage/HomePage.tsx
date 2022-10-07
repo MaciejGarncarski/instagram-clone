@@ -27,7 +27,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <NextSeo title='Home' />
+      <NextSeo title='Delaygram' />
 
       <InfiniteScroll
         hasMore={hasNextPage ?? false}

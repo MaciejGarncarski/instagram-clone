@@ -13,7 +13,12 @@
   z-index: 3;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+
+  @include common.breakpoint('sm') {
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .modal {
@@ -22,5 +27,9 @@
   align-items: stretch;
   overflow: hidden;
   flex-direction: column;
-  width: max(20%, 30rem);
+  width: 100%;
+
+  @include common.breakpoint('sm') {
+    width: clamp(20rem, 40%, 35rem);
+  }
 }

@@ -35,13 +35,14 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
         <AnimatePresence>
           {isOpen && (
             <Modal setIsOpen={setIsOpen}>
-              {buttonData.map(({ text, onClick, variant }) => {
+              {buttonData.map(({ text, onClick, variant, icon }) => {
                 return (
                   <Modal.Button
                     key={text}
                     variant={variant}
                     onClick={onClick ? onClick : () => null}
                   >
+                    {icon}
                     {text}
                   </Modal.Button>
                 );
