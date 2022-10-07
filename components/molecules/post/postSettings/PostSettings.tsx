@@ -1,6 +1,8 @@
 import { AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { BiTrash } from 'react-icons/bi';
 import { BsThreeDots } from 'react-icons/bs';
+import { CgClose } from 'react-icons/cg';
 
 import { useDeletePost } from '@/hooks/posts/useDeletePost';
 import { usePostModalButtons } from '@/hooks/usePostModalButtons';
@@ -19,10 +21,18 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   const { buttonData } = usePostModalButtons({ setIsDeleting, setIsOpen });
   const { handleDelete } = useDeletePost();
 
-  const deletePost = () => handleDelete(id, img_uuid);
+  const deletePost = () => {
+    if (!buttonRef.current) {
+      return;
+    }
+    buttonRef.current.disabled = true;
+    handleDelete(id, img_uuid);
+  };
   const closeDeleteModal = () => setIsDeleting(false);
 
   return (
@@ -52,10 +62,14 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
           {isDeleting && (
             <Modal setIsOpen={setIsDeleting}>
               <Modal.Text>Do you really want to remove post?</Modal.Text>
-              <Modal.Button onClick={deletePost} variant='red'>
+              <Modal.Button ref={buttonRef} onClick={deletePost} variant='red'>
+                <BiTrash />
                 remove
               </Modal.Button>
-              <Modal.Button onClick={closeDeleteModal}>cancel</Modal.Button>
+              <Modal.Button onClick={closeDeleteModal}>
+                <CgClose />
+                cancel
+              </Modal.Button>
             </Modal>
           )}
         </AnimatePresence>

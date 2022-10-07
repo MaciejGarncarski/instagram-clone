@@ -29,6 +29,19 @@
   flex-direction: column;
   width: 100%;
 
+  & > *:first-child {
+    border: 0;
+    border-radius: 0.6em 0.6em 0 0;
+  }
+
+  & > *:last-child {
+    border: 0;
+
+    @include common.breakpoint('sm') {
+      border-radius: 0 0 0.6em 0.6em;
+    }
+  }
+
   @include common.breakpoint('sm') {
     width: clamp(20rem, 40%, 35rem);
   }

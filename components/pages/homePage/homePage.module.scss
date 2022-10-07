@@ -10,8 +10,9 @@
   width: 100%;
 
   @include common.breakpoint('sm') {
-    padding: 8rem 4rem;
-    gap: 2rem;
+    padding: 0 4rem;
+    padding-bottom: 8rem;
+    gap: 4rem;
   }
 
   @include common.breakpoint('lg') {

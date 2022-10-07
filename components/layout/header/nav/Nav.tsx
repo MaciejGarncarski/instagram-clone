@@ -5,7 +5,7 @@ import { CgAddR } from 'react-icons/cg';
 
 import styles from './nav.module.scss';
 
-import { AccountLink } from './AccountLink';
+import { AccountLink } from '../../../atoms/accountLink/AccountLink';
 
 type Routes = {
   to: string;

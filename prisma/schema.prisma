@@ -15,6 +15,7 @@ model profiles {
   avatar_url     String?
   website        String?
   bio            String?          @db.VarChar
+  role           Role             @default(USER)
   posts          posts[]
   posts_likes    posts_likes[]
   posts_comments posts_comments[]
@@ -48,4 +49,9 @@ model posts_comments {
   post_id      Int      @db.Integer
   created_at   DateTime @default(now()) @db.Timestamptz()
   comment_text String   @db.Text
+}
+
+enum Role {
+  USER
+  ADMIN
 }

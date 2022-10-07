@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return <HomePage />;
 };
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.fetchQuery(['posts'], () => getPosts(0));
@@ -20,6 +20,7 @@ export const getServerSideProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 60,
   };
 };
 

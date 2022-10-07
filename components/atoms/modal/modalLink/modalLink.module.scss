@@ -2,13 +2,8 @@
 @use '/styles/mixins.scss';
 
 .link {
-  flex: 1 0 7.5rem;
   text-decoration: none;
 
   @include mixins.modal-item;
   @include mixins.modal-button-link;
-
-  @include common.breakpoint('lg') {
-    flex: 1 0 8rem;
-  }
 }

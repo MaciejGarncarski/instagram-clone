@@ -2,9 +2,13 @@
 
 .wrapper {
   padding: 2rem 0;
-  padding-top: 8rem;
   max-width: 150rem;
   margin-inline: auto;
+  padding-top: 10rem;
+
+  @include common.breakpoint('sm') {
+    padding-top: 13rem;
+  }
 
   @include common.breakpoint('lg') {
     padding: 2rem calc(1.5rem + 5vw);

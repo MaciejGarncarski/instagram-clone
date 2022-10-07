@@ -25,23 +25,23 @@ dayjs.extend(relativeTime);
 
 export const Post = ({ id }: PostProps) => {
   const { user } = useUser();
+  const { data: userData } = useProfile();
   const { data } = useGetPostsLikes(id);
   const queryClient = useQueryClient();
 
   const posts = queryClient.getQueryData<InfiniteData<Posts>>(['posts']);
   const allPosts = posts?.pages.flatMap((post) => post);
   const postData = allPosts?.find((post) => post.id === id);
-  const { data: userData } = useProfile(postData?.author_id);
 
-  if (!postData) {
+  if (!postData || !user) {
     return <Loader />;
   }
 
-  const createdAt = dayjs(postData.created_at).fromNow();
-
-  const postDate = dayjs(postData.created_at).format('YYYY/MM/DD');
-
   const { author, author_id, img, img_uuid, description } = postData;
+
+  const createdAt = dayjs(postData.created_at).fromNow();
+  const postDate = dayjs(postData.created_at).format('YYYY/MM/DD');
+  const canShowSettings = author_id === user?.id || userData?.role === 'ADMIN';
 
   return (
     <article className={styles.container}>
@@ -54,9 +54,7 @@ export const Post = ({ id }: PostProps) => {
             </h2>
           </motion.a>
         </Link>
-        {author_id === user?.id && (
-          <PostSettings id={id} author_id={author_id} img_uuid={img_uuid} />
-        )}
+        {canShowSettings && <PostSettings id={id} author_id={author_id} img_uuid={img_uuid} />}
       </header>
       <div key={id} className={styles.post}>
         <figure className={styles.figure}>
@@ -78,9 +76,7 @@ export const Post = ({ id }: PostProps) => {
             </p>
           )}
           <p className={styles.description}>
-            <span className={styles.bold}>
-              {author?.username ?? `user-${userData?.profile_id}`}
-            </span>
+            <span className={styles.bold}>{author?.username ?? `user-${author.profile_id}`}</span>
             {description}
           </p>
           <time dateTime={postDate} className={styles.created}>

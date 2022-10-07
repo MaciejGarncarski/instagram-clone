@@ -4,12 +4,6 @@
 .button {
   @include mixins.modal-item;
   @include mixins.modal-button-link;
-  flex: 1 0 7.5rem;
-  border-block: 1px solid #d0d0d0;
-
-  & > svg {
-    font-size: 1.35em;
-  }
 
   &:hover {
     cursor: pointer;
@@ -23,9 +17,5 @@
     & > path {
       color: var(--error-color);
     }
-  }
-
-  @include common.breakpoint('lg') {
-    flex: 1 0 11rem;
   }
 }

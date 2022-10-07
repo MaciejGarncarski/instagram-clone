@@ -4,6 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { BiEdit, BiLogOut } from 'react-icons/bi';
+import { CgClose } from 'react-icons/cg';
 import { IoSettingsSharp } from 'react-icons/io5';
 
 import styles from './accountSettings.module.scss';
@@ -35,11 +37,18 @@ export const AccountSettings = () => {
       </button>
       {settingsOpen && (
         <Modal setIsOpen={setSettingsOpen}>
-          <Modal.Link href='/profile/edit'>edit</Modal.Link>
           <Modal.Button variant='red' onClick={handleLogout}>
+            <BiLogOut />
             Log out
           </Modal.Button>
-          <Modal.Button onClick={() => setSettingsOpen(false)}>cancel</Modal.Button>
+          <Modal.Link href='/profile/edit'>
+            <BiEdit />
+            edit
+          </Modal.Link>
+          <Modal.Button onClick={() => setSettingsOpen(false)}>
+            <CgClose />
+            cancel
+          </Modal.Button>
         </Modal>
       )}
     </>

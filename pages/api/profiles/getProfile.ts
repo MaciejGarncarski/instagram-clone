@@ -9,7 +9,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         id: req.body.id,
       },
       include: {
-        posts: true,
+        posts: {
+          orderBy: {
+            id: 'desc',
+          },
+        },
+
         _count: {
           select: {
             posts: true,

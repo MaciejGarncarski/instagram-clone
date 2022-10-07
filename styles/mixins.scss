@@ -23,6 +23,7 @@
   gap: 1rem;
 
   @include common.breakpoint('sm') {
+    font-size: 1em;
     gap: 2rem;
   }
 }
@@ -30,18 +31,15 @@
 @mixin modal-button-link {
   outline: none;
   text-transform: capitalize;
+  border-block: 1px solid #d0d0d0;
+  flex: 1 0 7.5rem;
 
-  &:first-child {
-    border: 0;
-    border-radius: 0.6em 0.6em 0 0;
+  @include common.breakpoint('lg') {
+    flex: 1 0 9rem;
   }
 
-  &:last-child {
-    border: 0;
-
-    @include common.breakpoint('sm') {
-      border-radius: 0 0 0.6em 0.6em;
-    }
+  & > svg {
+    font-size: 1.35em;
   }
 
   &:focus {

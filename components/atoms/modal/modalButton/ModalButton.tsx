@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { forwardRef } from 'react';
 
 import styles from './modalButton.module.scss';
 
@@ -9,14 +10,17 @@ type ButtonProps = Children & {
   onClick?: () => void;
 };
 
-export const ModalButton = ({ children, variant, onClick }: ButtonProps) => {
-  return (
-    <button
-      type='button'
-      className={clsx(variant && styles['button--red'], styles.button)}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
+export const ModalButton = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ children, variant, onClick }, ref) => {
+    return (
+      <button
+        ref={ref}
+        type='button'
+        className={clsx(variant && styles['button--red'], styles.button)}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+    );
+  }
+);
