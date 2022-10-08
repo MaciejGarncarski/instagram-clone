@@ -27,6 +27,7 @@ export const Post = ({ id }: PostProps) => {
   const { user } = useUser();
   const { data: userData } = useProfile();
   const { data } = useGetPostsLikes(id);
+
   const queryClient = useQueryClient();
 
   const posts = queryClient.getQueryData<InfiniteData<Posts>>(['posts']);
@@ -36,7 +37,6 @@ export const Post = ({ id }: PostProps) => {
   if (!postData) {
     return <Loader />;
   }
-
   const { author, author_id, img, img_uuid, description } = postData;
 
   const createdAt = dayjs(postData.created_at).fromNow();

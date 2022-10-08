@@ -15,12 +15,13 @@ import { namedComponent } from '@/lib/namedComponent';
 
 import '../styles/globals.scss';
 
+import { Layout } from '@/components/layout/Layout';
+
 const UserProvider = dynamic(() =>
   namedComponent(import('@supabase/auth-helpers-react'), 'UserProvider')
 );
 const NextProgress = dynamic(() => import('next-progress'));
 const MotionConfig = dynamic(() => namedComponent(import('framer-motion'), 'MotionConfig'));
-const Layout = dynamic(() => namedComponent(import('@/components/layout/Layout'), 'Layout'));
 
 function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedState }>) {
   const queryOptions: QueryClientConfig = {

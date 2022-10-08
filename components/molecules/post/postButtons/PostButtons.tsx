@@ -26,6 +26,8 @@ export const PostButtons = ({ id }: ButtonProps) => {
 
   const { handleLike, isLiked } = usePostLike(id, data);
 
+  console.log(id, isLiked);
+
   const buttonsData: Button[] = [
     {
       icon: isLiked ? <AiFillHeart fill='red' /> : <AiOutlineHeart />,
