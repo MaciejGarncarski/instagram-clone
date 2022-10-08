@@ -1,6 +1,9 @@
-import { getUser, supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useUser } from '@supabase/auth-helpers-react';
 import { ApiError } from '@supabase/supabase-js';
-import type { GetServerSideProps, NextPage } from 'next';
+import { useQueryClient } from '@tanstack/react-query';
+import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
@@ -10,6 +13,9 @@ import { Form, FormValues } from '@/components/organisms/form/Form';
 
 const Login: NextPage = () => {
   const [error, setError] = useState<ApiError | null>(null);
+  const { user } = useUser();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FormValues> = async ({ email, password }) => {
     const { error } = await supabaseClient.auth.signIn({
@@ -21,7 +27,10 @@ const Login: NextPage = () => {
       setError(error);
       return;
     }
+
+    await queryClient.invalidateQueries(['profile', { id: user?.id }]);
     toast.success('Logged in!');
+    router.replace('/profile/me');
   };
 
   return (
@@ -32,14 +41,6 @@ const Login: NextPage = () => {
       </main>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { user } = await getUser(ctx);
-  if (user) {
-    return { props: { user }, redirect: { permanent: true, destination: '/profile/me' } };
-  }
-  return { props: { user } };
 };
 
 export default Login;

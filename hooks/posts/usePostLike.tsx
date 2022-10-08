@@ -8,6 +8,7 @@ import { Likes } from '@/hooks/posts/useGetPostsLikes';
 type PostLike = {
   post_id?: number;
   post_like_id?: number;
+  user_id?: string;
 };
 
 export const usePostLike = (id: number, data?: Likes) => {
@@ -23,9 +24,10 @@ export const usePostLike = (id: number, data?: Likes) => {
   const onSuccess = () => queryClient.invalidateQueries(['post', { post_id: id }]);
 
   const postDislike = useMutation(
-    ({ post_like_id }: PostLike) => {
+    ({ post_id, user_id }: PostLike) => {
       return axios.post('/api/posts/removePostLike', {
-        post_like_id,
+        post_id,
+        user_id,
       });
     },
     { onSuccess }
@@ -46,7 +48,7 @@ export const usePostLike = (id: number, data?: Likes) => {
     setIsLiked((prev) => !prev);
     if (isLiked) {
       postDislike.mutate(
-        { post_like_id: data?.likesData?.id },
+        { post_id: id, user_id: user?.id },
         {
           onSuccess,
         }

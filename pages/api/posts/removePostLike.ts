@@ -8,15 +8,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
+  const { post_id, user_id } = req.body;
+  console.log(user_id, post_id);
+
   try {
-    const dislikePost = await prisma.posts_likes.delete({
+    const dislikePost = await prisma.posts_likes.deleteMany({
       where: {
-        id: req.body.post_like_id,
+        post_id,
+        user_id,
       },
     });
     res.status(200).send(dislikePost);
   } catch (e) {
-    console.log(e);
     res.status(400).send('400');
   }
 };
