@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
-import { Suspense } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { namedComponent } from '@/lib/namedComponent';
@@ -44,11 +43,9 @@ export const HomePage = () => {
         className={styles.scroller}
       >
         <article id='main' className={styles.container}>
-          <Suspense fallback={<Loader />}>
-            {allPosts.map(({ id }) => {
-              return <Post key={id} id={id} />;
-            })}
-          </Suspense>
+          {allPosts.map(({ id }) => {
+            return <Post key={id} id={id} />;
+          })}
         </article>
       </InfiniteScroll>
     </>
