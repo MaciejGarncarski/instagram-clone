@@ -1,12 +1,18 @@
+import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
+import { Suspense } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { namedComponent } from '@/lib/namedComponent';
 import { useGetPosts } from '@/hooks/posts/useGetPosts';
 
 import styles from './homePage.module.scss';
 
 import { Loader } from '@/components/atoms/loader/Loader';
-import { Post } from '@/components/organisms/post/Post';
+
+const Post = dynamic(() => {
+  return namedComponent(import('@/components/organisms/post/Post'), 'Post');
+});
 
 export const HomePage = () => {
   const { data, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
@@ -38,9 +44,11 @@ export const HomePage = () => {
         className={styles.scroller}
       >
         <article id='main' className={styles.container}>
-          {allPosts.map(({ id }) => {
-            return <Post key={id} id={id} />;
-          })}
+          <Suspense fallback={<Loader />}>
+            {allPosts.map(({ id }) => {
+              return <Post key={id} id={id} />;
+            })}
+          </Suspense>
         </article>
       </InfiniteScroll>
     </>

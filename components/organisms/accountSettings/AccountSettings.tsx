@@ -31,7 +31,7 @@ export const AccountSettings = () => {
         className={styles.settings}
         type='button'
       >
-        <motion.span animate={settingsOpen ? { rotate: 90 } : {}}>
+        <motion.span animate={settingsOpen ? { rotate: 50 } : {}}>
           <IoSettingsSharp />
         </motion.span>
       </button>

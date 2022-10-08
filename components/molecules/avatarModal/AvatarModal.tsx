@@ -11,7 +11,7 @@ type AvatarModalProps = {
   setModalOpen: (open: boolean) => void;
 };
 
-export const AvatarModal = ({ modalOpen, setModalOpen }: AvatarModalProps) => {
+export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
   const { data } = useProfile();
   const { mutate } = useDeleteAvatar();
 

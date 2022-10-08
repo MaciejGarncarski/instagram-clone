@@ -1,4 +1,3 @@
-// import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { getUser } from '@supabase/auth-helpers-nextjs';
 import { useUser } from '@supabase/auth-helpers-react';
 import { dehydrate, QueryClient } from '@tanstack/react-query';

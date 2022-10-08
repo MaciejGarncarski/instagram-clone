@@ -1,6 +1,8 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 
+import { namedComponent } from '@/lib/namedComponent';
 import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './account.module.scss';
@@ -8,11 +10,17 @@ import styles from './account.module.scss';
 import { Loader } from '@/components/atoms/loader/Loader';
 import { AccountPostContainer } from '@/components/molecules/accountPostContainer/AccountPostContainer';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
-import { AccountSettings } from '@/components/organisms/accountSettings/AccountSettings';
 
 type AccountProps = {
   userID: string;
 };
+
+const AccountSettings = dynamic(() =>
+  namedComponent(
+    import('@/components/organisms/accountSettings/AccountSettings'),
+    'AccountSettings'
+  )
+);
 
 export const Account = ({ userID }: AccountProps) => {
   const { user } = useUser();
