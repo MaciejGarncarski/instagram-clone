@@ -48,7 +48,7 @@ export const Post = ({ id }: PostProps) => {
       <header className={styles.author}>
         <Link href={`/profile/${author_id}`} passHref>
           <motion.a whileTap={{ y: -2, scale: 0.9 }} className={styles.link}>
-            <UserAvatar userID={author_id} className={styles.avatar} />
+            <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
             <h2 className={styles.username}>
               {(author && author.username) ?? `user-${author.profile_id}`}
             </h2>

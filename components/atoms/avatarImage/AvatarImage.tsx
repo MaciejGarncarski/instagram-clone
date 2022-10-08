@@ -9,9 +9,10 @@ import { Loader } from '@/components/atoms/loader/Loader';
 
 type AvatarImageProps = {
   userID: string;
+  sizes?: string;
 };
 
-export const AvatarImage = ({ userID }: AvatarImageProps) => {
+export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
   const { data, isLoading, isError } = useProfile(userID);
 
   if (isLoading) {
@@ -25,7 +26,7 @@ export const AvatarImage = ({ userID }: AvatarImageProps) => {
   return (
     <Image
       fill
-      sizes='130'
+      sizes={sizes ? sizes : '100'}
       className={styles.image}
       src={data?.avatar_url}
       alt='user profile picture'

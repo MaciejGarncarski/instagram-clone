@@ -12,10 +12,11 @@ type UserAvatarProps = {
   className?: string;
   editable?: boolean;
   userID: string;
+  sizes?: string;
 };
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
-  ({ className, editable, userID }, ref) => {
+  ({ className, editable, userID, sizes }, ref) => {
     const { handleChange } = useAvatarInput();
 
     if (editable) {
@@ -34,7 +35,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             <span className={styles.overlay} title='change avatar'>
               <BiEdit size={50} />
             </span>
-            <AvatarImage userID={userID} />
+            <AvatarImage sizes={sizes} userID={userID} />
           </label>
         </div>
       );
@@ -42,7 +43,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
 
     return (
       <div className={clsx(className, styles.container)}>
-        <AvatarImage userID={userID} />
+        <AvatarImage sizes={sizes} userID={userID} />
       </div>
     );
   }
