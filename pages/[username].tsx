@@ -1,6 +1,8 @@
-import { NextPage } from 'next';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
+import { apiClient } from '@/lib/apiClient';
 import { useProfileByUsername } from '@/hooks/useProfileByUsername';
 
 import { Loader } from '@/components/atoms/loader/Loader';
@@ -18,6 +20,24 @@ const UserAccount: NextPage = () => {
   }
 
   return <Account userData={data} />;
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(['profile', { id: ctx.params?.username ?? '' }], async () => {
+    const { data } = await apiClient.post('/accounts/getUserByUsername', {
+      username: ctx.params?.username ?? '',
+    });
+
+    return data;
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default UserAccount;

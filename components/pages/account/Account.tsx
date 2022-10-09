@@ -1,4 +1,5 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 
@@ -30,11 +31,16 @@ export const Account = ({ userData }: AccountProps) => {
 
   const { bio, username, _count, website, profile_id, id } = userData;
 
+  const isAccountMine = id === user?.id;
+
   return (
     <>
       <NextSeo title={username ?? 'Delaygram'} />
       <section id='main' className={styles.account}>
-        <UserAvatar userID={id} className={styles.avatar} />
+        <UserAvatar
+          userID={id}
+          className={clsx(!isAccountMine && styles['avatar--columns'], styles.avatar)}
+        />
         <div className={styles['user-info']}>
           <h2 className={styles.username}>{username ?? `user-${profile_id}`}</h2>
           <div className={styles.stats}>
@@ -54,7 +60,7 @@ export const Account = ({ userData }: AccountProps) => {
             </a>
           )}
         </div>
-        {id === user?.id && <AccountSettings />}
+        {isAccountMine && <AccountSettings />}
       </section>
       <AccountPostContainer userID={id} />
     </>

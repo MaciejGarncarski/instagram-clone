@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import { useProfile } from '@/hooks/profile/useProfile';
 import { loginSchema, LoginValues } from '@/utils/loginValidation';
 
 import { FormButton } from '@/components/atoms/form/formButton/FormButton';
@@ -18,7 +18,7 @@ import { Input } from '../../atoms/input/Input';
 export const LoginForm = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const { user } = useUser();
+  const { data } = useProfile();
 
   const {
     register,
@@ -44,9 +44,9 @@ export const LoginForm = () => {
       return;
     }
 
-    await queryClient.invalidateQueries(['profile', { id: user?.id }]);
+    await queryClient.invalidateQueries(['profile', { id: data?.id }]);
     toast.success('Logged in!');
-    router.replace('/profile/me');
+    router.replace('/');
   };
 
   return (

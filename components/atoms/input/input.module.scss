@@ -23,7 +23,7 @@
   background: var(--bg-color);
   border: 3px solid rgb(0, 0, 0, 0.4);
   border-radius: 0.35em;
-  box-shadow: var(--box-shadow), var(--shadow-color) 0 0 0 3px;
+  box-shadow: var(--box-shadow), var(--shadow-color) 0 0 0 4px;
   padding: 1.1em 0.35em 0.15em 0.35em;
   line-height: 1.5;
   outline: none;
@@ -71,11 +71,15 @@
   background-color: transparent;
   right: 0.5em;
   padding: 1rem 0.2rem;
-  bottom: 0.8em;
+  bottom: 0.5em;
   cursor: pointer;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 0.75em;
+
+  @include common.breakpoint('lg') {
+    bottom: 0.8em;
+  }
 }
 
 .label {

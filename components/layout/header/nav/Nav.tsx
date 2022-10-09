@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { BiBookmark, BiHome } from 'react-icons/bi';
+import { BiBookmark } from 'react-icons/bi';
 import { CgAddR } from 'react-icons/cg';
 
 import { useProfile } from '@/hooks/profile/useProfile';
@@ -46,16 +46,11 @@ export const Nav = () => {
 
   return (
     <nav className={styles['nav--no-user']}>
-      <Link href='/' passHref>
-        <a className={styles.link}>
-          <span className={styles.icon}>
-            <BiHome />
-          </span>
-          <span className='sr-only'>Home</span>
-        </a>
+      <Link href='/auth/register' passHref>
+        <a className={styles.button}>Sign up</a>
       </Link>
       <Link href='/auth/login' passHref>
-        <a className={styles.button}>Login</a>
+        <a className={styles.text}>Log in</a>
       </Link>
     </nav>
   );

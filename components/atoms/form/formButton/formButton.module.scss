@@ -6,6 +6,9 @@
   background-size: 200% 200%;
   background-position: left;
   transition: background-position var(--transition-slow);
+  width: 100%;
+
+  padding: 0.5em 0;
 
   &:not(:disabled):hover {
     background-position: right;

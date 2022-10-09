@@ -22,10 +22,6 @@ export const RegisterForm = () => {
   } = useForm<RegisterValues>({
     mode: 'onBlur',
     resolver: zodResolver(registerSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
   });
 
   const router = useRouter();

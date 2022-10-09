@@ -35,15 +35,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={label}
             {...props}
           />
+          <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>
+            <span className={styles['label-text']}>{label}</span>
+            {optional && <span className={styles.optional}>(optional)</span>}
+          </label>
           {type === 'password' && (
             <button type='button' className={styles.toggler} onClick={handleShow}>
               {isShown ? 'hide' : 'show'}
             </button>
           )}
-          <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>
-            <span className={styles['label-text']}>{label}</span>
-            {optional && <span className={styles.optional}>(optional)</span>}
-          </label>
         </div>
         {error?.message && <Error message={error.message} />}
       </div>
