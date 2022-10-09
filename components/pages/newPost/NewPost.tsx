@@ -49,7 +49,7 @@ export const NewPost = () => {
 
   return (
     <main id='main'>
-      <NextSeo title='New post' />
+      <NextSeo title='Create Post • Delaygram' />
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.avatar}>

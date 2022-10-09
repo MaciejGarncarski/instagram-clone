@@ -29,13 +29,13 @@ export const Account = ({ userData }: AccountProps) => {
     return null;
   }
 
-  const { bio, username, _count, website, profile_id, id } = userData;
+  const { bio, username, full_name, _count, website, profile_id, id } = userData;
 
   const isAccountMine = id === user?.id;
 
   return (
     <>
-      <NextSeo title={username ?? 'Delaygram'} />
+      <NextSeo title={`${full_name} (@${username})`} />
       <section id='main' className={styles.account}>
         <UserAvatar
           userID={id}

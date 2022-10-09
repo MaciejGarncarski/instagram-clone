@@ -46,7 +46,7 @@ export const Post = ({ id }: PostProps) => {
   return (
     <article className={styles.container}>
       <header className={styles.author}>
-        <Link href={`/${author.username}`} passHref>
+        <Link href={`/${author.username}/`} passHref>
           <motion.a whileTap={{ y: -2, scale: 0.9 }} className={styles.link}>
             <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
             <h2 className={styles.username}>

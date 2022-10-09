@@ -86,7 +86,7 @@ export const EditAccount = () => {
 
   return (
     <>
-      <NextSeo title='Edit Profile . Delaygram' />
+      <NextSeo title='Edit Profile • Delaygram' />
 
       <form
         className={styles.container}
