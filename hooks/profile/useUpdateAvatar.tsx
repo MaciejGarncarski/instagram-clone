@@ -15,7 +15,7 @@ export const useUpdateAvatar = () => {
   return useMutation(
     ({ avatarURL }: Mutation) => {
       const uncachedIMG = `${avatarURL}?cache_bust=${now}`;
-      return axios.patch('/api/profiles/updateAvatar', { id: user?.id, avatarURL: uncachedIMG });
+      return axios.patch('/api/accounts/updateAvatar', { id: user?.id, avatarURL: uncachedIMG });
     },
     {
       onSuccess: () => {

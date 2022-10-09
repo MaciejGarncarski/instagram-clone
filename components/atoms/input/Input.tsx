@@ -37,7 +37,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           {type === 'password' && (
             <button type='button' className={styles.toggler} onClick={handleShow}>
-              {isShown ? '🕶️' : '👀'}
+              {isShown ? 'hide' : 'show'}
             </button>
           )}
           <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>

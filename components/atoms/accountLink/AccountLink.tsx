@@ -10,18 +10,12 @@ import styles from './accountLink.module.scss';
 export const AccountLink = () => {
   const { data } = useProfile();
 
-  if (!data) {
-    return (
-      <Link href='/auth/login' passHref>
-        <a className={styles.login}>Log in</a>
-      </Link>
-    );
-  }
+  const url = `/${data?.username}`;
 
   if (data?.avatar_url) {
     return (
       <li className={styles.item}>
-        <Link href='/profile/me' passHref>
+        <Link href={url} passHref>
           <a className={styles.link}>
             <Image
               className={clsx(styles.img, styles.border)}
@@ -39,7 +33,7 @@ export const AccountLink = () => {
 
   return (
     <li className={styles.item}>
-      <Link href='/profile/me' passHref>
+      <Link href={url} passHref>
         <a className={styles.link}>
           <BiUser />
           <span className='sr-only'>user account</span>

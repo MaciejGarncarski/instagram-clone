@@ -5,7 +5,7 @@
   width: 100%;
 
   @include common.breakpoint('sm') {
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     border: 1px solid rgb(30, 30, 30, 0.25);
     box-shadow: var(--box-shadow);
 

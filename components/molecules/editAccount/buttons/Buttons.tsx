@@ -13,10 +13,11 @@ import { charCountAtom } from '@/store/store';
 
 type ButtonsProps = {
   disabled: boolean;
+  isDirty: boolean;
   reset: UseFormReset<FormValues>;
 };
 
-export const Buttons = ({ disabled, reset }: ButtonsProps) => {
+export const Buttons = ({ isDirty, disabled, reset }: ButtonsProps) => {
   const { data } = useProfile();
   const [, setCharCount] = useAtom(charCountAtom);
 
@@ -31,7 +32,7 @@ export const Buttons = ({ disabled, reset }: ButtonsProps) => {
 
   return (
     <div className={styles.buttons}>
-      <Button variant='red' type='button' disabled={disabled} onClick={handleReset}>
+      <Button variant='red' type='button' disabled={!isDirty} onClick={handleReset}>
         reset
       </Button>
       <Button type='submit' disabled={disabled}>

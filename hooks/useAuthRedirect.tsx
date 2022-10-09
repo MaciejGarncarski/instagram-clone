@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 export const useAuthRedirect = () => {
   const router = useRouter();
   const { user } = useUser();
-  console.log(user?.id);
   useEffect(() => {
     if (user?.id) {
       return;

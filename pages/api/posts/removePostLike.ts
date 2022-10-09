@@ -9,7 +9,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { post_id, user_id } = req.body;
-  console.log(user_id, post_id);
 
   try {
     const dislikePost = await prisma.posts_likes.deleteMany({

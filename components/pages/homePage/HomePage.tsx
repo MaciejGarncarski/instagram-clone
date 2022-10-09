@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { NextSeo } from 'next-seo';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { namedComponent } from '@/lib/namedComponent';
@@ -31,23 +30,19 @@ export const HomePage = () => {
   }
 
   return (
-    <>
-      <NextSeo title='Delaygram' />
-
-      <InfiniteScroll
-        hasMore={hasNextPage ?? false}
-        next={() => fetchNextPage()}
-        loader={<Loader />}
-        dataLength={allPosts.length}
-        style={{ overflow: 'hidden' }}
-        className={styles.scroller}
-      >
-        <article id='main' className={styles.container}>
-          {allPosts.map(({ id }) => {
-            return <Post key={id} id={id} />;
-          })}
-        </article>
-      </InfiniteScroll>
-    </>
+    <InfiniteScroll
+      hasMore={hasNextPage ?? false}
+      next={() => fetchNextPage()}
+      loader={<Loader />}
+      dataLength={allPosts.length}
+      style={{ overflow: 'hidden' }}
+      className={styles.scroller}
+    >
+      <article id='main' className={styles.container}>
+        {allPosts.map(({ id }) => {
+          return <Post key={id} id={id} />;
+        })}
+      </article>
+    </InfiniteScroll>
   );
 };

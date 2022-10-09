@@ -10,11 +10,14 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MotionConfig } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
+import { DefaultSeo } from 'next-seo';
 import { useState } from 'react';
 
 import { namedComponent } from '@/lib/namedComponent';
 
 import '../styles/globals.scss';
+
+import { SEO } from '../next-seo.config';
 
 const UserProvider = dynamic(() =>
   namedComponent(import('@supabase/auth-helpers-react'), 'UserProvider')
@@ -39,6 +42,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
         <MotionConfig reducedMotion='user'>
           <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
           <Hydrate state={pageProps.dehydratedState}>
+            <DefaultSeo {...SEO} />
             <Layout>
               <Component {...pageProps} />
             </Layout>

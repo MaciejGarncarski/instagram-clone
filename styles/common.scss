@@ -15,3 +15,21 @@
     @error "ERROR: No breakpoint specified for query '#{$query}'";
   }
 }
+
+@mixin breakpoint-max($query) {
+  $breakpoints: (
+    'xs': '(max-width: 500px)',
+    'sm': '(max-width: 639px)',
+    'lg': '(max-width: 800px)',
+    'xl': '(max-width: 1150px)',
+    'xxl': '(max-width: 1450px)',
+  );
+
+  @if map-has-key($breakpoints, $query) {
+    @media screen and #{map-get($breakpoints, $query)} {
+      @content;
+    }
+  } @else {
+    @error "ERROR: No breakpoint specified for query '#{$query}'";
+  }
+}

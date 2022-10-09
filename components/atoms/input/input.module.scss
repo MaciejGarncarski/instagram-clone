@@ -69,10 +69,13 @@
 .toggler {
   position: absolute;
   background-color: transparent;
-  right: 0.6rem;
+  right: 0.5em;
   padding: 1rem 0.2rem;
-  bottom: 0.3em;
+  bottom: 0.8em;
   cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75em;
 }
 
 .label {

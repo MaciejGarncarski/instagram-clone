@@ -4,12 +4,13 @@ import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { BiEdit, BiLogOut } from 'react-icons/bi';
-import { CgClose } from 'react-icons/cg';
+import { BiLogOut } from 'react-icons/bi';
 import { IoSettingsSharp } from 'react-icons/io5';
 
 import styles from './accountSettings.module.scss';
 
+import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
+import { EditIcon } from '@/components/atoms/icons/EditIcon';
 import { Modal } from '@/components/organisms/modal/Modal';
 
 export const AccountSettings = () => {
@@ -41,12 +42,12 @@ export const AccountSettings = () => {
             <BiLogOut />
             Log out
           </Modal.Button>
-          <Modal.Link href='/profile/edit'>
-            <BiEdit />
+          <Modal.Link href='/accounts/edit'>
+            <EditIcon />
             edit
           </Modal.Link>
           <Modal.Button onClick={() => setSettingsOpen(false)}>
-            <CgClose />
+            <CancelIcon />
             cancel
           </Modal.Button>
         </Modal>

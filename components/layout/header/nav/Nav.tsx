@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { BiBookmark } from 'react-icons/bi';
+import { BiBookmark, BiHome } from 'react-icons/bi';
 import { CgAddR } from 'react-icons/cg';
+
+import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './nav.module.scss';
 
@@ -19,23 +21,42 @@ const routes: Array<Routes> = [
 ];
 
 export const Nav = () => {
+  const { data } = useProfile();
+  if (data?.username) {
+    return (
+      <nav className={styles.nav}>
+        <ul className={styles.menu}>
+          {routes.map(({ name, icon, to }) => {
+            return (
+              <li key={name} className={styles.item}>
+                <Link href={to} passHref>
+                  <a className={styles.link}>
+                    <span className={styles.icon}>{icon}</span>
+                    <span className='sr-only'>{name}</span>
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+          <AccountLink />
+        </ul>
+      </nav>
+    );
+  }
+
   return (
-    <nav className={styles.nav}>
-      <ul className={styles.menu}>
-        {routes.map(({ name, icon, to }) => {
-          return (
-            <li key={name} className={styles.item}>
-              <Link href={to} passHref>
-                <a className={styles.link}>
-                  <span className={styles.icon}>{icon}</span>
-                  <span className='sr-only'>{name}</span>
-                </a>
-              </Link>
-            </li>
-          );
-        })}
-        <AccountLink />
-      </ul>
+    <nav className={styles['nav--no-user']}>
+      <Link href='/' passHref>
+        <a className={styles.link}>
+          <span className={styles.icon}>
+            <BiHome />
+          </span>
+          <span className='sr-only'>Home</span>
+        </a>
+      </Link>
+      <Link href='/auth/login' passHref>
+        <a className={styles.button}>Login</a>
+      </Link>
     </nav>
   );
 };

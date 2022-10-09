@@ -1,6 +1,7 @@
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
 import { KeyboardEvent, MouseEvent, ReactNode, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import styles from './modal.module.scss';
 
@@ -18,6 +19,7 @@ type ModalProps = Children & {
 
 export const Modal = ({ children, setIsOpen }: ModalProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const parent = document.querySelector('.modal') as HTMLDivElement;
 
   const handleClickOutside = (clickEvent: MouseEvent) => {
     if (clickEvent.target === overlayRef.current) {
@@ -31,17 +33,17 @@ export const Modal = ({ children, setIsOpen }: ModalProps) => {
     }
   };
 
-  return (
+  return createPortal(
     <div
-      ref={overlayRef}
       onKeyDown={handleEscape}
+      ref={overlayRef}
       onClick={handleClickOutside}
       className={styles.overlay}
+      tabIndex={0}
     >
       <FocusTrap
         focusTrapOptions={{
           allowOutsideClick: true,
-          initialFocus: false,
         }}
       >
         <motion.div
@@ -58,7 +60,8 @@ export const Modal = ({ children, setIsOpen }: ModalProps) => {
           {children}
         </motion.div>
       </FocusTrap>
-    </div>
+    </div>,
+    parent
   );
 };
 

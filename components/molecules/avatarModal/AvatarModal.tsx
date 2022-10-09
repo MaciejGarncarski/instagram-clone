@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useDeleteAvatar } from '@/hooks/profile/useDeleteAvatar';
 import { useProfile } from '@/hooks/profile/useProfile';
 
+import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
+import { DeleteIcon } from '@/components/atoms/icons/DeleteIcon';
 import { Modal } from '@/components/organisms/modal/Modal';
 
 type AvatarModalProps = {
@@ -51,9 +53,13 @@ export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
     <Modal setIsOpen={setModalOpen}>
       <Modal.Text>Do you really want to delete your photo?</Modal.Text>
       <Modal.Button variant='red' onClick={handleRemovePhoto}>
+        <DeleteIcon />
         Remove photo
       </Modal.Button>
-      <Modal.Button onClick={closeModal}>Cancel</Modal.Button>
+      <Modal.Button onClick={closeModal}>
+        <CancelIcon />
+        Cancel
+      </Modal.Button>
     </Modal>
   );
 };

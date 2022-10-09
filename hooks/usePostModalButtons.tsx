@@ -1,10 +1,13 @@
 import { ReactNode } from 'react';
-import { BiEdit, BiTrash } from 'react-icons/bi';
-import { CgClose } from 'react-icons/cg';
+
+import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
+import { DeleteIcon } from '@/components/atoms/icons/DeleteIcon';
+import { EditIcon } from '@/components/atoms/icons/EditIcon';
 
 type PostModalButtonsProps = {
   setIsOpen: (isOpen: boolean) => void;
   setIsDeleting: (isOpen: boolean) => void;
+  setIsEditing: (isOpen: boolean) => void;
 };
 
 type ButtonData = {
@@ -14,7 +17,11 @@ type ButtonData = {
   variant?: 'red';
 };
 
-export const usePostModalButtons = ({ setIsDeleting, setIsOpen }: PostModalButtonsProps) => {
+export const usePostModalButtons = ({
+  setIsDeleting,
+  setIsOpen,
+  setIsEditing,
+}: PostModalButtonsProps) => {
   const closeMenu = () => {
     setIsOpen(false);
   };
@@ -24,21 +31,27 @@ export const usePostModalButtons = ({ setIsDeleting, setIsOpen }: PostModalButto
     setIsDeleting(true);
   };
 
+  const openEditModal = () => {
+    setIsOpen(false);
+    setIsEditing(true);
+  };
+
   const buttonData: Array<ButtonData> = [
     {
       text: 'remove',
       variant: 'red',
+      icon: <DeleteIcon />,
       onClick: openDeleteModal,
-      icon: <BiTrash />,
     },
     {
       text: 'edit',
-      icon: <BiEdit />,
+      icon: <EditIcon />,
+      onClick: openEditModal,
     },
     {
       text: 'cancel',
+      icon: <CancelIcon />,
       onClick: closeMenu,
-      icon: <CgClose />,
     },
   ];
 

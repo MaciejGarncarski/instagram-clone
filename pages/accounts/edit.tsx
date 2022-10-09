@@ -1,29 +1,24 @@
 import { getUser } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
+import { User } from '@supabase/supabase-js';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import type { GetServerSidePropsContext, NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 
 import { apiClient } from '@/lib/apiClient';
 import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
-import { Account } from '@/components/pages/account/Account';
+import { EditAccount } from '@/components/pages/editAccount/EditAccount';
 
-const UserProfile: NextPage = () => {
+const EditPage: NextPage<{ user: User }> = () => {
   useAuthRedirect();
-  const { user } = useUser();
-  if (!user) {
-    return null;
-  }
-
-  return <Account userID={user.id} />;
+  return <EditAccount />;
 };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const queryClient = new QueryClient();
   const { user } = await getUser(ctx);
 
-  queryClient.prefetchQuery(['profile'], async () => {
-    const { data } = await apiClient.post('/profiles/getProfile', {
+  await queryClient.prefetchQuery(['profile', { id: user.id }], async () => {
+    const { data } = await apiClient.post('/accounts/getProfile', {
       id: user?.id ?? '',
     });
 
@@ -37,4 +32,4 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   };
 };
 
-export default UserProfile;
+export default EditPage;

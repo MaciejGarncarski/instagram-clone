@@ -1,25 +1,7 @@
-@use '/styles/mixins.scss';
-
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: min(30ch, 90%);
-  gap: 4rem;
-  margin-inline: auto;
-}
-
-.heading {
-  text-transform: capitalize;
-  font-weight: 900;
-  letter-spacing: 1px;
-}
-
 .button {
   background-image: var(--gradient);
   color: var(--bg-color);
-  border: 3px solid var(--primary-color);
+  border: none;
   text-transform: capitalize;
   background-size: 200% 200%;
   background-position: left;

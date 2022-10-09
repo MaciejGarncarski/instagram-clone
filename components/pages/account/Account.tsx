@@ -3,16 +3,15 @@ import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 
 import { namedComponent } from '@/lib/namedComponent';
-import { useProfile } from '@/hooks/profile/useProfile';
+import { Profile } from '@/hooks/profile/useProfile';
 
 import styles from './account.module.scss';
 
-import { Loader } from '@/components/atoms/loader/Loader';
 import { AccountPostContainer } from '@/components/molecules/accountPostContainer/AccountPostContainer';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
 type AccountProps = {
-  userID: string;
+  userData: Profile;
 };
 
 const AccountSettings = dynamic(() =>
@@ -22,33 +21,20 @@ const AccountSettings = dynamic(() =>
   )
 );
 
-export const Account = ({ userID }: AccountProps) => {
+export const Account = ({ userData }: AccountProps) => {
   const { user } = useUser();
-  const { data, isLoading, isError } = useProfile(userID);
 
-  if (isError) {
-    return <h2>Error</h2>;
-  }
-
-  if (isLoading || !user?.id) {
-    return (
-      <main className={styles.loader}>
-        <Loader />
-      </main>
-    );
-  }
-
-  if (!data) {
+  if (!userData) {
     return null;
   }
 
-  const { bio, username, _count, website, profile_id } = data;
+  const { bio, username, _count, website, profile_id, id } = userData;
 
   return (
     <>
       <NextSeo title={username ?? 'Delaygram'} />
       <section id='main' className={styles.account}>
-        <UserAvatar userID={userID} className={styles.avatar} />
+        <UserAvatar userID={id} className={styles.avatar} />
         <div className={styles['user-info']}>
           <h2 className={styles.username}>{username ?? `user-${profile_id}`}</h2>
           <div className={styles.stats}>
@@ -68,9 +54,9 @@ export const Account = ({ userID }: AccountProps) => {
             </a>
           )}
         </div>
-        {userID === user.id && <AccountSettings />}
+        {id === user?.id && <AccountSettings />}
       </section>
-      <AccountPostContainer userID={userID} />
+      <AccountPostContainer userID={id} />
     </>
   );
 };

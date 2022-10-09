@@ -86,7 +86,7 @@ export const EditAccount = () => {
 
   return (
     <>
-      <NextSeo title='Edit profile' />
+      <NextSeo title='Edit Profile . Delaygram' />
 
       <form
         className={styles.container}
@@ -96,7 +96,7 @@ export const EditAccount = () => {
       >
         <AvatarSection />
         <Inputs errors={errors} register={register} reset={reset} fieldsValues={watchFields} />
-        <Buttons disabled={!isDirty || !isValid} reset={reset} />
+        <Buttons disabled={!isDirty || !isValid} isDirty={isDirty} reset={reset} />
       </form>
     </>
   );

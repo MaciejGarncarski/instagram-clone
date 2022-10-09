@@ -24,6 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
     res.status(200).send(prismaData);
   } catch (e) {
+    console.log(e);
     res.status(400).send(`Wrong api call`);
   }
 };
