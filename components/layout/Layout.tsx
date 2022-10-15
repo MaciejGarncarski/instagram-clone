@@ -1,10 +1,11 @@
+import Link from 'next/link';
 import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import styles from './layout.module.scss';
 
-import { Header } from '@/components/layout/header/Header';
+import { Nav } from '@/components/layout/nav/Nav';
 
 type LayoutProps = {
   children: ReactNode;
@@ -13,7 +14,18 @@ type LayoutProps = {
 export const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={styles.wrapper}>
-      <Header />
+      <a href='#main' className={styles.skip}>
+        Skip to main content
+      </a>
+
+      <nav className={styles.nav}>
+        <h1 className={styles.heading}>
+          <Link href='/'>
+            <a className={styles.link}>Delaygram</a>
+          </Link>
+        </h1>
+        <Nav />
+      </nav>
       <ToastContainer theme='light' />
       {children}
     </div>

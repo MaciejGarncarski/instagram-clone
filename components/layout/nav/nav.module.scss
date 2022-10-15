@@ -1,45 +1,30 @@
 @use '/styles/common.scss';
 
-.nav {
+.guest,
+.menu {
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.75rem 0;
+  align-items: center;
   width: 100%;
+  background-color: var(--white);
   z-index: 1;
+  box-shadow: 0 -1px 3px 0 rgb(0, 0, 0, 0.15);
 
   @include common.breakpoint('lg') {
-    width: auto;
-    padding-bottom: 0;
-    margin: unset;
+    background: transparent;
     position: static;
+    padding: 0;
     width: auto;
-  }
-
-  &--no-user {
-    @extend .menu;
-    @extend .nav;
+    gap: 6rem;
+    box-shadow: none;
   }
 }
 
 .menu {
-  display: flex;
   list-style: none;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0.5em 1em;
-  border-top: 1px solid rgb(0, 0, 0, 0.25);
-  background-color: var(--white);
-
-  @include common.breakpoint('lg') {
-    box-shadow: none;
-    border: none;
-    border-radius: none;
-    padding: 0;
-    gap: 4rem;
-    justify-content: space-evenly;
-    background: none;
-  }
 }
 
 .icon {

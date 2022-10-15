@@ -30,8 +30,10 @@ export const useNewPost = () => {
     setImg(ev.target.files[0]);
   };
 
-  const onSubmit: SubmitHandler<postValues> = async ({ description }) => {
+  const onSubmit: SubmitHandler<postValues> = async ({ description, location }) => {
     const uuid = v4();
+
+    const addingPost = toast.loading('Uploading new post...');
 
     if (!img) {
       return;
@@ -45,7 +47,13 @@ export const useNewPost = () => {
       });
 
     if (error) {
-      toast.error('Couldnt upload image');
+      toast.update(addingPost, {
+        render: 'Couldnt upload image',
+        isLoading: false,
+        autoClose: 4000,
+        closeOnClick: true,
+        type: 'error',
+      });
       return;
     }
 
@@ -54,14 +62,29 @@ export const useNewPost = () => {
       .getPublicUrl(`${uuid}/img.jpg`);
 
     if (!imgURL || imgError) {
-      toast.error('Couldnt get image');
+      toast.update(addingPost, {
+        render: 'Couldnt get image, try again later',
+        isLoading: false,
+        autoClose: 4000,
+        closeOnClick: true,
+        type: 'error',
+      });
       return;
     }
 
     mutate(
-      { description, imgURL, uuid },
+      { description, imgURL, uuid, location },
       {
-        onSuccess: () => setPreview(null),
+        onSuccess: () => {
+          toast.update(addingPost, {
+            render: 'Post added!',
+            isLoading: false,
+            autoClose: 4000,
+            closeOnClick: true,
+            type: 'success',
+          });
+          setPreview(null);
+        },
       }
     );
   };

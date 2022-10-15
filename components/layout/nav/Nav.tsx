@@ -7,7 +7,7 @@ import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './nav.module.scss';
 
-import { AccountLink } from '../../../atoms/accountLink/AccountLink';
+import { AccountLink } from '@/components/atoms/accountLink/AccountLink';
 
 type Routes = {
   to: string;
@@ -24,34 +24,32 @@ export const Nav = () => {
   const { data } = useProfile();
   if (data?.username) {
     return (
-      <nav className={styles.nav}>
-        <ul className={styles.menu}>
-          {routes.map(({ name, icon, to }) => {
-            return (
-              <li key={name} className={styles.item}>
-                <Link href={to} passHref>
-                  <a className={styles.link}>
-                    <span className={styles.icon}>{icon}</span>
-                    <span className='sr-only'>{name}</span>
-                  </a>
-                </Link>
-              </li>
-            );
-          })}
-          <AccountLink />
-        </ul>
-      </nav>
+      <ul className={styles.menu}>
+        {routes.map(({ name, icon, to }) => {
+          return (
+            <li key={name} className={styles.item}>
+              <Link href={to} passHref>
+                <a className={styles.link}>
+                  <span className={styles.icon}>{icon}</span>
+                  <span className='sr-only'>{name}</span>
+                </a>
+              </Link>
+            </li>
+          );
+        })}
+        <AccountLink />
+      </ul>
     );
   }
 
   return (
-    <nav className={styles['nav--no-user']}>
+    <div className={styles.guest}>
       <Link href='/auth/register' passHref>
         <a className={styles.button}>Sign up</a>
       </Link>
       <Link href='/auth/login' passHref>
         <a className={styles.text}>Log in</a>
       </Link>
-    </nav>
+    </div>
   );
 };

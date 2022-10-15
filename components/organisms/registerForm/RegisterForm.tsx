@@ -1,11 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { useRegister } from '@/hooks/profile/useRegister';
 import { registerSchema, RegisterValues } from '@/utils/registerValidation';
+
+import styles from './registerForm.module.scss';
 
 import { FormButton } from '@/components/atoms/form/formButton/FormButton';
 import { FormContainer } from '@/components/atoms/form/formContainer/FormContainer';
@@ -87,7 +90,15 @@ export const RegisterForm = () => {
         {...register('password')}
       />
 
+      <p className={styles.terms}>
+        By registering, you accept
+        <Link href='/terms' passHref>
+          <a className={styles.link}>terms of use.</a>
+        </Link>
+      </p>
+
       <FormButton text='register' />
+
       <AuthRedirect type='register' />
     </FormContainer>
   );

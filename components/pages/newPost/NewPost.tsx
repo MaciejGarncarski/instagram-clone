@@ -22,6 +22,7 @@ import { newPostPreviewAtom } from '@/store/store';
 
 const newPostSchema = z.object({
   description: z.string().min(3),
+  location: z.string(),
 });
 
 export type postValues = z.infer<typeof newPostSchema>;
@@ -84,6 +85,14 @@ export const NewPost = () => {
           isDirty={dirtyFields.description}
           error={errors.description}
           {...register('description')}
+        />
+        <Input
+          type='text'
+          label='location'
+          optional
+          isDirty={dirtyFields.location}
+          error={errors.location}
+          {...register('location')}
         />
         <Button type='submit' disabled={Boolean(!preview)}>
           Add post!

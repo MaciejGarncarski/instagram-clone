@@ -1,16 +1,76 @@
 @use '/styles/common.scss';
 
 .wrapper {
-  padding: 2rem 0;
   max-width: 150rem;
   margin-inline: auto;
-  padding-top: 10rem;
-
-  @include common.breakpoint('sm') {
-    padding-top: 13rem;
-  }
 
   @include common.breakpoint('lg') {
     padding: 2rem calc(1.5rem + 5vw);
+  }
+}
+
+.heading {
+  font-size: 2.5em;
+  text-align: center;
+  font-weight: 900;
+}
+
+.nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  padding: 0.5rem 0;
+
+  @include common.breakpoint('sm') {
+    background-color: transparent;
+    padding: 1.5rem 0;
+  }
+
+  @include common.breakpoint('lg') {
+    padding: 0;
+    justify-content: space-between;
+    margin-bottom: 8rem;
+  }
+}
+
+.skip {
+  position: absolute;
+  top: auto;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  border: 3px solid var(--primary-color);
+  color: var(--text-color);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  outline: none;
+
+  &:focus {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    position: static;
+  }
+}
+
+.link {
+  text-decoration: none;
+  position: relative;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -2px;
+
+  background-size: 200% 200%;
+  background-position: 90%;
+  background-image: var(--gradient);
+
+  transition: background-position var(--transition-slow);
+
+  &:hover,
+  &:focus {
+    background-position: 40%;
   }
 }

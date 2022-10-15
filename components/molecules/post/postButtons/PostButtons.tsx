@@ -1,14 +1,17 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiComment, BiShare } from 'react-icons/bi';
 
-import { useGetPostsLikes } from '@/hooks/posts/useGetPostsLikes';
+import { lockScroll } from '@/lib/scrollLock';
 import { usePostLike } from '@/hooks/posts/usePostLike';
+import { usePostLikesData } from '@/hooks/posts/usePostLikesData';
 
 import styles from './postButtons.module.scss';
+
+import { PostModal } from '@/components/organisms/postModal/PostModal';
 
 type Button = {
   icon: ReactNode;
@@ -19,23 +22,34 @@ type Button = {
 
 type ButtonProps = {
   id: number;
+  commentCallback?: () => void;
 };
 
-export const PostButtons = ({ id }: ButtonProps) => {
-  const { data } = useGetPostsLikes(id);
+export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
+  const [postModalOpen, setPostModalOpen] = useState<boolean>(false);
+  const { data } = usePostLikesData(id);
+  const { handleLike, isLikedByUser } = usePostLike(id, data);
 
-  const { handleLike, isLiked } = usePostLike(id, data);
+  const showModal = () => {
+    lockScroll();
+    setPostModalOpen(true);
+  };
 
   const buttonsData: Button[] = [
     {
-      icon: isLiked ? <AiFillHeart fill='red' /> : <AiOutlineHeart />,
+      icon: isLikedByUser ? <AiFillHeart fill='red' /> : <AiOutlineHeart />,
       alt: 'like',
       onClick: handleLike,
     },
-    { icon: <BiComment style={{ transform: 'scaleX(-1)' }} />, alt: 'comment' },
+    {
+      icon: <BiComment style={{ transform: 'scaleX(-1)' }} />,
+      alt: 'comment',
+      onClick: commentCallback ? commentCallback : showModal,
+    },
     { icon: <BiShare style={{ transform: 'scaleX(-1)' }} />, alt: 'share' },
     { icon: <BiBookmark />, alt: 'save', className: styles.last },
   ];
+
   return (
     <div className={styles.buttons}>
       {buttonsData.map(({ icon, alt, className, onClick }) => {
@@ -53,6 +67,7 @@ export const PostButtons = ({ id }: ButtonProps) => {
           </motion.button>
         );
       })}
+      {postModalOpen && <PostModal setIsOpen={setPostModalOpen} id={id} />}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { usePostModalButtons } from '@/hooks/usePostModalButtons';
 
 import styles from './postSettings.module.scss';
 
+import { Button } from '@/components/atoms/button/Button';
 import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
 import { DeleteIcon } from '@/components/atoms/icons/DeleteIcon';
 import { Input } from '@/components/atoms/input/Input';
@@ -48,11 +49,13 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
         <AnimatePresence>
           {isOpen && (
             <Modal setIsOpen={setIsOpen}>
-              {buttonData.map(({ text, onClick, variant, icon }) => {
+              {buttonData.map(({ text, onClick, variant, icon }, idx) => {
                 return (
                   <Modal.Button
                     key={text}
                     variant={variant}
+                    isFirst={idx === 0}
+                    isLast={idx + 1 === buttonData.length}
                     onClick={onClick ? onClick : () => null}
                   >
                     {icon}
@@ -63,23 +66,32 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
             </Modal>
           )}
           {isDeleting && (
-            <Modal key='deleting' setIsOpen={setIsDeleting}>
-              <Modal.Text>Do you really want to remove post?</Modal.Text>
+            <Modal setIsOpen={setIsDeleting}>
+              <Modal.Text isFirst>Do you really want to remove post?</Modal.Text>
               <Modal.Button ref={buttonRef} onClick={deletePost} variant='red'>
                 <DeleteIcon />
                 remove
               </Modal.Button>
-              <Modal.Button onClick={closeDeleteModal}>
+              <Modal.Button isLast onClick={closeDeleteModal}>
                 <CancelIcon />
                 cancel
               </Modal.Button>
             </Modal>
           )}
           {isEditing && (
-            <Modal key='editing' setIsOpen={setIsEditing}>
-              Edit your post xd
-              <Input type='text' label='title' isDirty={false} error={undefined} />
-            </Modal>
+            <>
+              <Modal key='editing' variant='big' setIsOpen={setIsEditing}>
+                <Modal.Heading>Edit your post</Modal.Heading>
+                <Input type='text' label='description' isDirty={false} error={undefined} />
+                <Input type='text' label='location' isDirty={false} error={undefined} />
+                <div>
+                  <Button type='button'>Confirm</Button>
+                  <Button type='button' variant='red'>
+                    Cancel
+                  </Button>
+                </div>
+              </Modal>
+            </>
           )}
         </AnimatePresence>
       </aside>

@@ -38,11 +38,11 @@ export const HomePage = () => {
       style={{ overflow: 'hidden' }}
       className={styles.scroller}
     >
-      <article id='main' className={styles.container}>
+      <main id='main' className={styles.container}>
         {allPosts.map(({ id }) => {
           return <Post key={id} id={id} />;
         })}
-      </article>
+      </main>
     </InfiniteScroll>
   );
 };

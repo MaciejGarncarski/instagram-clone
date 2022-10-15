@@ -1,0 +1,48 @@
+import Link from 'next/link';
+
+import { usePostData } from '@/hooks/posts/usePostData';
+
+import styles from './postHeader.module.scss';
+
+import { PostSettings } from '@/components/molecules/post/postSettings/PostSettings';
+import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
+
+type PostHeader = {
+  canShowSettings?: boolean;
+  id: number;
+};
+
+export const PostHeader = ({ canShowSettings, id }: PostHeader) => {
+  const { postData } = usePostData(id);
+
+  if (!postData) {
+    return null;
+  }
+
+  const { author, author_id, location, img_uuid } = postData;
+
+  return (
+    <header className={styles.author}>
+      <Link href={`/${author.username}/`} passHref>
+        <a className={styles.avatarLink}>
+          <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
+        </a>
+      </Link>
+      <div className={styles.links}>
+        <Link href={`/${author.username}/`} passHref>
+          <a className={styles.link}>
+            <h2 className={styles.username}>
+              {(author && author.username) ?? `user-${author.profile_id}`}
+            </h2>
+          </a>
+        </Link>
+        {location && (
+          <Link href='/location' passHref>
+            <a className={styles.location}>{location}</a>
+          </Link>
+        )}
+      </div>
+      {canShowSettings && <PostSettings id={id} author_id={author_id} img_uuid={img_uuid} />}
+    </header>
+  );
+};

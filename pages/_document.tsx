@@ -14,6 +14,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <div className='modal'></div>
+          <div className='post-modal'></div>
         </body>
       </Html>
     );

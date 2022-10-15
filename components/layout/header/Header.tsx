@@ -2,23 +2,21 @@ import Link from 'next/link';
 
 import styles from './header.module.scss';
 
-import { Nav } from './nav/Nav';
+import { Nav } from '../nav/Nav';
 
 export const Header = () => {
   return (
-    <header>
+    <nav>
       <a href='#main' className={styles.skip}>
         Skip to main content
       </a>
 
-      <div className={styles.header}>
-        <Link href='/'>
-          <a className={styles.link}>
-            <h1 className={styles.heading}>Delaygram</h1>
-          </a>
-        </Link>
-        <Nav />
-      </div>
-    </header>
+      <Link href='/'>
+        <a className={styles.link}>
+          <h1 className={styles.heading}>Delaygram</h1>
+        </a>
+      </Link>
+      <Nav />
+    </nav>
   );
 };

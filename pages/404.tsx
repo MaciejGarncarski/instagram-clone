@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
+
+import { GoBackButton } from '@/components/atoms/goBackButton/GoBackButton';
 
 const FourOFour: NextPage = () => {
-  return <Link href='/'>back to home !</Link>;
+  return <GoBackButton />;
 };
 
 export default FourOFour;

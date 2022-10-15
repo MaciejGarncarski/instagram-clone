@@ -4,13 +4,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   margin-top: 5rem;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   row-gap: 4rem;
 
   @include common.breakpoint('lg') {
     row-gap: 6rem;
-    width: 90%;
+    width: 100%;
     column-gap: 3rem;
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   }

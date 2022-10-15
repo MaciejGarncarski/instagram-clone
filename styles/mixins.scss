@@ -47,3 +47,15 @@
     box-shadow: inset 0 0 0 5px var(--primary-color);
   }
 }
+
+@mixin modal-item-corners {
+  &--first {
+    border-radius: var(--radius-medium) var(--radius-medium) 0 0;
+  }
+
+  @include common.breakpoint('sm') {
+    &--last {
+      border-radius: 0 0 var(--radius-medium) var(--radius-medium);
+    }
+  }
+}

@@ -1,8 +1,7 @@
 import { useAtom } from 'jotai';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 import { FieldErrors, UseFormRegister, UseFormReset } from 'react-hook-form';
 
-import { isString } from '@/lib/isString';
 import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './inputs.module.scss';
@@ -31,17 +30,9 @@ export const Inputs = ({ errors, register, reset, fieldsValues }: InputsProps<Fo
     setCharCount(valueChars.length);
   };
 
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
-    setCharCount(data?.bio?.length ?? 0);
-    reset({
-      username: isString(data.username),
-      website: isString(data.website),
-      bio: isString(data.bio),
-    });
-  }, [data, reset, setCharCount]);
+  if (!data) {
+    return null;
+  }
 
   return (
     <div className={styles.inputs}>

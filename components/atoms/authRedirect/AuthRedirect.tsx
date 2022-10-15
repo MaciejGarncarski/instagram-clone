@@ -19,7 +19,7 @@ export const AuthRedirect = ({ type }: AuthRedirectProps) => {
 
   const registerText: Text = {
     text: 'Already an delaygram user?',
-    link: 'Login here',
+    link: 'Log in here',
   };
 
   const information = type === 'login' ? loginText.text : registerText.text;
@@ -29,10 +29,13 @@ export const AuthRedirect = ({ type }: AuthRedirectProps) => {
 
   return (
     <div className={styles.container}>
-      <p>{information}</p>
-      <Link href={`/auth/${href}`}>
-        <a className={styles.link}>{linkText}</a>
-      </Link>
+      <p>
+        {information}
+        <Link href={`/auth/${href}`}>
+          <a className={styles.link}>{linkText}</a>
+        </Link>
+        .
+      </p>
     </div>
   );
 };

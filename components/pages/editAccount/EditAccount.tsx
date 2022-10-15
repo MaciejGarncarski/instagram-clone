@@ -56,7 +56,7 @@ export const EditAccount = () => {
   const queryClient = useQueryClient();
   const { mutate } = useUpdateProfile();
 
-  const onSubmit: SubmitHandler<FormValues> = async ({ username, bio, website }) => {
+  const onSubmit: SubmitHandler<FormValues> = ({ username, bio, website }) => {
     const updatingToast = toast.loading('Updating profile...');
 
     mutate(

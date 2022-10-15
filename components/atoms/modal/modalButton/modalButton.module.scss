@@ -14,6 +14,8 @@
     background-color: rgb(222, 222, 222);
   }
 
+  @include mixins.modal-item-corners;
+
   &--red {
     font-weight: 700;
     color: var(--error-color);

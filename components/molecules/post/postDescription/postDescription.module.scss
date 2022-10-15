@@ -1,0 +1,16 @@
+.description {
+  display: inline;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.button {
+  background: transparent;
+  font-weight: 500;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

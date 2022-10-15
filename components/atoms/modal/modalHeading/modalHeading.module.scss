@@ -1,0 +1,16 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.heading {
+  text-align: center;
+  color: var(--bg-color);
+  z-index: 1;
+
+  position: absolute;
+  top: -9rem;
+  font-size: 4.25rem;
+
+  @include common.breakpoint('lg') {
+    padding: 0.25em 0.5em;
+  }
+}

@@ -9,12 +9,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const likes = await prisma.posts_likes.count({
-      where: {
-        post_id: req.body.post_id,
-      },
-    });
-
     const likesData = await prisma.posts_likes.findFirst({
       where: {
         post_id: req.body.post_id,
@@ -22,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).send({ likes, likesData });
+    res.status(200).send(likesData);
   } catch (e) {
     res.status(400).send('400');
   }

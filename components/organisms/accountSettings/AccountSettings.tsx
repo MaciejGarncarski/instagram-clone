@@ -38,7 +38,7 @@ export const AccountSettings = () => {
       </button>
       {settingsOpen && (
         <Modal setIsOpen={setSettingsOpen}>
-          <Modal.Button variant='red' onClick={handleLogout}>
+          <Modal.Button isFirst variant='red' onClick={handleLogout}>
             <BiLogOut />
             Log out
           </Modal.Button>
@@ -46,7 +46,7 @@ export const AccountSettings = () => {
             <EditIcon />
             edit
           </Modal.Link>
-          <Modal.Button onClick={() => setSettingsOpen(false)}>
+          <Modal.Button isLast onClick={() => setSettingsOpen(false)}>
             <CancelIcon />
             cancel
           </Modal.Button>

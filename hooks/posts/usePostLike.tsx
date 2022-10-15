@@ -1,9 +1,8 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
-import { Likes } from '@/hooks/posts/useGetPostsLikes';
+import { Likes } from '@/hooks/posts/usePostLikesData';
 
 type PostLike = {
   post_id?: number;
@@ -14,14 +13,12 @@ type PostLike = {
 export const usePostLike = (id: number, data?: Likes) => {
   const { user } = useUser();
   const queryClient = useQueryClient();
-  const isLikedByUser = Boolean(user?.id) && data?.likesData?.user_id === user?.id;
-  const [isLiked, setIsLiked] = useState<boolean>(isLikedByUser);
+  const isLikedByUser = data?.user_id === user?.id;
 
-  useEffect(() => {
-    setIsLiked(isLikedByUser);
-  }, [isLikedByUser]);
-
-  const onSuccess = () => queryClient.invalidateQueries(['post', { post_id: id }]);
+  const onSuccess = () => {
+    queryClient.invalidateQueries(['posts']);
+    queryClient.invalidateQueries(['post', { post_id: id }]);
+  };
 
   const postDislike = useMutation(
     ({ post_id, user_id }: PostLike) => {
@@ -45,8 +42,7 @@ export const usePostLike = (id: number, data?: Likes) => {
   );
 
   const handleLike = () => {
-    setIsLiked((prev) => !prev);
-    if (isLiked) {
+    if (isLikedByUser) {
       postDislike.mutate(
         { post_id: id, user_id: user?.id },
         {
@@ -54,7 +50,7 @@ export const usePostLike = (id: number, data?: Likes) => {
         }
       );
     }
-    if (!isLiked) {
+    if (!isLikedByUser) {
       postLike.mutate(
         { post_id: id },
         {
@@ -62,8 +58,7 @@ export const usePostLike = (id: number, data?: Likes) => {
         }
       );
     }
-    // queryClient.invalidateQueries(['post', { post_id: id }]);
   };
 
-  return { handleLike, isLiked };
+  return { handleLike, isLikedByUser };
 };

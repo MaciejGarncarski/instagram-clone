@@ -1,23 +1,40 @@
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 
+import { unlockScroll } from '@/lib/scrollLock';
+
 import styles from './modalButton.module.scss';
 
+import { ModalItemPosition } from '@/components/atoms/modal/modalLink/ModalLink';
 import { Children } from '@/components/organisms/modal/Modal';
 
-type ButtonProps = Children & {
-  variant?: 'red';
-  onClick?: () => void;
-};
+type ButtonProps = Children &
+  ModalItemPosition & {
+    variant?: 'red';
+    onClick?: () => void;
+  };
 
 export const ModalButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant, onClick }, ref) => {
+  ({ children, variant, onClick, isFirst, isLast }, ref) => {
+    const handleClick = () => {
+      if (!onClick) {
+        return;
+      }
+      unlockScroll();
+      onClick();
+    };
+
     return (
       <button
         ref={ref}
         type='button'
-        className={clsx(variant && styles['button--red'], styles.button)}
-        onClick={onClick}
+        className={clsx(
+          isFirst && styles['button--first'],
+          isLast && styles['button--last'],
+          variant && styles['button--red'],
+          styles.button
+        )}
+        onClick={handleClick}
       >
         {children}
       </button>

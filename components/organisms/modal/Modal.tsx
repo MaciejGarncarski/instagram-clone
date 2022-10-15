@@ -1,11 +1,15 @@
+import clsx from 'clsx';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
 import { KeyboardEvent, MouseEvent, ReactNode, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
+import { lockScroll, unlockScroll } from '@/lib/scrollLock';
+
 import styles from './modal.module.scss';
 
 import { ModalButton } from '@/components/atoms/modal/modalButton/ModalButton';
+import { modalHeading } from '@/components/atoms/modal/modalHeading/modalHeading';
 import { ModalLink } from '@/components/atoms/modal/modalLink/ModalLink';
 import { ModalText } from '@/components/atoms/modal/modalText/ModalText';
 
@@ -14,30 +18,38 @@ export type Children = {
 };
 
 type ModalProps = Children & {
+  variant?: 'big' | 'post';
   setIsOpen: (isOpen: boolean) => void;
 };
 
-export const Modal = ({ children, setIsOpen }: ModalProps) => {
-  const overlayRef = useRef<HTMLDivElement>(null);
+export const Modal = ({ children, setIsOpen, variant }: ModalProps) => {
   const parent = document.querySelector('.modal') as HTMLDivElement;
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  lockScroll();
+
+  const closeModal = () => {
+    setIsOpen(false);
+    unlockScroll();
+  };
 
   const handleClickOutside = (clickEvent: MouseEvent) => {
     if (clickEvent.target === overlayRef.current) {
-      setIsOpen(false);
+      closeModal();
     }
   };
 
   const handleEscape = (keyEvent: KeyboardEvent) => {
     if (keyEvent.key === 'Escape') {
-      setIsOpen(false);
+      closeModal();
     }
   };
 
   return createPortal(
     <div
       onKeyDown={handleEscape}
-      ref={overlayRef}
       onClick={handleClickOutside}
+      ref={overlayRef}
       className={styles.overlay}
       tabIndex={0}
     >
@@ -48,7 +60,7 @@ export const Modal = ({ children, setIsOpen }: ModalProps) => {
       >
         <motion.div
           role='dialog'
-          className={styles.modal}
+          className={clsx(styles[`modal--${variant}`], styles.modal)}
           initial={{ scale: 1.2, opacity: 0.5 }}
           animate={{
             scale: 1,
@@ -68,3 +80,4 @@ export const Modal = ({ children, setIsOpen }: ModalProps) => {
 Modal.Link = ModalLink;
 Modal.Button = ModalButton;
 Modal.Text = ModalText;
+Modal.Heading = modalHeading;

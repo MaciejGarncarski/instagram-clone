@@ -17,6 +17,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       include: {
         author: true,
+        _count: {
+          select: {
+            posts_likes: true,
+            posts_comments: true,
+          },
+        },
       },
       orderBy: {
         id: 'desc',

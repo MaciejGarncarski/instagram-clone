@@ -1,0 +1,25 @@
+.form {
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
+  border-top: 1px solid rgb(0, 0, 0, 0.15);
+  font-size: 0.8em;
+  display: grid;
+  grid-template-columns: 1fr 0.25fr;
+  gap: 1rem;
+}
+
+.input {
+  padding: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 5rem;
+  font-size: 1em;
+  max-height: 13rem;
+  border-radius: var(--radius-small);
+}
+
+.button {
+  justify-self: center;
+  align-self: center;
+  border-radius: var(--radius-small);
+}

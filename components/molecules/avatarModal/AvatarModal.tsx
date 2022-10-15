@@ -51,12 +51,12 @@ export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
 
   return (
     <Modal setIsOpen={setModalOpen}>
-      <Modal.Text>Do you really want to delete your photo?</Modal.Text>
+      <Modal.Text isFirst>Do you really want to delete your photo?</Modal.Text>
       <Modal.Button variant='red' onClick={handleRemovePhoto}>
         <DeleteIcon />
         Remove photo
       </Modal.Button>
-      <Modal.Button onClick={closeModal}>
+      <Modal.Button isLast onClick={closeModal}>
         <CancelIcon />
         Cancel
       </Modal.Button>

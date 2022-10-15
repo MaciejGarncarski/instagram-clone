@@ -8,6 +8,8 @@
   padding: 0.5em 2em;
   text-align: center;
 
+  @include mixins.modal-item-corners;
+
   @include common.breakpoint('lg') {
     padding: 0.25em 0.5em;
   }
