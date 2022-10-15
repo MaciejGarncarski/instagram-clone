@@ -25,13 +25,13 @@ export const AccountSettings = () => {
     queryClient.setQueryData(['profile', user?.id], null);
   };
 
+  const openModal = () => {
+    setSettingsOpen((prev) => !prev);
+  };
+
   return (
     <>
-      <button
-        onClick={() => setSettingsOpen((prev) => !prev)}
-        className={styles.settings}
-        type='button'
-      >
+      <button onClick={openModal} className={styles.settings} type='button'>
         <motion.span animate={settingsOpen ? { rotate: 50 } : {}}>
           <IoSettingsSharp />
         </motion.span>

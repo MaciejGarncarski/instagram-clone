@@ -55,6 +55,14 @@ export const Account = ({ userData }: AccountProps) => {
                   {_count.posts === 0 && 'posts'}
                 </p>
               </div>
+              <div className={styles.stat}>
+                <span className={styles['stat-number']}>0</span>
+                <p>following</p>
+              </div>
+              <div className={styles.stat}>
+                <span className={styles['stat-number']}>0</span>
+                <p>followers</p>
+              </div>
             </div>
             {bio && <p className={styles.text}>{bio}</p>}
             {website && (

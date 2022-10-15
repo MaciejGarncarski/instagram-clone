@@ -1,4 +1,5 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import { motion } from 'framer-motion';
 import Image from 'next/future/image';
 import { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
@@ -57,7 +58,12 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
 
   return createPortal(
     <div onClick={handleClickOutside} key={id} ref={overlayRef} className={styles.overlay}>
-      <div role='dialog' className={styles.modal}>
+      <motion.div
+        role='dialog'
+        className={styles.modal}
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0.6 }}
+      >
         <div className={styles.image}>
           <Image src={postData?.img ?? ''} alt='img' fill priority />
         </div>
@@ -70,23 +76,26 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
             <UserAvatar userID={postData?.author.id ?? ''} sizes='40' className={styles.avatar} />
             <PostDescription id={id} showAll />
           </div>
-          {data.pages && <PostCommentSection id={id} />}
-
-          <Button
-            type='button'
-            disabled={!hasNextPage}
-            className={styles.fetch}
-            onClick={() => fetchNextPage()}
-          >
-            Load more
-          </Button>
+          {data.pages && (
+            <>
+              <PostCommentSection id={id} />
+              <Button
+                type='button'
+                disabled={!hasNextPage}
+                className={styles.fetch}
+                onClick={() => fetchNextPage()}
+              >
+                Load more
+              </Button>
+            </>
+          )}
         </div>
         <div className={styles.bottom}>
           <PostButtons id={id} commentCallback={focusInput} />
           <PostFooter id={id} />
           <PostComment id={id} ref={commentInputRef} />
         </div>
-      </div>
+      </motion.div>
     </div>,
     parent
   );

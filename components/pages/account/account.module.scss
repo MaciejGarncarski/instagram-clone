@@ -120,8 +120,10 @@ button.button {
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 3rem;
 
   @include common.breakpoint('lg') {
+    gap: 3rem;
     justify-content: flex-start;
   }
 }

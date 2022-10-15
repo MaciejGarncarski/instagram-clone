@@ -4,12 +4,19 @@
   background-color: var(--white);
   width: 100%;
 
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgb(30, 30, 30, 0.2);
+
   @include common.breakpoint('sm') {
     border-radius: 1rem;
     border: 1px solid rgb(30, 30, 30, 0.25);
     box-shadow: var(--box-shadow);
-
     width: min(80%, 55rem);
+    padding-bottom: 1rem;
+  }
+
+  @include common.breakpoint('lg') {
+    padding-bottom: 0rem;
   }
 }
 

@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
-import { KeyboardEvent, MouseEvent, ReactNode, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { lockScroll, unlockScroll } from '@/lib/scrollLock';
+import { useCloseModal } from '@/hooks/useCloseModal';
 
 import styles from './modal.module.scss';
 
@@ -33,26 +34,10 @@ export const Modal = ({ children, setIsOpen, variant }: ModalProps) => {
     unlockScroll();
   };
 
-  const handleClickOutside = (clickEvent: MouseEvent) => {
-    if (clickEvent.target === overlayRef.current) {
-      closeModal();
-    }
-  };
-
-  const handleEscape = (keyEvent: KeyboardEvent) => {
-    if (keyEvent.key === 'Escape') {
-      closeModal();
-    }
-  };
+  const { handleClickOutside } = useCloseModal(overlayRef, closeModal);
 
   return createPortal(
-    <div
-      onKeyDown={handleEscape}
-      onClick={handleClickOutside}
-      ref={overlayRef}
-      className={styles.overlay}
-      tabIndex={0}
-    >
+    <div onClick={handleClickOutside} ref={overlayRef} className={styles.overlay} tabIndex={0}>
       <FocusTrap
         focusTrapOptions={{
           allowOutsideClick: true,

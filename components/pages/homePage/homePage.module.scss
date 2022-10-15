@@ -8,6 +8,7 @@
   min-height: 100vh;
   padding-bottom: 2em;
   width: 100%;
+  gap: 2rem;
 
   @include common.breakpoint('sm') {
     padding: 0 4rem;

@@ -18,16 +18,17 @@
   background-color: var(--bg-color);
   border-radius: var(--radius-medium);
   overflow: hidden;
-  width: 80%;
-  height: 80vh;
+  width: 94%;
+  height: 85vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 
   @include common.breakpoint('lg') {
     width: min(85%, 160rem);
+    height: 80vh;
 
     grid-template-columns: 1.75fr 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto 1fr auto;
   }
 }
 
@@ -51,10 +52,6 @@
   padding-top: 3rem;
   grid-row: 1 / 4;
   overflow-y: scroll;
-}
-
-.overflow {
-  overflow-y: auto;
 }
 
 .description {
@@ -85,9 +82,14 @@
 .button {
   background-color: transparent;
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 1rem;
   font-size: 2em;
+
+  @include common.breakpoint('sm') {
+    top: 2rem;
+    right: 2rem;
+  }
 
   & > svg {
     color: var(--bg-color);
@@ -96,6 +98,13 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.overflow {
+  overflow-y: auto;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  padding-bottom: 1.5rem;
 }
 
 .bottom {
@@ -107,4 +116,9 @@
 .fetch {
   justify-self: center;
   align-self: center;
+  font-size: 1.5rem;
+
+  @include common.breakpoint('sm') {
+    font-size: 2.5rem;
+  }
 }
