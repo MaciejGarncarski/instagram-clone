@@ -25,7 +25,7 @@ const UserAccount: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(['profile', { id: ctx.params?.username ?? '' }], async () => {
+  await queryClient.prefetchQuery(['profile', { id: ctx.params?.id ?? '' }], async () => {
     const { data } = await apiClient.post('/accounts/getUserByUsername', {
       username: ctx.params?.username ?? '',
     });

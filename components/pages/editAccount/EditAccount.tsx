@@ -13,6 +13,7 @@ import { bio, username, website } from '@/utils/editAccountValidation';
 
 import styles from './editAccount.module.scss';
 
+import { GoBackButton } from '@/components/atoms/goBackButton/GoBackButton';
 import { AvatarSection } from '@/components/molecules/avatarSection/AvatarSection';
 import { Buttons } from '@/components/molecules/editAccount/buttons/Buttons';
 
@@ -87,7 +88,7 @@ export const EditAccount = () => {
   return (
     <>
       <NextSeo title='Edit Profile • Delaygram' />
-
+      <GoBackButton />
       <form
         className={styles.container}
         id='main'

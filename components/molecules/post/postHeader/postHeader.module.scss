@@ -13,6 +13,10 @@
   }
 }
 
+.border {
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+}
+
 .links {
   display: flex;
   flex-direction: column;

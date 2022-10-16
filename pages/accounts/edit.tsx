@@ -10,6 +10,7 @@ import { EditAccount } from '@/components/pages/editAccount/EditAccount';
 
 const EditPage: NextPage<{ user: User }> = () => {
   useAuthRedirect();
+
   return <EditAccount />;
 };
 

@@ -1,0 +1,31 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.overlay {
+  @include mixins.overlay;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-small);
+  background-color: var(--bg-color);
+  padding: 4rem;
+
+  @include common.breakpoint('lg') {
+    padding: 8rem;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+}

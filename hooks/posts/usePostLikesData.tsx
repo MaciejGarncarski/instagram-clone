@@ -9,7 +9,7 @@ export const usePostLikesData = (post_id: number) => {
   const { user } = useUser();
 
   const likes = useQuery<Likes | undefined, AxiosError>(
-    ['post', { post_id: post_id }],
+    ['postLikeData', { post_id: post_id }],
     async () => {
       const { data } = await axios.post('/api/posts/getLikesData', { post_id, user_id: user?.id });
       return data;

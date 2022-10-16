@@ -11,7 +11,7 @@ type PostDescriptionProps = {
 
 export const PostDescription = ({ id, showAll }: PostDescriptionProps) => {
   const [isLess, setIsLess] = useState<boolean>(true);
-  const { postData } = usePostData(id);
+  const { data: postData } = usePostData(id);
 
   if (!postData) {
     return null;

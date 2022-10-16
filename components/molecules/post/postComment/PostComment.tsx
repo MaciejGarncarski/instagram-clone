@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import { ChangeEvent, FormEventHandler, forwardRef, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -15,6 +16,7 @@ type PostCommentProps = {
 export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(({ id }, ref) => {
   const [textAreaValue, setTextAreaValue] = useState<string>('');
 
+  const { user } = useUser();
   const { mutate } = useAddComment();
 
   const handleChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
@@ -38,6 +40,10 @@ export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(({ 
     );
   };
 
+  if (!user?.id) {
+    return null;
+  }
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <textarea
@@ -47,6 +53,7 @@ export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(({ 
         value={textAreaValue}
         ref={ref}
         onChange={handleChange}
+        spellCheck='true'
       />
       <Button type='submit' disabled={textAreaValue.trim() === ''} className={styles.button}>
         Post

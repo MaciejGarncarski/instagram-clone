@@ -5,7 +5,7 @@ import { useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import { unlockScroll } from '@/lib/scrollLock';
-import { useGetComments } from '@/hooks/posts/useGetComments';
+import { COMMENTS_PER_SCROLL, useGetComments } from '@/hooks/posts/useGetComments';
 import { usePostData } from '@/hooks/posts/usePostData';
 import { useProfile } from '@/hooks/profile/useProfile';
 import { useCloseModal } from '@/hooks/useCloseModal';
@@ -31,13 +31,13 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
   const parent = document.querySelector('.post-modal') as HTMLDivElement;
   const overlayRef = useRef<HTMLDivElement>(null);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
-  const { data, hasNextPage, fetchNextPage } = useGetComments(id);
+  const { data: commentsData, hasNextPage, fetchNextPage } = useGetComments(id);
   const { user } = useUser();
   const { data: currentUser } = useProfile();
-  const { postData } = usePostData(id);
+  const { data: postData } = usePostData(id);
 
   const canShowSettings = user?.id === postData?.author_id || currentUser?.role === 'ADMIN';
-  const allComments = data?.pages.flatMap((comment) => comment);
+  const allComments = commentsData?.pages.flatMap((comment) => comment);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
@@ -52,7 +52,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
     }
   };
 
-  if (!data || !allComments) {
+  if (!commentsData || !allComments || !postData) {
     return null;
   }
 
@@ -62,31 +62,41 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
         role='dialog'
         className={styles.modal}
         animate={{ opacity: 1 }}
-        initial={{ opacity: 0.6 }}
+        initial={{ opacity: 0.75 }}
       >
         <div className={styles.image}>
-          <Image src={postData?.img ?? ''} alt='img' fill priority />
+          <Image
+            sizes='(max-width: 768px) 90vw,
+              (max-width: 1200px) 85vw,
+              80vw'
+            src={postData.img}
+            alt='img'
+            fill
+            priority
+          />
         </div>
         <button type='button' className={styles.button} onClick={closeModal}>
           <CancelIcon />
         </button>
-        <PostHeader id={id} canShowSettings={canShowSettings} />
+        <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />
         <div className={styles.overflow} id='overflow'>
           <div className={styles.description}>
             <UserAvatar userID={postData?.author.id ?? ''} sizes='40' className={styles.avatar} />
             <PostDescription id={id} showAll />
           </div>
-          {data.pages && (
+          {allComments && (
             <>
               <PostCommentSection id={id} />
-              <Button
-                type='button'
-                disabled={!hasNextPage}
-                className={styles.fetch}
-                onClick={() => fetchNextPage()}
-              >
-                Load more
-              </Button>
+              {allComments.length >= COMMENTS_PER_SCROLL && (
+                <Button
+                  type='button'
+                  disabled={!hasNextPage}
+                  className={styles.fetch}
+                  onClick={() => fetchNextPage()}
+                >
+                  Load more
+                </Button>
+              )}
             </>
           )}
         </div>

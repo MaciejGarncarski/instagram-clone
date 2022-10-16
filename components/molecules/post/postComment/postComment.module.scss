@@ -15,10 +15,12 @@
   font-family: inherit;
   resize: vertical;
   min-height: 5rem;
+  height: 5rem;
   font-size: 1em;
   max-height: 13rem;
   border-radius: var(--radius-small);
   align-self: center;
+  border: 1px solid var(--text-color);
 }
 
 .button {

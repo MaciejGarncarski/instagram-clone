@@ -8,8 +8,9 @@ export type Profile = profiles & {
   posts: posts[];
   posts_likes: posts_likes[];
   _count: {
-    posts_likes: number;
     posts: number;
+    posts_likes: number;
+    posts_comments: number;
   };
 };
 

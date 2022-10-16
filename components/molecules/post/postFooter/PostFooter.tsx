@@ -16,7 +16,7 @@ type PostFooterProps = {
 dayjs.extend(relativeTime);
 
 export const PostFooter = ({ id, showDescription }: PostFooterProps) => {
-  const { postData } = usePostData(id);
+  const { data: postData } = usePostData(id);
 
   if (!postData) {
     return <Loader />;

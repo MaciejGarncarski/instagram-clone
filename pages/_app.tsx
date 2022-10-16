@@ -29,8 +29,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
   const queryOptions: QueryClientConfig = {
     defaultOptions: {
       queries: {
-        retry: 1,
-        refetchOnWindowFocus: false,
+        retry: 2,
       },
     },
   };

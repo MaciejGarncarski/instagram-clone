@@ -1,4 +1,4 @@
-import { useProfile } from '@/hooks/profile/useProfile';
+import { useAccountPosts } from '@/hooks/profile/useAccountPosts';
 
 import styles from './accountPostContainer.module.scss';
 
@@ -10,15 +10,17 @@ type PostProps = {
 };
 
 export const AccountPostContainer = ({ userID }: PostProps) => {
-  const { data } = useProfile(userID);
+  const { data } = useAccountPosts(userID);
 
-  if (!data) {
+  const allPosts = data?.pages.flatMap((post) => post);
+
+  if (!allPosts) {
     return <Loader />;
   }
 
   return (
     <main className={styles.posts}>
-      {data.posts.map(({ id }) => {
+      {allPosts.map(({ id }) => {
         return <AccountPost key={id} postID={id} userID={userID} />;
       })}
     </main>

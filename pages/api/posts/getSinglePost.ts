@@ -3,30 +3,32 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/utils/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== 'POST') {
+    res.status(405).send('Only POST requests allowed');
+    return;
+  }
+
+  const { id } = req.body;
+
   try {
-    const prismaData = await prisma.profiles.findUnique({
+    const post = await prisma.posts.findFirst({
       where: {
-        id: req.body.id,
+        id,
       },
       include: {
-        posts: {
-          orderBy: {
-            id: 'desc',
-          },
-        },
-
+        author: true,
         _count: {
           select: {
-            posts: true,
-            posts_comments: true,
             posts_likes: true,
+            posts_comments: true,
           },
         },
       },
     });
-    res.status(200).send(prismaData);
+
+    res.status(200).send(post);
   } catch (e) {
-    res.status(400).send(`Wrong api call`);
+    res.status(400).send('400');
   }
 };
 

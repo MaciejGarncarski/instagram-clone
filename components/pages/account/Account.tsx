@@ -73,7 +73,7 @@ export const Account = ({ userData }: AccountProps) => {
           </div>
           {isAccountMine && <AccountSettings />}
         </section>
-        <AccountPostContainer userID={id} />
+        <AccountPostContainer userID={userData.id} />
       </main>
     </>
   );

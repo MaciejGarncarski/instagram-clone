@@ -13,11 +13,12 @@ type PostLike = {
 export const usePostLike = (id: number, data?: Likes) => {
   const { user } = useUser();
   const queryClient = useQueryClient();
-  const isLikedByUser = data?.user_id === user?.id;
+  const isLikedByUser = data && data?.user_id === user?.id;
 
   const onSuccess = () => {
+    queryClient.invalidateQueries(['postLikeData']);
     queryClient.invalidateQueries(['posts']);
-    queryClient.invalidateQueries(['post', { post_id: id }]);
+    queryClient.invalidateQueries(['single post']);
   };
 
   const postDislike = useMutation(

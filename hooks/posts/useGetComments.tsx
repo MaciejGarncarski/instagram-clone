@@ -11,8 +11,9 @@ export type Comments = posts_comments & {
 export const COMMENTS_PER_SCROLL = 8;
 
 export const useGetComments = (id: number) => {
-  const commentsCountData = useQuery<Prisma.AggregatePosts_comments>(['comments count'], () =>
-    getCount(COMMENTS_COUNT_URL)
+  const commentsCountData = useQuery<Prisma.AggregatePosts_comments>(
+    ['comments count', { post_id: id }],
+    () => getCount(COMMENTS_COUNT_URL, id)
   );
 
   return useInfiniteQuery(
@@ -33,7 +34,6 @@ export const useGetComments = (id: number) => {
         if (!commentsCount) {
           return undefined;
         }
-
         if (commentsCount <= allComments.length * COMMENTS_PER_SCROLL) {
           return undefined;
         }

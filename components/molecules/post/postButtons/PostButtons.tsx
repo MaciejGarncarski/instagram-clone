@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReactNode, useState } from 'react';
@@ -11,6 +12,7 @@ import { usePostLikesData } from '@/hooks/posts/usePostLikesData';
 
 import styles from './postButtons.module.scss';
 
+import { LoginModal } from '@/components/organisms/loginModal/LoginModal';
 import { PostModal } from '@/components/organisms/postModal/PostModal';
 
 type Button = {
@@ -27,19 +29,31 @@ type ButtonProps = {
 
 export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const [postModalOpen, setPostModalOpen] = useState<boolean>(false);
+  const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
   const { data } = usePostLikesData(id);
   const { handleLike, isLikedByUser } = usePostLike(id, data);
+  const { user } = useUser();
 
   const showModal = () => {
     lockScroll();
     setPostModalOpen(true);
   };
 
+  const handlePostLike = () => {
+    if (user?.id) {
+      handleLike();
+      return;
+    }
+    if (!user?.id) {
+      setLoginModalOpen(true);
+    }
+  };
+
   const buttonsData: Button[] = [
     {
       icon: isLikedByUser ? <AiFillHeart fill='red' /> : <AiOutlineHeart />,
       alt: 'like',
-      onClick: handleLike,
+      onClick: handlePostLike,
     },
     {
       icon: <BiComment style={{ transform: 'scaleX(-1)' }} />,
@@ -67,6 +81,7 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
           </motion.button>
         );
       })}
+      {loginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
       {postModalOpen && <PostModal setIsOpen={setPostModalOpen} id={id} />}
     </div>
   );

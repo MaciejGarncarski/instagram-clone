@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Link from 'next/link';
 
 import { usePostData } from '@/hooks/posts/usePostData';
@@ -7,13 +8,14 @@ import styles from './postHeader.module.scss';
 import { PostSettings } from '@/components/molecules/post/postSettings/PostSettings';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
-type PostHeader = {
+type PostHeaderProps = {
   canShowSettings?: boolean;
+  borderBottom?: boolean;
   id: number;
 };
 
-export const PostHeader = ({ canShowSettings, id }: PostHeader) => {
-  const { postData } = usePostData(id);
+export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProps) => {
+  const { data: postData } = usePostData(id);
 
   if (!postData) {
     return null;
@@ -22,7 +24,7 @@ export const PostHeader = ({ canShowSettings, id }: PostHeader) => {
   const { author, author_id, location, img_uuid } = postData;
 
   return (
-    <header className={styles.author}>
+    <header className={clsx(borderBottom && styles.border, styles.author)}>
       <Link href={`/${author.username}/`} passHref>
         <a className={styles.avatarLink}>
           <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
