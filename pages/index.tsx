@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 
 import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
 import { getInfiniteData, POSTS_DATA_URL } from '@/lib/getInfiniteData';
@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   return <HomePage />;
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.fetchQuery(['posts'], () =>

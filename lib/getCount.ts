@@ -10,6 +10,6 @@ export const getCount = async (url: string, id?: number) => {
     });
     return data;
   }
-  const { data } = await apiClient.post(url);
+  const { data } = await apiClient.get(url);
   return data;
 };

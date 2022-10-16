@@ -3,8 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/utils/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
-    res.status(405).send('Only POST requests allowed');
+  if (req.method !== 'GET') {
+    res.status(405).send('Only GET requests allowed');
     return;
   }
 
