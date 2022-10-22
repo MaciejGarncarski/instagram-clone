@@ -1,3 +1,4 @@
+import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { NextSeo } from 'next-seo';
 
 import { LoginForm } from '@/components/organisms/loginForm/LoginForm';
@@ -11,15 +12,23 @@ const Login = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const user = await getUser(ctx);
-//   if (user) {
-//     return {
-//       props: { user },
-//       redirect: { permanent: true, destination: `/` },
-//     };
-//   }
-//   return { props: { user } };
-// };
+export const getServerSideProps = withPageAuth({
+  redirectTo: '/',
+  async getServerSideProps(ctx, supabase) {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (user) {
+      return {
+        props: { user },
+        redirect: { permanent: true, destination: `/` },
+      };
+    }
+    return {
+      props: {},
+    };
+  },
+});
 
 export default Login;
