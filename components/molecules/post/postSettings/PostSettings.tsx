@@ -43,7 +43,7 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
     <>
       <aside className={styles.container}>
         <button type='button' className={styles.button} onClick={() => setIsOpen(true)}>
-          <span className='sr-only'>settings</span>
+          <span className='visually-hidden'>settings</span>
           <BsThreeDots />
         </button>
         <AnimatePresence>

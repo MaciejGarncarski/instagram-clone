@@ -1,4 +1,4 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { toast } from 'react-toastify';
 
 import { useDeleteAvatar } from '@/hooks/profile/useDeleteAvatar';
@@ -16,6 +16,7 @@ type AvatarModalProps = {
 export const AvatarModal = ({ setModalOpen }: AvatarModalProps) => {
   const { data } = useProfile();
   const { mutate } = useDeleteAvatar();
+  const { supabaseClient } = useSessionContext();
 
   const closeModal = () => setModalOpen(false);
 

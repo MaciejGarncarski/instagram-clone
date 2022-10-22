@@ -24,6 +24,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <a className={styles.link}>Delaygram</a>
           </Link>
         </h1>
+
         <Nav />
       </nav>
       <ToastContainer theme='light' />

@@ -1,20 +1,27 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useAtom } from 'jotai';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
 
+import { centerAspectCrop } from '@/lib/centerAspect';
+import { updateToast } from '@/lib/updateToast';
 import { useAddPost } from '@/hooks/posts/useAddPost';
 
 import { postValues } from '@/components/pages/newPost/NewPost';
 
-import { newPostPreviewAtom } from '@/store/store';
+import { aspectAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/store';
 
 export const useNewPost = () => {
   const [img, setImg] = useState<File | null>(null);
-  const [, setPreview] = useAtom(newPostPreviewAtom);
+  const { supabaseClient } = useSessionContext();
   const { mutate } = useAddPost();
+
+  const [, setImgSrc] = useAtom(imgSrcAtom);
+  const [, setCrop] = useAtom(cropAtom);
+  const [aspect] = useAtom(aspectAtom);
+  const [newImg] = useAtom(newImgAtom);
 
   const handleImg = (ev: ChangeEvent<HTMLInputElement>) => {
     if (!ev.target.files) {
@@ -26,23 +33,25 @@ export const useNewPost = () => {
     }
 
     const src = URL.createObjectURL(ev.target.files[0]);
-    setPreview(src);
+    setImgSrc(src);
     setImg(ev.target.files[0]);
   };
 
   const onSubmit: SubmitHandler<postValues> = async ({ description, location }) => {
     const uuid = v4();
-
     const addingPost = toast.loading('Uploading new post...');
 
     if (!img) {
       return;
     }
 
+    if (!newImg) {
+      return;
+    }
+
     const { error } = await supabaseClient.storage
       .from('post-images')
-      .upload(`${uuid}/img.jpg`, img, {
-        cacheControl: '10080',
+      .upload(`${uuid}/img.webp`, newImg, {
         upsert: false,
       });
 
@@ -57,37 +66,37 @@ export const useNewPost = () => {
       return;
     }
 
-    const { publicURL: imgURL, error: imgError } = supabaseClient.storage
-      .from('post-images')
-      .getPublicUrl(`${uuid}/img.jpg`);
+    const {
+      data: { publicUrl },
+    } = supabaseClient.storage.from('post-images').getPublicUrl(`${uuid}/img.webp`);
 
-    if (!imgURL || imgError) {
-      toast.update(addingPost, {
-        render: 'Couldnt get image, try again later',
-        isLoading: false,
-        autoClose: 4000,
-        closeOnClick: true,
+    if (!publicUrl) {
+      updateToast({
+        toastId: addingPost,
+        text: 'Couldnt get image, try again later',
         type: 'error',
       });
+
       return;
     }
 
     mutate(
-      { description, imgURL, uuid, location },
+      { description, publicUrl, uuid, location },
       {
         onSuccess: () => {
-          toast.update(addingPost, {
-            render: 'Post added!',
-            isLoading: false,
-            autoClose: 4000,
-            closeOnClick: true,
-            type: 'success',
-          });
-          setPreview(null);
+          updateToast({ toastId: addingPost, text: 'Post added!', type: 'success' });
+          setImgSrc('');
         },
       }
     );
   };
 
-  return { onSubmit, handleImg };
+  const onImageLoad = (e: SyntheticEvent<HTMLImageElement>) => {
+    if (aspect) {
+      const { width, height } = e.currentTarget;
+      setCrop(centerAspectCrop(width, height, aspect));
+    }
+  };
+
+  return { onSubmit, handleImg, onImageLoad };
 };

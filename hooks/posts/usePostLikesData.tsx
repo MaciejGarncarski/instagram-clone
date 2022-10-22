@@ -6,7 +6,7 @@ import axios, { AxiosError } from 'axios';
 export type Likes = posts_likes | null;
 
 export const usePostLikesData = (post_id: number) => {
-  const { user } = useUser();
+  const user = useUser();
 
   const likes = useQuery<Likes | undefined, AxiosError>(
     ['postLikeData', { post_id: post_id }],

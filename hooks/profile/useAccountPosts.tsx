@@ -31,7 +31,7 @@ export const useAccountPosts = (id: string) => {
         },
       }),
     {
-      getNextPageParam: (oldPosts, allPosts) => {
+      getNextPageParam: (_, allPosts) => {
         const postCount = postsCount.data?._count?.id;
 
         if (!postCount) {

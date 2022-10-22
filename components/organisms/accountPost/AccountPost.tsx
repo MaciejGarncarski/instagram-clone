@@ -25,7 +25,7 @@ const PostModal = dynamic(() =>
 export const AccountPost = ({ postID, userID }: PostProps) => {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [LoginModalOpen, setLoginModalOpen] = useState<boolean>(false);
-  const { user } = useUser();
+  const user = useUser();
 
   const { data } = useAccountPosts(userID);
   const allPosts = data?.pages.flatMap((post) => post);

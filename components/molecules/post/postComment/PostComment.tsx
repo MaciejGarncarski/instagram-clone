@@ -16,7 +16,7 @@ type PostCommentProps = {
 export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(({ id }, ref) => {
   const [textAreaValue, setTextAreaValue] = useState<string>('');
 
-  const { user } = useUser();
+  const user = useUser();
   const { mutate } = useAddComment();
 
   const handleChange = (ev: ChangeEvent<HTMLTextAreaElement>) => {
@@ -25,7 +25,7 @@ export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(({ 
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (ev) => {
     ev.preventDefault();
-    const addingCommentToast = toast.loading('Adding post...');
+    const addingCommentToast = toast.loading('Adding comment...');
     mutate(
       { id, text: textAreaValue },
       {

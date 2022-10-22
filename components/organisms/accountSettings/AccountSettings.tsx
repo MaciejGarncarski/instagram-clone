@@ -1,5 +1,4 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -15,9 +14,10 @@ import { Modal } from '@/components/organisms/modal/Modal';
 
 export const AccountSettings = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const { supabaseClient } = useSessionContext();
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { user } = useUser();
+  const user = useUser();
 
   const handleLogout = async () => {
     supabaseClient.auth.signOut();
@@ -35,6 +35,7 @@ export const AccountSettings = () => {
         <motion.span animate={settingsOpen ? { rotate: 50 } : {}}>
           <IoSettingsSharp />
         </motion.span>
+        <span className='visually-hidden'>{settingsOpen ? 'close settings' : 'open settings'}</span>
       </button>
       {settingsOpen && (
         <Modal setIsOpen={setSettingsOpen}>

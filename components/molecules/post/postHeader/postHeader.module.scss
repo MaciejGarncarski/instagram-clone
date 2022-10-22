@@ -9,12 +9,12 @@
   grid-row: 1 / 2;
 
   @include common.breakpoint-max('sm') {
-    border-top: 1px solid rgb(0, 0, 0, 0.2);
+    border-top: var(--gray-border);
   }
 }
 
 .border {
-  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  border-bottom: var(--gray-border);
 }
 
 .links {

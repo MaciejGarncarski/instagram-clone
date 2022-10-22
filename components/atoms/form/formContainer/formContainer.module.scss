@@ -1,3 +1,5 @@
+@use '/styles/common.scss';
+
 .form {
   display: flex;
   flex-direction: column;
@@ -6,4 +8,8 @@
   width: min(30ch, 90%);
   gap: 4rem;
   margin-inline: auto;
+
+  @include common.breakpoint-max('lg') {
+    margin-top: 5rem;
+  }
 }

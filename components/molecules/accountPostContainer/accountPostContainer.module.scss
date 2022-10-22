@@ -3,17 +3,21 @@
 .posts {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
-  margin-top: 5rem;
   column-gap: 3rem;
 
   width: 90%;
   margin: 0 auto;
   row-gap: 4rem;
 
+  @include common.breakpoint-max('lg') {
+    padding-bottom: 7rem;
+  }
+
   @include common.breakpoint('lg') {
+    padding: 0 5rem;
     row-gap: 6rem;
     width: 100%;
-    column-gap: 3rem;
+    column-gap: 10rem;
     grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
   }
 }

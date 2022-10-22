@@ -1,0 +1,35 @@
+@use '/styles/common.scss';
+
+.button {
+  background-color: transparent;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include common.breakpoint('sm') {
+    font-size: 5rem;
+    top: 2rem;
+    right: 2rem;
+  }
+
+  & > svg {
+    color: var(--bg-color);
+  }
+
+  &:focus {
+    background-color: var(--bg-color);
+    border-radius: var(--radius-small);
+
+    & > svg {
+      color: var(--text-color);
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

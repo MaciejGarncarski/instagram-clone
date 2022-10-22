@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -21,8 +20,9 @@ type LoginModalProps = {
 };
 
 export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
-  const { user } = useUser();
+  const user = useUser();
   const queryClient = useQueryClient();
+  const { supabaseClient } = useSessionContext();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -48,9 +48,9 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
   });
 
   const onSubmit: SubmitHandler<LoginValues> = async ({ email, password }) => {
-    const { error } = await supabaseClient.auth.signIn({
-      email: email,
-      password: password,
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
     });
 
     if (error) {

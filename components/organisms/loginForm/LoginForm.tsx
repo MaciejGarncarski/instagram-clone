@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -16,6 +16,7 @@ import { AuthRedirect } from '../../atoms/authRedirect/AuthRedirect';
 import { Input } from '../../atoms/input/Input';
 
 export const LoginForm = () => {
+  const { supabaseClient } = useSessionContext();
   const queryClient = useQueryClient();
   const router = useRouter();
   const { data } = useProfile();
@@ -34,9 +35,9 @@ export const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginValues> = async ({ email, password }) => {
-    const { error } = await supabaseClient.auth.signIn({
-      email: email,
-      password: password,
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
     });
 
     if (error) {

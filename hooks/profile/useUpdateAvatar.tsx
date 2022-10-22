@@ -3,19 +3,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 type Mutation = {
-  avatarURL: string;
+  publicUrl: string;
 };
 
 export const useUpdateAvatar = () => {
   const queryClient = useQueryClient();
-  const { user } = useUser();
-
-  const now = new Date().getTime();
+  const user = useUser();
 
   return useMutation(
-    ({ avatarURL }: Mutation) => {
-      const uncachedIMG = `${avatarURL}?cache_bust=${now}`;
-      return axios.patch('/api/accounts/updateAvatar', { id: user?.id, avatarURL: uncachedIMG });
+    ({ publicUrl }: Mutation) => {
+      return axios.patch('/api/accounts/updateAvatar', { id: user?.id, avatarURL: publicUrl });
     },
     {
       onSuccess: () => {

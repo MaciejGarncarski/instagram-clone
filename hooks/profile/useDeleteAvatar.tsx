@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const useDeleteAvatar = () => {
   const queryClient = useQueryClient();
-  const { user } = useUser();
+  const user = useUser();
 
   return useMutation(
     () => {

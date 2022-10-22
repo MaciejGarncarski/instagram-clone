@@ -11,7 +11,7 @@ type PostLike = {
 };
 
 export const usePostLike = (id: number, data?: Likes) => {
-  const { user } = useUser();
+  const user = useUser();
   const queryClient = useQueryClient();
   const isLikedByUser = data && data?.user_id === user?.id;
 

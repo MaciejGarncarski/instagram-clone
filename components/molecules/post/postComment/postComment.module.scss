@@ -2,8 +2,8 @@
 
 .form {
   margin-top: 0.5rem;
-  padding: 1rem 2rem;
-  border-block: 1px solid rgb(0, 0, 0, 0.15);
+  padding: 0 2rem;
+  border-top: var(--gray-border);
   font-size: 0.8em;
   display: grid;
   grid-template-columns: 1fr 0.25fr;
@@ -11,16 +11,36 @@
 }
 
 .input {
-  padding: 1rem;
+  padding: 2rem 1rem;
   font-family: inherit;
-  resize: vertical;
-  min-height: 5rem;
-  height: 5rem;
+  resize: none;
   font-size: 1em;
+  background: transparent;
+  min-height: 5rem;
+  height: 7rem;
   max-height: 13rem;
   border-radius: var(--radius-small);
   align-self: center;
-  border: 1px solid var(--text-color);
+  border: none;
+  outline: none;
+
+  &:focus {
+    box-shadow: 0 0 0 4px inset var(--primary-color);
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 3px solid transparent;
+  }
 }
 
 .button {

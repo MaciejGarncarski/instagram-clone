@@ -1,10 +1,8 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useUser } from '@supabase/auth-helpers-react';
+import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { updateAvatar } from '@/lib/avatar';
 import { useUpdateAvatar } from '@/hooks/profile/useUpdateAvatar';
 
 const IMG_EXTENSIONS = ['jpg', 'jpeg', 'png'];
@@ -13,7 +11,8 @@ export const IMG_TYPES = IMG_EXTENSIONS.map((type) => `image/${type}`);
 
 export const useAvatarInput = () => {
   const { mutate } = useUpdateAvatar();
-  const { user } = useUser();
+  const user = useUser();
+  const { supabaseClient } = useSessionContext();
 
   const [error, setError] = useState<string | null>(null);
 
@@ -37,29 +36,28 @@ export const useAvatarInput = () => {
 
     const addingImage = toast.loading('Uploading new image...');
 
-    const { error: updateError } = await updateAvatar(selectedFile, user?.id);
+    const { error } = await supabaseClient.storage
+      .from('avatars')
+      .upload(`${user?.id}.webp`, selectedFile, {
+        upsert: true,
+      });
 
-    if (updateError) {
+    if (error) {
       toast.error('Error occurred when uploading avatar');
       return;
     }
 
-    const { publicURL: avatarURL, error: avatarURLError } = supabaseClient.storage
-      .from('avatars')
-      .getPublicUrl(`${user?.id}.jpg`);
+    const {
+      data: { publicUrl },
+    } = supabaseClient.storage.from('avatars').getPublicUrl(`${user?.id}.webp`);
 
-    if (avatarURLError) {
+    if (!publicUrl) {
       setError('Error occurred when uploading avatar');
       return;
     }
 
-    if (!avatarURL) {
-      setError('Error while downloading avatar');
-      return;
-    }
-
     mutate(
-      { avatarURL },
+      { publicUrl },
       {
         onError: (error) => {
           if (axios.isAxiosError(error)) {

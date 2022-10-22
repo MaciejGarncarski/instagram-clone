@@ -1,6 +1,8 @@
+@use '/styles/common.scss';
+
 .button {
-  padding: 0.4em 1em;
-  border-radius: var(--radius-medium);
+  padding: 1rem 2rem;
+  border-radius: var(--radius-small);
   background-color: var(--primary-color);
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -28,5 +30,9 @@
 
   &:disabled {
     opacity: 0.6;
+  }
+
+  @include common.breakpoint('lg') {
+    padding: 1.25rem 3rem;
   }
 }

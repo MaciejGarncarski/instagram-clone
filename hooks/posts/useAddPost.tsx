@@ -6,21 +6,21 @@ import { apiClient } from '@/lib/apiClient';
 
 type AddPostMutation = {
   description: string;
-  imgURL: string;
+  publicUrl: string;
   uuid: string;
   location?: string;
 };
 
 export const useAddPost = () => {
-  const { user } = useUser();
+  const user = useUser();
   const router = useRouter();
 
   return useMutation(
-    ({ description, imgURL, uuid, location }: AddPostMutation) => {
+    ({ description, publicUrl, uuid, location }: AddPostMutation) => {
       return apiClient.put('/posts/addPost', {
         author_id: user?.id,
         description,
-        imgURL,
+        publicUrl,
         uuid,
         location,
       });

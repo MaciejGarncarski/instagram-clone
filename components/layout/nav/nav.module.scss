@@ -10,7 +10,7 @@
   align-items: center;
   width: 100%;
   background-color: var(--white);
-  z-index: 1;
+  z-index: 2;
   box-shadow: 0 -1px 3px 0 rgb(0, 0, 0, 0.15);
 
   @include common.breakpoint('lg') {
@@ -18,7 +18,7 @@
     position: static;
     padding: 0;
     width: auto;
-    gap: 6rem;
+    gap: 4rem;
     box-shadow: none;
   }
 }
@@ -32,13 +32,9 @@
   justify-content: center;
   position: relative;
   align-items: center;
-  font-size: 1.6em;
+  font-size: var(--nav-icon-size);
   transition: color var(--transition-slow);
   color: var(--text-color);
-
-  @include common.breakpoint('lg') {
-    font-size: 1.75em;
-  }
 }
 
 .link {

@@ -32,7 +32,7 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
   const { data } = usePostLikesData(id);
   const { handleLike, isLikedByUser } = usePostLike(id, data);
-  const { user } = useUser();
+  const user = useUser();
 
   const showModal = () => {
     lockScroll();
@@ -76,7 +76,7 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
             type='button'
             className={clsx(styles.button, className ?? '')}
           >
-            <span className='sr-only'>{alt}</span>
+            <span className='visually-hidden'>{alt}</span>
             {icon}
           </motion.button>
         );

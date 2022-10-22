@@ -2,10 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
-import Image from 'next/future/image';
 import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
-import { CgAddR } from 'react-icons/cg';
 import { z } from 'zod';
 
 import { useNewPost } from '@/hooks/posts/useNewPost';
@@ -16,9 +14,10 @@ import styles from './newPost.module.scss';
 
 import { Button } from '@/components/atoms/button/Button';
 import { Input } from '@/components/atoms/input/Input';
+import { NewPostImage } from '@/components/molecules/newPostImage/NewPostImage';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
-import { newPostPreviewAtom } from '@/store/store';
+import { imgSrcAtom } from '@/store/store';
 
 const newPostSchema = z.object({
   description: z.string().min(3),
@@ -28,10 +27,9 @@ const newPostSchema = z.object({
 export type postValues = z.infer<typeof newPostSchema>;
 
 export const NewPost = () => {
-  const [preview] = useAtom(newPostPreviewAtom);
   const { data } = useProfile();
-  const { user } = useUser();
-
+  const user = useUser();
+  const [imgSrc] = useAtom(imgSrcAtom);
   const { handleImg, onSubmit } = useNewPost();
 
   const acceptedExtensions = IMG_EXTENSIONS_DOTS.join(',');
@@ -59,26 +57,14 @@ export const NewPost = () => {
         </div>
 
         <input
-          className={clsx('sr-only', styles.input)}
+          className={clsx('visually-hidden', styles.input)}
           type='file'
           accept={acceptedExtensions}
           onChange={handleImg}
           id='file'
           name='new post'
         />
-        <label className={styles.label} htmlFor='file'>
-          {preview ? (
-            <Image
-              width={320}
-              height={300}
-              className={styles.preview}
-              src={preview}
-              alt='post preview'
-            />
-          ) : (
-            <CgAddR size={90} />
-          )}
-        </label>
+        <NewPostImage />
         <Input
           type='text'
           label='Post description'
@@ -94,7 +80,7 @@ export const NewPost = () => {
           error={errors.location}
           {...register('location')}
         />
-        <Button type='submit' disabled={Boolean(!preview)}>
+        <Button type='submit' disabled={Boolean(!imgSrc)}>
           Add post!
         </Button>
       </form>

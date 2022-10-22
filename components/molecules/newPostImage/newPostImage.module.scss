@@ -1,0 +1,28 @@
+.input:focus + .label,
+.label:hover {
+  box-shadow: 0 0 1px 4px rgb(var(--primary-color-rgb), 0.6);
+}
+
+.label {
+  border-radius: var(--radius-medium);
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 2px solid var(--primary-color);
+  transition: all var(--transition-fast);
+}
+
+.placeholder {
+  opacity: 0.3;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

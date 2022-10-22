@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 
 import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
 import { getInfiniteData, POSTS_DATA_URL } from '@/lib/getInfiniteData';
@@ -7,7 +7,7 @@ import { POST_PER_SCROLL } from '@/hooks/posts/useGetPosts';
 
 import { HomePage } from '@/components/pages/homePage/HomePage';
 
-const Home: NextPage = () => {
+const Home = () => {
   return <HomePage />;
 };
 

@@ -9,6 +9,8 @@
 
   @include common.breakpoint('sm') {
     font-size: 2.5rem;
+    gap: 2.5rem;
+    padding: 1.5rem 2rem;
   }
 }
 

@@ -19,7 +19,7 @@ type PostProps = {
 
 export const Post = ({ id }: PostProps) => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-  const { user } = useUser();
+  const user = useUser();
   const { data: userData } = useProfile();
 
   const { data: postData } = usePostData(id);

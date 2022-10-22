@@ -1,8 +1,10 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useAtom } from 'jotai';
 import { toast } from 'react-toastify';
+
+import { updateToast } from '@/lib/updateToast';
 
 import { postModalAtom } from '@/store/store';
 
@@ -13,6 +15,7 @@ type AddPostMutation = {
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   const [, setModalOpen] = useAtom(postModalAtom);
+  const { supabaseClient } = useSessionContext();
 
   const postMutation = useMutation(({ post_id }: AddPostMutation) => {
     return axios.post('/api/posts/deletePost', { post_id });
@@ -23,15 +26,13 @@ export const useDeletePost = () => {
 
     const { error } = await supabaseClient.storage
       .from('post-images')
-      .remove([`${img_uuid}/img.jpg`]);
+      .remove([`${img_uuid}/img.webp`]);
+
+    const updateToastError = () =>
+      updateToast({ toastId: postDeleting, text: 'Could not delete post.', type: 'error' });
 
     if (error) {
-      toast.update(postDeleting, {
-        render: 'Could not delete post.',
-        type: 'error',
-        isLoading: false,
-        autoClose: 4000,
-      });
+      updateToastError();
       return;
     }
 
@@ -41,6 +42,7 @@ export const useDeletePost = () => {
         onSuccess: async () => {
           await queryClient.invalidateQueries(['posts']);
           await queryClient.invalidateQueries(['posts count']);
+          await queryClient.invalidateQueries(['account posts']);
           toast.update(postDeleting, {
             render: 'Post deleted!',
             type: 'success',
@@ -48,14 +50,7 @@ export const useDeletePost = () => {
             autoClose: 4000,
           });
         },
-        onError: () => {
-          toast.update(postDeleting, {
-            render: 'Could not delete post.',
-            type: 'error',
-            isLoading: false,
-            autoClose: 4000,
-          });
-        },
+        onError: updateToastError,
         onSettled: () => setModalOpen(false),
       }
     );

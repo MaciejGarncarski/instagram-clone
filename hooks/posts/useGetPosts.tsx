@@ -24,7 +24,7 @@ export const useGetPosts = () => {
     ({ pageParam = 0 }) =>
       getInfiniteData<Posts>({ url: POSTS_DATA_URL, pageParam, perScroll: POST_PER_SCROLL }),
     {
-      getNextPageParam: (oldPosts, allPosts) => {
+      getNextPageParam: (_, allPosts) => {
         const postCount = postsCount.data?._count?.id;
 
         if (!postCount) {

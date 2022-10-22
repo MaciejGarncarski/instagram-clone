@@ -1,36 +1,36 @@
-import { getUser } from '@supabase/auth-helpers-nextjs';
-import { User } from '@supabase/supabase-js';
+import { withPageAuth } from '@supabase/auth-helpers-nextjs';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import { GetServerSidePropsContext, NextPage } from 'next';
 
 import { apiClient } from '@/lib/apiClient';
-import { useAuthRedirect } from '@/hooks/useAuthRedirect';
 
 import { EditAccount } from '@/components/pages/editAccount/EditAccount';
 
-const EditPage: NextPage<{ user: User }> = () => {
-  useAuthRedirect();
-
+const EditPage = () => {
   return <EditAccount />;
 };
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const queryClient = new QueryClient();
-  const { user } = await getUser(ctx);
+export const getServerSideProps = withPageAuth({
+  redirectTo: '/auth/login',
+  async getServerSideProps(ctx, supabase) {
+    const queryClient = new QueryClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  await queryClient.prefetchQuery(['profile', { id: user.id }], async () => {
-    const { data } = await apiClient.post('/accounts/getProfile', {
-      id: user?.id ?? '',
+    await queryClient.prefetchQuery(['profile', { id: user?.id }], async () => {
+      const { data } = await apiClient.post('/accounts/getProfile', {
+        id: user?.id ?? '',
+      });
+
+      return data;
     });
 
-    return data;
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-};
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  },
+});
 
 export default EditPage;

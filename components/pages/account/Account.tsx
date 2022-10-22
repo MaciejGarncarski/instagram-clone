@@ -8,7 +8,6 @@ import { Profile } from '@/hooks/profile/useProfile';
 
 import styles from './account.module.scss';
 
-import { GoBackButton } from '@/components/atoms/goBackButton/GoBackButton';
 import { AccountPostContainer } from '@/components/molecules/accountPostContainer/AccountPostContainer';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
@@ -24,7 +23,7 @@ const AccountSettings = dynamic(() =>
 );
 
 export const Account = ({ userData }: AccountProps) => {
-  const { user } = useUser();
+  const user = useUser();
 
   if (!userData) {
     return null;
@@ -38,7 +37,6 @@ export const Account = ({ userData }: AccountProps) => {
     <>
       <NextSeo title={`${full_name} (@${username})`} />
       <main id='main'>
-        <GoBackButton />
         <section aria-labelledby='user account' className={styles.account}>
           <UserAvatar
             userID={id}

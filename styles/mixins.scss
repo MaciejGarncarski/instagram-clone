@@ -19,11 +19,11 @@
   background-color: var(--bg-color);
   color: var(--text-color);
   padding: 0 3rem;
-  font-size: 1.25em;
+  font-size: 2rem;
   gap: 1rem;
 
   @include common.breakpoint('sm') {
-    font-size: 1em;
+    font-size: 3rem;
     gap: 2rem;
   }
 }
@@ -31,20 +31,24 @@
 @mixin modal-button-link {
   outline: none;
   text-transform: capitalize;
-  border-block: 1px solid #d0d0d0;
+  border-block: var(--gray-border);
   flex: 1 0 7.5rem;
-
-  @include common.breakpoint('lg') {
-    flex: 1 0 9rem;
-  }
-
-  & > svg {
-    font-size: 1.35em;
-  }
 
   &:focus {
     border: 0;
     box-shadow: inset 0 0 0 5px var(--primary-color);
+  }
+
+  & > svg {
+    font-size: 3rem;
+  }
+
+  @include common.breakpoint('lg') {
+    flex: 1 0 9rem;
+
+    & > svg {
+      font-size: 4rem;
+    }
   }
 }
 

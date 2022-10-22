@@ -1,10 +1,8 @@
-import { getUser } from '@supabase/auth-helpers-nextjs';
-import type { GetServerSideProps, NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 
 import { LoginForm } from '@/components/organisms/loginForm/LoginForm';
 
-const Login: NextPage = () => {
+const Login = () => {
   return (
     <>
       <NextSeo title='Login' />
@@ -13,15 +11,15 @@ const Login: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { user } = await getUser(ctx);
-  if (user) {
-    return {
-      props: { user },
-      redirect: { permanent: true, destination: `/` },
-    };
-  }
-  return { props: { user } };
-};
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const user = await getUser(ctx);
+//   if (user) {
+//     return {
+//       props: { user },
+//       redirect: { permanent: true, destination: `/` },
+//     };
+//   }
+//   return { props: { user } };
+// };
 
 export default Login;

@@ -9,7 +9,7 @@ type AddPostMutation = {
 };
 
 export const useAddComment = () => {
-  const { user } = useUser();
+  const user = useUser();
 
   const queryClient = useQueryClient();
 

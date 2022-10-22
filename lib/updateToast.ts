@@ -10,7 +10,7 @@ export const updateToast = ({ toastId, text, type }: UpdateToast) => {
   toast.update(toastId, {
     render: text,
     isLoading: false,
-    autoClose: 4000,
+    autoClose: 2500,
     closeOnClick: true,
     type: type,
   });

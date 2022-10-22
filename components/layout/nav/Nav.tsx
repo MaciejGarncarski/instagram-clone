@@ -22,6 +22,7 @@ const routes: Array<Routes> = [
 
 export const Nav = () => {
   const { data } = useProfile();
+
   if (data?.username) {
     return (
       <ul className={styles.menu}>
@@ -31,7 +32,7 @@ export const Nav = () => {
               <Link href={to} passHref>
                 <a className={styles.link}>
                   <span className={styles.icon}>{icon}</span>
-                  <span className='sr-only'>{name}</span>
+                  <span className='visually-hidden'>{name}</span>
                 </a>
               </Link>
             </li>

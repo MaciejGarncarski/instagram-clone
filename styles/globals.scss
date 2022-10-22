@@ -12,7 +12,7 @@
 :root {
   --bg-color: rgb(250, 250, 250);
   --text-color: hsl(0, 0%, 14%);
-  --primary-color: #14afa2;
+  --primary-color: hsl(175, 79%, 38%);
   --primary-color-rgb: 51, 204, 153;
   --secondary-color: hsl(180, 50%, 70%);
   --error-color: hsl(5, 99%, 46%);
@@ -29,10 +29,18 @@
 
   --box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
 
-  --gray-border: 2px solid hsl(120, 0%, 70%);
+  --gray-border: 1px solid rgb(30, 30, 30, 0.25);
 
-  --radius-small: 0.3em;
-  --radius-medium: 0.45em;
+  --radius-small: 0.6rem;
+  --radius-medium: 0.85rem;
+
+  --nav-icon-size: 3.5rem;
+
+  @include common.breakpoint('lg') {
+    --radius-small: 0.8rem;
+    --radius-medium: 1.2rem;
+    --nav-icon-size: 4rem;
+  }
 }
 
 html {
@@ -41,6 +49,7 @@ html {
   scroll-behavior: smooth;
 
   @include common.breakpoint('lg') {
+    scroll-padding-top: 6rem;
     font-size: 50%;
   }
 }
@@ -52,6 +61,7 @@ body {
   color: var(--text-color);
   font-size: clamp(100%, calc(1rem + 2vw), 22px);
   scroll-behavior: smooth;
+  min-height: 100vh;
 }
 
 svg {
@@ -70,18 +80,14 @@ input::-ms-clear {
   display: none;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
   height: 1px;
-  padding: 0;
-  margin: -1px;
   overflow: hidden;
-  left: 1px;
-  top: 1px;
-  clip: rect(0, 0, 0, 0);
+  position: absolute;
   white-space: nowrap;
-  border-width: 0;
+  width: 1px;
 }
 
 .bold {

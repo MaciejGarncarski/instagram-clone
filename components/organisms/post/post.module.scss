@@ -5,11 +5,11 @@
   width: 100%;
 
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgb(30, 30, 30, 0.2);
+  border-bottom: var(--gray-border);
 
   @include common.breakpoint('sm') {
     border-radius: 1rem;
-    border: 1px solid rgb(30, 30, 30, 0.25);
+    border: var(--gray-border);
     box-shadow: var(--box-shadow);
     width: min(80%, 55rem);
     padding-bottom: 1rem;
@@ -23,10 +23,11 @@
 .figure {
   position: relative;
   width: 100%;
-  padding-bottom: 105%;
+  padding-bottom: 100%;
 }
 
 .post-img {
-  object-fit: cover;
-  border-block: 1px solid rgb(0, 0, 0, 0.15);
+  object-fit: contain;
+  aspect-ratio: 1;
+  border-block: var(--gray-border);
 }

@@ -1,4 +1,5 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { createBrowserSupabaseClient, Session } from '@supabase/auth-helpers-nextjs';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import {
   DehydratedState,
   Hydrate,
@@ -16,16 +17,17 @@ import { useState } from 'react';
 import { namedComponent } from '@/lib/namedComponent';
 
 import '../styles/globals.scss';
+import 'react-image-crop/src/ReactCrop.scss';
 
 import { SEO } from '../next-seo.config';
 
-const UserProvider = dynamic(() =>
-  namedComponent(import('@supabase/auth-helpers-react'), 'UserProvider')
-);
 const NextProgress = dynamic(() => import('next-progress'));
 const Layout = dynamic(() => namedComponent(import('@/components/layout/Layout'), 'Layout'));
 
-function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedState }>) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{ dehydratedState: DehydratedState; initialSession: Session }>) {
   const queryOptions: QueryClientConfig = {
     defaultOptions: {
       queries: {
@@ -34,9 +36,12 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
     },
   };
   const [queryClient] = useState(() => new QueryClient(queryOptions));
-
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
-    <UserProvider supabaseClient={supabaseClient}>
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
       <QueryClientProvider client={queryClient}>
         <MotionConfig reducedMotion='user'>
           <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
@@ -49,7 +54,7 @@ function MyApp({ Component, pageProps }: AppProps<{ dehydratedState: DehydratedS
         </MotionConfig>
         <ReactQueryDevtools />
       </QueryClientProvider>
-    </UserProvider>
+    </SessionContextProvider>
   );
 }
 

@@ -24,7 +24,7 @@ export const AccountLink = () => {
               height={70}
               alt={`${data.username} account`}
             />
-            <span className='sr-only'>{data.username} account</span>
+            <span className='visually-hidden'>{data.username} account</span>
           </a>
         </Link>
       </li>
@@ -36,7 +36,7 @@ export const AccountLink = () => {
       <Link href={url} passHref>
         <a className={styles.link}>
           <BiUser />
-          <span className='sr-only'>user account</span>
+          <span className='visually-hidden'>user account</span>
         </a>
       </Link>
     </li>

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
+import { useSessionContext } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -18,6 +18,10 @@ import { AuthRedirect } from '../../atoms/authRedirect/AuthRedirect';
 import { Input } from '../../atoms/input/Input';
 
 export const RegisterForm = () => {
+  const { supabaseClient } = useSessionContext();
+  const router = useRouter();
+  const { mutate } = useRegister();
+
   const {
     register,
     handleSubmit,
@@ -27,18 +31,18 @@ export const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const router = useRouter();
-  const { mutate } = useRegister();
-
   const onSubmit: SubmitHandler<RegisterValues> = async ({
     email,
     password,
     fullName,
     username,
   }) => {
-    const { user, error } = await supabaseClient.auth.signUp({
-      email: email,
-      password: password,
+    const {
+      data: { user },
+      error,
+    } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
     });
 
     if (error) {

@@ -10,7 +10,7 @@
   left: 0;
   top: 0;
   background-color: rgb(0, 0, 0, 0.6);
-  z-index: 1;
+  z-index: 2;
 }
 
 .modal {
@@ -51,59 +51,6 @@
   padding-top: 3rem;
   grid-row: 1 / 4;
   overflow-y: scroll;
-}
-
-.description {
-  padding: 1rem 2rem;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2rem;
-  align-items: center;
-  font-size: 1.5rem;
-
-  @include common.breakpoint('sm') {
-    font-size: 2.5rem;
-  }
-}
-
-.avatar {
-  --avatar-size: 3rem;
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  justify-self: flex-start;
-  align-self: flex-start;
-
-  @include common.breakpoint('sm') {
-    --avatar-size: 4rem;
-  }
-}
-
-.button {
-  background-color: transparent;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 2em;
-
-  @include common.breakpoint('sm') {
-    top: 2rem;
-    right: 2rem;
-  }
-
-  & > svg {
-    color: var(--bg-color);
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.overflow {
-  overflow-y: auto;
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  padding-bottom: 1.5rem;
 }
 
 .bottom {
