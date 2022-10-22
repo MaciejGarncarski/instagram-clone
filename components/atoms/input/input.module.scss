@@ -100,7 +100,8 @@
   top: 1.5rem;
   position: absolute;
   font-weight: 500;
-  transition: transform var(--transition-fast);
+  transition: all var(--transition-fast);
+  transition-property: font-size, transform;
   color: rgb(0, 0, 0, 0.6);
 
   &--dirty {

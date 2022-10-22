@@ -1,14 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@supabase/auth-helpers-react';
-import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { useNewPost } from '@/hooks/posts/useNewPost';
+import { useSubmitPost } from '@/hooks/posts/useSubmitPost';
 import { useProfile } from '@/hooks/profile/useProfile';
-import { IMG_EXTENSIONS_DOTS } from '@/hooks/useAvatarInput';
 
 import styles from './newPost.module.scss';
 
@@ -30,9 +28,7 @@ export const NewPost = () => {
   const { data } = useProfile();
   const user = useUser();
   const [imgSrc] = useAtom(imgSrcAtom);
-  const { handleImg, onSubmit } = useNewPost();
-
-  const acceptedExtensions = IMG_EXTENSIONS_DOTS.join(',');
+  const { onSubmit } = useSubmitPost();
 
   const {
     register,
@@ -55,15 +51,6 @@ export const NewPost = () => {
           <UserAvatar userID={user?.id ?? ''} className={styles.img} />
           {data?.username && <h2>{data.username}</h2>}
         </div>
-
-        <input
-          className={clsx('visually-hidden', styles.input)}
-          type='file'
-          accept={acceptedExtensions}
-          onChange={handleImg}
-          id='file'
-          name='new post'
-        />
         <NewPostImage />
         <Input
           type='text'

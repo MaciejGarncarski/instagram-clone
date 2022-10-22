@@ -118,3 +118,7 @@ div.Toastify__toast {
     --border-color: var(--error-color);
   }
 }
+
+div.ReactCrop__crop-selection {
+  border: 2px solid var(--secondary-color);
+}

@@ -5,10 +5,6 @@ import { toast } from 'react-toastify';
 
 import { useUpdateAvatar } from '@/hooks/profile/useUpdateAvatar';
 
-const IMG_EXTENSIONS = ['jpg', 'jpeg', 'png'];
-export const IMG_EXTENSIONS_DOTS = IMG_EXTENSIONS.map((ext) => `.${ext}`);
-export const IMG_TYPES = IMG_EXTENSIONS.map((type) => `image/${type}`);
-
 export const useAvatarInput = () => {
   const { mutate } = useUpdateAvatar();
   const user = useUser();
@@ -22,16 +18,10 @@ export const useAvatarInput = () => {
     }
 
     const selectedFile = changeEv.target.files[0];
-    const isIMGTypeValid = IMG_TYPES.includes(selectedFile.type);
 
     setError(null);
     if (!selectedFile.type) {
       return null;
-    }
-
-    if (!isIMGTypeValid) {
-      setError('Invalid image type!');
-      return;
     }
 
     const addingImage = toast.loading('Uploading new image...');

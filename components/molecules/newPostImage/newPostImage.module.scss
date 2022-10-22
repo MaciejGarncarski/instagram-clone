@@ -5,16 +5,28 @@
 
 .label {
   border-radius: var(--radius-medium);
-  width: auto;
-  height: auto;
   overflow: hidden;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem 2rem;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+  border: 2px solid var(--primary-color);
+  transition: all var(--transition-fast);
+}
+
+.preview {
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   border: 2px solid var(--primary-color);
-  transition: all var(--transition-fast);
 }
 
 .placeholder {
@@ -24,5 +36,30 @@
 .preview {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 2rem;
+
+  & > h4 {
+    text-align: center;
+    grid-column: 1 / 4;
+  }
+}
+
+.button {
+  opacity: 0.4;
+
+  &:focus,
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.activeBtn {
+  opacity: 1;
 }
