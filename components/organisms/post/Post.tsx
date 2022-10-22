@@ -44,7 +44,14 @@ export const Post = ({ id }: PostProps) => {
     <article className={styles.container}>
       <PostHeader id={id} canShowSettings={canShowSettings} />
       <figure className={styles.figure}>
-        <Image className={styles['post-img']} src={img} alt='post' sizes='150' fill priority />
+        <Image
+          className={styles['post-img']}
+          src={img}
+          alt='post'
+          width={300}
+          height={270}
+          priority
+        />
       </figure>
       <PostButtons id={id} />
       <PostFooter id={id} showDescription />

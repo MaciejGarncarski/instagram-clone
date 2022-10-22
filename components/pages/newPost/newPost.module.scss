@@ -28,6 +28,11 @@
 }
 
 .img {
-  width: 8rem;
-  height: 8rem;
+  --size: 8rem;
+  width: var(--size);
+  height: var(--size);
+
+  @include common.breakpoint('lg') {
+    --size: 12rem;
+  }
 }

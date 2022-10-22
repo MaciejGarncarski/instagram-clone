@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useAtom } from 'jotai';
 import { NextSeo } from 'next-seo';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -28,7 +29,9 @@ export const NewPost = () => {
   const { data } = useProfile();
   const user = useUser();
   const [imgSrc] = useAtom(imgSrcAtom);
-  const { onSubmit } = useSubmitPost();
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { onSubmit } = useSubmitPost(buttonRef);
 
   const {
     register,
@@ -67,7 +70,7 @@ export const NewPost = () => {
           error={errors.location}
           {...register('location')}
         />
-        <Button type='submit' disabled={Boolean(!imgSrc)}>
+        <Button type='submit' ref={buttonRef} disabled={Boolean(!imgSrc)}>
           Add post!
         </Button>
       </form>

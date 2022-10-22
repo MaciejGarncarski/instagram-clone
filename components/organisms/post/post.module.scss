@@ -23,10 +23,16 @@
 .figure {
   position: relative;
   width: 100%;
-  padding-bottom: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .post-img {
+  width: 100%;
+  height: auto;
+  max-height: 75rem;
   object-fit: contain;
-  border-block: var(--gray-border);
+  border-top: var(--gray-border);
+  border-bottom: var(--gray-border);
 }

@@ -1,32 +1,38 @@
+@use '/styles/common.scss';
+
 .input:focus + .label,
 .label:hover {
   box-shadow: 0 0 1px 4px rgb(var(--primary-color-rgb), 0.6);
 }
 
-.label {
-  border-radius: var(--radius-medium);
+.label-preview {
+  border-radius: var(--radius-small);
   overflow: hidden;
-  cursor: pointer;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  padding: 2rem 2rem;
-  gap: 1.5rem;
   align-items: center;
+  border: 3px solid var(--primary-color);
   text-align: center;
-  border: 2px solid var(--primary-color);
+}
+
+.label {
+  @extend .label-preview;
+  cursor: pointer;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1.5rem;
   transition: all var(--transition-fast);
+  width: 100%;
+
+  @include common.breakpoint('lg') {
+    padding: 7rem 2rem;
+  }
 }
 
 .preview {
-  border-radius: var(--radius-small);
-  overflow: hidden;
+  @extend .label-preview;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border: 2px solid var(--primary-color);
+  border: 3px solid var(--primary-color);
 }
 
 .placeholder {

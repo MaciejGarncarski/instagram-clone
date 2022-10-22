@@ -1,5 +1,6 @@
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useAtom } from 'jotai';
+import { RefObject } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
@@ -11,7 +12,7 @@ import { postValues } from '@/components/pages/newPost/NewPost';
 
 import { completedCropAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/store';
 
-export const useSubmitPost = () => {
+export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
   const { supabaseClient } = useSessionContext();
   const { mutate } = useAddPost();
 
@@ -24,6 +25,10 @@ export const useSubmitPost = () => {
   const onSubmit: SubmitHandler<postValues> = async ({ description, location }) => {
     const uuid = v4();
     const addingPost = toast.loading('Uploading new post...');
+
+    if (buttonRef.current) {
+      buttonRef.current.disabled = true;
+    }
 
     if (!newImg) {
       return;
@@ -64,6 +69,9 @@ export const useSubmitPost = () => {
           setCrop(undefined);
           setNewImg(null);
           setCompletedCrop(null);
+          if (buttonRef.current) {
+            buttonRef.current.disabled = false;
+          }
         },
       }
     );
