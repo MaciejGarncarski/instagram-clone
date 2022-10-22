@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 
-import { unlockScroll } from '@/lib/scrollLock';
-
 import styles from './modalButton.module.scss';
 
 import { ModalItemPosition } from '@/components/atoms/modal/modalLink/ModalLink';
@@ -20,7 +18,6 @@ export const ModalButton = forwardRef<HTMLButtonElement, ButtonProps>(
       if (!onClick) {
         return;
       }
-      unlockScroll();
       onClick();
     };
 

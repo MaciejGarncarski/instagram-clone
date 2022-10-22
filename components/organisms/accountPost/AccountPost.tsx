@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { BiComment, BiHeart } from 'react-icons/bi';
 
 import { namedComponent } from '@/lib/namedComponent';
-import { lockScroll } from '@/lib/scrollLock';
 import { useAccountPosts } from '@/hooks/profile/useAccountPosts';
 
 import styles from './accountPost.module.scss';
@@ -40,7 +39,6 @@ export const AccountPost = ({ postID, userID }: PostProps) => {
   const onClick = () => {
     if (user) {
       setModalOpen(true);
-      lockScroll();
     }
     if (!user) {
       setLoginModalOpen(true);

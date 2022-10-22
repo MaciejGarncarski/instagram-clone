@@ -5,7 +5,6 @@ import { useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { lockScroll, unlockScroll } from '@/lib/scrollLock';
 import { useCloseModal } from '@/hooks/useCloseModal';
 import { loginSchema, LoginValues } from '@/utils/loginValidation';
 
@@ -26,13 +25,11 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
 
   const closeModal = () => {
     setIsOpen(false);
-    unlockScroll();
   };
 
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const { handleClickOutside } = useCloseModal(overlayRef, closeModal);
-  lockScroll();
 
   const {
     register,

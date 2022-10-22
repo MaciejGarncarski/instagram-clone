@@ -1,6 +1,5 @@
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useAtom } from 'jotai';
-import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { v4 } from 'uuid';
@@ -13,7 +12,6 @@ import { postValues } from '@/components/pages/newPost/NewPost';
 import { completedCropAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/store';
 
 export const useSubmitPost = () => {
-  const [img] = useState<File | null>(null);
   const { supabaseClient } = useSessionContext();
   const { mutate } = useAddPost();
 
@@ -27,28 +25,25 @@ export const useSubmitPost = () => {
     const uuid = v4();
     const addingPost = toast.loading('Uploading new post...');
 
-    if (!img) {
-      return;
-    }
-
     if (!newImg) {
       return;
     }
 
-    const { error } = await supabaseClient.storage
+    const { data } = await supabaseClient.storage
       .from('post-images')
       .upload(`${uuid}/img.webp`, newImg, {
+        cacheControl: '10800',
         upsert: false,
       });
 
-    if (error) {
+    if (!data?.path) {
       updateToast({ toastId: addingPost, text: 'Could not add post', type: 'error' });
       return;
     }
 
     const {
       data: { publicUrl },
-    } = supabaseClient.storage.from('post-images').getPublicUrl(`${uuid}/img.webp`);
+    } = supabaseClient.storage.from('post-images').getPublicUrl(data.path);
 
     if (!publicUrl) {
       updateToast({

@@ -6,7 +6,6 @@ import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiComment, BiShare } from 'react-icons/bi';
 
-import { lockScroll } from '@/lib/scrollLock';
 import { usePostLike } from '@/hooks/posts/usePostLike';
 import { usePostLikesData } from '@/hooks/posts/usePostLikesData';
 
@@ -35,7 +34,6 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const user = useUser();
 
   const showModal = () => {
-    lockScroll();
     setPostModalOpen(true);
   };
 

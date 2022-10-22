@@ -1,6 +1,5 @@
 import { useAtom } from 'jotai';
-import { RefObject } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { RefObject, useEffect } from 'react';
 
 import { canvasPreview } from '@/utils/canvasPreview';
 
@@ -15,18 +14,19 @@ export const useCreateImage = ({ imgRef, previewCanvasRef }: UseCreateImageProps
   const [completedCrop] = useAtom(completedCropAtom);
   const [, setNewImg] = useAtom(newImgAtom);
 
-  const createImg = async () => {
-    if (
-      completedCrop?.width &&
-      completedCrop?.height &&
-      imgRef.current &&
-      previewCanvasRef.current
-    ) {
+  useEffect(() => {
+    const createImg = async () => {
+      if (
+        !imgRef.current ||
+        !previewCanvasRef.current ||
+        !completedCrop?.height ||
+        !completedCrop.width
+      ) {
+        return;
+      }
       const newImg = await canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
       setNewImg(newImg);
-    }
-  };
-
-  const debouncedCreateImg = useDebouncedCallback(createImg, 800);
-  debouncedCreateImg();
+    };
+    createImg();
+  }, [completedCrop, imgRef, previewCanvasRef, setNewImg]);
 };

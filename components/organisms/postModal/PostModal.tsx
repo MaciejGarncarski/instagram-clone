@@ -3,7 +3,6 @@ import Image from 'next/future/image';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { unlockScroll } from '@/lib/scrollLock';
 import { useCloseModal } from '@/hooks/useCloseModal';
 import { usePostModal } from '@/hooks/usePostModal';
 
@@ -32,7 +31,6 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
 
   const closeModal = () => {
     setIsOpen(false);
-    unlockScroll();
   };
 
   const { handleClickOutside } = useCloseModal(overlayRef, closeModal);

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { lockScroll, unlockScroll } from '@/lib/scrollLock';
 import { useCloseModal } from '@/hooks/useCloseModal';
 
 import styles from './modal.module.scss';
@@ -27,11 +26,8 @@ export const Modal = ({ children, setIsOpen, variant }: ModalProps) => {
   const parent = document.querySelector('.modal') as HTMLDivElement;
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  lockScroll();
-
   const closeModal = () => {
     setIsOpen(false);
-    unlockScroll();
   };
 
   const { handleClickOutside } = useCloseModal(overlayRef, closeModal);
