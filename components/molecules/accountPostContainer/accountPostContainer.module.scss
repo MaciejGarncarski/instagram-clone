@@ -2,7 +2,9 @@
 
 .posts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  grid-template-columns: 0.8fr;
+  place-content: center;
+  grid-auto-rows: 20rem;
   column-gap: 3rem;
 
   width: 90%;
@@ -13,11 +15,16 @@
     padding-bottom: 7rem;
   }
 
+  @include common.breakpoint('sm') {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+
   @include common.breakpoint('lg') {
-    padding: 0 5rem;
-    row-gap: 6rem;
+    place-content: initial;
     width: 100%;
-    column-gap: 10rem;
-    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    row-gap: 3.5rem;
+    column-gap: 3.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+    grid-auto-rows: minmax(35rem, 0.95fr);
   }
 }

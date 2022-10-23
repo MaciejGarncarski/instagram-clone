@@ -44,7 +44,7 @@ function MyApp({
     >
       <QueryClientProvider client={queryClient}>
         <MotionConfig reducedMotion='user'>
-          <NextProgress options={{ showSpinner: false }} height={4} color='#009999' />
+          <NextProgress options={{ showSpinner: false }} height={4} color='#05daa5' delay={500} />
           <Hydrate state={pageProps.dehydratedState}>
             <DefaultSeo {...SEO} />
             <Layout>

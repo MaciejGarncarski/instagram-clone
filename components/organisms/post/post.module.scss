@@ -31,8 +31,12 @@
 .post-img {
   width: 100%;
   height: auto;
-  max-height: 75rem;
+  max-height: 40rem;
   object-fit: contain;
   border-top: var(--gray-border);
   border-bottom: var(--gray-border);
+
+  @include common.breakpoint('lg') {
+    max-height: 75rem;
+  }
 }

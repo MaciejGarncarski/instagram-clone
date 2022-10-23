@@ -55,7 +55,14 @@ export const AccountPost = ({ postID, userID }: PostProps) => {
           <BiComment /> {_count.posts_comments}
         </div>
       </div>
-      <Image src={img} sizes='4vw' fill priority className={styles.image} alt={description} />
+      <Image
+        src={img}
+        width={200}
+        height={200}
+        priority
+        className={styles.image}
+        alt={description}
+      />
       {LoginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
       {isModalOpen && <PostModal setIsOpen={setModalOpen} id={id} />}
     </div>

@@ -34,7 +34,7 @@
   --radius-small: 0.6rem;
   --radius-medium: 0.85rem;
 
-  --nav-icon-size: 3.5rem;
+  --nav-icon-size: 3rem;
 
   @include common.breakpoint('lg') {
     --radius-small: 0.8rem;

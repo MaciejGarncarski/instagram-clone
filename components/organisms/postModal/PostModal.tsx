@@ -54,14 +54,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
         initial={{ opacity: 0.75 }}
       >
         <div className={styles.image}>
-          <Image
-            sizes='(max-width: 768px) 90vw,
-              (max-width: 1200px) 85vw,
-              80vw'
-            src={postData.img}
-            alt='img'
-            fill
-          />
+          <Image width={700} height={700} src={postData.img} alt='img' priority />
         </div>
         <CloseModalButton handleClose={closeModal} />
         <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />

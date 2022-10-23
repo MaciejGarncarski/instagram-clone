@@ -20,7 +20,8 @@
   width: 94%;
   height: 85vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 0.7fr auto;
+  border: var(--gray-border);
 
   @include common.breakpoint('lg') {
     width: min(85%, 160rem);
@@ -34,15 +35,29 @@
 .image {
   position: relative;
   grid-row: 2 / 3;
-  min-height: 200px;
-  background-color: gray;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 25rem;
+  border-bottom: var(--gray-border);
 
-  > img {
-    object-fit: cover;
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   @include common.breakpoint('lg') {
     grid-row: 1 / 5;
+    border-right: var(--gray-border);
+    border-bottom: none;
+
+    & > img {
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+    }
   }
 }
 

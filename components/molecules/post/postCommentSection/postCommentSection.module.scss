@@ -4,7 +4,7 @@
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2rem;
   font-size: 1.5rem;
 
   @include common.breakpoint('sm') {
@@ -16,14 +16,18 @@
 
 .item {
   display: grid;
-  gap: 2rem;
+  gap: 1.25rem;
   grid-template-columns: auto 1fr;
   word-break: break-all;
   align-items: center;
+
+  @include common.breakpoint('sm') {
+    gap: 2rem;
+  }
 }
 
 .avatar {
-  --size: 3rem;
+  --size: 2.5rem;
   width: var(--size);
   height: var(--size);
 

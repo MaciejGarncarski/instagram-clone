@@ -25,12 +25,12 @@ const buttonData: Array<ButtonData> = [
     text: '1:1',
   },
   {
-    aspectRatio: 9 / 16,
-    text: '9:16',
+    aspectRatio: 4 / 5,
+    text: '4:5',
   },
   {
-    aspectRatio: 16 / 9,
-    text: '16:9',
+    aspectRatio: 1.91 / 1,
+    text: '1.91:1',
   },
 ];
 
