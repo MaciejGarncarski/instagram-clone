@@ -1,15 +1,17 @@
 @use '/styles/common.scss';
 
 .author {
-  padding: 1.2rem 1.5rem;
+  border-top: var(--gray-border);
+  padding: 0.5rem 1.5rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 2rem;
   grid-row: 1 / 2;
 
-  @include common.breakpoint-max('lg') {
-    border-top: var(--gray-border);
+  @include common.breakpoint('lg') {
+    padding: 1.2rem 1.5rem;
+    border-top: none;
   }
 }
 
