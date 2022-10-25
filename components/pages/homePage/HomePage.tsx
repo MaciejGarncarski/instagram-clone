@@ -15,15 +15,11 @@ const Post = dynamic(() => {
 export const HomePage = () => {
   const { data, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
 
-  if (!data?.pages) {
-    return <Loader />;
+  if (!data?.pages || isLoading) {
+    return <Loader className={styles.loader} />;
   }
 
   const allPosts = data?.pages.flatMap((post) => post);
-
-  if (isLoading || !data || !allPosts) {
-    return <Loader />;
-  }
 
   if (allPosts.length < 1) {
     return <h2>No posts yet.</h2>;

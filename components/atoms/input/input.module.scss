@@ -142,12 +142,14 @@
   font-family: inherit;
   border: none;
   background-color: transparent;
-  border: 4px solid transparent;
+  border-top: 3px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
 
   &:focus {
     outline: none;
-    border-top-left-radius: var(--radius-medium);
-    border-top-right-radius: var(--radius-medium);
+    border-top-left-radius: var(--radius-small);
+    border-top-right-radius: var(--radius-small);
     border-color: var(--primary-color);
 
     & + .label {

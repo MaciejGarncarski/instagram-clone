@@ -3,15 +3,18 @@
 .button {
   padding: 1rem 2rem;
   border-radius: var(--radius-small);
-  background-color: var(--primary-color);
+  --btn-color: var(--primary-color);
+  background-color: var(--btn-color);
   font-weight: 500;
   letter-spacing: 0.5px;
   color: white;
   font-weight: 700;
   outline-offset: 0.15em;
+  border: 4px solid var(--btn-color);
+  transition: all var(--transition-fast);
 
   &--red {
-    background: var(--error-color);
+    --btn-color: var(--error-color);
   }
 
   &::first-letter {
@@ -22,17 +25,23 @@
     outline: 3px solid var(--text-color);
   }
 
+  &:disabled {
+    opacity: 0.6;
+  }
+
   &:not(:disabled) {
+    &:hover,
+    &:focus {
+      background-color: var(--bg-color);
+      color: var(--btn-color);
+    }
+
     &:hover {
       cursor: pointer;
     }
   }
 
-  &:disabled {
-    opacity: 0.6;
-  }
-
   @include common.breakpoint('lg') {
-    padding: 1.25rem 3rem;
+    padding: 1rem 3rem;
   }
 }

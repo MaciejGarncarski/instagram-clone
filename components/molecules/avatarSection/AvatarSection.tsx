@@ -58,6 +58,7 @@ export const AvatarSection = () => {
               type='button'
               className={clsx(styles['avatar-button'], styles['avatar-button--red'])}
               onClick={openModal}
+              variant='red'
             >
               Remove photo
             </Button>

@@ -50,11 +50,6 @@ div.avatar {
 
 button.avatar-button {
   margin: 0.75rem 0;
-  background-color: var(--primary-color);
-
-  &--red {
-    background-color: var(--error-color);
-  }
 }
 
 .modal-text {

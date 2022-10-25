@@ -40,7 +40,7 @@ export const RegisterForm = () => {
     const {
       data: { user },
       error,
-    } = await supabaseClient.auth.signInWithPassword({
+    } = await supabaseClient.auth.signUp({
       email,
       password,
     });

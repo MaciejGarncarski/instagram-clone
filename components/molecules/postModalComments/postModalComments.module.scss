@@ -15,8 +15,6 @@
   align-items: center;
   font-size: 1.5rem;
 
-  border-bottom: var(--gray-border);
-
   @include common.breakpoint('sm') {
     padding: 2rem;
     font-size: 2.5rem;
