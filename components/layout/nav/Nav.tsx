@@ -29,11 +29,9 @@ export const Nav = () => {
         {routes.map(({ name, icon, to }) => {
           return (
             <li key={name} className={styles.item}>
-              <Link href={to} passHref>
-                <a className={styles.link}>
-                  <span className={styles.icon}>{icon}</span>
-                  <span className='visually-hidden'>{name}</span>
-                </a>
+              <Link href={to} className={styles.link}>
+                <span className={styles.icon}>{icon}</span>
+                <span className='visually-hidden'>{name}</span>
               </Link>
             </li>
           );
@@ -45,11 +43,11 @@ export const Nav = () => {
 
   return (
     <div className={styles.guest}>
-      <Link href='/auth/register' passHref>
-        <a className={styles.button}>Sign up</a>
+      <Link href='/auth/register' className={styles.button}>
+        Sign up
       </Link>
-      <Link href='/auth/login' passHref>
-        <a className={styles.text}>Log in</a>
+      <Link href='/auth/login' className={styles.text}>
+        Log in
       </Link>
     </div>
   );

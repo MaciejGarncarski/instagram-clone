@@ -25,22 +25,18 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
 
   return (
     <header className={clsx(borderBottom && styles.border, styles.author)}>
-      <Link href={`/${author.username}/`} passHref>
-        <a className={styles.avatarLink}>
-          <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
-        </a>
+      <Link href={`/${author.username}/`} className={styles.avatarLink}>
+        <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
       </Link>
       <div className={styles.links}>
-        <Link href={`/${author.username}/`} passHref>
-          <a className={styles.link}>
-            <h2 className={styles.username}>
-              {(author && author.username) ?? `user-${author.profile_id}`}
-            </h2>
-          </a>
+        <Link href={`/${author.username}/`} className={styles.link}>
+          <h2 className={styles.username}>
+            {(author && author.username) ?? `user-${author.profile_id}`}
+          </h2>
         </Link>
         {location && (
-          <Link href='/location' passHref>
-            <a className={styles.location}>{location}</a>
+          <Link href='/location' className={styles.location}>
+            {location}
           </Link>
         )}
       </div>

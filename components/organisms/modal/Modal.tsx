@@ -1,14 +1,13 @@
 import clsx from 'clsx';
 import FocusTrap from 'focus-trap-react';
 import { motion } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-
-import { useCloseModal } from '@/hooks/useCloseModal';
 
 import styles from './modal.module.scss';
 
 import { ModalButton } from '@/components/atoms/modal/modalButton/ModalButton';
+import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
 import { modalHeading } from '@/components/atoms/modal/modalHeading/modalHeading';
 import { ModalLink } from '@/components/atoms/modal/modalLink/ModalLink';
 import { ModalText } from '@/components/atoms/modal/modalText/ModalText';
@@ -24,16 +23,13 @@ type ModalProps = Children & {
 
 export const Modal = ({ children, setIsOpen, variant }: ModalProps) => {
   const parent = document.querySelector('.modal') as HTMLDivElement;
-  const overlayRef = useRef<HTMLDivElement>(null);
 
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const { handleClickOutside } = useCloseModal(overlayRef, closeModal);
-
   return createPortal(
-    <div onClick={handleClickOutside} ref={overlayRef} className={styles.overlay} tabIndex={0}>
+    <ModalContainer onClose={closeModal}>
       <FocusTrap
         focusTrapOptions={{
           allowOutsideClick: true,
@@ -53,7 +49,7 @@ export const Modal = ({ children, setIsOpen, variant }: ModalProps) => {
           {children}
         </motion.div>
       </FocusTrap>
-    </div>,
+    </ModalContainer>,
     parent
   );
 };
