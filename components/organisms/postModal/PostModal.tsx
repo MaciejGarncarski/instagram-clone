@@ -3,12 +3,12 @@ import Image from 'next/future/image';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useCloseModal } from '@/hooks/useCloseModal';
 import { usePostModal } from '@/hooks/usePostModal';
 
 import styles from './postModal.module.scss';
 
 import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
+import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
 import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons';
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
 import { PostFooter } from '@/components/molecules/post/postFooter/PostFooter';
@@ -22,7 +22,6 @@ type PostModalProps = {
 
 export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
   const parent = document.querySelector('.post-modal') as HTMLDivElement;
-  const overlayRef = useRef<HTMLDivElement>(null);
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { commentsData, user, postData, currentUser } = usePostModal(id);
 
@@ -32,8 +31,6 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
-  const { handleClickOutside } = useCloseModal(overlayRef, closeModal);
 
   const focusInput = () => {
     if (commentInputRef.current) {
@@ -46,7 +43,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
   }
 
   return createPortal(
-    <div onClick={handleClickOutside} key={id} ref={overlayRef} className={styles.overlay}>
+    <ModalContainer onClose={closeModal}>
       <motion.div
         role='dialog'
         className={styles.modal}
@@ -65,7 +62,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
           <PostComment id={id} ref={commentInputRef} />
         </div>
       </motion.div>
-    </div>,
+    </ModalContainer>,
     parent
   );
 };

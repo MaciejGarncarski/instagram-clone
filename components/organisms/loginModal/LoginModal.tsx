@@ -1,17 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { useCloseModal } from '@/hooks/useCloseModal';
 import { loginSchema, LoginValues } from '@/utils/loginValidation';
 
 import styles from './loginModal.module.scss';
 
 import { Button } from '@/components/atoms/button/Button';
 import { Input } from '@/components/atoms/input/Input';
+import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
 import { Modal } from '@/components/organisms/modal/Modal';
 
 type LoginModalProps = {
@@ -26,10 +25,6 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
   const closeModal = () => {
     setIsOpen(false);
   };
-
-  const overlayRef = useRef<HTMLDivElement>(null);
-
-  const { handleClickOutside } = useCloseModal(overlayRef, closeModal);
 
   const {
     register,
@@ -61,7 +56,7 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
   };
 
   return (
-    <div ref={overlayRef} onClick={handleClickOutside} className={styles.overlay}>
+    <ModalContainer onClose={closeModal}>
       <div role='dialog' className={styles.modal}>
         <Modal.Heading>Login</Modal.Heading>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -81,6 +76,6 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
           <Button type='submit'>Log in</Button>
         </form>
       </div>
-    </div>
+    </ModalContainer>
   );
 };

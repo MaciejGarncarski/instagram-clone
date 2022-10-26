@@ -31,8 +31,8 @@ export const AuthRedirect = ({ type }: AuthRedirectProps) => {
     <div className={styles.container}>
       <p>
         {information}
-        <Link href={`/auth/${href}`}>
-          <a className={styles.link}>{linkText}</a>
+        <Link href={`/auth/${href}`} className={styles.link}>
+          {linkText}
         </Link>
         .
       </p>

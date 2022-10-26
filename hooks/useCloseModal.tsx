@@ -1,23 +1,28 @@
 import { MouseEvent, RefObject, useEffect } from 'react';
 
-export const useCloseModal = (ref: RefObject<HTMLDivElement>, closeModal: () => void) => {
+type UseCloseModal = {
+  ref: RefObject<HTMLDivElement>;
+  onClose: () => void;
+};
+
+export const useCloseModal = ({ ref, onClose }: UseCloseModal) => {
   const handleClickOutside = (clickEvent: MouseEvent) => {
     if (clickEvent.target === ref.current) {
-      closeModal();
+      onClose();
     }
   };
 
   useEffect(() => {
     const handleEscape = (keyEvent: KeyboardEvent) => {
       if (keyEvent.key === 'Escape') {
-        closeModal();
+        onClose();
       }
     };
 
     window.addEventListener('keydown', handleEscape);
 
     return () => window.removeEventListener('keydown', handleEscape);
-  }, [closeModal]);
+  }, [onClose]);
 
   return { handleClickOutside };
 };

@@ -96,8 +96,8 @@ export const RegisterForm = () => {
 
       <p className={styles.terms}>
         By registering, you accept
-        <Link href='/terms' passHref>
-          <a className={styles.link}>terms of use</a>
+        <Link href='/terms' className={styles.link}>
+          terms of use
         </Link>
         .
       </p>

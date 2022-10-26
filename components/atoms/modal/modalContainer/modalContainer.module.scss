@@ -1,0 +1,15 @@
+@use '/styles/mixins.scss';
+@use '/styles/common.scss';
+
+.overlay {
+  @include mixins.overlay;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 2;
+
+  @include common.breakpoint('sm') {
+    align-items: center;
+    justify-content: center;
+  }
+}

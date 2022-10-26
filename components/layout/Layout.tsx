@@ -20,8 +20,8 @@ export const Layout = ({ children }: LayoutProps) => {
 
       <nav className={styles.nav}>
         <h1 className={styles.heading}>
-          <Link href='/'>
-            <a className={styles.link}>Delaygram</a>
+          <Link href='/' className={styles.link}>
+            Delaygram
           </Link>
         </h1>
 
