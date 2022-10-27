@@ -4,7 +4,7 @@
   padding: 1rem 2rem;
   border-radius: var(--radius-small);
   --btn-color: var(--primary-color);
-  background-color: var(--btn-color);
+  background: var(--btn-color);
   font-weight: 500;
   letter-spacing: 0.5px;
   color: white;
@@ -13,35 +13,38 @@
   border: 4px solid var(--btn-color);
   transition: all var(--transition-fast);
 
-  &--red {
-    --btn-color: var(--error-color);
-  }
-
   &::first-letter {
     text-transform: uppercase;
   }
 
-  &:focus {
-    outline: 3px solid var(--text-color);
+  @include common.breakpoint('lg') {
+    padding: 1rem 3rem;
   }
 
-  &:disabled {
-    opacity: 0.6;
+  &--red {
+    --btn-color: var(--error-color);
+  }
+
+  &--gradient {
+    border-color: transparent;
+    background: var(--gradient);
+    background-size: 200% 200%;
+    background-position: left;
+    transition: background-position var(--transition-slow);
+
+    &:not(:disabled):hover {
+      background-position: right;
+    }
+  }
+
+  &:focus {
+    outline: 3px solid var(--btn-color);
+    outline-offset: 3px;
   }
 
   &:not(:disabled) {
-    &:hover,
-    &:focus {
-      background-color: var(--bg-color);
-      color: var(--btn-color);
-    }
-
     &:hover {
       cursor: pointer;
     }
-  }
-
-  @include common.breakpoint('lg') {
-    padding: 1rem 3rem;
   }
 }

@@ -22,17 +22,15 @@
   justify-content: center;
   background-color: var(--white);
   padding: 0.5rem 0;
-
-  @include common.breakpoint-max('sm') {
-    box-shadow: var(--box-shadow);
-  }
+  box-shadow: var(--box-shadow);
 
   @include common.breakpoint('sm') {
-    background-color: transparent;
-    padding: 1.5rem 0;
+    padding: 1.25rem 0;
   }
 
   @include common.breakpoint('lg') {
+    box-shadow: none;
+    background-color: transparent;
     padding: 0;
     justify-content: space-between;
     margin-bottom: 8rem;
