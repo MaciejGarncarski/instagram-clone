@@ -13,6 +13,10 @@
     padding: 1.2rem 1.5rem;
     border-top: none;
   }
+
+  @include common.breakpoint('lg') {
+    border-bottom: var(--gray-border);
+  }
 }
 
 .border {
