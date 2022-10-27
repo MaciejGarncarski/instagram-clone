@@ -16,7 +16,6 @@ export type Profile = profiles & {
 
 export const useProfile = (userID?: string) => {
   const user = useUser();
-  console.log(user);
 
   const userIDguard = userID ?? user?.id;
 
