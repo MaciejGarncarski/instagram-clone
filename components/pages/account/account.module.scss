@@ -95,12 +95,13 @@
 
 .stats {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  gap: 3rem;
 
   @include common.breakpoint('lg') {
     gap: 3rem;
+    display: flex;
     justify-content: flex-start;
   }
 }

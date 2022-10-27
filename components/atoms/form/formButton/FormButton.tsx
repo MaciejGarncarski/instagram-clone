@@ -8,7 +8,7 @@ type FormButtonProps = {
 
 export const FormButton = ({ text }: FormButtonProps) => {
   return (
-    <Button className={styles.button} type='submit'>
+    <Button className={styles.button} variant='gradient' type='submit'>
       {text}
     </Button>
   );

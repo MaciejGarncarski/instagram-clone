@@ -1,4 +1,5 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -15,6 +16,17 @@ import { PostHeader } from '@/components/molecules/post/postHeader/PostHeader';
 
 type PostProps = {
   id: number;
+};
+
+const articleVariant: Variants = {
+  hidden: {
+    rotate: -3,
+    scale: 0.9,
+  },
+  visible: {
+    rotate: 0,
+    scale: 1,
+  },
 };
 
 export const Post = ({ id }: PostProps) => {
@@ -41,7 +53,14 @@ export const Post = ({ id }: PostProps) => {
   const canShowSettings = author_id === user?.id || userData?.role === 'ADMIN';
 
   return (
-    <article className={styles.container}>
+    <motion.article
+      variants={articleVariant}
+      viewport={{ once: true }}
+      animate='visible'
+      whileInView='visible'
+      initial='hidden'
+      className={styles.container}
+    >
       <PostHeader id={id} canShowSettings={canShowSettings} />
       <figure className={styles.figure}>
         <Image
@@ -56,6 +75,6 @@ export const Post = ({ id }: PostProps) => {
       <PostButtons id={id} />
       <PostFooter id={id} showDescription />
       {windowWidth > 700 && <PostComment id={id} />}
-    </article>
+    </motion.article>
   );
 };
