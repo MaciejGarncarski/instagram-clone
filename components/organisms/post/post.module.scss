@@ -26,6 +26,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @include common.breakpoint('lg') {
+    min-height: 35rem;
+  }
 }
 
 .post-img {

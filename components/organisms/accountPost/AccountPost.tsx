@@ -1,6 +1,6 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import dynamic from 'next/dynamic';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useState } from 'react';
 import { BiComment, BiHeart } from 'react-icons/bi';
 
