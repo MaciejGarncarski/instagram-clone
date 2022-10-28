@@ -52,7 +52,7 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
 
     await queryClient.invalidateQueries(['profile', { id: user?.id }]);
     setIsOpen(false);
-    toast.success('Logged in!');
+    toast.success('Logged in!', { autoClose: 3500 });
   };
 
   return (
