@@ -21,7 +21,7 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
     return null;
   }
 
-  const { author, author_id, location, img_uuid } = postData;
+  const { author, author_id, location, img_uuid } = postData.post;
 
   return (
     <header className={clsx(borderBottom && styles.border, styles.author)}>

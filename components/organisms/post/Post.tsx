@@ -53,7 +53,7 @@ export const Post = ({ id }: PostProps) => {
     return null;
   }
 
-  const { author_id, img } = postData;
+  const { author_id, img } = postData.post;
   const canShowSettings = author_id === user?.id || userData?.role === 'ADMIN';
 
   return (
