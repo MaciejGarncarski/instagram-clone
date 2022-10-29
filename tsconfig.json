@@ -26,7 +26,8 @@
     "**/*.tsx",
     "jest.setup.js",
     "jest.config.js",
-    "assets.d.ts"
+    "assets.d.ts",
+    "next-sitemap.config.js"
   ],
   "exclude": ["node_modules"]
 }
