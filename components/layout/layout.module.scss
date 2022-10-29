@@ -22,17 +22,15 @@
   justify-content: center;
   background-color: var(--white);
   padding: 0.5rem 0;
-
-  @include common.breakpoint-max('sm') {
-    box-shadow: var(--box-shadow);
-  }
+  box-shadow: var(--box-shadow);
 
   @include common.breakpoint('sm') {
-    background-color: transparent;
-    padding: 1.5rem 0;
+    padding: 1.25rem 0;
   }
 
   @include common.breakpoint('lg') {
+    box-shadow: none;
+    background-color: transparent;
     padding: 0;
     justify-content: space-between;
     margin-bottom: 8rem;
@@ -76,5 +74,33 @@
   &:hover,
   &:focus {
     background-position: 40%;
+  }
+}
+
+.label {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  border-radius: var(--radius-small);
+  border: var(--gray-border);
+  background-color: #fff;
+}
+
+.input {
+  padding: 1rem;
+  padding-left: 0;
+  background-color: transparent;
+}
+
+.button {
+  left: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: transparent;
+
+  &:hover {
+    cursor: pointer;
   }
 }

@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { BiUser } from 'react-icons/bi';
 
 import { useProfile } from '@/hooks/profile/useProfile';

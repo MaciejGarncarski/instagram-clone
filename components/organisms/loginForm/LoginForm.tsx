@@ -52,8 +52,7 @@ export const LoginForm = () => {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <FormHeading text='Login' />
-
+      <FormHeading text='Log in' />
       <Input
         type='email'
         label='email'

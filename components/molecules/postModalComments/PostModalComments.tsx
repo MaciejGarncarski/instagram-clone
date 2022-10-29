@@ -19,7 +19,7 @@ export const PostModalComments = ({ id, allComments }: PostModalCommentsProps) =
   return (
     <div className={styles.overflow} id='overflow'>
       <div className={styles.description}>
-        <UserAvatar userID={postData?.author.id ?? ''} sizes='40' className={styles.avatar} />
+        <UserAvatar userID={postData?.post.author.id ?? ''} sizes='40' className={styles.avatar} />
         <PostDescription id={id} showAll />
       </div>
       {allComments && (

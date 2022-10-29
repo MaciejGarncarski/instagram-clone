@@ -8,9 +8,7 @@
   padding: 1rem 1.5rem;
   width: 100%;
 
-  @include common.breakpoint-max('lg') {
-    border-top: var(--gray-border);
-  }
+  border-top: var(--gray-border);
 }
 
 .last {

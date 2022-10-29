@@ -25,7 +25,7 @@ export const PostFooter = ({ id, showDescription }: PostFooterProps) => {
   const {
     created_at,
     _count: { posts_likes },
-  } = postData;
+  } = postData.post;
 
   const postDate = dayjs(created_at).format('YYYY/MM/DD');
   const createdAt = dayjs(created_at).fromNow();

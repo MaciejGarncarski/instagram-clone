@@ -8,12 +8,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const { id } = req.body;
+  const { userID, postID } = req.body;
 
   try {
     const post = await prisma.posts.findFirst({
       where: {
-        id,
+        id: postID,
       },
       include: {
         author: true,
@@ -26,7 +26,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).send(post);
+    const likesData = await prisma.posts_likes.findFirst({
+      where: {
+        post_id: postID,
+        user_id: userID,
+      },
+    });
+
+    res.status(200).send({ post, likesData });
   } catch (e) {
     res.status(400).send('400');
   }

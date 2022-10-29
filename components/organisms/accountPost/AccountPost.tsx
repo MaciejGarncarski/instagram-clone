@@ -1,6 +1,7 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import { motion, Variants } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useState } from 'react';
 import { BiComment, BiHeart } from 'react-icons/bi';
 
@@ -17,6 +18,19 @@ type PostProps = {
   userID: string;
 };
 
+const postVariant: Variants = {
+  hidden: {
+    scale: 0.7,
+    opacity: 0,
+    rotate: -4,
+  },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    rotate: 0,
+  },
+};
+
 const PostModal = dynamic(() =>
   namedComponent(import('@/components/organisms/postModal/PostModal'), 'PostModal')
 );
@@ -30,12 +44,6 @@ export const AccountPost = ({ postID, userID }: PostProps) => {
   const allPosts = data?.pages.flatMap((post) => post);
   const postData = allPosts?.find((post) => post.id === postID);
 
-  if (!postData) {
-    return <Loader />;
-  }
-
-  const { _count, img, description, id } = postData;
-
   const onClick = () => {
     if (user) {
       setModalOpen(true);
@@ -45,8 +53,14 @@ export const AccountPost = ({ postID, userID }: PostProps) => {
     }
   };
 
+  if (!postData) {
+    return <Loader />;
+  }
+
+  const { _count, img, description, id } = postData;
+
   return (
-    <div className={styles.container}>
+    <motion.div variants={postVariant} className={styles.container}>
       <div onClick={onClick} className={styles.overlay}>
         <div className={styles.stat}>
           <BiHeart /> {_count.posts_likes}
@@ -65,6 +79,6 @@ export const AccountPost = ({ postID, userID }: PostProps) => {
       />
       {LoginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
       {isModalOpen && <PostModal setIsOpen={setModalOpen} id={id} />}
-    </div>
+    </motion.div>
   );
 };

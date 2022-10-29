@@ -9,7 +9,7 @@ type ButtonProps = {
   type: 'submit' | 'reset' | 'button';
   disabled?: boolean;
   className?: string;
-  variant?: 'red';
+  variant?: 'red' | 'gradient';
 } & MotionProps &
   HTMLAttributes<HTMLButtonElement>;
 
@@ -21,7 +21,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         whileTap={disabled ? {} : { scale: 0.94 }}
         disabled={disabled}
-        className={clsx(className, variant === 'red' && styles['button--red'], styles.button)}
+        className={clsx(className, variant && styles[`button--${variant}`], styles.button)}
         {...other}
       >
         {children}

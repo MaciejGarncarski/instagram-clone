@@ -17,7 +17,7 @@ export const PostDescription = ({ id, showAll }: PostDescriptionProps) => {
     return null;
   }
 
-  const { description, author } = postData;
+  const { description, author } = postData.post;
 
   const LESS_DESCRIPTION_LENGTH = 50;
 

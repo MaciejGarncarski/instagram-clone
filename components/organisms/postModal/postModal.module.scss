@@ -22,7 +22,7 @@
 
 .modal {
   background-color: var(--bg-color);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-small);
   width: 94%;
   min-height: 85vh;
   max-height: 90vh;
@@ -32,6 +32,7 @@
   align-items: flex-start;
 
   @include common.breakpoint('xl') {
+    border-radius: var(--radius-medium);
     width: min(85%, 160rem);
     height: 80vh;
     overflow: hidden;

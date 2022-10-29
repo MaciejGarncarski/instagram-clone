@@ -1,20 +1,14 @@
+@use '/styles/common.scss';
+
 .button {
   background-image: var(--gradient);
   color: var(--bg-color);
   border: none;
-  text-transform: capitalize;
-  background-size: 200% 200%;
-  background-position: left;
-  transition: background-position var(--transition-slow);
   width: 100%;
 
-  padding: 0.5em 0;
+  padding: 1.5rem 0;
 
-  &:not(:disabled):hover {
-    background-position: right;
-  }
-
-  &:disabled {
-    opacity: 0.5;
+  @include common.breakpoint('lg') {
+    padding: 2rem 0;
   }
 }

@@ -8,7 +8,7 @@
   border-bottom: var(--gray-border);
 
   @include common.breakpoint('sm') {
-    border-radius: 1rem;
+    border-radius: var(--radius-small);
     border: var(--gray-border);
     box-shadow: var(--box-shadow);
     width: min(80%, 55rem);
@@ -17,6 +17,7 @@
 
   @include common.breakpoint('lg') {
     padding-bottom: 0rem;
+    border-radius: var(--radius-medium);
   }
 }
 
@@ -26,13 +27,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @include common.breakpoint('lg') {
+    min-height: 35rem;
+  }
 }
 
 .post-img {
   width: 100%;
   height: auto;
   max-height: 40rem;
-  object-fit: contain;
+  display: inline-block;
 
   @include common.breakpoint('lg') {
     max-height: 75rem;

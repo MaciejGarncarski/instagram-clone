@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -25,7 +25,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { commentsData, user, postData, currentUser } = usePostModal(id);
 
-  const canShowSettings = user?.id === postData?.author_id || currentUser?.role === 'ADMIN';
+  const canShowSettings = user?.id === postData?.post?.author_id || currentUser?.role === 'ADMIN';
   const allComments = commentsData?.pages.flatMap((comment) => comment);
 
   const closeModal = () => {
@@ -51,7 +51,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
         initial={{ opacity: 0.75 }}
       >
         <div className={styles.image}>
-          <Image width={700} height={700} src={postData.img} alt='img' priority />
+          <Image width={700} height={700} src={postData.post.img} alt='img' priority />
         </div>
         <CloseModalButton handleClose={closeModal} />
         <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />

@@ -5,7 +5,7 @@ import { LoginForm } from '@/components/organisms/loginForm/LoginForm';
 const Login = () => {
   return (
     <>
-      <NextSeo title='Login' />
+      <NextSeo title='Log in' />
       <LoginForm />
     </>
   );

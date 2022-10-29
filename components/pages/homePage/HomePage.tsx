@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -34,11 +35,15 @@ export const HomePage = () => {
       style={{ overflow: 'hidden' }}
       className={styles.scroller}
     >
-      <main id='main' className={styles.container}>
-        {allPosts.map(({ id }) => {
-          return <Post key={id} id={id} />;
-        })}
-      </main>
+      {allPosts && data && (
+        <main id='main' className={styles.container}>
+          <AnimatePresence>
+            {allPosts.map(({ id, author_id }) => {
+              return <Post key={`${id}, ${author_id}`} id={id} />;
+            })}
+          </AnimatePresence>
+        </main>
+      )}
     </InfiniteScroll>
   );
 };
