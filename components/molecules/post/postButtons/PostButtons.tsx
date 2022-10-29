@@ -4,13 +4,15 @@ import { motion } from 'framer-motion';
 import { ReactNode, useState } from 'react';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
-import { BiBookmark, BiComment, BiShare } from 'react-icons/bi';
+import { BiBookmark } from 'react-icons/bi';
 
+import { usePostData } from '@/hooks/posts/usePostData';
 import { usePostLike } from '@/hooks/posts/usePostLike';
-import { usePostLikesData } from '@/hooks/posts/usePostLikesData';
 
 import styles from './postButtons.module.scss';
 
+import { CommentIcon } from '@/components/atoms/icons/CommentIcon';
+import { ShareIcon } from '@/components/atoms/icons/ShareIcon';
 import { LoginModal } from '@/components/organisms/loginModal/LoginModal';
 import { PostModal } from '@/components/organisms/postModal/PostModal';
 
@@ -29,8 +31,8 @@ type ButtonProps = {
 export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const [postModalOpen, setPostModalOpen] = useState<boolean>(false);
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
-  const { data } = usePostLikesData(id);
-  const { handleLike, isLikedByUser } = usePostLike(id, data);
+  const { data } = usePostData(id);
+  const { handleLike, isLikedByUser } = usePostLike(id, data?.likesData);
   const user = useUser();
 
   const showModal = () => {
@@ -40,7 +42,6 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const handlePostLike = () => {
     if (user?.id) {
       handleLike();
-      return;
     }
     if (!user?.id) {
       setLoginModalOpen(true);
@@ -54,11 +55,14 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
       onClick: handlePostLike,
     },
     {
-      icon: <BiComment style={{ transform: 'scaleX(-1)' }} />,
+      icon: <CommentIcon />,
       alt: 'comment',
       onClick: commentCallback ? commentCallback : showModal,
     },
-    { icon: <BiShare style={{ transform: 'scaleX(-1)' }} />, alt: 'share' },
+    {
+      icon: <ShareIcon />,
+      alt: 'share',
+    },
     { icon: <BiBookmark />, alt: 'save', className: styles.last },
   ];
 

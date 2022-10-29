@@ -33,7 +33,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
           />
           <label className={styles.label} htmlFor='set-avatar'>
             <span className={styles.overlay} title='change avatar'>
-              <EditIcon size={50} />
+              <EditIcon size={50} className={styles.icon} />
             </span>
             <AvatarImage sizes={sizes} userID={userID} />
           </label>

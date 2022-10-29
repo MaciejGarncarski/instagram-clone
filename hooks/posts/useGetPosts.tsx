@@ -12,7 +12,7 @@ export type Posts = posts & {
   };
 };
 
-export const POST_PER_SCROLL = 5;
+export const POST_PER_SCROLL = 4;
 
 export const useGetPosts = () => {
   const postsCount = useQuery<Prisma.AggregatePosts>(['posts count'], () =>

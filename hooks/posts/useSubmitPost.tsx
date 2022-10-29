@@ -24,7 +24,6 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
 
   const onSubmit: SubmitHandler<postValues> = async ({ description, location }) => {
     const uuid = v4();
-    const addingPost = toast.loading('Uploading new post...');
 
     if (buttonRef.current) {
       buttonRef.current.disabled = true;
@@ -41,6 +40,7 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
         upsert: false,
       });
 
+    const addingPost = toast.loading('Uploading new post...');
     if (!data?.path) {
       updateToast({ toastId: addingPost, text: 'Could not add post', type: 'error' });
       return;
@@ -56,15 +56,12 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
         text: 'Couldnt get image, try again later',
         type: 'error',
       });
-
-      return;
     }
 
     mutate(
       { description, publicUrl, uuid, location },
       {
         onSuccess: () => {
-          updateToast({ toastId: addingPost, text: 'Post added!', type: 'success' });
           setImgSrc('');
           setCrop(undefined);
           setNewImg(null);
@@ -72,6 +69,7 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
           if (buttonRef.current) {
             buttonRef.current.disabled = false;
           }
+          updateToast({ toastId: addingPost, text: 'Post added!', type: 'success' });
         },
       }
     );

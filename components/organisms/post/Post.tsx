@@ -22,10 +22,15 @@ const articleVariant: Variants = {
   hidden: {
     rotate: -3,
     scale: 0.9,
+    opacity: 0,
   },
   visible: {
     rotate: 0,
     scale: 1,
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+    },
   },
 };
 
@@ -48,15 +53,13 @@ export const Post = ({ id }: PostProps) => {
     return null;
   }
 
-  const { author_id, img } = postData;
-
+  const { author_id, img } = postData.post;
   const canShowSettings = author_id === user?.id || userData?.role === 'ADMIN';
 
   return (
     <motion.article
       variants={articleVariant}
       viewport={{ once: true }}
-      animate='visible'
       whileInView='visible'
       initial='hidden'
       className={styles.container}

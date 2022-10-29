@@ -1,8 +1,7 @@
+import { posts_likes } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-
-import { Likes } from '@/hooks/posts/usePostLikesData';
 
 type PostLike = {
   post_id?: number;
@@ -10,7 +9,7 @@ type PostLike = {
   user_id?: string;
 };
 
-export const usePostLike = (id: number, data?: Likes) => {
+export const usePostLike = (id: number, data?: posts_likes) => {
   const user = useUser();
   const queryClient = useQueryClient();
   const isLikedByUser = data && data?.user_id === user?.id;

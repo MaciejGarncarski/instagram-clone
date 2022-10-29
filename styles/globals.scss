@@ -97,6 +97,15 @@ div.Toastify__progress-bar {
   height: 6px;
 }
 
+div.Toastify__toast-container {
+  margin-bottom: 5rem;
+
+  @include common.breakpoint('lg') {
+    margin-top: 7rem;
+    margin-bottom: 0;
+  }
+}
+
 div.Toastify__toast {
   --toastify-color-success: var(--primary-color);
   --toastify-color-progress-success: linear-gradient(
@@ -107,8 +116,16 @@ div.Toastify__toast {
   --toastify-icon-color-success: var(--primary-color);
   --toastify-text-color-light: var(--text-color);
   --toastify-color-light: #fff;
-  margin-bottom: 2rem;
+  border: 1px solid var(--text-color);
   border-radius: var(--radius-small);
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+
+  @include common.breakpoint('lg') {
+    width: auto;
+    margin-bottom: 2rem;
+  }
 
   &--error {
     --toastify-color-error: var(--error-color);
