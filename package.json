@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier -w .",
@@ -38,6 +39,7 @@
     "next-progress": "^2.2.0",
     "next-pwa": "5.5.4",
     "next-seo": "^5.5.0",
+    "next-sitemap": "^3.1.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.2",
