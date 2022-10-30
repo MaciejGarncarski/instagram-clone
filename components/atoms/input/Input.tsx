@@ -33,6 +33,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
             type={isShown ? 'text' : type}
             id={label}
+            autoComplete={label.toLowerCase()}
             {...props}
           />
           <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>

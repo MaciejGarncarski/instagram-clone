@@ -11,7 +11,7 @@ type SinglePostData = {
   likesData: posts_likes;
 };
 
-const fetchPost = async (postID: number, userID?: string): Promise<SinglePostData> => {
+export const fetchSinglePost = async (postID: number, userID?: string): Promise<SinglePostData> => {
   const { data } = await apiClient.post('/posts/getSinglePost', {
     postID,
     userID,
@@ -21,5 +21,7 @@ const fetchPost = async (postID: number, userID?: string): Promise<SinglePostDat
 
 export const usePostData = (id: number) => {
   const user = useUser();
-  return useQuery<SinglePostData, AxiosError>(['single post', id], () => fetchPost(id, user?.id));
+  return useQuery<SinglePostData, AxiosError>(['single post', id], () =>
+    fetchSinglePost(id, user?.id)
+  );
 };

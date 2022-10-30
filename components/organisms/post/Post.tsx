@@ -53,7 +53,7 @@ export const Post = ({ id }: PostProps) => {
     return null;
   }
 
-  const { author_id, img } = postData.post;
+  const { author_id, img, author } = postData.post;
   const canShowSettings = author_id === user?.id || userData?.role === 'ADMIN';
 
   return (
@@ -69,7 +69,7 @@ export const Post = ({ id }: PostProps) => {
         <Image
           className={styles['post-img']}
           src={img}
-          alt='post'
+          alt={`${author.username}'s post`}
           width={300}
           height={270}
           priority

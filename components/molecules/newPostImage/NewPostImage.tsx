@@ -73,7 +73,7 @@ export const NewPostImage = () => {
               aspect={aspect}
               className={styles.crop}
             >
-              <img ref={imgRef} alt='Crop me' src={imgSrc} onLoad={onImageLoad} />
+              <img ref={imgRef} alt='' src={imgSrc} onLoad={onImageLoad} />
             </ReactCrop>
           </div>
           <div className={styles.buttons}>

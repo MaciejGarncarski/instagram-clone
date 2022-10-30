@@ -42,6 +42,8 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
     return null;
   }
 
+  const { img, author } = postData.post;
+
   return createPortal(
     <ModalContainer onClose={closeModal}>
       <motion.div
@@ -51,7 +53,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
         initial={{ opacity: 0.75 }}
       >
         <div className={styles.image}>
-          <Image width={700} height={700} src={postData.post.img} alt='img' priority />
+          <Image width={700} height={700} src={img} alt={`${author.username}'s post`} priority />
         </div>
         <CloseModalButton handleClose={closeModal} />
         <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />
