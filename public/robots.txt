@@ -1,4 +1,9 @@
+# *
 User-agent: *
-Allow: /*
+Allow: /
 
-Disallow: /api/*
+# Host
+Host: https://delaygram-dev.vercel.app/
+
+# Sitemaps
+Sitemap: https://delaygram-dev.vercel.app/sitemap.xml

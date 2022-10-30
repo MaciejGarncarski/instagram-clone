@@ -14,6 +14,8 @@ const customJestConfig = {
 
   moduleNameMapper: {
     '^~/(.*)$': '<rootDir>/public/$1',
+    '^@/(.*)$': '<rootDir>/components/$1',
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
 };
 
