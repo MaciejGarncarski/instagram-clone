@@ -67,7 +67,6 @@ export const LoginForm = () => {
         error={errors.password}
         {...register('password')}
       />
-
       <FormButton text='Log in' />
       <AuthRedirect type='login' />
     </FormContainer>

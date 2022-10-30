@@ -6,6 +6,8 @@
      },
      "parser": "@typescript-eslint/parser",
      "plugins": [
+      "jest-dom", 
+      "testing-library",
        "@typescript-eslint",
        "simple-import-sort",
        "unused-imports",

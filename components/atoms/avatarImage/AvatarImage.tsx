@@ -23,13 +23,15 @@ export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
     return <BiUser className={styles.placeholder} />;
   }
 
+  const { avatar_url, username } = data;
+
   return (
     <Image
       fill
       sizes={sizes ? sizes : '100'}
       className={styles.image}
-      src={data?.avatar_url}
-      alt='user profile picture'
+      src={avatar_url}
+      alt={`${username}'s profile picture`}
       priority
     />
   );
