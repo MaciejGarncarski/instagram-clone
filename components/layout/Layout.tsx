@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import { BiSearch } from 'react-icons/bi';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import styles from './layout.module.scss';
 
 import { Nav } from '@/components/layout/nav/Nav';
+import { Search } from '@/components/layout/search/Search';
 
 type LayoutProps = {
   children: ReactNode;
@@ -25,15 +25,7 @@ export const Layout = ({ children }: LayoutProps) => {
             Delaygram
           </Link>
         </h1>
-        <form>
-          <label className={styles.label}>
-            <button className={styles.button}>
-              <span className='visually-hidden'>Search</span>
-              <BiSearch />
-            </button>
-            <input type='text' placeholder='Search...' className={styles.input} />
-          </label>
-        </form>
+        <Search />
         <Nav />
       </nav>
       <ToastContainer theme='light' autoClose={2200} position='bottom-right' />

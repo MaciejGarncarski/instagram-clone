@@ -3,9 +3,8 @@ import type { GetStaticProps } from 'next';
 
 import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
 import { getInfiniteData, POSTS_DATA_URL } from '@/lib/getInfiniteData';
-import { POST_PER_SCROLL } from '@/hooks/posts/useGetPosts';
+import { POST_PER_SCROLL, Posts } from '@/hooks/posts/useGetPosts';
 import { fetchSinglePost } from '@/hooks/posts/usePostData';
-import { Posts } from '@/hooks/profile/useAccountPosts';
 
 import { HomePage } from '@/components/pages/homePage/HomePage';
 
@@ -13,7 +12,7 @@ const Home = () => {
   return <HomePage />;
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const queryClient = new QueryClient();
 
   const initialPosts = await getInfiniteData<Array<Posts>>({
