@@ -24,8 +24,8 @@ export const Buttons = ({ isDirty, disabled, reset }: ButtonsProps) => {
   const handleReset = () => {
     setCharCount(data?.bio?.length ?? 0);
     reset({
+      fullName: isString(data?.full_name),
       username: isString(data?.username),
-      website: isString(data?.website),
       bio: isString(data?.bio),
     });
   };

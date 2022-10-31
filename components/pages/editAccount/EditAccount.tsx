@@ -9,7 +9,8 @@ import { z } from 'zod';
 import { isString } from '@/lib/isString';
 import { useProfile } from '@/hooks/profile/useProfile';
 import { useUpdateProfile } from '@/hooks/profile/useUpdateProfile';
-import { bio, username, website } from '@/utils/editAccountValidation';
+import { bio } from '@/utils/editAccountValidation';
+import { fullName, username } from '@/utils/registerValidation';
 
 import styles from './editAccount.module.scss';
 
@@ -20,9 +21,9 @@ import { Buttons } from '@/components/molecules/editAccount/buttons/Buttons';
 import { Inputs } from '../../molecules/inputs/Inputs';
 
 const formSchema = z.object({
+  fullName,
   username,
   bio,
-  website,
 });
 
 export type FormValues = z.infer<typeof formSchema>;
@@ -30,8 +31,8 @@ export type FormValues = z.infer<typeof formSchema>;
 export const EditAccount = () => {
   const { data } = useProfile();
 
-  const userName = isString(data?.username);
-  const userWebsite = isString(data?.website);
+  const fullName = isString(data?.full_name);
+  const username = isString(data?.username);
   const userBio = isString(data?.bio);
 
   const userID = isString(data?.id);
@@ -44,11 +45,11 @@ export const EditAccount = () => {
     watch,
     formState: { errors, isValid, isDirty },
   } = useForm<FormValues>({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: userName,
-      website: userWebsite,
+      fullName,
+      username,
       bio: userBio,
     },
   });
@@ -57,11 +58,11 @@ export const EditAccount = () => {
   const queryClient = useQueryClient();
   const { mutate } = useUpdateProfile();
 
-  const onSubmit: SubmitHandler<FormValues> = ({ username, bio, website }) => {
+  const onSubmit: SubmitHandler<FormValues> = ({ fullName, username, bio }) => {
     const updatingToast = toast.loading('Updating profile...');
 
     mutate(
-      { username, bio, website, userID, profileID },
+      { fullName, username, bio, userID, profileID },
       {
         onError: (error) => {
           if (axios.isAxiosError(error)) {

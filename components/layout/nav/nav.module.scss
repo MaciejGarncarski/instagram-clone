@@ -13,7 +13,7 @@
   z-index: 2;
   box-shadow: 0 -1px 3px 0 rgb(0, 0, 0, 0.15);
 
-  @include common.breakpoint('lg') {
+  @include common.breakpoint('xl') {
     background: transparent;
     position: static;
     padding: 0;
@@ -41,7 +41,7 @@
   display: flex;
   position: relative;
 
-  @include common.breakpoint('lg') {
+  @include common.breakpoint('xl') {
     padding: 1rem;
 
     &::before {

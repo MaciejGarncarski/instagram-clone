@@ -22,7 +22,7 @@ export const usePostLike = (id: number, data?: posts_likes) => {
 
   const postDislike = useMutation(
     ({ post_id, user_id }: PostLike) => {
-      return axios.post('/api/posts/removePostLike', {
+      return axios.patch('/api/posts/postLike', {
         post_id,
         user_id,
       });
@@ -31,9 +31,9 @@ export const usePostLike = (id: number, data?: posts_likes) => {
   );
 
   const postLike = useMutation(
-    ({ post_id }: PostLike) => {
-      return axios.post('/api/posts/addPostLike', {
-        user_id: user?.id,
+    ({ user_id, post_id }: PostLike) => {
+      return axios.post('/api/posts/postLike', {
+        user_id,
         post_id,
       });
     },
@@ -52,7 +52,7 @@ export const usePostLike = (id: number, data?: posts_likes) => {
     }
     if (!isLikedByUser) {
       postLike.mutate(
-        { post_id: id },
+        { post_id: id, user_id: user?.id },
         {
           onSuccess,
         }

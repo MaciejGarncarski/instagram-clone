@@ -10,11 +10,11 @@ type UpdateProfileArgs = FormValues & {
 };
 
 export const useUpdateProfile = () => {
-  return useMutation(async ({ username, bio, website, userID, profileID }: UpdateProfileArgs) => {
+  return useMutation(async ({ username, bio, fullName, userID, profileID }: UpdateProfileArgs) => {
     return apiClient.patch('/accounts/updateProfile', {
+      fullName: fullName.trim(),
       username: username.trim(),
       bio: bio.trim(),
-      website: website?.trim(),
       id: userID,
       profile_id: profileID,
     });

@@ -1,16 +1,9 @@
-import { posts, Prisma, profiles } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
 import { getInfiniteData } from '@/lib/getInfiniteData';
-
-export type Posts = posts & {
-  author: profiles;
-  _count: {
-    posts_likes: number;
-    posts_comments: number;
-  };
-};
+import { Posts } from '@/hooks/posts/useGetPosts';
 
 const POSTS_PER_SCROLL = 9;
 

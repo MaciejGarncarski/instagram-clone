@@ -1,7 +1,7 @@
 @use '/styles/common.scss';
 
 .wrapper {
-  max-width: 150rem;
+  max-width: 155rem;
   margin-inline: auto;
 
   @include common.breakpoint('lg') {
@@ -19,7 +19,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-color: var(--white);
   padding: 0.5rem 0;
   box-shadow: var(--box-shadow);
@@ -74,33 +74,5 @@
   &:hover,
   &:focus {
     background-position: 40%;
-  }
-}
-
-.label {
-  display: flex;
-  justify-content: stretch;
-  align-items: stretch;
-  border-radius: var(--radius-small);
-  border: var(--gray-border);
-  background-color: #fff;
-}
-
-.input {
-  padding: 1rem;
-  padding-left: 0;
-  background-color: transparent;
-}
-
-.button {
-  left: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 1rem;
-  background-color: transparent;
-
-  &:hover {
-    cursor: pointer;
   }
 }

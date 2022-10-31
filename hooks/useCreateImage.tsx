@@ -1,19 +1,21 @@
-import { useAtom } from 'jotai';
-import { RefObject, useEffect } from 'react';
+import { RefObject, SetStateAction, useEffect } from 'react';
+import { PixelCrop } from 'react-image-crop';
 
 import { canvasPreview } from '@/utils/canvasPreview';
-
-import { completedCropAtom, newImgAtom } from '@/store/store';
 
 export type UseCreateImageProps = {
   imgRef: RefObject<HTMLImageElement>;
   previewCanvasRef: RefObject<HTMLCanvasElement>;
+  completedCrop: PixelCrop | null;
+  setNewImg: (update: SetStateAction<Blob | null>) => void;
 };
 
-export const useCreateImage = ({ imgRef, previewCanvasRef }: UseCreateImageProps) => {
-  const [completedCrop] = useAtom(completedCropAtom);
-  const [, setNewImg] = useAtom(newImgAtom);
-
+export const useCreateImage = ({
+  imgRef,
+  previewCanvasRef,
+  completedCrop,
+  setNewImg,
+}: UseCreateImageProps) => {
   useEffect(() => {
     const createImg = async () => {
       if (

@@ -12,7 +12,7 @@ import styles from './newPostImage.module.scss';
 
 import { Button } from '@/components/atoms/button/Button';
 
-import { aspectAtom, completedCropAtom, cropAtom, imgSrcAtom } from '@/store/store';
+import { aspectAtom, completedCropAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/store';
 
 type ButtonData = {
   aspectRatio: number;
@@ -37,14 +37,16 @@ const buttonData: Array<ButtonData> = [
 export const NewPostImage = () => {
   const [aspect, setAspect] = useAtom(aspectAtom);
   const [crop, setCrop] = useAtom(cropAtom);
-  const [imgSrc] = useAtom(imgSrcAtom);
+  const [imgSrc, setImgSrc] = useAtom(imgSrcAtom);
   const [, setCompletedCrop] = useAtom(completedCropAtom);
+  const [, setNewImg] = useAtom(newImgAtom);
+  const [completedCrop] = useAtom(completedCropAtom);
 
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const { handleImg, onImageLoad } = useNewPost();
+  const { handleImg, onImageLoad } = useNewPost({ aspect, setCrop, setImgSrc });
 
-  useCreateImage({ imgRef, previewCanvasRef });
+  useCreateImage({ imgRef, previewCanvasRef, completedCrop, setNewImg });
 
   const handleClick = (aspect: number) => {
     setCrop(undefined);
@@ -61,7 +63,7 @@ export const NewPostImage = () => {
         id='file'
         name='new post'
       />
-      {imgSrc !== '' ? (
+      {imgSrc !== '' && (
         <>
           <div className={styles.preview}>
             <canvas className='visually-hidden' ref={previewCanvasRef}></canvas>
@@ -92,7 +94,8 @@ export const NewPostImage = () => {
             })}
           </div>
         </>
-      ) : (
+      )}
+      {imgSrc === '' && (
         <label className={styles.label} htmlFor='file'>
           <CgAddR size={50} />
           <p>Add image here</p>
