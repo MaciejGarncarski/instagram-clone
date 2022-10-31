@@ -1,11 +1,8 @@
 @use '/styles/common.scss';
 
 .button {
-  background-image: var(--gradient);
-  color: var(--bg-color);
-  border: none;
   width: 100%;
-
+  margin-top: 4rem;
   padding: 1.5rem 0;
 
   @include common.breakpoint('lg') {

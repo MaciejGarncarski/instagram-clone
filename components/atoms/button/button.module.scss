@@ -28,12 +28,12 @@
   &--gradient {
     border-color: transparent;
     background: var(--gradient);
-    background-size: 200% 200%;
-    background-position: left;
+    background-size: 200%;
+    background-position: 10%;
     transition: background-position var(--transition-slow);
 
     &:not(:disabled):hover {
-      background-position: right;
+      background-position: 90%;
     }
   }
 

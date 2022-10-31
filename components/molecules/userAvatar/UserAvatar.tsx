@@ -1,12 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import clsx from 'clsx';
-import { forwardRef } from 'react';
+import { ChangeEvent, forwardRef, useRef, useState } from 'react';
 
-import { useAvatarInput } from '@/hooks/useAvatarInput';
+import { useNewPost } from '@/hooks/posts/useNewPost';
 
 import styles from './userAvatar.module.scss';
 
 import { AvatarImage } from '@/components/atoms/avatarImage/AvatarImage';
 import { EditIcon } from '@/components/atoms/icons/EditIcon';
+import { UserAvatarModal } from '@/components/molecules/userAvatarModal/UserAvatarModal';
 
 type UserAvatarProps = {
   className?: string;
@@ -17,7 +19,20 @@ type UserAvatarProps = {
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
   ({ className, editable, userID, sizes }, ref) => {
-    const { handleChange } = useAvatarInput();
+    const [isEditing, setIsEditing] = useState<boolean>(false);
+
+    const [imgSrc, setImgSrc] = useState<string>('');
+
+    const imgRef = useRef<HTMLImageElement>(null);
+    const { handleImg } = useNewPost({ aspect: 1, setImgSrc });
+
+    const onChange = (ev: ChangeEvent<HTMLInputElement>) => {
+      if (!ev.target.files || !ev.target.files[0]) {
+        return;
+      }
+      setIsEditing(true);
+      handleImg(ev);
+    };
 
     if (editable) {
       return (
@@ -29,7 +44,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             accept='.jpg, .jpeg, .png'
             className={styles.input}
             name='set-avatar'
-            onChange={handleChange}
+            onChange={onChange}
           />
           <label className={styles.label} htmlFor='set-avatar'>
             <span className={styles.overlay} title='change avatar'>
@@ -37,6 +52,14 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             </span>
             <AvatarImage sizes={sizes} userID={userID} />
           </label>
+          {isEditing && (
+            <UserAvatarModal
+              imgRef={imgRef}
+              setIsEditing={setIsEditing}
+              imgSrc={imgSrc}
+              setImgSrc={setImgSrc}
+            />
+          )}
         </div>
       );
     }

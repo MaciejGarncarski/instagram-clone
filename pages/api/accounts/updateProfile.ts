@@ -9,7 +9,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
     return;
   }
 
-  const { website, id, bio, username, profile_id } = req.body;
+  const { fullName, username, bio, id, profile_id } = req.body;
 
   try {
     const updatedProfile = await prisma.profiles.update({
@@ -17,10 +17,10 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
         id: id,
       },
       data: {
-        username: username,
-        bio: bio,
-        profile_id: profile_id,
-        website: website,
+        full_name: fullName,
+        username,
+        bio,
+        profile_id,
       },
     });
     res.status(200).send('success');

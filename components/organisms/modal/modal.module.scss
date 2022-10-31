@@ -21,7 +21,7 @@
   width: 100%;
 
   @include common.breakpoint('sm') {
-    width: clamp(20rem, 40%, 35rem);
+    width: clamp(20rem, 40%, 45rem);
   }
 
   &--big {

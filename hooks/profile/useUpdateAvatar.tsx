@@ -12,7 +12,9 @@ export const useUpdateAvatar = () => {
 
   return useMutation(
     ({ publicUrl }: Mutation) => {
-      return axios.patch('/api/accounts/updateAvatar', { id: user?.id, avatarURL: publicUrl });
+      const now = new Date().getTime();
+      const uncachedIMG = `${publicUrl}?cache_bust=${now}`;
+      return axios.patch('/api/accounts/updateAvatar', { id: user?.id, avatarURL: uncachedIMG });
     },
     {
       onSuccess: () => {

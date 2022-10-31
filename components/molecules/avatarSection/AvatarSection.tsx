@@ -42,7 +42,10 @@ export const AvatarSection = () => {
       >
         <div className={styles['avatar-container']}>
           <UserAvatar className={styles.avatar} ref={avatarRef} userID={user.id} editable />
-          <h2>{data?.username ?? `user-${data?.profile_id}`}</h2>
+          <div>
+            <h2>{data?.full_name}</h2>
+            <p>@{data?.username}</p>
+          </div>
         </div>
 
         <div className={styles.buttons}>

@@ -26,6 +26,11 @@
     font-size: 3rem;
     gap: 2rem;
   }
+
+  @include common.breakpoint('lg') {
+    gap: 3rem;
+    padding: 0 4rem;
+  }
 }
 
 @mixin modal-button-link {

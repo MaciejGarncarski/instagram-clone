@@ -20,7 +20,7 @@ type InputsProps<T extends FormValues> = {
   fieldsValues: T;
 };
 
-export const Inputs = ({ errors, register, reset, fieldsValues }: InputsProps<FormValues>) => {
+export const Inputs = ({ errors, register, fieldsValues }: InputsProps<FormValues>) => {
   const { data } = useProfile();
   const [, setCharCount] = useAtom(charCountAtom);
 
@@ -38,18 +38,17 @@ export const Inputs = ({ errors, register, reset, fieldsValues }: InputsProps<Fo
     <div className={styles.inputs}>
       <Input
         type='text'
+        label='Full name'
+        isDirty={fieldsValues.fullName !== ''}
+        error={errors.fullName}
+        {...register('fullName')}
+      />
+      <Input
+        type='text'
         label='username'
         isDirty={fieldsValues.username !== ''}
         error={errors.username}
         {...register('username')}
-      />
-      <Input
-        type='text'
-        label='website'
-        optional
-        isDirty={fieldsValues.website !== ''}
-        error={errors.website}
-        {...register('website')}
       />
       <TextArea
         label='bio'
