@@ -8,8 +8,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     body: { user_id, post_id },
   } = req;
 
-  console.log(method);
-
   if (method === 'POST') {
     try {
       const likePost = await prisma.posts_likes.create({

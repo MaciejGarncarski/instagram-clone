@@ -9,6 +9,7 @@ type PostLike = {
   post_id?: number;
   post_like_id?: number;
   user_id?: string;
+  dislike?: true;
 };
 
 const updateFn = (oldData?: SinglePostData, newData?: PostLike) => {
@@ -32,7 +33,6 @@ const updateFn = (oldData?: SinglePostData, newData?: PostLike) => {
       post_id: post_id,
     },
   };
-
   return newLike;
 };
 
@@ -45,37 +45,15 @@ export const usePostLike = (id: number, data?: posts_likes) => {
     queryClient.invalidateQueries(['single post', id]);
   };
 
-  const postDislike = useMutation(
-    ({ post_id, user_id }: PostLike) => {
-      return axios.patch('/api/posts/postLike', {
-        post_id,
-        user_id,
-      });
-    },
-    {
-      onMutate: async (newLike) => {
-        await queryClient.cancelQueries(['single post', newLike.post_id]);
-        const previousLike = queryClient.getQueryData<SinglePostData>([
-          'single post',
-          newLike.post_id,
-        ]);
-        queryClient.setQueryData<SinglePostData>(['single post', newLike.post_id], (oldData) =>
-          updateFn(oldData, newLike)
-        );
-        return { previousLike, newLike };
-      },
-      onError: (err, newLike, context) => {
-        queryClient.setQueryData<SinglePostData>(
-          ['single post', context?.newLike.post_id],
-          context?.previousLike
-        );
-      },
-      onSettled: onSuccess,
-    }
-  );
-
   const postLike = useMutation(
-    ({ user_id, post_id }: PostLike) => {
+    ({ user_id, post_id, dislike }: PostLike) => {
+      if (dislike) {
+        return axios.patch('/api/posts/postLike', {
+          user_id,
+          post_id,
+        });
+      }
+
       return axios.post('/api/posts/postLike', {
         user_id,
         post_id,
@@ -99,13 +77,13 @@ export const usePostLike = (id: number, data?: posts_likes) => {
           context?.previousLike
         );
       },
-      onSettled: onSuccess,
+      onSuccess,
     }
   );
 
   const handleLike = () => {
     if (isLikedByUser) {
-      postDislike.mutate({ post_id: id, user_id: user?.id });
+      postLike.mutate({ post_id: id, user_id: user?.id, dislike: true });
     }
     if (!isLikedByUser) {
       postLike.mutate({ post_id: id, user_id: user?.id });
