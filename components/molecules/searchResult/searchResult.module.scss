@@ -1,0 +1,39 @@
+@use '/styles/common.scss';
+
+.avatar {
+  --size: 6rem;
+
+  width: var(--size);
+  height: var(--size);
+
+  @include common.breakpoint('lg') {
+    --size: 9rem;
+  }
+}
+
+.link {
+  width: 100%;
+  color: var(--text-color);
+  text-decoration: none;
+
+  @include common.breakpoint('lg') {
+    width: min(80%, 55rem);
+  }
+}
+
+.container {
+  box-shadow: var(--box-shadow);
+  background-color: #fff;
+  border-radius: var(--radius-small);
+  border: var(--gray-border);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 3rem;
+  gap: 2.5rem;
+}
+
+.icon {
+  margin-left: auto;
+  font-size: 5rem;
+}

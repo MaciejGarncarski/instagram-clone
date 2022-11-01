@@ -18,7 +18,7 @@ type PostProps = {
   id: number;
 };
 
-const articleVariant: Variants = {
+export const articleVariant: Variants = {
   hidden: {
     rotate: -3,
     scale: 0.9,

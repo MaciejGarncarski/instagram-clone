@@ -9,6 +9,7 @@ import styles from './search.module.scss';
 
 import { GoBackButton } from '@/components/atoms/goBackButton/GoBackButton';
 import { Loader } from '@/components/atoms/loader/Loader';
+import { SearchResult } from '@/components/molecules/searchResult/SearchResult';
 import { Post } from '@/components/organisms/post/Post';
 
 export const Search = () => {
@@ -33,7 +34,7 @@ export const Search = () => {
             return <Post id={result.id} key={result.id} />;
           }
           if ('profile_id' in result) {
-            return <div key={result.username}>@{result.username}</div>;
+            return <SearchResult data={result} key={result.id} />;
           }
         })}
       </div>
