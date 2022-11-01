@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -13,6 +14,7 @@ type LayoutProps = {
 };
 
 export const Layout = ({ children }: LayoutProps) => {
+  const user = useUser();
   return (
     <div className={styles.wrapper}>
       <a href='#main' className={styles.skip}>
@@ -25,7 +27,7 @@ export const Layout = ({ children }: LayoutProps) => {
             Delaygram
           </Link>
         </h1>
-        <Search />
+        {user?.id && <Search />}
         <Nav />
       </nav>
       <ToastContainer theme='light' autoClose={2200} position='bottom-right' />

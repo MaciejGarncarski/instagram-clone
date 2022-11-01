@@ -9,12 +9,12 @@ const fullNameRegExp =
 export const fullName = z
   .string()
   .trim()
-  .regex(fullNameRegExp, { message: 'Enter valid name and surname!' });
+  .regex(fullNameRegExp, { message: 'Enter valid name and surname' });
 
 export const username = z
   .string()
   .min(2)
-  .regex(usernameRegExp, { message: 'Invalid characters in username!' })
+  .regex(usernameRegExp, { message: 'Invalid characters in username' })
   .regex(nonLowercaseLettersRegExp, {
     message: 'Username should contain lowercase letters only!',
   });

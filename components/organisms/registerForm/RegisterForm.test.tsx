@@ -30,7 +30,7 @@ describe('RegisterForm', () => {
     const { submitButton } = getElements();
     userEvent.click(submitButton);
     const emailError = await screen.findByText(/Invalid email/);
-    const usernameError = await screen.findByText(/Enter valid name and surname!/);
+    const usernameError = await screen.findByText(/Enter valid name and surname/);
     const fullnameError = await screen.findByText('String must contain at least 2 character(s)');
     const passwordError = await screen.findByText(/Password must contain at least 6 characters/);
 

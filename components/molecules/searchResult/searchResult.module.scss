@@ -1,7 +1,7 @@
 @use '/styles/common.scss';
 
 .avatar {
-  --size: 6rem;
+  --size: 5rem;
 
   width: var(--size);
   height: var(--size);
@@ -29,11 +29,20 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 2rem 3rem;
-  gap: 2.5rem;
+  padding: 1rem 2rem;
+  gap: 1.5rem;
+
+  @include common.breakpoint('lg') {
+    padding: 2rem 3rem;
+    gap: 2.5rem;
+  }
 }
 
 .icon {
   margin-left: auto;
-  font-size: 5rem;
+  font-size: 3rem;
+
+  @include common.breakpoint('lg') {
+    font-size: 5rem;
+  }
 }

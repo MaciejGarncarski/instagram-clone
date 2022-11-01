@@ -29,6 +29,7 @@ export const Search = () => {
     <main id='main'>
       <GoBackButton />
       <div className={styles.container}>
+        {data.length === 0 && <p>no results</p>}
         {data.map((result) => {
           if ('author_id' in result) {
             return <Post id={result.id} key={result.id} />;
