@@ -50,7 +50,11 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
 
   const buttonsData: Button[] = [
     {
-      icon: isLikedByUser ? <AiFillHeart fill='red' /> : <AiOutlineHeart />,
+      icon: isLikedByUser ? (
+        <AiFillHeart fill='red' stroke='black' strokeWidth={70} />
+      ) : (
+        <AiOutlineHeart />
+      ),
       alt: 'like',
       onClick: handlePostLike,
     },

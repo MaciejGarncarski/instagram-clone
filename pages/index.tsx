@@ -12,7 +12,7 @@ const Home = () => {
   return <HomePage />;
 };
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
 
   const initialPosts = await getInfiniteData<Array<Posts>>({
@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   });
 
   await queryClient.fetchQuery(['posts'], () =>
-    getInfiniteData({ url: POSTS_DATA_URL, pageParam: 0, perScroll: POST_PER_SCROLL })
+    getInfiniteData({ url: POSTS_DATA_URL, pageParam: 0, perScroll: 20 })
   );
   await queryClient.fetchQuery(['posts count'], () => getCount(POSTS_COUNT_URL));
 
