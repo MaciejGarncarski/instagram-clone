@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import { apiClient } from '@/lib/apiClient';
 import { Posts } from '@/hooks/posts/useGetPosts';
 
-type SinglePostData = {
+export type SinglePostData = {
   post: Posts;
   likesData: posts_likes;
 };
