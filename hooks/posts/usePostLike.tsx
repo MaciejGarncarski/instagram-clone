@@ -15,9 +15,7 @@ export const usePostLike = (id: number, data?: posts_likes) => {
   const isLikedByUser = data && data?.user_id === user?.id;
 
   const onSuccess = () => {
-    queryClient.invalidateQueries(['postLikeData']);
-    queryClient.invalidateQueries(['posts']);
-    queryClient.invalidateQueries(['single post']);
+    queryClient.invalidateQueries(['single post', id]);
   };
 
   const postDislike = useMutation(
@@ -27,36 +25,34 @@ export const usePostLike = (id: number, data?: posts_likes) => {
         user_id,
       });
     },
-    { onSuccess }
+    {
+      onMutate: async (newLike) => {
+        await queryClient.cancelQueries(['single post', newLike.post_id]);
+        const previousLike = queryClient.getQueryData(['single post', newLike.post_id]);
+        queryClient.setQueryData(['single post', newLike.post_id], newLike);
+
+        return { previousLike, newLike };
+      },
+      onError: (err, newLike, context) => {
+        queryClient.setQueryData(['single post', context?.newLike.post_id], context?.previousLike);
+      },
+      onSettled: onSuccess,
+    }
   );
 
-  const postLike = useMutation(
-    ({ user_id, post_id }: PostLike) => {
-      return axios.post('/api/posts/postLike', {
-        user_id,
-        post_id,
-      });
-    },
-
-    { onSuccess }
-  );
+  const postLike = useMutation(({ user_id, post_id }: PostLike) => {
+    return axios.post('/api/posts/postLike', {
+      user_id,
+      post_id,
+    });
+  });
 
   const handleLike = () => {
     if (isLikedByUser) {
-      postDislike.mutate(
-        { post_id: id, user_id: user?.id },
-        {
-          onSuccess,
-        }
-      );
+      postDislike.mutate({ post_id: id, user_id: user?.id });
     }
     if (!isLikedByUser) {
-      postLike.mutate(
-        { post_id: id, user_id: user?.id },
-        {
-          onSuccess,
-        }
-      );
+      postLike.mutate({ post_id: id, user_id: user?.id });
     }
   };
 
