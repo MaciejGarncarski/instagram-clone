@@ -2,16 +2,14 @@
 
 .container {
   background-color: var(--white);
-  width: 100%;
-
+  width: 95%;
+  box-shadow: var(--box-shadow);
   padding-bottom: 2rem;
-  border-bottom: var(--gray-border);
+  border: var(--gray-border);
+  border-radius: var(--radius-small);
 
   @include common.breakpoint('sm') {
-    border-radius: var(--radius-small);
-    border: var(--gray-border);
-    box-shadow: var(--box-shadow);
-    width: min(80%, 55rem);
+    width: min(80%, 60rem);
     padding-bottom: 1rem;
   }
 

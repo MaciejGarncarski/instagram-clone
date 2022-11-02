@@ -1,7 +1,6 @@
 @use '/styles/common.scss';
 
 .author {
-  border-top: var(--gray-border);
   padding: 1rem 1.5rem;
   display: flex;
   justify-content: flex-start;
@@ -11,7 +10,6 @@
 
   @include common.breakpoint('sm') {
     padding: 1.2rem 1.5rem;
-    border-top: none;
   }
 
   @include common.breakpoint('lg') {
