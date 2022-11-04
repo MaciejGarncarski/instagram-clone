@@ -45,7 +45,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
   const { img, author } = postData.post;
 
   return createPortal(
-    <ModalContainer onClose={closeModal}>
+    <ModalContainer onClose={closeModal} className={styles.container}>
       <motion.div
         role='dialog'
         className={styles.modal}

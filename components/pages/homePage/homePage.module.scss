@@ -14,12 +14,13 @@
   @include common.breakpoint('sm') {
     padding: 0 4rem;
     padding-bottom: 8rem;
-    margin-top: 0;
+    margin-top: 4rem;
     gap: 4rem;
   }
 
   @include common.breakpoint('lg') {
     padding: 0 0 8rem 0;
+    margin-top: 0;
     gap: 6rem;
   }
 }

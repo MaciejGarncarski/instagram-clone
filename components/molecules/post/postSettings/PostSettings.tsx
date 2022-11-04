@@ -7,10 +7,9 @@ import { usePostModalButtons } from '@/hooks/usePostModalButtons';
 
 import styles from './postSettings.module.scss';
 
-import { Button } from '@/components/atoms/button/Button';
 import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
 import { DeleteIcon } from '@/components/atoms/icons/DeleteIcon';
-import { Input } from '@/components/atoms/input/Input';
+import { PostEditModal } from '@/components/molecules/post/postEditModal/PostEditModal';
 import { Modal } from '@/components/organisms/modal/Modal';
 
 type PostSettingsProps = {
@@ -78,21 +77,7 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
               </Modal.Button>
             </Modal>
           )}
-          {isEditing && (
-            <>
-              <Modal key='editing' variant='big' setIsOpen={setIsEditing}>
-                <Modal.Heading>Edit your post</Modal.Heading>
-                <Input type='text' label='description' isDirty={false} error={undefined} />
-                <Input type='text' label='location' isDirty={false} error={undefined} />
-                <div>
-                  <Button type='button'>Confirm</Button>
-                  <Button type='button' variant='red'>
-                    Cancel
-                  </Button>
-                </div>
-              </Modal>
-            </>
-          )}
+          {isEditing && <PostEditModal setIsEditing={setIsEditing} postID={id} />}
         </AnimatePresence>
       </aside>
     </>

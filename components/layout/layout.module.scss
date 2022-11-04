@@ -25,6 +25,7 @@
   box-shadow: var(--box-shadow);
 
   @include common.breakpoint('sm') {
+    justify-content: space-evenly;
     padding: 1.25rem 0;
   }
 

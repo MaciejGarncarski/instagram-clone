@@ -8,12 +8,13 @@ import { Children } from '@/components/organisms/modal/Modal';
 
 type ButtonProps = Children &
   ModalItemPosition & {
+    disabled?: boolean;
     variant?: 'red';
     onClick?: () => void;
   };
 
 export const ModalButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant, onClick, isFirst, isLast }, ref) => {
+  ({ children, variant, disabled, onClick, isFirst, isLast }, ref) => {
     const handleClick = () => {
       if (!onClick) {
         return;
@@ -25,6 +26,7 @@ export const ModalButton = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         type='button'
+        disabled={disabled}
         className={clsx(
           isFirst && styles['button--first'],
           isLast && styles['button--last'],

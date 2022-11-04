@@ -1,0 +1,25 @@
+@use '/styles/common.scss';
+
+.form {
+  width: 100%;
+
+  @include common.breakpoint('lg') {
+    width: 90%;
+  }
+}
+
+.heading {
+  text-align: center;
+  font-size: 3.5rem;
+
+  @include common.breakpoint('lg') {
+    font-size: 4.5rem;
+  }
+}
+
+.editButtons {
+  display: flex;
+  width: 100%;
+  margin-top: 5rem;
+  justify-content: space-between;
+}

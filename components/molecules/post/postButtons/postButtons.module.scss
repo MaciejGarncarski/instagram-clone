@@ -28,3 +28,14 @@
     font-size: 1.5em;
   }
 }
+
+.modal {
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 3rem;
+  border-radius: var(--radius-medium);
+}

@@ -1,8 +1,14 @@
 @use '/styles/common.scss';
 
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
 .overlay {
   display: flex;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
   width: 100%;
   position: fixed;
@@ -28,12 +34,12 @@
   max-height: 90vh;
   overflow-y: scroll;
   display: grid;
-  grid-template-rows: auto 1fr 1fr auto;
+  grid-template-rows: auto 1fr auto;
   align-items: flex-start;
 
   @include common.breakpoint('xl') {
     border-radius: var(--radius-medium);
-    width: min(85%, 160rem);
+    width: min(85%, 158rem);
     height: 80vh;
     overflow: hidden;
     grid-template-columns: 1.75fr 1fr;
@@ -50,6 +56,7 @@
   align-items: center;
   border-bottom: var(--gray-border);
   height: 100%;
+  display: none;
 
   & > img {
     width: 100%;
@@ -63,6 +70,7 @@
     border-right: var(--gray-border);
     border-bottom: none;
     width: 100%;
+    display: initial;
 
     & > img {
       width: 100%;

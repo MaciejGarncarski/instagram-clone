@@ -22,7 +22,6 @@ const routes: Array<Routes> = [
 
 export const Nav = () => {
   const { data } = useProfile();
-
   if (data?.username) {
     return (
       <ul className={styles.menu}>
