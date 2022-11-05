@@ -11,7 +11,7 @@ datasource db {
 model profiles {
   id             String           @id @db.Uuid
   profile_id     Int              @unique @default(autoincrement()) @db.Integer
-  full_name      String?           
+  full_name      String?
   username       String?          @unique
   avatar_url     String?
   website        String?
@@ -20,6 +20,9 @@ model profiles {
   posts          posts[]
   posts_likes    posts_likes[]
   posts_comments posts_comments[]
+
+  fromUser followers[]  @relation("followers")
+  toUser   followers[] @relation("following")
 }
 
 model posts {
@@ -30,7 +33,7 @@ model posts {
   created_at     DateTime         @default(now()) @db.Timestamptz()
   img            String
   img_uuid       String           @default(uuid()) @db.Uuid
-  location       String?          
+  location       String?
   posts_likes    posts_likes[]
   posts_comments posts_comments[]
 }
@@ -56,4 +59,13 @@ model posts_comments {
 enum Role {
   USER
   ADMIN
+}
+
+model followers {
+  id         Int      @id @default(autoincrement()) @db.Integer
+  from_user  profiles @relation(fields: [from], references: [id], name: "followers")
+  from       String   @unique @db.Uuid
+  to_user    profiles @relation(fields: [to], references: [id], name: "following")
+  to         String   @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamptz()
 }

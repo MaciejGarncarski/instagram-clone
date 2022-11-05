@@ -6,7 +6,7 @@ import { prisma } from '@/utils/db';
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     method,
-    body: { description, location, postID, userID },
+    body: { description, location, postID },
   } = req;
 
   if (method === 'PATCH') {

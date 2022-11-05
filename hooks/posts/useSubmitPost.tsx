@@ -33,6 +33,8 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
       return;
     }
 
+    const toastId = 'uploading post';
+
     const { data } = await supabaseClient.storage
       .from('post-images')
       .upload(`${uuid}/img.webp`, newImg, {
@@ -40,9 +42,12 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
         upsert: false,
       });
 
-    const addingPost = toast.loading('Uploading new post...');
+    toast.loading('Uploading new post...', {
+      toastId,
+    });
+
     if (!data?.path) {
-      updateToast({ toastId: addingPost, text: 'Could not add post', type: 'error' });
+      updateToast({ toastId, text: 'Could not add post', type: 'error' });
       return;
     }
 
@@ -52,7 +57,7 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
 
     if (!publicUrl) {
       updateToast({
-        toastId: addingPost,
+        toastId,
         text: 'Couldnt get image, try again later',
         type: 'error',
       });
@@ -69,7 +74,7 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
           if (buttonRef.current) {
             buttonRef.current.disabled = false;
           }
-          updateToast({ toastId: addingPost, text: 'Post added!', type: 'success' });
+          updateToast({ toastId, text: 'Post added!', type: 'success' });
         },
       }
     );

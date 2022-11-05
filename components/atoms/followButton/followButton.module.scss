@@ -1,0 +1,27 @@
+@use '/styles/common.scss';
+
+.button {
+  background-color: var(--primary-color);
+  margin-left: auto;
+  border-radius: var(--radius-small);
+  color: var(--white);
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+
+  @include common.breakpoint('lg') {
+    font-size: 2.5rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.loader {
+  margin: 0;
+  margin-left: auto;
+  margin-right: 4rem;
+  --size: 3rem;
+  height: var(--size);
+  width: var(--size);
+}

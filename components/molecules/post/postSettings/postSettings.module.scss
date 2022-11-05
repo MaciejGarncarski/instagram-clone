@@ -1,10 +1,14 @@
 @use '/styles/common.scss';
 
 .container {
-  margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.containerMargin {
+  @extend .container;
+  margin-left: auto;
 }
 
 .button {

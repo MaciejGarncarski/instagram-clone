@@ -7,13 +7,10 @@
   align-items: center;
   gap: 2rem;
   grid-row: 1 / 2;
+  border-bottom: var(--gray-border);
 
   @include common.breakpoint('sm') {
     padding: 1.2rem 1.5rem;
-  }
-
-  @include common.breakpoint('lg') {
-    border-bottom: var(--gray-border);
   }
 }
 

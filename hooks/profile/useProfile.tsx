@@ -1,4 +1,4 @@
-import { posts, posts_likes, profiles } from '@prisma/client';
+import { followers, posts, profiles } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -6,11 +6,14 @@ import { apiClient } from '@/lib/apiClient';
 
 export type Profile = profiles & {
   posts: posts[];
-  posts_likes: posts_likes[];
+  fromUser: followers[];
+  toUser: followers[];
   _count: {
     posts: number;
     posts_likes: number;
     posts_comments: number;
+    toUser: number;
+    fromUser: number;
   };
 };
 
