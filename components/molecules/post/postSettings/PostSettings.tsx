@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
@@ -16,9 +17,10 @@ type PostSettingsProps = {
   author_id: string;
   id: number;
   img_uuid: string;
+  changeSettingsLayout?: boolean;
 };
 
-export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
+export const PostSettings = ({ changeSettingsLayout, id, img_uuid }: PostSettingsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,7 +42,7 @@ export const PostSettings = ({ id, img_uuid }: PostSettingsProps) => {
 
   return (
     <>
-      <aside className={styles.container}>
+      <aside className={clsx(changeSettingsLayout ? styles.container : styles.containerMargin)}>
         <button type='button' className={styles.button} onClick={() => setIsOpen(true)}>
           <span className='visually-hidden'>settings</span>
           <BsThreeDots />

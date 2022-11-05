@@ -30,7 +30,6 @@ export const Account = ({ userData }: AccountProps) => {
   }
 
   const { bio, username, full_name, _count, website, profile_id, id } = userData;
-
   const isAccountMine = id === user?.id;
 
   return (
@@ -43,7 +42,10 @@ export const Account = ({ userData }: AccountProps) => {
             className={clsx(!isAccountMine && styles['avatar--columns'], styles.avatar)}
           />
           <div className={styles['user-info']}>
-            <h2 className={styles.username}>{username ?? `user-${profile_id}`}</h2>
+            <div>
+              <h2 className={styles.username}>{full_name ?? `user-${profile_id}`}</h2>
+              <p>@{username}</p>
+            </div>
             <div className={styles.stats}>
               <div className={styles.stat}>
                 <span className={styles['stat-number']}>{_count.posts}</span>
@@ -54,11 +56,11 @@ export const Account = ({ userData }: AccountProps) => {
                 </p>
               </div>
               <div className={styles.stat}>
-                <span className={styles['stat-number']}>0</span>
+                <span className={styles['stat-number']}>{_count.fromUser}</span>
                 <p>following</p>
               </div>
               <div className={styles.stat}>
-                <span className={styles['stat-number']}>0</span>
+                <span className={styles['stat-number']}>{_count.toUser}</span>
                 <p>followers</p>
               </div>
             </div>

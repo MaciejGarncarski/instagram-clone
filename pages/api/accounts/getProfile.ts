@@ -14,12 +14,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: 'desc',
           },
         },
+        fromUser: true,
+        toUser: true,
 
         _count: {
           select: {
             posts: true,
             posts_comments: true,
             posts_likes: true,
+            fromUser: true,
+            toUser: true,
           },
         },
       },

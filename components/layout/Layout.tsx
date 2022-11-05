@@ -30,7 +30,7 @@ export const Layout = ({ children }: LayoutProps) => {
         {user?.id && <Search />}
         <Nav />
       </nav>
-      <ToastContainer theme='light' autoClose={2200} position='bottom-right' />
+      <ToastContainer closeButton={true} theme='light' autoClose={2200} position='bottom-right' />
       {children}
     </div>
   );

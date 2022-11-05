@@ -54,7 +54,8 @@ export const Post = ({ id }: PostProps) => {
   }
 
   const { author_id, img, author } = postData.post;
-  const canShowSettings = author_id === user?.id || userData?.role === 'ADMIN';
+  const isOwner = author_id === user?.id;
+  const canShowSettings = isOwner || userData?.role === 'ADMIN';
 
   return (
     <motion.article

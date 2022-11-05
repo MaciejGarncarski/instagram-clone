@@ -25,6 +25,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         _count: {
           select: {
             posts: true,
+            fromUser: true,
+            toUser: true,
           },
         },
       },

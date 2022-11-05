@@ -36,6 +36,7 @@
   height: auto;
   max-height: 40rem;
   display: inline-block;
+  object-fit: contain;
 
   @include common.breakpoint('lg') {
     max-height: 75rem;

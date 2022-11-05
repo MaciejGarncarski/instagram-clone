@@ -1,10 +1,10 @@
 import { profiles } from '@prisma/client';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { BiLinkExternal } from 'react-icons/bi';
 
 import styles from './searchResult.module.scss';
 
+import { FollowButton } from '@/components/atoms/followButton/FollowButton';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 import { articleVariant } from '@/components/organisms/post/Post';
 
@@ -33,7 +33,7 @@ export const SearchResult = ({ data }: SearchResultProps) => {
           <h3>{full_name}</h3>
           <p>@{username}</p>
         </div>
-        <BiLinkExternal className={styles.icon} />
+        <FollowButton userID={id} />
       </div>
     </MotionLink>
   );
