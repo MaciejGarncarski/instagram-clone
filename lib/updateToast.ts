@@ -12,6 +12,7 @@ export const updateToast = ({ toastId, text, type }: UpdateToast) => {
     isLoading: false,
     autoClose: 2200,
     closeOnClick: true,
+    closeButton: true,
     type: type,
   });
 };
