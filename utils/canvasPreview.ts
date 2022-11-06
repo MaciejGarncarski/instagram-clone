@@ -55,13 +55,17 @@ export async function canvasPreview(
   ctx.restore();
 
   return new Promise<Blob>((resolve) => {
-    canvas.toBlob(async (file) => {
-      if (file) {
-        const blobUrl = URL.createObjectURL(file);
-        const imgFile = await fetch(blobUrl).then((r) => r.blob());
+    canvas.toBlob(
+      async (file) => {
+        if (file) {
+          const blobUrl = URL.createObjectURL(file);
+          const imgFile = await fetch(blobUrl).then((r) => r.blob());
 
-        resolve(imgFile);
-      }
-    }, 'image/jpeg');
+          resolve(imgFile);
+        }
+      },
+      'image/webp',
+      0.8
+    );
   });
 }
