@@ -1,7 +1,7 @@
-import { toast, TypeOptions } from 'react-toastify';
+import { Id, toast, TypeOptions } from 'react-toastify';
 
 type UpdateToast = {
-  toastId: string | number;
+  toastId: string | number | Id;
   text: string;
   type: TypeOptions;
 };

@@ -53,6 +53,7 @@
 
   @include common.breakpoint('xl') {
     height: 65%;
+    min-height: 42rem;
   }
 }
 
@@ -74,8 +75,8 @@
   }
 }
 
-.commentForm {
-  @include common.breakpoint('xl') {
+form.commentForm {
+  @include common.breakpoint('lg') {
     margin-top: 0;
   }
 }

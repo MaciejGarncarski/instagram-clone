@@ -117,8 +117,8 @@ div.Toastify__toast {
   --toastify-icon-color-success: var(--primary-color);
   --toastify-text-color-light: var(--text-color);
   --toastify-color-light: #fff;
-  border: 1px solid var(--text-color);
-  border-radius: var(--radius-small);
+  border: var(--gray-border);
+  border-radius: var(--radius-medium);
   width: 85%;
   margin: 0 auto;
   margin-bottom: 1rem;
