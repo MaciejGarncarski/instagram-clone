@@ -1,0 +1,38 @@
+@use '/styles/common.scss';
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8rem;
+
+  @include common.breakpoint('lg') {
+    gap: 16rem;
+  }
+}
+
+.link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 700;
+  grid-row: 2 / 3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+
+  @include common.breakpoint('lg') {
+    gap: 2.5rem;
+  }
+}
+
+.avatar {
+  --size: 5rem;
+  width: var(--size);
+  height: var(--size);
+
+  @include common.breakpoint('lg') {
+    --size: 7.5rem;
+  }
+}

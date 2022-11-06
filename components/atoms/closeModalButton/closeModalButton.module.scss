@@ -11,9 +11,9 @@
   align-items: center;
 
   @include common.breakpoint('sm') {
-    font-size: 5rem;
-    top: 2rem;
-    right: 2rem;
+    font-size: 7rem;
+    top: 4rem;
+    right: 9rem;
   }
 
   & > svg {

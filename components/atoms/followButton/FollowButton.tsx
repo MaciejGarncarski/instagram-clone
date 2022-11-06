@@ -1,6 +1,7 @@
 import { followers } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
 import { apiClient } from '@/lib/apiClient';
@@ -12,11 +13,12 @@ import { Loader } from '@/components/atoms/loader/Loader';
 
 type FollowButtonProps = {
   userID: string;
+  className?: string;
 };
 
 type FollowMutation = Pick<followers, 'from' | 'to'>;
 
-export const FollowButton = ({ userID }: FollowButtonProps) => {
+export const FollowButton = ({ userID, className }: FollowButtonProps) => {
   const { data } = useProfile(userID);
   const currentUser = useUser();
   const queryClient = useQueryClient();
@@ -65,7 +67,7 @@ export const FollowButton = ({ userID }: FollowButtonProps) => {
       animate={{ opacity: 1 }}
       onClick={onClick}
       type='button'
-      className={styles.button}
+      className={clsx(className, styles.button)}
     >
       {isFollowed ? 'unfollow' : 'follow'}
     </motion.button>

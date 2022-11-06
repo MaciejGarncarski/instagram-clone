@@ -24,8 +24,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.status(200).send('success');
     } catch (err) {
-      console.log(err);
-      res.status(400).send('400');
+      res.status(500);
     }
   }
 
@@ -39,7 +38,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
       res.status(200).send('success');
     } catch (err) {
-      res.status(400).send('400');
+      res.status(500);
     }
   }
 };

@@ -1,5 +1,6 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
+import { atom, useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 
@@ -8,11 +9,21 @@ import { Profile } from '@/hooks/profile/useProfile';
 
 import styles from './account.module.scss';
 
+import {
+  AccountModal,
+  AccountModalVariant,
+} from '@/components/molecules/accountModal/AccountModal';
 import { AccountPostContainer } from '@/components/molecules/accountPostContainer/AccountPostContainer';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
 type AccountProps = {
   userData: Profile;
+};
+
+type StatsData = {
+  number: number;
+  text: string;
+  onClick?: () => void;
 };
 
 const AccountSettings = dynamic(() =>
@@ -22,7 +33,10 @@ const AccountSettings = dynamic(() =>
   )
 );
 
+export const accountModal = atom<AccountModalVariant | null>(null);
+
 export const Account = ({ userData }: AccountProps) => {
+  const [accountModalOpen, setAccountModal] = useAtom(accountModal);
   const user = useUser();
 
   if (!userData) {
@@ -31,6 +45,23 @@ export const Account = ({ userData }: AccountProps) => {
 
   const { bio, username, full_name, _count, website, profile_id, id } = userData;
   const isAccountMine = id === user?.id;
+
+  const statsData: Array<StatsData> = [
+    {
+      number: _count.posts,
+      text: 'posts',
+    },
+    {
+      number: _count.fromUser,
+      text: 'following',
+      onClick: () => setAccountModal('following'),
+    },
+    {
+      number: _count.toUser,
+      text: 'followers',
+      onClick: () => setAccountModal('followers'),
+    },
+  ];
 
   return (
     <>
@@ -42,27 +73,19 @@ export const Account = ({ userData }: AccountProps) => {
             className={clsx(!isAccountMine && styles['avatar--columns'], styles.avatar)}
           />
           <div className={styles['user-info']}>
-            <div>
+            <div className={styles.name}>
               <h2 className={styles.username}>{full_name ?? `user-${profile_id}`}</h2>
               <p>@{username}</p>
             </div>
             <div className={styles.stats}>
-              <div className={styles.stat}>
-                <span className={styles['stat-number']}>{_count.posts}</span>
-                <p>
-                  {_count.posts > 1 && 'posts'}
-                  {_count.posts === 1 && 'post'}
-                  {_count.posts === 0 && 'posts'}
-                </p>
-              </div>
-              <div className={styles.stat}>
-                <span className={styles['stat-number']}>{_count.fromUser}</span>
-                <p>following</p>
-              </div>
-              <div className={styles.stat}>
-                <span className={styles['stat-number']}>{_count.toUser}</span>
-                <p>followers</p>
-              </div>
+              {statsData.map(({ number, text, onClick }) => {
+                return (
+                  <button className={styles.stat} key={text} onClick={onClick} type='button'>
+                    <span className={styles['stat-number']}>{number}</span>
+                    {text}
+                  </button>
+                );
+              })}
             </div>
             {bio && <p className={styles.text}>{bio}</p>}
             {website && (
@@ -71,6 +94,12 @@ export const Account = ({ userData }: AccountProps) => {
               </a>
             )}
           </div>
+          {accountModalOpen === 'followers' && (
+            <AccountModal username={username ?? ''} variant='followers' />
+          )}
+          {accountModalOpen === 'following' && (
+            <AccountModal username={username ?? ''} variant='following' />
+          )}
           {isAccountMine && <AccountSettings />}
         </section>
         <AccountPostContainer userID={userData.id} />

@@ -64,7 +64,7 @@ enum Role {
 model followers {
   id         Int      @id @default(autoincrement()) @db.Integer
   from_user  profiles @relation(fields: [from], references: [id], name: "followers")
-  from       String   @unique @db.Uuid
+  from       String   @db.Uuid
   to_user    profiles @relation(fields: [to], references: [id], name: "following")
   to         String   @db.Uuid
   created_at DateTime @default(now()) @db.Timestamptz()
