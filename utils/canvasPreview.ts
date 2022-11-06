@@ -65,7 +65,7 @@ export async function canvasPreview(
         }
       },
       'image/webp',
-      0.7
+      0.65
     );
   });
 }

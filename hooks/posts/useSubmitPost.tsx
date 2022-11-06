@@ -1,5 +1,7 @@
 import { useSessionContext } from '@supabase/auth-helpers-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
+import { useRouter } from 'next/router';
 import { RefObject, useCallback, useRef } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { Id, toast } from 'react-toastify';
@@ -15,6 +17,8 @@ import { completedCropAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/sto
 export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
   const { supabaseClient } = useSessionContext();
   const { mutate } = useAddPost();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
   const toastId = useRef<Id | null>(null);
 
@@ -76,6 +80,8 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
             return;
           }
           updateToast({ toastId: toastId.current, text: 'Uploaded!', type: 'success' });
+          queryClient.invalidateQueries(['posts']);
+          router.push('/');
         },
       }
     );
