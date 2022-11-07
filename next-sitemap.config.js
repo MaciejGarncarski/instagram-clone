@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 
 module.exports = {
-  siteUrl: 'https://delaygram-dev.vercel.app/',
+  siteUrl: 'https://delaygram.vercel.app/',
   generateRobotsTxt: true,
 };

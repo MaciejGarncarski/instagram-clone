@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const dev = process.env.NODE_ENV !== 'production';
 
-const url = dev ? 'http://localhost:3000' : `https://delaygram-dev.vercel.app`;
+const url = dev ? 'http://localhost:3000' : `https://delaygram.vercel.app`;
 
 export const apiClient = axios.create({
   baseURL: `${url}/api`,

@@ -3,7 +3,7 @@ import { NextSeoProps } from 'next-seo';
 const title = 'Delaygram';
 const description = 'Delaygram - Instagram clone created with Next.js, supabase, prisma';
 
-const url = 'https://delaygram-dev.vercel.app/';
+const url = 'https://delaygram.vercel.app/';
 
 export const SEO: NextSeoProps = {
   title,
