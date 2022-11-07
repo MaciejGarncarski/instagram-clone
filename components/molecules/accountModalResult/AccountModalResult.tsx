@@ -16,7 +16,6 @@ type AccountModalProps = {
 
 export const AccountModalResult = ({ userID }: AccountModalProps) => {
   const { data } = useProfile(userID);
-
   const [, setAccountModal] = useAtom(accountModal);
 
   if (!data) {

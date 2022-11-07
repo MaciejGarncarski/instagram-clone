@@ -9,6 +9,7 @@ import { Profile } from '@/hooks/profile/useProfile';
 
 import styles from './account.module.scss';
 
+import { FollowButton } from '@/components/atoms/followButton/FollowButton';
 import {
   AccountModal,
   AccountModalVariant,
@@ -100,6 +101,7 @@ export const Account = ({ userData }: AccountProps) => {
           {accountModalOpen === 'following' && (
             <AccountModal username={username ?? ''} variant='following' />
           )}
+          <FollowButton userID={id} className={styles.followBtn} />
           {isAccountMine && <AccountSettings />}
         </section>
         <AccountPostContainer userID={userData.id} />

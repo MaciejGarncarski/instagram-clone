@@ -1,4 +1,5 @@
 import { profiles } from '@prisma/client';
+import { useUser } from '@supabase/auth-helpers-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -15,8 +16,12 @@ type SearchResultProps = {
 const MotionLink = motion(Link);
 
 export const SearchResult = ({ data }: SearchResultProps) => {
+  const user = useUser();
   const { id, username, full_name } = data;
 
+  const canShowFollowBtn = user?.id !== id;
+
+  console.log(id, user?.id);
   return (
     <MotionLink
       variants={articleVariant}
@@ -33,7 +38,7 @@ export const SearchResult = ({ data }: SearchResultProps) => {
           <h3>{full_name}</h3>
           <p>@{username}</p>
         </div>
-        <FollowButton userID={id} />
+        {canShowFollowBtn && <FollowButton userID={id} />}
       </div>
     </MotionLink>
   );

@@ -20,6 +20,7 @@ type FollowMutation = Pick<followers, 'from' | 'to'>;
 
 export const FollowButton = ({ userID, className }: FollowButtonProps) => {
   const { data } = useProfile(userID);
+  const user = useUser();
   const currentUser = useUser();
   const queryClient = useQueryClient();
 
@@ -29,7 +30,7 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
     })
   );
 
-  const canShowFollowBtn = currentUser?.id;
+  const canShowFollowBtn = user?.id && user?.id !== userID;
 
   const { mutate, isLoading } = useMutation(
     async ({ from, to }: FollowMutation) => {
