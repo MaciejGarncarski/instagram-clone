@@ -84,7 +84,7 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(`https://delaygram-dev.vercel.app/posts/${id}`);
+      await navigator.clipboard.writeText(`https://delaygram.vercel.app/posts/${id}`);
       toast.success('Copied!');
       setIsCopied(true);
     } catch (error) {
