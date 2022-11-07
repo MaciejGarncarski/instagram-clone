@@ -1,36 +1,42 @@
-import { posts, profiles } from '@prisma/client';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { posts, Prisma, profiles } from '@prisma/client';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-export type Posts = {
-  post: posts & {
-    author: profiles;
-  };
-  postsCount: {
-    _count: { id: number };
+import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
+import { getInfiniteData, POSTS_DATA_URL } from '@/lib/getInfiniteData';
+
+export type Posts = posts & {
+  author: profiles;
+  _count: {
+    posts_likes: number;
+    posts_comments: number;
   };
 };
 
+export const POST_PER_SCROLL = 4;
+
 export const useGetPosts = () => {
-  const getPosts = async (pageParam: number): Promise<Posts> => {
-    const { data } = await axios.post('/api/posts/getPosts', {
-      skip: pageParam,
-      take: 1,
-    });
-    return data;
-  };
+  const postsCount = useQuery<Prisma.AggregatePosts>(['posts count'], () =>
+    getCount(POSTS_COUNT_URL)
+  );
 
-  return useInfiniteQuery(['posts'], ({ pageParam = 0 }) => getPosts(pageParam), {
-    getNextPageParam: (oldPosts, allPosts) => {
-      const postCount = allPosts[0].postsCount._count.id;
+  return useInfiniteQuery(
+    ['posts'],
+    ({ pageParam = 0 }) =>
+      getInfiniteData<Posts>({ url: POSTS_DATA_URL, pageParam, perScroll: POST_PER_SCROLL }),
+    {
+      getNextPageParam: (_, allPosts) => {
+        const postCount = postsCount.data?._count?.id;
 
-      if (postCount <= allPosts.indexOf(oldPosts) + 1) {
-        return undefined;
-      }
+        if (!postCount) {
+          return undefined;
+        }
 
-      return allPosts.indexOf(oldPosts) + 1;
-    },
+        if (postCount <= allPosts.length * POST_PER_SCROLL) {
+          return undefined;
+        }
 
-    refetchOnWindowFocus: false,
-  });
+        return allPosts.length * POST_PER_SCROLL;
+      },
+    }
+  );
 };

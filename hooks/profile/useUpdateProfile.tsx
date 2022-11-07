@@ -1,28 +1,22 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
 
-import { FormValues } from '@/components/editAccount/EditAccount';
+import { apiClient } from '@/lib/apiClient';
+
+import { FormValues } from '@/components/pages/editAccount/EditAccount';
 
 type UpdateProfileArgs = FormValues & {
   userID: string;
+  profileID: number;
 };
 
 export const useUpdateProfile = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation(
-    async ({ username, bio, website, userID }: UpdateProfileArgs) => {
-      return axios.post('/api/profiles/updateProfile', {
-        username: username.trim(),
-        bio: bio.trim(),
-        website: website?.trim(),
-        id: userID,
-      });
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['profile']);
-      },
-    }
-  );
+  return useMutation(async ({ username, bio, fullName, userID, profileID }: UpdateProfileArgs) => {
+    return apiClient.patch('/accounts/updateProfile', {
+      fullName: fullName.trim(),
+      username: username.trim(),
+      bio: bio.trim(),
+      id: userID,
+      profile_id: profileID,
+    });
+  });
 };

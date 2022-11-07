@@ -1,80 +1,98 @@
+import { posts_likes } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Likes } from '@/hooks/posts/useGetPostsLikes';
+import { SinglePostData } from '@/hooks/posts/usePostData';
 
 type PostLike = {
   post_id?: number;
   post_like_id?: number;
+  user_id?: string;
+  dislike?: true;
 };
 
-export const usePostLike = (id: number, data?: Likes) => {
-  const queryClient = useQueryClient();
-  const { user } = useUser();
+const updateFn = (oldData?: SinglePostData, newData?: PostLike) => {
+  if (!newData || !oldData) {
+    return;
+  }
 
-  const isLikedByUser = data?.likesData?.user_id === user?.id;
-  const [isLiked, setIsLiked] = useState<boolean>(isLikedByUser);
+  const { post_like_id, post_id, user_id } = newData;
 
-  const onSuccess = (type: 'like' | 'dislike') => {
-    queryClient.setQueryData<Likes>(['post', { post_id: id }], (oldData) => {
-      if (!oldData) {
-        return undefined;
-      }
+  if (!post_like_id || !post_id || !user_id) {
+    return;
+  }
 
-      if (type === 'dislike') {
-        return {
-          ...oldData,
-          likes: oldData.likes - 1,
-        };
-      }
-
-      return {
-        ...oldData,
-        likes: oldData.likes + 1,
-      };
-    });
-
-    queryClient.invalidateQueries(['post', { post_id: id }]);
-    setIsLiked((prev) => !prev);
-  };
-
-  useEffect(() => {
-    setIsLiked(data?.likesData?.user_id === user?.id);
-  }, [data?.likesData?.user_id, user?.id]);
-
-  const postDislike = useMutation(
-    ({ post_like_id }: PostLike) => {
-      return axios.post('/api/posts/removePostLike', {
-        post_like_id,
-      });
+  const newLike: SinglePostData = {
+    post: {
+      ...oldData?.post,
     },
-    {
-      onSuccess: () => onSuccess('dislike'),
-    }
+    likesData: {
+      id: post_like_id,
+      user_id: user_id,
+      post_id: post_id,
+    },
+  };
+  return newLike;
+};
+
+export const usePostLike = (id: number, data?: posts_likes) => {
+  const user = useUser();
+  const queryClient = useQueryClient();
+  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(
+    (data && data?.user_id === user?.id) ?? false
   );
 
+  const onSuccess = () => {
+    setIsLikedByUser((prev) => !prev);
+    queryClient.invalidateQueries(['single post', id]);
+  };
+
   const postLike = useMutation(
-    ({ post_id }: PostLike) => {
-      return axios.post('/api/posts/addPostLike', {
-        user_id: user?.id,
+    ({ user_id, post_id, dislike }: PostLike) => {
+      if (dislike) {
+        return axios.patch('/api/posts/postLike', {
+          user_id,
+          post_id,
+        });
+      }
+
+      return axios.post('/api/posts/postLike', {
+        user_id,
         post_id,
       });
     },
     {
-      onSuccess: () => onSuccess('like'),
+      onMutate: async (newLike) => {
+        await queryClient.cancelQueries(['single post', newLike.post_id]);
+        const previousLike = queryClient.getQueryData<SinglePostData>([
+          'single post',
+          newLike.post_id,
+        ]);
+        queryClient.setQueryData<SinglePostData>(['single post', newLike.post_id], (oldData) =>
+          updateFn(oldData, newLike)
+        );
+        return { previousLike, newLike };
+      },
+      onError: (err, newLike, context) => {
+        queryClient.setQueryData<SinglePostData>(
+          ['single post', context?.newLike.post_id],
+          context?.previousLike
+        );
+      },
+      onSuccess,
     }
   );
 
   const handleLike = () => {
-    if (isLiked) {
-      postDislike.mutate({ post_like_id: data?.likesData?.id });
+    if (isLikedByUser) {
+      postLike.mutate({ post_id: id, user_id: user?.id, dislike: true });
     }
-    if (!isLiked) {
-      postLike.mutate({ post_id: id });
+    if (!isLikedByUser) {
+      postLike.mutate({ post_id: id, user_id: user?.id });
     }
   };
 
-  return { handleLike, isLiked };
+  return { handleLike, isLikedByUser };
 };

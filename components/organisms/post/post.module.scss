@@ -1,0 +1,44 @@
+@use '/styles/common.scss';
+
+.container {
+  background-color: var(--white);
+  width: 95%;
+  box-shadow: var(--box-shadow);
+  padding-bottom: 2rem;
+  border: var(--gray-border);
+  border-radius: var(--radius-small);
+
+  @include common.breakpoint('sm') {
+    width: min(80%, 60rem);
+    padding-bottom: 1rem;
+  }
+
+  @include common.breakpoint('lg') {
+    padding-bottom: 0rem;
+    border-radius: var(--radius-medium);
+  }
+}
+
+.figure {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include common.breakpoint('lg') {
+    min-height: 35rem;
+  }
+}
+
+.post-img {
+  width: 100%;
+  height: auto;
+  max-height: 40rem;
+  display: inline-block;
+  object-fit: contain;
+
+  @include common.breakpoint('lg') {
+    max-height: 75rem;
+  }
+}

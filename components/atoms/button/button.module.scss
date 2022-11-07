@@ -1,0 +1,52 @@
+@use '/styles/common.scss';
+
+.button {
+  padding: 0.5rem 2rem;
+  border-radius: var(--radius-small);
+  --btn-color: var(--primary-color);
+  background: var(--btn-color);
+  letter-spacing: 0.5px;
+  color: white;
+  font-weight: 700;
+  border: 4px solid var(--btn-color);
+  transition: all var(--transition-fast);
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
+  @include common.breakpoint('lg') {
+    padding: 1rem 3rem;
+  }
+
+  &--red {
+    --btn-color: var(--error-color);
+  }
+
+  &--gradient {
+    border-color: transparent;
+    background: var(--gradient);
+    background-size: 200%;
+    background-position: 10%;
+    transition: background-position var(--transition-slow);
+
+    &:not(:disabled):hover {
+      background-position: 90%;
+    }
+  }
+
+  &:focus {
+    outline-offset: 0.4rem;
+    outline: 3px solid var(--btn-color);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

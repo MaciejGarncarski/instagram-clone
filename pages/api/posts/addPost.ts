@@ -9,13 +9,16 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
     return;
   }
 
+  const { publicUrl, description, author_id, uuid, location } = req.body;
+
   try {
     await prisma.posts.create({
       data: {
-        img: req.body.imgURL,
-        description: req.body.description,
-        author_id: req.body.author_id,
-        img_uuid: req.body.uuid,
+        img: publicUrl,
+        description: description,
+        author_id: author_id,
+        img_uuid: uuid,
+        location,
       },
       select: {
         created_at: true,

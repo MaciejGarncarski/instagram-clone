@@ -1,0 +1,38 @@
+@use '/styles/common.scss';
+
+.modal {
+  max-width: 100rem;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  border-radius: var(--radius-small);
+  padding: 2rem 2rem;
+  flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    gap: 3rem;
+    padding: 3rem 8rem;
+  }
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.modalHeading {
+  font-size: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+
+  @include common.breakpoint('lg') {
+    font-size: 4rem;
+  }
+}
+
+.crop {
+  border-radius: var(--radius-small);
+}

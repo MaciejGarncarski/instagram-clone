@@ -11,25 +11,25 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { skip, take } = req.body;
 
   try {
-    const postsCount = await prisma.posts.aggregate({
-      _count: {
-        id: true,
-      },
-    });
-
     const posts = await prisma.posts.findMany({
       skip,
       take,
 
       include: {
         author: true,
+        _count: {
+          select: {
+            posts_likes: true,
+            posts_comments: true,
+          },
+        },
       },
       orderBy: {
         id: 'desc',
       },
     });
 
-    res.status(200).send({ post: posts, postsCount });
+    res.status(200).send(posts);
   } catch (e) {
     res.status(400).send('400');
   }

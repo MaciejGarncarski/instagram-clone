@@ -1,34 +1,40 @@
-import { posts, posts_likes, profiles } from '@prisma/client';
+import { followers, posts, profiles } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
-type Profile = profiles & {
+import { apiClient } from '@/lib/apiClient';
+
+export type Profile = profiles & {
   posts: posts[];
-  posts_likes: posts_likes[];
+  fromUser: followers[];
+  toUser: followers[];
   _count: {
-    posts_likes: number;
     posts: number;
+    posts_likes: number;
+    posts_comments: number;
+    toUser: number;
+    fromUser: number;
   };
 };
 
-export const useProfile = () => {
-  const { user } = useUser();
+export const useProfile = (userID?: string) => {
+  const user = useUser();
+
+  const userIDguard = userID ?? user?.id;
 
   const profile = useQuery<Profile | undefined>(
-    ['profile'],
+    ['profile', { id: userIDguard }],
     async () => {
-      const { data } = await axios.post('/api/profiles/getProfile', {
-        id: user?.id ?? '',
+      const { data } = await apiClient.post('/accounts/getProfile', {
+        id: userIDguard,
       });
 
       return data;
     },
     {
-      enabled: Boolean(user?.id),
-      refetchOnWindowFocus: false,
+      enabled: Boolean(userIDguard),
     }
   );
 
-  return { user, ...profile };
+  return { ...profile };
 };

@@ -1,0 +1,36 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.overlay {
+  @include mixins.overlay;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  @include common.breakpoint('sm') {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-direction: column;
+  width: 100%;
+
+  @include common.breakpoint('sm') {
+    width: clamp(20rem, 40%, 45rem);
+  }
+
+  &--big {
+    position: relative;
+    background-color: var(--white);
+    border-radius: 1rem;
+    padding: 3rem 6rem;
+    align-items: center;
+    gap: 2rem;
+    width: clamp(50rem, 70%, 75rem);
+  }
+}

@@ -1,0 +1,10 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.link {
+  text-decoration: none;
+
+  @include mixins.modal-item;
+  @include mixins.modal-button-link;
+  @include mixins.modal-item-corners;
+}

@@ -1,0 +1,172 @@
+@use '/styles/common.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2.5rem;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+@mixin label-active {
+  transform: translateY(-1rem);
+  font-size: 1.5rem;
+  color: var(--primary-color);
+
+  @include common.breakpoint('lg') {
+    font-size: 2.2rem;
+
+    transform: translateY(-1.5rem);
+  }
+}
+
+.input {
+  background: var(--bg-color);
+  border: 3px solid rgb(0, 0, 0, 0.4);
+  border-radius: var(--radius-small);
+  box-shadow: var(--box-shadow), var(--shadow-color) 0 0 0 4px;
+  padding: 1.1em 0.35em 0.15em 0.35em;
+  line-height: 1.5;
+  outline: none;
+
+  --shadow-color: transparent;
+
+  &:focus + .label {
+    @include label-active;
+  }
+
+  &[type='password'],
+  &--padding-right {
+    padding-right: 5.5rem;
+
+    @include common.breakpoint('lg') {
+      padding-right: 8rem;
+    }
+  }
+
+  &:focus,
+  &--dirty {
+    border-color: var(--primary-color);
+  }
+
+  &:focus {
+    --shadow-color: rgb(var(--primary-color-rgb), 0.95);
+  }
+
+  &--error {
+    border-color: var(--error-color);
+
+    & ~ .label {
+      color: var(--error-color);
+    }
+
+    &:focus {
+      --shadow-color: rgb(var(--error-color-rgb), 0.6);
+      border-color: var(--error-color);
+
+      & ~ .label {
+        color: var(--error-color);
+      }
+    }
+  }
+}
+
+.toggler {
+  position: absolute;
+  background-color: transparent;
+  right: 1rem;
+  padding: 1rem 0.2rem;
+  bottom: 0.5em;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.5rem;
+
+  @include common.breakpoint('lg') {
+    right: 1rem;
+    bottom: 0.8em;
+    font-size: 2rem;
+  }
+}
+
+.label {
+  display: flex;
+  left: 1.25rem;
+  top: 1.5rem;
+  position: absolute;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  transition-property: font-size, transform;
+  color: rgb(0, 0, 0, 0.6);
+
+  &--dirty {
+    @include label-active;
+  }
+
+  @include common.breakpoint('lg') {
+    left: 1.5rem;
+    top: 2.25rem;
+  }
+}
+
+.label-text {
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.optional {
+  text-transform: lowercase;
+}
+
+.text-area-container {
+  padding-top: 1.5em;
+  box-shadow: var(--box-shadow);
+  border-radius: 0.6rem;
+  border: 3px solid var(--primary-color);
+}
+
+.text-area {
+  display: flex;
+  width: 100%;
+  resize: vertical;
+  min-height: 15rem;
+  max-height: 30rem;
+  padding: 0 0.35em;
+  font-size: inherit;
+  font-family: inherit;
+  border: none;
+  background-color: transparent;
+  border-top: 3px solid transparent;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+
+  &:focus {
+    outline: none;
+    border-top-left-radius: var(--radius-small);
+    border-top-right-radius: var(--radius-small);
+    border-color: var(--primary-color);
+
+    & + .label {
+      @include label-active;
+    }
+  }
+}
+
+.progress {
+  position: absolute;
+  font-weight: 500;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+
+  @include common.breakpoint('lg') {
+    font-size: 2rem;
+  }
+}

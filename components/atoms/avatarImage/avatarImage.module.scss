@@ -1,0 +1,11 @@
+.image {
+  box-shadow: var(--primary-color) 0 0 0 4px;
+  border-radius: 50%;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}

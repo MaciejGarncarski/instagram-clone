@@ -1,21 +1,15 @@
-import { supabaseClient } from '@supabase/auth-helpers-nextjs';
-import { useAtom } from 'jotai';
-import { ChangeEvent, useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { v4 } from 'uuid';
+import { ChangeEvent, SetStateAction, SyntheticEvent } from 'react';
+import { Crop } from 'react-image-crop';
 
-import { useAddPost } from '@/hooks/posts/useAddPost';
+import { centerAspectCrop } from '@/lib/centerAspect';
 
-import { postValues } from '@/components/newPost/NewPost';
+type UseNewPostProps = {
+  aspect: number;
+  setImgSrc?: (update: SetStateAction<string>) => void;
+  setCrop?: (update?: SetStateAction<Crop | undefined>) => void;
+};
 
-import { newPostPreviewAtom } from '@/store/store';
-
-export const useNewPost = () => {
-  const [img, setImg] = useState<File | null>(null);
-  const [, setPreview] = useAtom(newPostPreviewAtom);
-  const { mutate } = useAddPost();
-
+export const useNewPost = ({ aspect, setImgSrc, setCrop }: UseNewPostProps) => {
   const handleImg = (ev: ChangeEvent<HTMLInputElement>) => {
     if (!ev.target.files) {
       return;
@@ -26,45 +20,19 @@ export const useNewPost = () => {
     }
 
     const src = URL.createObjectURL(ev.target.files[0]);
-    setPreview(src);
-    setImg(ev.target.files[0]);
+    if (setImgSrc) {
+      setImgSrc(src);
+    }
   };
 
-  const onSubmit: SubmitHandler<postValues> = async ({ description }) => {
-    const uuid = v4();
-
-    if (!img) {
-      return;
-    }
-
-    const { error } = await supabaseClient.storage
-      .from('post-images')
-      .upload(`${uuid}/img.jpg`, img, {
-        cacheControl: '10080',
-        upsert: false,
-      });
-
-    if (error) {
-      toast.error('Couldnt upload image');
-      return;
-    }
-
-    const { publicURL: imgURL, error: imgError } = supabaseClient.storage
-      .from('post-images')
-      .getPublicUrl(`${uuid}/img.jpg`);
-
-    if (!imgURL || imgError) {
-      toast.error('Couldnt get image');
-      return;
-    }
-
-    mutate(
-      { description, imgURL, uuid },
-      {
-        onSuccess: () => setPreview(null),
+  const onImageLoad = (e: SyntheticEvent<HTMLImageElement>) => {
+    if (aspect) {
+      const { width, height } = e.currentTarget;
+      if (setCrop) {
+        setCrop(centerAspectCrop(width, height, aspect));
       }
-    );
+    }
   };
 
-  return { onSubmit, handleImg };
+  return { handleImg, onImageLoad };
 };

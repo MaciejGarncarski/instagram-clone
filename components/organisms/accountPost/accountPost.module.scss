@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  border: var(--gray-border);
+  box-shadow: var(--box-shadow);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(70, 70, 70, 0.6);
+  backdrop-filter: blur(12px);
+
+  gap: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  z-index: 1;
+
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 40rem;
+  object-fit: contain;
+}
+
+.stat {
+  color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 4rem;
+
+  > svg {
+    color: var(--bg-color);
+  }
+}

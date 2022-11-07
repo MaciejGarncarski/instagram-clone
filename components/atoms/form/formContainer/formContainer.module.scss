@@ -1,0 +1,15 @@
+@use '/styles/common.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: min(30ch, 90%);
+  margin-inline: auto;
+  padding-bottom: 5rem;
+
+  @include common.breakpoint-max('lg') {
+    margin-top: 5rem;
+  }
+}

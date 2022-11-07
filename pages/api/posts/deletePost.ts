@@ -14,9 +14,12 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
   try {
     await prisma.posts_likes.deleteMany({
       where: {
-        post: {
-          id: post_id,
-        },
+        post_id,
+      },
+    });
+    await prisma.posts_comments.deleteMany({
+      where: {
+        post_id,
       },
     });
     await prisma.posts.delete({
@@ -24,6 +27,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
         id: post_id,
       },
     });
+
     res.status(200).send('200');
   } catch (e) {
     res.status(400).send('400');

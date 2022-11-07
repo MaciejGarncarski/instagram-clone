@@ -1,0 +1,88 @@
+@use '/styles/common.scss';
+
+.guest,
+.menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0.75rem 0;
+  align-items: center;
+  width: 100%;
+  background-color: var(--white);
+  z-index: 2;
+  box-shadow: 0 -1px 3px 0 rgb(0, 0, 0, 0.15);
+  border-top: var(--gray-border);
+
+  @include common.breakpoint('xl') {
+    background: transparent;
+    position: static;
+    padding: 0;
+    width: auto;
+    gap: 4rem;
+    box-shadow: none;
+    border-top: none;
+  }
+}
+
+.menu {
+  list-style: none;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  font-size: var(--nav-icon-size);
+  transition: color var(--transition-slow);
+  color: var(--text-color);
+}
+
+.link {
+  display: flex;
+  position: relative;
+
+  @include common.breakpoint('xl') {
+    padding: 1rem;
+
+    &::before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 50%;
+      z-index: -1;
+      transform: scale(0);
+      transition: transform var(--transition-fast);
+      background-image: var(--gradient);
+    }
+
+    &:hover::before,
+    &:focus::before {
+      transform: scale(1);
+    }
+
+    &:hover svg,
+    &:focus svg {
+      color: var(--white);
+    }
+  }
+}
+
+.button {
+  color: var(--white);
+  font-weight: 700;
+  text-decoration: none;
+  background-image: var(--gradient);
+  padding: 0.25em 0.9em;
+  border-radius: var(--radius-small);
+}
+
+.text {
+  font-weight: 700;
+  color: var(--text-color);
+}

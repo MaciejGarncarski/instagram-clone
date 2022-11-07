@@ -1,0 +1,11 @@
+@use '/styles/common.scss';
+@use '/styles/mixins.scss';
+
+.buttons {
+  display: flex;
+  gap: 2rem;
+  justify-self: center;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}

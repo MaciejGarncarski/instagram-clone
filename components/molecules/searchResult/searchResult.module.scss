@@ -1,0 +1,49 @@
+@use '/styles/common.scss';
+
+.avatar {
+  --size: 5rem;
+
+  width: var(--size);
+  height: var(--size);
+
+  @include common.breakpoint('lg') {
+    --size: 9rem;
+  }
+}
+
+.link {
+  width: 100%;
+  color: var(--text-color);
+  text-decoration: none;
+
+  @include common.breakpoint('lg') {
+    width: min(80%, 60rem);
+  }
+}
+
+.container {
+  box-shadow: var(--box-shadow);
+  background-color: #fff;
+  border-radius: var(--radius-small);
+  border: var(--gray-border);
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+  padding: 1rem 2rem;
+  gap: 1.5rem;
+
+  @include common.breakpoint('lg') {
+    padding: 2rem 3rem;
+    margin: 0;
+    gap: 2.5rem;
+  }
+}
+
+.icon {
+  margin-left: auto;
+  font-size: 3rem;
+
+  @include common.breakpoint('lg') {
+    font-size: 5rem;
+  }
+}

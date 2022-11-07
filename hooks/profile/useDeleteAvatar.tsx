@@ -4,11 +4,11 @@ import axios from 'axios';
 
 export const useDeleteAvatar = () => {
   const queryClient = useQueryClient();
-  const { user } = useUser();
+  const user = useUser();
 
   return useMutation(
     () => {
-      return axios.patch('/api/profiles/deleteAvatar', { id: user?.id });
+      return axios.patch('/api/accounts/deleteAvatar', { id: user?.id });
     },
     {
       onSuccess: () => {

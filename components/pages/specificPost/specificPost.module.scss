@@ -1,0 +1,82 @@
+@use '/styles/common.scss';
+
+.container {
+  margin: 0 1.5rem;
+  margin-top: 4rem;
+  border-radius: var(--radius-small);
+  border: var(--gray-border);
+  box-shadow: var(--box-shadow);
+  background-color: var(--white);
+  display: grid;
+}
+
+.middle {
+  display: grid;
+
+  @include common.breakpoint('xl') {
+    grid-template-columns: 1fr 0.65fr;
+    flex-direction: row;
+  }
+}
+
+.right {
+  border-top: var(--gray-border);
+  width: 100%;
+
+  @include common.breakpoint('xl') {
+    border-left: var(--gray-border);
+    border-top: none;
+  }
+}
+
+.author {
+  display: flex;
+  padding: 2rem 1.5rem;
+  gap: 1.5rem;
+  border-bottom: var(--gray-border);
+
+  align-items: center;
+}
+
+.authorAvatar {
+  --size: 3.5rem;
+  width: var(--size);
+  height: var(--size);
+
+  @include common.breakpoint('xl') {
+    --size: 5rem;
+  }
+}
+
+.comments {
+  width: 100%;
+
+  @include common.breakpoint('xl') {
+    height: 65%;
+    min-height: 42rem;
+  }
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  max-height: 40rem;
+  display: inline-block;
+  object-fit: contain;
+
+  @include common.breakpoint('lg') {
+    max-height: 95rem;
+  }
+}
+
+form.commentForm {
+  @include common.breakpoint('lg') {
+    margin-top: 0;
+  }
+}

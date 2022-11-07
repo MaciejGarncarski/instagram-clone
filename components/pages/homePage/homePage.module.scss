@@ -1,0 +1,66 @@
+@use '/styles/common.scss';
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: 6rem;
+  width: 100%;
+  margin-top: 2rem;
+  gap: 2rem;
+
+  @include common.breakpoint('sm') {
+    padding: 0 4rem;
+    padding-bottom: 8rem;
+    margin-top: 4rem;
+    gap: 4rem;
+  }
+
+  @include common.breakpoint('lg') {
+    padding: 0 0 8rem 0;
+    margin-top: 0;
+    gap: 6rem;
+  }
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2rem;
+}
+
+.avatar-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 2rem;
+  width: 100%;
+}
+
+.author {
+  color: var(--primary-color);
+}
+
+.avatar {
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}
+
+.figcaption {
+  color: var(--text-color);
+}
+
+.img {
+  box-shadow: var(--box-shadow);
+  border-radius: 1rem;
+  border: 1px solid var(--primary-color);
+}
+
+.loader {
+  margin-top: 14rem;
+}

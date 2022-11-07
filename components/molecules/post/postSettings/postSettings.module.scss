@@ -1,0 +1,28 @@
+@use '/styles/common.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerMargin {
+  @extend .container;
+  margin-left: auto;
+}
+
+.button {
+  cursor: pointer;
+  background-color: transparent;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  transform: rotate(90deg);
+
+  @include common.breakpoint('lg') {
+    font-size: 4rem;
+    transform: rotate(0);
+  }
+}
