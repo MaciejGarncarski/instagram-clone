@@ -2,6 +2,7 @@ import { posts_likes } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { useState } from 'react';
 
 import { SinglePostData } from '@/hooks/posts/usePostData';
 
@@ -39,9 +40,12 @@ const updateFn = (oldData?: SinglePostData, newData?: PostLike) => {
 export const usePostLike = (id: number, data?: posts_likes) => {
   const user = useUser();
   const queryClient = useQueryClient();
-  const isLikedByUser = data && data?.user_id === user?.id;
+  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(
+    (data && data?.user_id === user?.id) ?? false
+  );
 
   const onSuccess = () => {
+    setIsLikedByUser((prev) => !prev);
     queryClient.invalidateQueries(['single post', id]);
   };
 
