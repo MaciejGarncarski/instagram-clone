@@ -3,18 +3,30 @@
 
 .account {
   width: 70%;
-  margin: 4rem auto 5rem auto;
+  margin: 0 auto;
+  margin-top: 5rem;
+  margin-bottom: 4rem;
   row-gap: 2rem;
   display: grid;
 
-  @include common.breakpoint('lg') {
+  @include common.breakpoint('sm') {
     width: 100%;
-    padding: 0 1rem;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    gap: 8rem;
-    margin: 0 auto 8rem auto;
+    align-items: center;
+    margin-left: 1rem;
+    padding-left: 3rem;
+    gap: 6rem;
+    padding-right: 2rem;
+  }
+
+  @include common.breakpoint('xl') {
+    padding-left: 6rem;
+    padding-right: 5rem;
+    gap: 12rem;
+    margin: 0;
+    margin-bottom: 9rem;
+    margin-left: 4rem;
   }
 }
 
@@ -55,7 +67,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: auto;
-    gap: 2rem;
+    gap: 3rem;
   }
 }
 
@@ -83,12 +95,39 @@
 }
 
 .username {
-  font-size: 2em;
+  font-size: 3rem;
   font-weight: 400;
   text-align: center;
 
   @include common.breakpoint('lg') {
+    font-size: 5rem;
     text-align: left;
+  }
+}
+
+.fullname {
+  font-weight: 600;
+}
+
+.bio {
+  max-width: 40ch;
+  word-break: break-all;
+  margin-top: 2rem;
+  text-align: center;
+
+  @include common.breakpoint('lg') {
+    margin-top: 0;
+    text-align: left;
+  }
+}
+
+.bioText {
+  font-weight: 400;
+  text-align: left;
+  padding: 1rem;
+
+  @include common.breakpoint('lg') {
+    padding: 0;
   }
 }
 
@@ -117,6 +156,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+  font-weight: 300;
 
   @include common.breakpoint('lg') {
     flex-direction: row;
@@ -138,7 +179,7 @@ button.followBtn {
 
   @include common.breakpoint('lg') {
     margin-left: auto;
-    font-size: 3.5rem;
-    padding: 1rem 3rem;
+    font-size: 3rem;
+    padding: 0.7rem 2.5rem;
   }
 }

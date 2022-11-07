@@ -13,6 +13,7 @@
   background-color: var(--white);
   z-index: 2;
   box-shadow: 0 -1px 3px 0 rgb(0, 0, 0, 0.15);
+  border-top: var(--gray-border);
 
   @include common.breakpoint('xl') {
     background: transparent;
@@ -21,6 +22,7 @@
     width: auto;
     gap: 4rem;
     box-shadow: none;
+    border-top: none;
   }
 }
 

@@ -3,6 +3,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 import { apiClient } from '@/lib/apiClient';
 import { useProfile } from '@/hooks/profile/useProfile';
@@ -20,17 +21,16 @@ type FollowMutation = Pick<followers, 'from' | 'to'>;
 
 export const FollowButton = ({ userID, className }: FollowButtonProps) => {
   const { data } = useProfile(userID);
-  const user = useUser();
   const currentUser = useUser();
+  const { data: currentUserData } = useProfile(currentUser?.id);
   const queryClient = useQueryClient();
+  const findIsFollowed = data?.toUser.find(({ from }) => {
+    return from === currentUser?.id;
+  });
 
-  const isFollowed = Boolean(
-    data?.toUser.find(({ from }) => {
-      return from === currentUser?.id;
-    })
-  );
+  const [isFollowed, setIsFollowed] = useState<boolean>(Boolean(findIsFollowed));
 
-  const canShowFollowBtn = user?.id && user?.id !== userID;
+  const canShowFollowBtn = currentUser?.id && currentUser?.id !== userID;
 
   const { mutate, isLoading } = useMutation(
     async ({ from, to }: FollowMutation) => {
@@ -40,13 +40,14 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
       return apiClient.put(`/follow?from=${from}&to=${to}`);
     },
     {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(['profile', { id: userID }]);
+      onSuccess: () => {
+        setIsFollowed((prev) => !prev);
+        queryClient.invalidateQueries(['profile', { id: userID }]);
+        queryClient.invalidateQueries(['profile', { username: currentUserData?.username }]);
         queryClient.invalidateQueries(['single post']);
       },
     }
   );
-
   const onClick = () => {
     if (!currentUser?.id) {
       return;
@@ -64,8 +65,8 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
 
   return (
     <motion.button
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0.7, scale: 0.7, rotate: 5 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
       onClick={onClick}
       type='button'
       className={clsx(className, styles.button)}

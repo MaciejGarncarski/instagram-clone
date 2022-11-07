@@ -5,7 +5,7 @@ import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
 import { getInfiniteData } from '@/lib/getInfiniteData';
 import { Posts } from '@/hooks/posts/useGetPosts';
 
-const POSTS_PER_SCROLL = 9;
+const POSTS_PER_SCROLL = 7;
 
 export const useAccountPosts = (id: string) => {
   const postsCount = useQuery<Prisma.AggregatePosts>(['account posts count', { id: id }], () =>

@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import styles from './accountModal.module.scss';
 
@@ -19,10 +19,16 @@ type AccountModalProps = {
 
 export const AccountModal = ({ variant, username }: AccountModalProps) => {
   const [, setAccountModal] = useAtom(accountModal);
-
-  const { data, hasNextPage, fetchNextPage } = useFollowers({ username });
-
+  const { data, hasNextPage, fetchNextPage, isLoading } = useFollowers({ username });
   const allData = data?.pages.flatMap((data) => data);
+
+  const [sentryRef, { rootRef }] = useInfiniteScroll({
+    loading: isLoading,
+    hasNextPage: hasNextPage ? true : false,
+    onLoadMore: fetchNextPage,
+    disabled: !hasNextPage,
+    rootMargin: '0px 0px 50px 0px',
+  });
 
   if (!allData) {
     return null;
@@ -38,33 +44,34 @@ export const AccountModal = ({ variant, username }: AccountModalProps) => {
   const followers = allData.map((e) => e.followers);
   const followersData = followers.flatMap((el) => el);
 
+  const onClose = () => {
+    setAccountModal(null);
+  };
+
   return (
-    <ModalContainer className={styles.container} onClose={() => setAccountModal(null)}>
-      <CloseModalButton handleClose={() => setAccountModal(null)} />
-      <InfiniteScroll
-        hasMore={hasNextPage ?? false}
-        next={() => fetchNextPage()}
-        loader={<Loader />}
-        dataLength={allData.length}
-        style={{ overflow: 'hidden' }}
-      >
-        <ul className={styles.list}>
-          {variant === 'followers' && (
-            <>
-              {followersData.map((el) => {
-                return <AccountModalResult userID={el.from} key={el.id} />;
-              })}
-            </>
-          )}
-          {variant === 'following' && (
-            <>
-              {followingData.map((el) => {
-                return <AccountModalResult userID={el.to} key={el.id} />;
-              })}
-            </>
-          )}
-        </ul>
-      </InfiniteScroll>
+    <ModalContainer className={styles.container} onClose={onClose}>
+      <CloseModalButton handleClose={onClose} />
+      <ul className={styles.list} ref={rootRef}>
+        {variant === 'followers' && (
+          <>
+            {followersData.map((el) => {
+              return <AccountModalResult userID={el.from} key={el.id} />;
+            })}
+          </>
+        )}
+        {variant === 'following' && (
+          <>
+            {followingData.map((el) => {
+              return <AccountModalResult userID={el.to} key={el.id} />;
+            })}
+          </>
+        )}
+        {(isLoading || hasNextPage) && (
+          <div ref={sentryRef}>
+            <Loader />
+          </div>
+        )}
+      </ul>
     </ModalContainer>
   );
 };

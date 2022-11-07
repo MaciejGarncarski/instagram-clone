@@ -3,26 +3,30 @@
 .button {
   background-color: transparent;
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 2rem;
+  right: 1.5rem;
   font-size: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all var(--transition-fast);
+  transition-property: background-color, color;
+  padding: 0.5rem;
+  border-radius: 50%;
 
   @include common.breakpoint('sm') {
     font-size: 7rem;
     top: 4rem;
-    right: 9rem;
+    right: 5rem;
   }
 
   & > svg {
     color: var(--bg-color);
   }
 
-  &:focus {
+  &:focus,
+  &:hover {
     background-color: var(--bg-color);
-    border-radius: var(--radius-small);
 
     & > svg {
       color: var(--text-color);

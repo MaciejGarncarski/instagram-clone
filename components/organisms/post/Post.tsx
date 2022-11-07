@@ -20,13 +20,11 @@ type PostProps = {
 
 export const articleVariant: Variants = {
   hidden: {
-    rotate: -3,
-    scale: 0.9,
+    y: -30,
     opacity: 0,
   },
   visible: {
-    rotate: 0,
-    scale: 1,
+    y: 0,
     opacity: 1,
     transition: {
       delay: 0.15,

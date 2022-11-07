@@ -4,31 +4,12 @@
   background-color: var(--white);
   border-radius: var(--radius-small);
   display: flex;
+  justify-content: center;
+  align-items: stretch;
   flex-direction: column;
   list-style: none;
-  padding: 2rem 1.5rem;
-  margin: 0 1rem;
-  gap: 3rem;
   overflow-y: scroll;
-
-  @include common.breakpoint('lg') {
-    padding: 3rem;
-    margin: 0;
-  }
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
-    border-radius: 10px;
-    border: 3px solid transparent;
-  }
+  width: min(75rem, 90%);
 }
 
 .container {

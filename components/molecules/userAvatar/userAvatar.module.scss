@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: relative;
   border-radius: 50%;
 }
@@ -52,7 +51,6 @@
   align-items: center;
   opacity: 0;
   transition: all var(--transition-fast);
-
   font-size: 2.5em;
 
   & > img {

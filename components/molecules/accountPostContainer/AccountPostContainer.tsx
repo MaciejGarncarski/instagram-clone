@@ -33,7 +33,7 @@ export const AccountPostContainer = ({ userID }: PostProps) => {
   }
 
   return (
-    <motion.main
+    <motion.div
       variants={containerVariant}
       initial='hidden'
       animate='visible'
@@ -42,6 +42,6 @@ export const AccountPostContainer = ({ userID }: PostProps) => {
       {allPosts.map(({ id }) => {
         return <AccountPost key={id} postID={id} userID={userID} />;
       })}
-    </motion.main>
+    </motion.div>
   );
 };

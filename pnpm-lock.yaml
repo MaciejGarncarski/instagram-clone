@@ -19,6 +19,7 @@ specifiers:
   '@types/node': 18.7.6
   '@types/react': 18.0.17
   '@types/react-dom': 18.0.6
+  '@types/react-infinite-scroller': ^1.2.3
   '@types/testing-library__jest-dom': ^5.14.5
   '@types/uuid': ^8.3.4
   '@typescript-eslint/eslint-plugin': ^5.33.1
@@ -57,7 +58,7 @@ specifiers:
   react-hook-form: ^7.34.2
   react-icons: ^4.4.0
   react-image-crop: ^10.0.8
-  react-infinite-scroll-component: ^6.1.0
+  react-infinite-scroll-hook: ^4.0.4
   react-toastify: ^9.0.8
   sass: ^1.54.4
   typescript: 4.7.4
@@ -95,7 +96,7 @@ dependencies:
   react-hook-form: 7.38.0_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
   react-image-crop: 10.0.8_react@18.2.0
-  react-infinite-scroll-component: 6.1.0_react@18.2.0
+  react-infinite-scroll-hook: 4.0.4_react@18.2.0
   react-toastify: 9.0.8_biqbaboplfbrettd7655fr4n2y
   sass: 1.55.0
   use-debounce: 8.0.4_react@18.2.0
@@ -112,6 +113,7 @@ devDependencies:
   '@types/node': 18.7.6
   '@types/react': 18.0.17
   '@types/react-dom': 18.0.6
+  '@types/react-infinite-scroller': 1.2.3
   '@types/testing-library__jest-dom': 5.14.5
   '@types/uuid': 8.3.4
   '@typescript-eslint/eslint-plugin': 5.40.1_miuv6xbpnfe2ujzbuq3ok3mqxm
@@ -2478,6 +2480,12 @@ packages:
 
   /@types/react-dom/18.0.6:
     resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
+    dependencies:
+      '@types/react': 18.0.17
+    dev: true
+
+  /@types/react-infinite-scroller/1.2.3:
+    resolution: {integrity: sha512-l60JckVoO+dxmKW2eEG7jbliEpITsTJvRPTe97GazjF5+ylagAuyYdXl8YY9DQsTP9QjhqGKZROknzgscGJy0A==}
     dependencies:
       '@types/react': 18.0.17
     dev: true
@@ -6461,13 +6469,22 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-infinite-scroll-component/6.1.0_react@18.2.0:
-    resolution: {integrity: sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==}
+  /react-infinite-scroll-hook/4.0.4_react@18.2.0:
+    resolution: {integrity: sha512-fCjG9xwCfnV9GcAHVz9rXGnLqO55fcYsbeshSxgEH2biF8fVFHmfzZrfX4iTzoOWO1Rrz5hxrK4bBcqL5fAy9Q==}
+    engines: {node: '>=10'}
     peerDependencies:
-      react: '>=16.0.0'
+      react: '>=16.8.0'
     dependencies:
       react: 18.2.0
-      throttle-debounce: 2.3.0
+      react-intersection-observer-hook: 2.0.6_react@18.2.0
+    dev: false
+
+  /react-intersection-observer-hook/2.0.6_react@18.2.0:
+    resolution: {integrity: sha512-NTx+4Qat1tS9Bn4CXa6YgmbxLGcxFttV94Us7ZUEZ4mIZD3XaCpnm6U/FU35c6cJOMIfc7UfSzpju69ckfmb+Q==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:
@@ -7233,11 +7250,6 @@ packages:
 
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
-
-  /throttle-debounce/2.3.0:
-    resolution: {integrity: sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==}
-    engines: {node: '>=8'}
-    dev: false
 
   /through/2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}

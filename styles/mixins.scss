@@ -70,7 +70,8 @@
 }
 
 @mixin overlay {
-  background-color: rgba(30, 30, 30, 0.6);
+  background-color: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(2px);
   width: 100%;
   height: 100%;
   position: fixed;

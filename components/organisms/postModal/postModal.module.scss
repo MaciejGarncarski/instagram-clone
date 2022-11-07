@@ -29,9 +29,9 @@
 .modal {
   background-color: var(--bg-color);
   border-radius: var(--radius-small);
-  width: 94%;
-  min-height: 85vh;
-  max-height: 90vh;
+  width: 90%;
+  min-height: 60vh;
+  max-height: 85vh;
   overflow-y: scroll;
   display: grid;
   grid-template-rows: auto 1fr auto;

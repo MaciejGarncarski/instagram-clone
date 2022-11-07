@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import { namedComponent } from '@/lib/namedComponent';
 import { useGetPosts } from '@/hooks/posts/useGetPosts';
@@ -14,7 +14,15 @@ const Post = dynamic(() => {
 });
 
 export const HomePage = () => {
-  const { data, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
+  const { data, isError, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: isLoading,
+    hasNextPage: hasNextPage ? true : false,
+    onLoadMore: fetchNextPage,
+    disabled: isError,
+    rootMargin: '0px 0px 600px 0px',
+  });
 
   if (!data?.pages || isLoading) {
     return <Loader className={styles.loader} />;
@@ -27,23 +35,19 @@ export const HomePage = () => {
   }
 
   return (
-    <InfiniteScroll
-      hasMore={hasNextPage ?? false}
-      next={() => fetchNextPage()}
-      loader={<Loader />}
-      dataLength={allPosts.length}
-      style={{ overflow: 'hidden' }}
-      className={styles.scroller}
-    >
+    <main id='main' className={styles.container}>
       {allPosts && data && (
-        <main id='main' className={styles.container}>
-          <AnimatePresence>
-            {allPosts.map(({ id, author_id }) => {
-              return <Post key={`${id}, ${author_id}`} id={id} />;
-            })}
-          </AnimatePresence>
-        </main>
+        <AnimatePresence>
+          {allPosts.map(({ id, author_id }) => {
+            return <Post key={`${id}, ${author_id}`} id={id} />;
+          })}
+        </AnimatePresence>
       )}
-    </InfiniteScroll>
+      {(isLoading || hasNextPage) && (
+        <div ref={sentryRef}>
+          <Loader />
+        </div>
+      )}
+    </main>
   );
 };

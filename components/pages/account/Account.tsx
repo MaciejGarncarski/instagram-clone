@@ -2,24 +2,22 @@ import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { atom, useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 import { namedComponent } from '@/lib/namedComponent';
-import { Profile } from '@/hooks/profile/useProfile';
+import { useProfileByUsername } from '@/hooks/useProfileByUsername';
 
 import styles from './account.module.scss';
 
 import { FollowButton } from '@/components/atoms/followButton/FollowButton';
+import { Loader } from '@/components/atoms/loader/Loader';
 import {
   AccountModal,
   AccountModalVariant,
 } from '@/components/molecules/accountModal/AccountModal';
 import { AccountPostContainer } from '@/components/molecules/accountPostContainer/AccountPostContainer';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
-
-type AccountProps = {
-  userData: Profile;
-};
 
 type StatsData = {
   number: number;
@@ -36,21 +34,30 @@ const AccountSettings = dynamic(() =>
 
 export const accountModal = atom<AccountModalVariant | null>(null);
 
-export const Account = ({ userData }: AccountProps) => {
+export const Account = () => {
   const [accountModalOpen, setAccountModal] = useAtom(accountModal);
   const user = useUser();
+  const router = useRouter();
 
-  if (!userData) {
-    return null;
+  const usernameFromQuery = typeof router.query.username === 'string' ? router.query.username : '';
+  const { data, isLoading } = useProfileByUsername(usernameFromQuery);
+
+  if (!data || isLoading) {
+    return <Loader />;
   }
 
-  const { bio, username, full_name, _count, website, profile_id, id } = userData;
-  const isAccountMine = id === user?.id;
+  const { bio, username, full_name, _count, website, profile_id, id } = data;
+  const isOwner = id === user?.id;
 
   const statsData: Array<StatsData> = [
     {
       number: _count.posts,
       text: 'posts',
+      onClick: () =>
+        window.scrollBy({
+          top: 350,
+          behavior: 'smooth',
+        }),
     },
     {
       number: _count.fromUser,
@@ -71,13 +78,10 @@ export const Account = ({ userData }: AccountProps) => {
         <section aria-labelledby='user account' className={styles.account}>
           <UserAvatar
             userID={id}
-            className={clsx(!isAccountMine && styles['avatar--columns'], styles.avatar)}
+            className={clsx(!isOwner && styles['avatar--columns'], styles.avatar)}
           />
           <div className={styles['user-info']}>
-            <div className={styles.name}>
-              <h2 className={styles.username}>{full_name ?? `user-${profile_id}`}</h2>
-              <p>@{username}</p>
-            </div>
+            <h2 className={styles.username}>@{username}</h2>
             <div className={styles.stats}>
               {statsData.map(({ number, text, onClick }) => {
                 return (
@@ -88,12 +92,15 @@ export const Account = ({ userData }: AccountProps) => {
                 );
               })}
             </div>
-            {bio && <p className={styles.text}>{bio}</p>}
-            {website && (
-              <a href={website} target='_blank' rel='noopener noreferrer'>
-                {website}
-              </a>
-            )}
+            <div className={styles.bio}>
+              <p className={styles.fullname}>{full_name ?? `user-${profile_id}`}</p>
+              {bio && <p className={styles.bioText}>{bio}</p>}
+              {website && (
+                <a href={website} target='_blank' rel='noopener noreferrer'>
+                  {website}
+                </a>
+              )}
+            </div>
           </div>
           {accountModalOpen === 'followers' && (
             <AccountModal username={username ?? ''} variant='followers' />
@@ -102,9 +109,9 @@ export const Account = ({ userData }: AccountProps) => {
             <AccountModal username={username ?? ''} variant='following' />
           )}
           <FollowButton userID={id} className={styles.followBtn} />
-          {isAccountMine && <AccountSettings />}
+          {isOwner && <AccountSettings />}
         </section>
-        <AccountPostContainer userID={userData.id} />
+        <AccountPostContainer userID={id} />
       </main>
     </>
   );
