@@ -1,5 +1,6 @@
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 
 import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
 import { getInfiniteData, POSTS_DATA_URL } from '@/lib/getInfiniteData';
@@ -12,7 +13,13 @@ const Home = () => {
   return <HomePage />;
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const supabase = createServerSupabaseClient(ctx);
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   const queryClient = new QueryClient();
 
   const initialPosts = await getInfiniteData<Array<Posts>>({
@@ -22,7 +29,9 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   initialPosts.forEach(async (post) => {
-    await queryClient.fetchQuery(['single post', post.id], () => fetchSinglePost(post.id));
+    await queryClient.fetchQuery(['single post', post.id], () =>
+      fetchSinglePost(post.id, session?.user.id)
+    );
   });
 
   await queryClient.fetchQuery(['posts'], () =>
@@ -34,7 +43,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: 120,
   };
 };
 
