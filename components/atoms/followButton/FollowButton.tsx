@@ -43,6 +43,7 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
       onSuccess: () => {
         setIsFollowed((prev) => !prev);
         queryClient.invalidateQueries(['profile', { id: userID }]);
+        queryClient.invalidateQueries(['profile', { username: data?.username }]);
         queryClient.invalidateQueries(['profile', { username: currentUserData?.username }]);
         queryClient.invalidateQueries(['single post']);
       },

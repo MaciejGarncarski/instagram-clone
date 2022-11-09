@@ -63,6 +63,24 @@ body {
   min-height: 100vh;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  border: 3px solid transparent;
+
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
 svg {
   color: var(--text-color);
 }

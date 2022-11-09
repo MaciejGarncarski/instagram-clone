@@ -1,4 +1,5 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import clsx from 'clsx';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './post.module.scss';
 
+import { Loader } from '@/components/atoms/loader/Loader';
 import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons';
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
 import { PostFooter } from '@/components/molecules/post/postFooter/PostFooter';
@@ -34,9 +36,10 @@ export const articleVariant: Variants = {
 
 export const Post = ({ id }: PostProps) => {
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [isImgLoaded, setIsImgLoaded] = useState<boolean>(false);
+
   const user = useUser();
   const { data: userData } = useProfile();
-
   const { data: postData } = usePostData(id);
 
   useEffect(() => {
@@ -70,12 +73,14 @@ export const Post = ({ id }: PostProps) => {
     >
       <PostHeader id={id} canShowSettings={canShowSettings} />
       <figure className={styles.figure}>
+        {!isImgLoaded && <Loader />}
         <Image
-          className={styles['post-img']}
+          className={clsx(styles['post-img'], !isImgLoaded && 'visually-hidden')}
           src={img}
           alt={`${author.username}'s post`}
           width={300}
           height={270}
+          onLoad={() => setIsImgLoaded(true)}
           priority
         />
       </figure>
