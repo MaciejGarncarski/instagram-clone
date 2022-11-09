@@ -22,14 +22,14 @@ type PostProps = {
 
 export const articleVariant: Variants = {
   hidden: {
-    y: -30,
-    opacity: 0,
+    y: -10,
+    opacity: 0.6,
   },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      delay: 0.15,
+      delay: 0.1,
     },
   },
 };

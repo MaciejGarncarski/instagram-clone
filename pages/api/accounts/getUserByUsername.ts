@@ -1,3 +1,4 @@
+import { createServerSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from '@/utils/db';
@@ -9,6 +10,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const { username } = req.body;
+
+  const supabaseServerClient = createServerSupabaseClient({
+    req,
+    res,
+  });
+  const {
+    data: { user },
+  } = await supabaseServerClient.auth.getUser();
 
   try {
     const prismaData = await prisma.profiles.findFirst({
@@ -31,7 +40,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       },
     });
-    res.status(200).send(prismaData);
+
+    const isFollowing = await prisma.followers.findFirst({
+      where: {
+        from: user?.id,
+        to: prismaData?.id,
+      },
+    });
+
+    res.status(200).send({ profile: prismaData, isFollowing: Boolean(isFollowing) });
   } catch (e) {
     res.status(400).send(`Wrong api call`);
   }

@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/utils/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  const { id } = req.body;
+
   try {
     const prismaData = await prisma.profiles.findUnique({
       where: {

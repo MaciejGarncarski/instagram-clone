@@ -19,20 +19,20 @@ export const useFollowers = ({ username }: UseFollowersProps) => {
   const { data } = useProfileByUsername(username);
 
   return useInfiniteQuery(
-    ['account modal', data?.id],
+    ['account modal', data?.profile.id],
     ({ pageParam = 0 }) =>
       getInfiniteData<FollowersResult>({
         url: '/getFollowers',
         pageParam,
         perScroll: RESULTS_PER_SCROLL,
         additionalData: {
-          userID: data?.id ?? '',
+          userID: data?.profile.id ?? '',
         },
       }),
     {
       getNextPageParam: (_, allFollowers) => {
-        const followingCount = data?._count.fromUser;
-        const followersCount = data?._count.toUser;
+        const followingCount = data?.profile._count.fromUser;
+        const followersCount = data?.profile._count.toUser;
 
         if (!followingCount || !followersCount) {
           return undefined;

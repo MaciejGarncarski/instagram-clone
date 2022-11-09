@@ -3,10 +3,10 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 import { apiClient } from '@/lib/apiClient';
 import { useProfile } from '@/hooks/profile/useProfile';
+import { useProfileByUsername } from '@/hooks/useProfileByUsername';
 
 import styles from './followButton.module.scss';
 
@@ -20,35 +20,30 @@ type FollowButtonProps = {
 type FollowMutation = Pick<followers, 'from' | 'to'>;
 
 export const FollowButton = ({ userID, className }: FollowButtonProps) => {
-  const { data } = useProfile(userID);
-  const currentUser = useUser();
-  const { data: currentUserData } = useProfile(currentUser?.id);
   const queryClient = useQueryClient();
-  const findIsFollowed = data?.toUser.find(({ from }) => {
-    return from === currentUser?.id;
-  });
+  const currentUser = useUser();
+  const { data } = useProfile(userID);
+  const { data: dataByUsername } = useProfileByUsername(data?.username ?? '');
 
-  const [isFollowed, setIsFollowed] = useState<boolean>(Boolean(findIsFollowed));
-
+  const isFollowing = dataByUsername?.isFollowing;
   const canShowFollowBtn = currentUser?.id && currentUser?.id !== userID;
 
   const { mutate, isLoading } = useMutation(
     async ({ from, to }: FollowMutation) => {
-      if (isFollowed) {
+      if (isFollowing) {
         return apiClient.delete(`/follow?from=${from}&to=${to}`);
       }
       return apiClient.put(`/follow?from=${from}&to=${to}`);
     },
     {
-      onSuccess: () => {
-        setIsFollowed((prev) => !prev);
+      onSettled: async () => {
+        await queryClient.invalidateQueries(['profile', { username: data?.username }]);
         queryClient.invalidateQueries(['profile', { id: userID }]);
-        queryClient.invalidateQueries(['profile', { username: data?.username }]);
-        queryClient.invalidateQueries(['profile', { username: currentUserData?.username }]);
         queryClient.invalidateQueries(['single post']);
       },
     }
   );
+
   const onClick = () => {
     if (!currentUser?.id) {
       return;
@@ -56,7 +51,7 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
     mutate({ from: currentUser?.id, to: userID });
   };
 
-  if (!canShowFollowBtn) {
+  if (!canShowFollowBtn || dataByUsername?.isFollowing === undefined) {
     return null;
   }
 
@@ -72,7 +67,7 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
       type='button'
       className={clsx(className, styles.button)}
     >
-      {isFollowed ? 'unfollow' : 'follow'}
+      {isFollowing ? 'unfollow' : 'follow'}
     </motion.button>
   );
 };

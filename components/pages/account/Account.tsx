@@ -42,11 +42,11 @@ export const Account = () => {
   const usernameFromQuery = typeof router.query.username === 'string' ? router.query.username : '';
   const { data, isLoading } = useProfileByUsername(usernameFromQuery);
 
-  if (!data || isLoading) {
+  if (!data || !data.profile || isLoading) {
     return <Loader />;
   }
 
-  const { bio, username, full_name, _count, website, profile_id, id } = data;
+  const { bio, username, full_name, _count, website, profile_id, id } = data.profile;
   const isOwner = id === user?.id;
 
   const statsData: Array<StatsData> = [
@@ -108,7 +108,7 @@ export const Account = () => {
           {accountModalOpen === 'following' && (
             <AccountModal username={username ?? ''} variant='following' />
           )}
-          <FollowButton userID={id} className={styles.followBtn} />
+          <FollowButton userID={data.profile.id} className={styles.followBtn} />
           {isOwner && <AccountSettings />}
         </section>
         <AccountPostContainer userID={id} />
