@@ -56,7 +56,7 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
   }
 
   if (isLoading) {
-    return <Loader className={styles.loader} />;
+    return <Loader variant='small' className={styles.loader} />;
   }
 
   return (

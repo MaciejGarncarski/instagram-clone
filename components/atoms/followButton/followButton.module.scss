@@ -17,11 +17,7 @@
   }
 }
 
-.loader {
-  margin: 0;
+div.loader {
+  margin-right: 3.5rem;
   margin-left: auto;
-  margin-right: 4rem;
-  --size: 3rem;
-  height: var(--size);
-  width: var(--size);
 }
