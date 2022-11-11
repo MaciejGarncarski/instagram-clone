@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import { usePostModal } from '@/hooks/usePostModal';
 
-import styles from './specificPost.module.scss';
+import styles from './singlePost.module.scss';
 
 import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons';
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
@@ -13,7 +13,7 @@ import { PostFooter } from '@/components/molecules/post/postFooter/PostFooter';
 import { PostHeader } from '@/components/molecules/post/postHeader/PostHeader';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
-export const SpecificPost = () => {
+export const SinglePost = () => {
   const router = useRouter();
 
   const postID = typeof router.query.id === 'string' ? Number(router.query.id) : 0;

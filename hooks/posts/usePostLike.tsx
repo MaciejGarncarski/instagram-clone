@@ -46,7 +46,7 @@ export const usePostLike = (id: number, data?: posts_likes) => {
 
   const onSuccess = () => {
     setIsLikedByUser((prev) => !prev);
-    queryClient.invalidateQueries(['single post', id]);
+    queryClient.invalidateQueries(['post', id]);
   };
 
   const postLike = useMutation(
@@ -65,19 +65,16 @@ export const usePostLike = (id: number, data?: posts_likes) => {
     },
     {
       onMutate: async (newLike) => {
-        await queryClient.cancelQueries(['single post', newLike.post_id]);
-        const previousLike = queryClient.getQueryData<SinglePostData>([
-          'single post',
-          newLike.post_id,
-        ]);
-        queryClient.setQueryData<SinglePostData>(['single post', newLike.post_id], (oldData) =>
+        await queryClient.cancelQueries(['post', newLike.post_id]);
+        const previousLike = queryClient.getQueryData<SinglePostData>(['post', newLike.post_id]);
+        queryClient.setQueryData<SinglePostData>(['post', newLike.post_id], (oldData) =>
           updateFn(oldData, newLike)
         );
         return { previousLike, newLike };
       },
       onError: (err, newLike, context) => {
         queryClient.setQueryData<SinglePostData>(
-          ['single post', context?.newLike.post_id],
+          ['post', context?.newLike.post_id],
           context?.previousLike
         );
       },

@@ -24,7 +24,7 @@ export const POST_PER_SCROLL = 4;
 
 export const useGetPosts = () => {
   return useInfiniteQuery(
-    ['posts'],
+    ['homepage posts'],
     ({ pageParam = 0 }) =>
       getInfiniteData<Posts>({ url: POSTS_DATA_URL, pageParam, perScroll: POST_PER_SCROLL }),
     {

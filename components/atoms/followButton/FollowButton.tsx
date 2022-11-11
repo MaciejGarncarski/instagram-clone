@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 
 import { apiClient } from '@/lib/apiClient';
 import { useProfile } from '@/hooks/profile/useProfile';
-import { useProfileByUsername } from '@/hooks/useProfileByUsername';
 
 import styles from './followButton.module.scss';
 
@@ -20,38 +19,35 @@ type FollowButtonProps = {
 type FollowMutation = Pick<followers, 'from' | 'to'>;
 
 export const FollowButton = ({ userID, className }: FollowButtonProps) => {
-  const queryClient = useQueryClient();
   const currentUser = useUser();
-  const { data } = useProfile(userID);
-  const { data: dataByUsername } = useProfileByUsername(data?.username ?? '');
-
-  const isFollowing = dataByUsername?.isFollowing;
-  const canShowFollowBtn = currentUser?.id && currentUser?.id !== userID;
+  const { data, isFollowing } = useProfile(userID);
+  const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation(
     async ({ from, to }: FollowMutation) => {
+      const url = `/follow?from=${from}&to=${to}`;
       if (isFollowing) {
-        return apiClient.delete(`/follow?from=${from}&to=${to}`);
+        return apiClient.delete(url);
       }
-      return apiClient.put(`/follow?from=${from}&to=${to}`);
+      return apiClient.put(url);
     },
     {
       onSettled: async () => {
         await queryClient.invalidateQueries(['profile', { username: data?.username }]);
         queryClient.invalidateQueries(['profile', { id: userID }]);
-        queryClient.invalidateQueries(['single post']);
+        queryClient.invalidateQueries(['post']);
       },
     }
   );
 
   const onClick = () => {
-    if (!currentUser?.id) {
-      return;
+    if (currentUser?.id) {
+      mutate({ from: currentUser?.id, to: userID });
     }
-    mutate({ from: currentUser?.id, to: userID });
   };
 
-  if (!canShowFollowBtn || dataByUsername?.isFollowing === undefined) {
+  const canShowFollowBtn = currentUser?.id && currentUser?.id !== userID;
+  if (!canShowFollowBtn || typeof isFollowing === 'undefined') {
     return null;
   }
 

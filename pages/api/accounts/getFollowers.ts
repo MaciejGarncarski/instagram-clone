@@ -27,7 +27,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       skip,
       take,
     });
-    res.status(200).send({ following, followers });
+
+    const followersCount = await prisma.followers.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        to: additionalData.userID,
+      },
+    });
+
+    const followingCount = await prisma.followers.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        from: additionalData.userID,
+      },
+    });
+
+    res.status(200).send({ following, followers, followersCount, followingCount });
   } catch (error) {
     res.status(500);
   }

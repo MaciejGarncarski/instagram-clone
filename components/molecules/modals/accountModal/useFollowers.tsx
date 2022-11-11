@@ -2,37 +2,45 @@ import { followers } from '@prisma/client';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getInfiniteData } from '@/lib/getInfiniteData';
-import { useProfileByUsername } from '@/hooks/useProfileByUsername';
+
+import { AccountModalVariant } from '@/components/molecules/modals/accountModal/AccountModal';
 
 type UseFollowersProps = {
-  username: string;
+  userID: string;
+  variant: AccountModalVariant;
+};
+
+type Count = {
+  _count: {
+    id: number;
+  };
 };
 
 type FollowersResult = {
   followers: Array<followers>;
   following: Array<followers>;
+  followingCount: Count;
+  followersCount: Count;
 };
 
 const RESULTS_PER_SCROLL = 5;
 
-export const useFollowers = ({ username }: UseFollowersProps) => {
-  const { data } = useProfileByUsername(username);
-
+export const useFollowers = ({ userID, variant }: UseFollowersProps) => {
   return useInfiniteQuery(
-    ['account modal', data?.profile.id],
+    ['account modal', userID, variant],
     ({ pageParam = 0 }) =>
       getInfiniteData<FollowersResult>({
-        url: '/getFollowers',
+        url: '/accounts/getFollowers',
         pageParam,
         perScroll: RESULTS_PER_SCROLL,
         additionalData: {
-          userID: data?.profile.id ?? '',
+          userID,
         },
       }),
     {
-      getNextPageParam: (_, allFollowers) => {
-        const followingCount = data?.profile._count.fromUser;
-        const followersCount = data?.profile._count.toUser;
+      getNextPageParam: (prevFollowers, allFollowers) => {
+        const followingCount = prevFollowers.followersCount._count.id;
+        const followersCount = prevFollowers.followersCount._count.id;
 
         if (!followingCount || !followersCount) {
           return undefined;

@@ -73,7 +73,7 @@ export const PostEditModal = ({ setIsEditing, postID }: PostEditModalProps) => {
           updateToast({ toastId: updatingToast, text: 'Error', type: 'error' });
         },
         onSettled: () => {
-          queryClient.invalidateQueries(['single post', postID]);
+          queryClient.invalidateQueries(['post', postID]);
         },
       }
     );

@@ -10,7 +10,7 @@ import styles from './postSettings.module.scss';
 
 import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
 import { DeleteIcon } from '@/components/atoms/icons/DeleteIcon';
-import { PostEditModal } from '@/components/molecules/post/postEditModal/PostEditModal';
+import { PostEditModal } from '@/components/molecules/modals/postEditModal/PostEditModal';
 import { Modal } from '@/components/organisms/modal/Modal';
 
 type PostSettingsProps = {

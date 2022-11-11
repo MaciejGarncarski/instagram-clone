@@ -8,7 +8,7 @@ import { updateToast } from '@/lib/updateToast';
 
 import { postModalAtom } from '@/store/store';
 
-type AddPostMutation = {
+type DeletePostMutation = {
   post_id: number;
 };
 
@@ -17,7 +17,7 @@ export const useDeletePost = () => {
   const [, setModalOpen] = useAtom(postModalAtom);
   const { supabaseClient } = useSessionContext();
 
-  const postMutation = useMutation(({ post_id }: AddPostMutation) => {
+  const postMutation = useMutation(({ post_id }: DeletePostMutation) => {
     return axios.post('/api/posts/deletePost', { post_id });
   });
 
@@ -40,8 +40,7 @@ export const useDeletePost = () => {
       { post_id },
       {
         onSuccess: async () => {
-          await queryClient.invalidateQueries(['posts']);
-          await queryClient.invalidateQueries(['posts count']);
+          await queryClient.invalidateQueries(['homepage posts']);
           await queryClient.invalidateQueries(['account posts']);
           toast.update(postDeleting, {
             render: 'Post deleted!',

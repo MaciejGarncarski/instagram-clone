@@ -1,10 +1,16 @@
 @use '/styles/common.scss';
 
 .overflow {
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 100%;
+  max-height: 30rem;
   display: grid;
   grid-template-rows: auto auto 1fr;
   padding-bottom: 1.5rem;
+
+  @include common.breakpoint('sm') {
+    max-height: unset;
+  }
 }
 
 .description {
@@ -14,6 +20,7 @@
   gap: 1.25rem;
   align-items: center;
   font-size: 1.5rem;
+  border-bottom: var(--gray-border);
 
   @include common.breakpoint('sm') {
     padding: 2rem;

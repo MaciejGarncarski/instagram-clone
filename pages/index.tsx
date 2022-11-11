@@ -22,11 +22,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
   if (initialPosts.posts) {
     initialPosts.posts.forEach(async (post) => {
-      await queryClient.fetchQuery(['single post', post.id], () => fetchSinglePost(post.id));
+      await queryClient.fetchQuery(['post', post.id], () => fetchSinglePost(post.id));
     });
   }
 
-  await queryClient.fetchQuery(['posts'], () =>
+  await queryClient.fetchQuery(['homepage posts'], () =>
     getInfiniteData({ url: POSTS_DATA_URL, pageParam: 0, perScroll: 20 })
   );
 

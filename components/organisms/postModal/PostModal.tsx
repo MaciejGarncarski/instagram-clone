@@ -8,14 +8,14 @@ import { usePostModal } from '@/hooks/usePostModal';
 
 import styles from './postModal.module.scss';
 
-import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
 import { Loader } from '@/components/atoms/loader/Loader';
+import { CloseModalButton } from '@/components/atoms/modal/closeModalButton/CloseModalButton';
 import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
+import { PostModalComments } from '@/components/molecules/modals/postModalComments/PostModalComments';
 import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons';
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
 import { PostFooter } from '@/components/molecules/post/postFooter/PostFooter';
 import { PostHeader } from '@/components/molecules/post/postHeader/PostHeader';
-import { PostModalComments } from '@/components/molecules/postModalComments/PostModalComments';
 
 type PostModalProps = {
   id: number;
@@ -52,10 +52,19 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
       <motion.div
         role='dialog'
         className={styles.modal}
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0.75 }}
+        initial={{ opacity: 0.75, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: 'spring',
+          damping: 10,
+          stiffness: 80,
+        }}
       >
-        <div className={styles.image}>
+        <motion.div
+          className={styles.image}
+          animate={{ opacity: 1, transition: { duration: 0.65, delay: 0.2 } }}
+          initial={{ opacity: 0.75 }}
+        >
           {!isImgLoaded && <Loader />}
           <Image
             width={700}
@@ -66,7 +75,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
             className={clsx(isImgLoaded ? styles.visible : styles.hidden)}
             onLoad={() => setIsImgLoaded(true)}
           />
-        </div>
+        </motion.div>
         <CloseModalButton handleClose={closeModal} />
         <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />
         <PostModalComments id={id} allComments={allComments} />

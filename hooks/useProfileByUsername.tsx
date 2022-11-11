@@ -1,21 +1,35 @@
+import { profiles } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient } from '@/lib/apiClient';
-import { Profile } from '@/hooks/profile/useProfile';
+
+export type Following = boolean | null;
 
 type ProfileByUsername = {
-  profile: Profile;
-  isFollowing: boolean | null;
+  profile: profiles & {
+    _count: {
+      posts: number;
+      fromUser: number;
+      toUser: number;
+    };
+  };
+  isFollowing: Following;
 };
 
 export const useProfileByUsername = (username: string) => {
-  const profile = useQuery<ProfileByUsername | undefined>(['profile', { username }], async () => {
-    const { data } = await apiClient.post('/accounts/getUserByUsername', {
-      username,
-    });
+  const profile = useQuery<ProfileByUsername | undefined>(
+    ['profile', { username }],
+    async () => {
+      const { data } = await apiClient.post('/accounts/getUserByUsername', {
+        username,
+      });
 
-    return data;
-  });
+      return data;
+    },
+    {
+      enabled: username.trim() !== '',
+    }
+  );
 
   return { ...profile };
 };

@@ -13,11 +13,11 @@ import styles from './account.module.scss';
 
 import { FollowButton } from '@/components/atoms/followButton/FollowButton';
 import { Loader } from '@/components/atoms/loader/Loader';
+import { AccountPostContainer } from '@/components/molecules/account/accountPostContainer/AccountPostContainer';
 import {
   AccountModal,
   AccountModalVariant,
-} from '@/components/molecules/accountModal/AccountModal';
-import { AccountPostContainer } from '@/components/molecules/accountPostContainer/AccountPostContainer';
+} from '@/components/molecules/modals/accountModal/AccountModal';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
 type StatsData = {
@@ -114,10 +114,10 @@ export const Account = () => {
         <AccountPostContainer userID={id} />
 
         {accountModalOpen === 'followers' && (
-          <AccountModal username={username ?? ''} variant='followers' />
+          <AccountModal userID={data.profile.id} variant='followers' />
         )}
         {accountModalOpen === 'following' && (
-          <AccountModal username={username ?? ''} variant='following' />
+          <AccountModal userID={data.profile.id} variant='following' />
         )}
       </main>
     </>

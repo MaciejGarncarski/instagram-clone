@@ -8,7 +8,7 @@ import styles from './userAvatar.module.scss';
 
 import { AvatarImage } from '@/components/atoms/avatarImage/AvatarImage';
 import { EditIcon } from '@/components/atoms/icons/EditIcon';
-import { UserAvatarModal } from '@/components/molecules/userAvatarModal/UserAvatarModal';
+import { UserAvatarModal } from '@/components/molecules/modals/userAvatarModal/UserAvatarModal';
 
 export type AvatarVariant = {
   variant?: 'big-border';

@@ -1,9 +1,8 @@
+import { posts, profiles } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
 import { apiClient } from '@/lib/apiClient';
-import { Post } from '@/hooks/posts/useGetPosts';
-import { Profile } from '@/hooks/profile/useProfile';
 
 import styles from './search.module.scss';
 
@@ -16,12 +15,15 @@ export const Search = () => {
   const router = useRouter();
   const query = router.query.q;
 
-  const { data } = useQuery<Array<Post | Profile>>(['search list', query], async () => {
-    const { data } = await apiClient.get(`/getSearchResult?q=${query}`);
-    return data;
-  });
+  const { data, isLoading } = useQuery<Array<posts | profiles>>(
+    ['search list', query],
+    async () => {
+      const { data } = await apiClient.get(`/getSearchResult?q=${query}`);
+      return data;
+    }
+  );
 
-  if (!data) {
+  if (!data || isLoading) {
     return <Loader />;
   }
 
@@ -35,7 +37,7 @@ export const Search = () => {
             return <PostComponent id={result.id} key={result.id} />;
           }
           if ('profile_id' in result) {
-            return <SearchResult data={result} key={result.id} />;
+            return <SearchResult data={result} key={result.profile_id} />;
           }
         })}
       </div>

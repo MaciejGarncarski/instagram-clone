@@ -15,8 +15,8 @@ import { fullName, username } from '@/utils/registerValidation';
 import styles from './editAccount.module.scss';
 
 import { GoBackButton } from '@/components/atoms/goBackButton/GoBackButton';
+import { Buttons } from '@/components/molecules/account/editAccount/buttons/Buttons';
 import { AvatarSection } from '@/components/molecules/avatarSection/AvatarSection';
-import { Buttons } from '@/components/molecules/editAccount/buttons/Buttons';
 
 import { Inputs } from '../../molecules/inputs/Inputs';
 

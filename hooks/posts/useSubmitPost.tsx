@@ -80,7 +80,7 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
             return;
           }
           updateToast({ toastId: toastId.current, text: 'Uploaded!', type: 'success' });
-          queryClient.invalidateQueries(['posts']);
+          queryClient.invalidateQueries(['homepage posts']);
           router.push('/');
         },
       }

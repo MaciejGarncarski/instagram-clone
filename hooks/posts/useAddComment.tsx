@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { apiClient } from '@/lib/apiClient';
 
-type AddPostMutation = {
+type AddCommentMutation = {
   id: number;
   text: string;
 };
@@ -14,7 +14,7 @@ export const useAddComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ({ id, text }: AddPostMutation) => {
+    ({ id, text }: AddCommentMutation) => {
       return apiClient.put('/comments/addComment', {
         user_id: user?.id,
         post_id: id,

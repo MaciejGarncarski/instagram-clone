@@ -10,8 +10,8 @@ import { loginSchema, LoginValues } from '@/utils/loginValidation';
 import styles from './loginModal.module.scss';
 
 import { Button } from '@/components/atoms/button/Button';
-import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
 import { Input } from '@/components/atoms/input/Input';
+import { CloseModalButton } from '@/components/atoms/modal/closeModalButton/CloseModalButton';
 import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
 
 type LoginModalProps = {

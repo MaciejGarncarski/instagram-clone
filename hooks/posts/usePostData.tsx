@@ -26,7 +26,5 @@ export const fetchSinglePost = async (postID: number, userID?: string): Promise<
 
 export const usePostData = (id: number) => {
   const user = useUser();
-  return useQuery<SinglePostData, AxiosError>(['single post', id], () =>
-    fetchSinglePost(id, user?.id)
-  );
+  return useQuery<SinglePostData, AxiosError>(['post', id], () => fetchSinglePost(id, user?.id));
 };

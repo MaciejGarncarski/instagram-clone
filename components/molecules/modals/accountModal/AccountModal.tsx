@@ -3,23 +3,23 @@ import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import styles from './accountModal.module.scss';
 
-import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
 import { Loader } from '@/components/atoms/loader/Loader';
+import { CloseModalButton } from '@/components/atoms/modal/closeModalButton/CloseModalButton';
 import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
-import { useFollowers } from '@/components/molecules/accountModal/useFollowers';
-import { AccountModalResult } from '@/components/molecules/accountModalResult/AccountModalResult';
+import { AccountModalResult } from '@/components/molecules/account/accountModalResult/AccountModalResult';
+import { useFollowers } from '@/components/molecules/modals/accountModal/useFollowers';
 import { accountModal } from '@/components/pages/account/Account';
 
 export type AccountModalVariant = 'following' | 'followers';
 
 type AccountModalProps = {
   variant: AccountModalVariant;
-  username: string;
+  userID: string;
 };
 
-export const AccountModal = ({ variant, username }: AccountModalProps) => {
+export const AccountModal = ({ variant, userID }: AccountModalProps) => {
   const [, setAccountModal] = useAtom(accountModal);
-  const { data, hasNextPage, fetchNextPage, isLoading } = useFollowers({ username });
+  const { data, hasNextPage, fetchNextPage, isLoading } = useFollowers({ userID, variant });
   const allData = data?.pages.flat(Infinity);
 
   const [sentryRef, { rootRef }] = useInfiniteScroll({
