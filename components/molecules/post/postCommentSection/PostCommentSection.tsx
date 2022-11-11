@@ -13,7 +13,7 @@ type PostCommentSectionProps = {
 
 export const PostCommentSection = ({ id }: PostCommentSectionProps) => {
   const { data } = useGetComments(id);
-  const allComments = data?.pages.flatMap((comment) => comment);
+  const allComments = data?.pages.flatMap((el) => el.comments);
 
   if (!allComments || !data) {
     return <Loader />;

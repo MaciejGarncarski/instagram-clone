@@ -19,7 +19,7 @@ export const AccountModalResult = ({ userID }: AccountModalProps) => {
   const [, setAccountModal] = useAtom(accountModal);
 
   if (!data) {
-    return <Loader />;
+    return <Loader variant='small' />;
   }
 
   return (

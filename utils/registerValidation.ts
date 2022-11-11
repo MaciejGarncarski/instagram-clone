@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { password } from '@/utils/loginValidation';
+
 const usernameRegExp = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/gim;
 const nonLowercaseLettersRegExp = /^[a-z]+$/g;
 
@@ -21,10 +23,7 @@ export const username = z
 
 export const registerSchema = z.object({
   email: z.string().email(),
-  password: z
-    .string()
-    .min(6, { message: 'Password must contain at least 6 characters' })
-    .max(10, { message: 'Password is too long!' }),
+  password,
   fullName,
   username,
 });

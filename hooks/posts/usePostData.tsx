@@ -1,13 +1,18 @@
-import { posts_likes } from '@prisma/client';
+import { posts, posts_likes, profiles } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { apiClient } from '@/lib/apiClient';
-import { Posts } from '@/hooks/posts/useGetPosts';
 
 export type SinglePostData = {
-  post: Posts;
+  post: posts & {
+    author: profiles;
+    _count: {
+      posts_likes: number;
+      posts_comments: number;
+    };
+  };
   likesData: posts_likes;
 };
 

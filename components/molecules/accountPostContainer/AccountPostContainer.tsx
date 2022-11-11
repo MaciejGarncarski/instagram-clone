@@ -26,7 +26,7 @@ const containerVariant: Variants = {
 export const AccountPostContainer = ({ userID }: PostProps) => {
   const { data } = useAccountPosts(userID);
 
-  const allPosts = data?.pages.flatMap((post) => post);
+  const allPosts = data?.pages.flatMap((post) => post.posts);
 
   if (!allPosts) {
     return <Loader />;

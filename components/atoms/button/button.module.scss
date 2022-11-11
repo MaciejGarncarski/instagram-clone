@@ -44,9 +44,7 @@
     opacity: 0.6;
   }
 
-  &:not(:disabled) {
-    &:hover {
-      cursor: pointer;
-    }
+  &:not(:disabled):hover {
+    cursor: pointer;
   }
 }

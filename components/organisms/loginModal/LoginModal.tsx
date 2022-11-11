@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSessionContext, useUser } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
+import { motion, Variants } from 'framer-motion';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -9,12 +10,23 @@ import { loginSchema, LoginValues } from '@/utils/loginValidation';
 import styles from './loginModal.module.scss';
 
 import { Button } from '@/components/atoms/button/Button';
+import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
 import { Input } from '@/components/atoms/input/Input';
 import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
-import { Modal } from '@/components/organisms/modal/Modal';
 
 type LoginModalProps = {
   setIsOpen: (isOpen: boolean) => void;
+};
+
+export const modalVariant: Variants = {
+  hidden: {
+    opacity: 0.5,
+    y: -70,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
 };
 
 export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
@@ -56,9 +68,16 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
   };
 
   return (
-    <ModalContainer onClose={closeModal}>
-      <div role='dialog' className={styles.modal}>
-        <Modal.Heading>Login</Modal.Heading>
+    <ModalContainer onClose={closeModal} variant='center'>
+      <motion.div
+        variants={modalVariant}
+        initial='hidden'
+        animate='visible'
+        role='dialog'
+        className={styles.modal}
+      >
+        <h3 className={styles.heading}>Log in</h3>
+        <CloseModalButton handleClose={closeModal} />
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <Input
             {...register('email')}
@@ -73,9 +92,11 @@ export const LoginModal = ({ setIsOpen }: LoginModalProps) => {
             isDirty={dirtyFields.password}
             error={errors.password}
           />
-          <Button type='submit'>Log in</Button>
+          <Button type='submit' className={styles.button}>
+            Log in
+          </Button>
         </form>
-      </div>
+      </motion.div>
     </ModalContainer>
   );
 };

@@ -18,10 +18,7 @@ const MotionLink = motion(Link);
 export const SearchResult = ({ data }: SearchResultProps) => {
   const user = useUser();
   const { id, username, full_name } = data;
-
   const canShowFollowBtn = user?.id !== id;
-
-  console.log(id, user?.id);
   return (
     <MotionLink
       variants={articleVariant}

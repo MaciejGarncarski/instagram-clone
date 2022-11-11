@@ -1,12 +1,14 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ReactNode, useState } from 'react';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiCheck, BiCopyAlt } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 
+import { namedComponent } from '@/lib/namedComponent';
 import { usePostData } from '@/hooks/posts/usePostData';
 import { usePostLike } from '@/hooks/posts/usePostLike';
 
@@ -15,7 +17,6 @@ import styles from './postButtons.module.scss';
 import { Button } from '@/components/atoms/button/Button';
 import { CommentIcon } from '@/components/atoms/icons/CommentIcon';
 import { ShareIcon } from '@/components/atoms/icons/ShareIcon';
-import { LoginModal } from '@/components/organisms/loginModal/LoginModal';
 import { Modal } from '@/components/organisms/modal/Modal';
 import { PostModal } from '@/components/organisms/postModal/PostModal';
 
@@ -30,6 +31,10 @@ type ButtonProps = {
   id: number;
   commentCallback?: () => void;
 };
+
+const LoginModal = dynamic(() =>
+  namedComponent(import('@/components/organisms/loginModal/LoginModal'), 'LoginModal')
+);
 
 export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const [postModalOpen, setPostModalOpen] = useState<boolean>(false);

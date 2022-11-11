@@ -17,6 +17,7 @@
 @mixin label-active {
   transform: translateY(-1rem);
   font-size: 1.5rem;
+  font-weight: 600;
   color: var(--primary-color);
 
   @include common.breakpoint('lg') {
@@ -102,7 +103,7 @@
   position: absolute;
   font-weight: 500;
   transition: all var(--transition-fast);
-  transition-property: font-size, transform;
+  transition-property: font-size, transform, font-weight;
   color: rgb(0, 0, 0, 0.6);
 
   &--dirty {

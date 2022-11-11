@@ -3,7 +3,12 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  border: 2px solid var(--primary-color);
   border-radius: 50%;
+}
+
+.big-border {
+  border-width: 4px;
 }
 
 .error {
@@ -36,7 +41,6 @@
   position: relative;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: var(--primary-color) 0 0 0 2px;
   height: 100%;
   width: 100%;
 }

@@ -8,17 +8,28 @@
   align-items: center;
 }
 
+.heading {
+  font-size: 4rem;
+
+  @include common.breakpoint('lg') {
+    font-size: 6rem;
+    margin-bottom: 4rem;
+  }
+}
+
 .modal {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: var(--radius-small);
+  flex-direction: column;
+  border-radius: var(--radius-medium);
   background-color: var(--bg-color);
-  padding: 4rem;
+  border: var(--gray-border);
+  box-shadow: var(--box-shadow);
+  padding: 3rem 3rem;
 
   @include common.breakpoint('lg') {
-    padding: 8rem;
+    padding: 3rem 10rem;
   }
 }
 
@@ -28,4 +39,16 @@
   align-items: center;
   gap: 2rem;
   flex-direction: column;
+
+  @include common.breakpoint('lg') {
+    margin-bottom: 2rem;
+  }
+}
+
+.button {
+  margin-top: 3rem;
+
+  @include common.breakpoint('lg') {
+    margin-top: 5rem;
+  }
 }

@@ -1,6 +1,8 @@
+import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-import { BiBookmark } from 'react-icons/bi';
+import { BiBookmark, BiHome } from 'react-icons/bi';
 import { CgAddR } from 'react-icons/cg';
 
 import { useProfile } from '@/hooks/profile/useProfile';
@@ -16,12 +18,14 @@ type Routes = {
 };
 
 const routes: Array<Routes> = [
+  { to: '/', name: 'home', icon: <BiHome /> },
   { to: '/favorite', name: 'favorite', icon: <BiBookmark /> },
   { to: '/new-post', name: 'add post', icon: <CgAddR /> },
 ];
 
 export const Nav = () => {
   const { data } = useProfile();
+  const router = useRouter();
   if (data?.username) {
     return (
       <ul className={styles.menu}>
@@ -29,7 +33,9 @@ export const Nav = () => {
           return (
             <li key={name} className={styles.item}>
               <Link href={to} className={styles.link}>
-                <span className={styles.icon}>{icon}</span>
+                <span className={clsx(styles.icon, router.pathname === to && styles.active)}>
+                  {icon}
+                </span>
                 <span className='visually-hidden'>{name}</span>
               </Link>
             </li>

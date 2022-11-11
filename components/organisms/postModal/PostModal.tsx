@@ -1,6 +1,7 @@
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { usePostModal } from '@/hooks/usePostModal';
@@ -8,6 +9,7 @@ import { usePostModal } from '@/hooks/usePostModal';
 import styles from './postModal.module.scss';
 
 import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
+import { Loader } from '@/components/atoms/loader/Loader';
 import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
 import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons';
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
@@ -21,12 +23,13 @@ type PostModalProps = {
 };
 
 export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
+  const [isImgLoaded, setIsImgLoaded] = useState<boolean>(false);
   const parent = document.querySelector('.post-modal') as HTMLDivElement;
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { commentsData, user, postData, currentUser } = usePostModal(id);
 
   const canShowSettings = user?.id === postData?.post?.author_id || currentUser?.role === 'ADMIN';
-  const allComments = commentsData?.pages.flatMap((comment) => comment);
+  const allComments = commentsData?.pages.flat(Infinity);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -53,7 +56,16 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
         initial={{ opacity: 0.75 }}
       >
         <div className={styles.image}>
-          <Image width={700} height={700} src={img} alt={`${author.username}'s post`} priority />
+          {!isImgLoaded && <Loader />}
+          <Image
+            width={700}
+            height={700}
+            src={img}
+            alt={`${author.username}'s post`}
+            priority
+            className={clsx(isImgLoaded ? styles.visible : styles.hidden)}
+            onLoad={() => setIsImgLoaded(true)}
+          />
         </div>
         <CloseModalButton handleClose={closeModal} />
         <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />

@@ -25,7 +25,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).send(comments);
+    const commentsCount = await prisma.posts_comments.aggregate({
+      where: {
+        post_id: additionalData.post_id,
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    res.status(200).send({ comments, commentsCount });
   } catch (e) {
     res.status(400).send('400');
   }

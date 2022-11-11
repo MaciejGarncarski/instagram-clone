@@ -17,6 +17,7 @@
   text-align: center;
   font-weight: 500;
   background-color: var(--bg-color);
+  border-block: var(--gray-border);
   color: var(--text-color);
   padding: 0 3rem;
   font-size: 2rem;
@@ -36,7 +37,6 @@
 @mixin modal-button-link {
   outline: none;
   text-transform: capitalize;
-  border-block: var(--gray-border);
   flex: 1 0 7.5rem;
 
   &:focus {

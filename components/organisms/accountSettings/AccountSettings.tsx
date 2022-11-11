@@ -21,8 +21,9 @@ export const AccountSettings = () => {
 
   const handleLogout = async () => {
     supabaseClient.auth.signOut();
+    queryClient.removeQueries(['profile', user?.id]);
+    await queryClient.invalidateQueries();
     router.push('/');
-    queryClient.setQueryData(['profile', user?.id], null);
   };
 
   const openModal = () => {
@@ -45,7 +46,7 @@ export const AccountSettings = () => {
           </Modal.Button>
           <Modal.Link href='/accounts/edit'>
             <EditIcon />
-            edit
+            edit profile
           </Modal.Link>
           <Modal.Button isLast onClick={() => setSettingsOpen(false)}>
             <CancelIcon />

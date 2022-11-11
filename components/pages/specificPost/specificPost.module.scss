@@ -44,7 +44,7 @@
   height: var(--size);
 
   @include common.breakpoint('xl') {
-    --size: 5rem;
+    --size: 4rem;
   }
 }
 

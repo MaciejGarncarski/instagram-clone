@@ -20,7 +20,7 @@ type AccountModalProps = {
 export const AccountModal = ({ variant, username }: AccountModalProps) => {
   const [, setAccountModal] = useAtom(accountModal);
   const { data, hasNextPage, fetchNextPage, isLoading } = useFollowers({ username });
-  const allData = data?.pages.flatMap((data) => data);
+  const allData = data?.pages.flat(Infinity);
 
   const [sentryRef, { rootRef }] = useInfiniteScroll({
     loading: isLoading,

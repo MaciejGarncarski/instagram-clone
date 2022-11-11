@@ -10,20 +10,23 @@ import { AvatarImage } from '@/components/atoms/avatarImage/AvatarImage';
 import { EditIcon } from '@/components/atoms/icons/EditIcon';
 import { UserAvatarModal } from '@/components/molecules/userAvatarModal/UserAvatarModal';
 
+export type AvatarVariant = {
+  variant?: 'big-border';
+};
+
 type UserAvatarProps = {
   className?: string;
   editable?: boolean;
   userID: string;
   sizes?: string;
-};
+} & AvatarVariant;
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
-  ({ className, editable, userID, sizes }, ref) => {
+  ({ className, editable, userID, sizes, variant }, ref) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
-
     const [imgSrc, setImgSrc] = useState<string>('');
-
     const imgRef = useRef<HTMLImageElement>(null);
+
     const { handleImg } = useNewPost({ aspect: 1, setImgSrc });
 
     const onChange = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +39,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
 
     if (editable) {
       return (
-        <div className={clsx(className, styles.container)}>
+        <div className={clsx(className, variant && styles[variant], styles.container)}>
           <input
             ref={ref}
             id='set-avatar'
@@ -65,7 +68,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
     }
 
     return (
-      <div className={clsx(className, styles.container)}>
+      <div className={clsx(className, variant && styles[variant], styles.container)}>
         <AvatarImage sizes={sizes} userID={userID} />
       </div>
     );

@@ -1,4 +1,5 @@
 import { useUser } from '@supabase/auth-helpers-react';
+import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { ChangeEvent, FormEventHandler, forwardRef, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -17,6 +18,7 @@ type PostCommentProps = {
 
 export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
   ({ className, id }, ref) => {
+    const queryClient = useQueryClient();
     const [textAreaValue, setTextAreaValue] = useState<string>('');
 
     const user = useUser();
@@ -35,9 +37,12 @@ export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
           onSuccess: () => {
             updateToast({ toastId: addingCommentToast, text: 'Comment Added!', type: 'success' });
           },
-          onSettled: () => setTextAreaValue(''),
           onError: () => {
             updateToast({ toastId: addingCommentToast, text: 'Failed!', type: 'error' });
+          },
+          onSettled: () => {
+            setTextAreaValue('');
+            queryClient.invalidateQueries(['comments', id]);
           },
         }
       );
@@ -59,7 +64,7 @@ export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
           spellCheck='true'
         />
         <Button type='submit' disabled={textAreaValue.trim() === ''} className={styles.button}>
-          Post
+          post
         </Button>
       </form>
     );

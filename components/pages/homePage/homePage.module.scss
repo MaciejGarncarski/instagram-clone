@@ -5,10 +5,10 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  min-height: 100vh;
   padding-bottom: 6rem;
-  width: 100%;
+  min-height: 100vh;
   margin-top: 2rem;
+  width: 100%;
   gap: 2rem;
 
   @include common.breakpoint('sm') {
@@ -62,5 +62,8 @@
 }
 
 .loader {
-  margin-top: 10rem;
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
 }
