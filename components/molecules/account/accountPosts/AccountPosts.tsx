@@ -2,7 +2,7 @@ import { motion, Variants } from 'framer-motion';
 
 import { useAccountPosts } from '@/hooks/profile/useAccountPosts';
 
-import styles from './accountPostContainer.module.scss';
+import styles from './accountPosts.module.scss';
 
 import { Loader } from '@/components/atoms/loader/Loader';
 import { AccountPost } from '@/components/organisms/accountPost/AccountPost';
@@ -23,13 +23,13 @@ const containerVariant: Variants = {
   },
 };
 
-export const AccountPostContainer = ({ userID }: PostProps) => {
+export const AccountPosts = ({ userID }: PostProps) => {
   const { data } = useAccountPosts(userID);
 
   const allPosts = data?.pages.flatMap((post) => post.posts);
 
   if (!allPosts) {
-    return <Loader />;
+    return <Loader variant='margins' />;
   }
 
   return (

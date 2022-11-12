@@ -13,8 +13,9 @@ type AddPostMutation = {
 export const useAddPost = () => {
   const user = useUser();
 
-  return useMutation(({ description, publicUrl, uuid, location }: AddPostMutation) => {
-    return apiClient.put('/posts/addPost', {
+  return useMutation(async ({ description, publicUrl, uuid, location }: AddPostMutation) => {
+    return apiClient.patch('/posts/post', {
+      type: 'CREATE',
       author_id: user?.id,
       description,
       publicUrl,

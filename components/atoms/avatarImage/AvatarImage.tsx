@@ -27,7 +27,7 @@ export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
 
   return (
     <>
-      {(!isImgLoaded || isLoading) && <Loader variant='small' />}
+      {(!isImgLoaded || isLoading) && <Loader variant={['margins', 'small']} />}
       <Image
         fill
         sizes={sizes ? sizes : '100'}

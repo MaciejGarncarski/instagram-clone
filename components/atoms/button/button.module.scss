@@ -9,7 +9,7 @@
   color: white;
   font-weight: 700;
   border: 4px solid var(--btn-color);
-  transition: all var(--transition-fast);
+  transition: opacity var(--transition-fast);
 
   &::first-letter {
     text-transform: uppercase;

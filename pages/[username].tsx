@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(['profile', { id: ctx.params?.id ?? '' }], async () => {
-    const { data } = await apiClient.post('/accounts/getUserByUsername', {
+    const { data } = await apiClient.post('/accounts/getProfileByUsername', {
       username: ctx.params?.username ?? '',
     });
 

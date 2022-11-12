@@ -19,6 +19,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <motion.button
         ref={ref}
         type={type}
+        whileHover={disabled ? {} : { scale: 1.05 }}
         whileTap={disabled ? {} : { scale: 0.94 }}
         disabled={disabled}
         className={clsx(className, variant && styles[`button--${variant}`], styles.button)}

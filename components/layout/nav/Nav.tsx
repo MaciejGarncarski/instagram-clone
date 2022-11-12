@@ -1,8 +1,9 @@
 import clsx from 'clsx';
+import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
-import { BiBookmark, BiHome } from 'react-icons/bi';
+import { ReactNode, useState } from 'react';
+import { BiBookmark } from 'react-icons/bi';
 import { CgAddR } from 'react-icons/cg';
 
 import { useProfile } from '@/hooks/profile/useProfile';
@@ -10,6 +11,10 @@ import { useProfile } from '@/hooks/profile/useProfile';
 import styles from './nav.module.scss';
 
 import { AccountLink } from '@/components/atoms/accountLink/AccountLink';
+import { HomeIcon } from '@/components/atoms/icons/HomeIcon';
+import { NewPostModal } from '@/components/organisms/newPostModal/NewPostModal';
+
+import { imgSrcAtom } from '@/store/store';
 
 type Routes = {
   to: string;
@@ -18,14 +23,23 @@ type Routes = {
 };
 
 const routes: Array<Routes> = [
-  { to: '/', name: 'home', icon: <BiHome /> },
+  { to: '/', name: 'home', icon: <HomeIcon /> },
   { to: '/favorite', name: 'favorite', icon: <BiBookmark /> },
-  { to: '/new-post', name: 'add post', icon: <CgAddR /> },
 ];
 
 export const Nav = () => {
   const { data } = useProfile();
   const router = useRouter();
+  const [, setImgSrc] = useAtom(imgSrcAtom);
+  const [isAddPostOpen, setIsAddPostOpen] = useState<boolean>(false);
+
+  const openNewPostModal = () => {
+    if (data) {
+      setIsAddPostOpen(true);
+      setImgSrc('');
+    }
+  };
+
   if (data?.username) {
     return (
       <ul className={styles.menu}>
@@ -41,7 +55,16 @@ export const Nav = () => {
             </li>
           );
         })}
+        <button
+          type='button'
+          className={clsx(styles.item, styles.icon, styles.link)}
+          onClick={openNewPostModal}
+        >
+          <CgAddR />
+          <span className='visually-hidden'>add new post</span>
+        </button>
         <AccountLink />
+        {isAddPostOpen && <NewPostModal setIsOpen={setIsAddPostOpen} />}
       </ul>
     );
   }

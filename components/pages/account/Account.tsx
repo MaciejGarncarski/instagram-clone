@@ -13,7 +13,7 @@ import styles from './account.module.scss';
 
 import { FollowButton } from '@/components/atoms/followButton/FollowButton';
 import { Loader } from '@/components/atoms/loader/Loader';
-import { AccountPostContainer } from '@/components/molecules/account/accountPostContainer/AccountPostContainer';
+import { AccountPosts } from '@/components/molecules/account/accountPosts/AccountPosts';
 import {
   AccountModal,
   AccountModalVariant,
@@ -44,7 +44,7 @@ export const Account = () => {
   const { data, isLoading } = useProfileByUsername(usernameFromQuery);
 
   if (!data || !data.profile || isLoading) {
-    return <Loader />;
+    return <Loader variant='margins' />;
   }
 
   const { bio, username, full_name, _count, website, profile_id, id } = data.profile;
@@ -111,7 +111,7 @@ export const Account = () => {
           {isOwner && <AccountSettings />}
         </section>
         <h3 className={styles.heading}>Posts</h3>
-        <AccountPostContainer userID={id} />
+        <AccountPosts userID={id} />
 
         {accountModalOpen === 'followers' && (
           <AccountModal userID={data.profile.id} variant='followers' />

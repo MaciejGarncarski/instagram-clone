@@ -20,12 +20,13 @@ export const useProfileByUsername = (username: string) => {
   const profile = useQuery<ProfileByUsername | undefined>(
     ['profile', { username }],
     async () => {
-      const { data } = await apiClient.post('/accounts/getUserByUsername', {
+      const { data } = await apiClient.post('/accounts/getProfileByUsername', {
         username,
       });
 
       return data;
     },
+
     {
       enabled: username.trim() !== '',
     }

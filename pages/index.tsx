@@ -20,10 +20,8 @@ export const getStaticProps: GetStaticProps = async () => {
     pageParam: 0,
   });
 
-  if (initialPosts.posts) {
-    initialPosts.posts.forEach(async (post) => {
-      await queryClient.fetchQuery(['post', post.id], () => fetchSinglePost(post.id));
-    });
+  for (const post of initialPosts.posts) {
+    await queryClient.fetchQuery(['post', post.id], () => fetchSinglePost(post.id));
   }
 
   await queryClient.fetchQuery(['homepage posts'], () =>

@@ -8,7 +8,7 @@ export const useDeleteAvatar = () => {
 
   return useMutation(
     () => {
-      return axios.patch('/api/accounts/deleteAvatar', { id: user?.id });
+      return axios.post('/api/accounts/avatar', { id: user?.id, type: 'REMOVE' });
     },
     {
       onSuccess: () => {

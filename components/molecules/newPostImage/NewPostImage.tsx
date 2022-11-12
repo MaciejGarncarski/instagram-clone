@@ -2,7 +2,6 @@
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { useRef } from 'react';
-import { CgAddR } from 'react-icons/cg';
 import ReactCrop from 'react-image-crop';
 
 import { useNewPost } from '@/hooks/posts/useNewPost';
@@ -97,8 +96,7 @@ export const NewPostImage = () => {
       )}
       {imgSrc === '' && (
         <label className={styles.label} htmlFor='file'>
-          <CgAddR size={50} />
-          <p>Add image here</p>
+          select from comptuer
         </label>
       )}
     </>

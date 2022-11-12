@@ -54,7 +54,8 @@ export const PostEditModal = ({ setIsEditing, postID }: PostEditModalProps) => {
   const watchFields = watch();
 
   const { mutate } = useMutation(async ({ description, location, postID }: UpdateMutation) => {
-    return apiClient.patch('/posts/post', {
+    return apiClient.put('/posts/post', {
+      type: 'UPDATE',
       description,
       location,
       postID,

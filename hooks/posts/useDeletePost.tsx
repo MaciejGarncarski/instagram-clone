@@ -1,9 +1,9 @@
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import { useAtom } from 'jotai';
 import { toast } from 'react-toastify';
 
+import { apiClient } from '@/lib/apiClient';
 import { updateToast } from '@/lib/updateToast';
 
 import { postModalAtom } from '@/store/store';
@@ -18,7 +18,7 @@ export const useDeletePost = () => {
   const { supabaseClient } = useSessionContext();
 
   const postMutation = useMutation(({ post_id }: DeletePostMutation) => {
-    return axios.post('/api/posts/deletePost', { post_id });
+    return apiClient.post('/posts/post', { type: 'REMOVE', post_id });
   });
 
   const handleDelete = async (post_id: number, img_uuid: string) => {

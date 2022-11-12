@@ -2,7 +2,7 @@ import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
-import { RefObject, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { Id, toast } from 'react-toastify';
 import { v4 } from 'uuid';
@@ -10,16 +10,15 @@ import { v4 } from 'uuid';
 import { updateToast } from '@/lib/updateToast';
 import { useAddPost } from '@/hooks/posts/useAddPost';
 
-import { postValues } from '@/components/pages/newPost/NewPost';
+import { NewPostValues } from '@/components/organisms/newPostModal/NewPostModal';
 
 import { completedCropAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/store';
 
-export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
+export const useSubmitPost = () => {
   const { supabaseClient } = useSessionContext();
-  const { mutate } = useAddPost();
+  const { mutate, isLoading, isIdle } = useAddPost();
   const router = useRouter();
   const queryClient = useQueryClient();
-
   const toastId = useRef<Id | null>(null);
 
   const [, setCompletedCrop] = useAtom(completedCropAtom);
@@ -32,7 +31,7 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
     toastId.current = toast.loading('Uploading new post...');
   }, []);
 
-  const onSubmit: SubmitHandler<postValues> = async ({ description, location }) => {
+  const onSubmit: SubmitHandler<NewPostValues> = async ({ description, location }) => {
     notify();
     const uuid = v4();
 
@@ -46,10 +45,6 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
         cacheControl: '10800',
         upsert: false,
       });
-
-    if (buttonRef.current) {
-      buttonRef.current.disabled = true;
-    }
 
     if (!data?.path) {
       updateToast({ toastId: toastId.current, text: 'Could not add post', type: 'error' });
@@ -66,6 +61,10 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
         text: 'Couldnt get image, try again later',
         type: 'error',
       });
+    }
+
+    if (isLoading) {
+      return;
     }
 
     mutate(
@@ -87,5 +86,5 @@ export const useSubmitPost = (buttonRef: RefObject<HTMLButtonElement>) => {
     );
   };
 
-  return { onSubmit };
+  return { onSubmit, isLoading, isIdle };
 };
