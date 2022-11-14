@@ -1,20 +1,29 @@
 import clsx from 'clsx';
-import { useAtom } from 'jotai';
+import { AnimatePresence } from 'framer-motion';
+import { atom, useAtom } from 'jotai';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { BiBookmark } from 'react-icons/bi';
 import { CgAddR } from 'react-icons/cg';
 
+import { namedComponent } from '@/lib/namedComponent';
 import { useProfile } from '@/hooks/profile/useProfile';
 
 import styles from './nav.module.scss';
 
 import { AccountLink } from '@/components/atoms/accountLink/AccountLink';
 import { HomeIcon } from '@/components/atoms/icons/HomeIcon';
-import { NewPostModal } from '@/components/organisms/newPostModal/NewPostModal';
 
 import { imgSrcAtom } from '@/store/store';
+
+const CreatePostModal = dynamic(() =>
+  namedComponent(
+    import('@/components/organisms/createPostModal/CreatePostModal'),
+    'CreatePostModal'
+  )
+);
 
 type Routes = {
   to: string;
@@ -27,13 +36,15 @@ const routes: Array<Routes> = [
   { to: '/favorite', name: 'favorite', icon: <BiBookmark /> },
 ];
 
+export const createPostModalAtom = atom<boolean>(false);
+
 export const Nav = () => {
   const { data } = useProfile();
   const router = useRouter();
   const [, setImgSrc] = useAtom(imgSrcAtom);
-  const [isAddPostOpen, setIsAddPostOpen] = useState<boolean>(false);
+  const [isAddPostOpen, setIsAddPostOpen] = useAtom(createPostModalAtom);
 
-  const openNewPostModal = () => {
+  const openCreatePostModal = () => {
     if (data) {
       setIsAddPostOpen(true);
       setImgSrc('');
@@ -58,13 +69,13 @@ export const Nav = () => {
         <button
           type='button'
           className={clsx(styles.item, styles.icon, styles.link)}
-          onClick={openNewPostModal}
+          onClick={openCreatePostModal}
         >
           <CgAddR />
           <span className='visually-hidden'>add new post</span>
         </button>
         <AccountLink />
-        {isAddPostOpen && <NewPostModal setIsOpen={setIsAddPostOpen} />}
+        <AnimatePresence>{isAddPostOpen && <CreatePostModal />}</AnimatePresence>
       </ul>
     );
   }

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { usePostModal } from '@/hooks/usePostModal';
+import { usePostModal } from '@/hooks/posts/usePostModal';
 
 import styles from './singlePost.module.scss';
 

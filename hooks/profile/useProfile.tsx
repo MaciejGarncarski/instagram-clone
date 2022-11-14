@@ -3,7 +3,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient } from '@/lib/apiClient';
-import { Following } from '@/hooks/useProfileByUsername';
+import { Following } from '@/hooks/profile/useProfileByUsername';
 
 export type Profile = {
   profile: profiles & {

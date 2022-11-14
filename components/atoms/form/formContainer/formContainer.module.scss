@@ -10,7 +10,10 @@
   padding-bottom: 5rem;
 
   @include common.breakpoint-max('lg') {
-    gap: 2rem;
     margin-top: 5rem;
+  }
+
+  @include common.breakpoint('lg') {
+    gap: 1rem;
   }
 }

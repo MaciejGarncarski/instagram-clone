@@ -1,5 +1,5 @@
 import { Comments, COMMENTS_PER_SCROLL } from '@/hooks/posts/useGetComments';
-import { usePostModal } from '@/hooks/usePostModal';
+import { usePostModal } from '@/hooks/posts/usePostModal';
 
 import styles from './postModalComments.module.scss';
 

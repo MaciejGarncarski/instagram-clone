@@ -40,9 +40,17 @@
     grid-template-rows: auto 1fr auto;
     grid-template-columns: auto 1fr;
     border-radius: var(--radius-medium);
-    width: min(85%, 155rem);
+    width: clamp(70rem, 70%, 300rem);
     height: 80vh;
     overflow: hidden;
+  }
+}
+
+.loader {
+  grid-row: 2 / 3;
+
+  @include common.breakpoint('lg') {
+    margin: 0 calc(12vw + 5rem);
   }
 }
 
@@ -69,8 +77,6 @@
     grid-row: 1 / 5;
     border-right: var(--gray-border);
     border-bottom: none;
-    width: 100%;
-    max-width: 100rem;
     display: flex;
 
     & > img {

@@ -10,7 +10,7 @@ import { Loader } from '@/components/atoms/loader/Loader';
 import { Post } from '@/components/organisms/post/Post';
 
 export const HomePage = () => {
-  const { data, isError, isLoading, isFetching, hasNextPage, fetchNextPage } = useGetPosts();
+  const { data, isError, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
   const { isFallback } = useRouter();
 
   const [sentryRef] = useInfiniteScroll({
@@ -21,8 +21,8 @@ export const HomePage = () => {
     rootMargin: '0px 0px 600px 0px',
   });
 
-  if (!data?.pages || isLoading || isFetching || isFallback) {
-    return <Loader className={styles.loader} />;
+  if (!data?.pages || isLoading || isFallback) {
+    return <Loader variant='margins' />;
   }
 
   const allPosts = data.pages.flatMap((el) => el.posts);

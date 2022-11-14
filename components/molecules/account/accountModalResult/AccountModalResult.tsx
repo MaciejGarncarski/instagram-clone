@@ -19,7 +19,11 @@ export const AccountModalResult = ({ userID }: AccountModalProps) => {
   const [, setAccountModal] = useAtom(accountModal);
 
   if (!data) {
-    return <Loader variant='small' />;
+    return (
+      <div className={styles.loader}>
+        <Loader variant={['margins', 'small']} />
+      </div>
+    );
   }
 
   return (

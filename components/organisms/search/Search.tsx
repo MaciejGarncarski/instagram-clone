@@ -24,7 +24,7 @@ export const Search = () => {
   );
 
   if (!data || isLoading) {
-    return <Loader />;
+    return <Loader variant='margins' />;
   }
 
   return (

@@ -14,16 +14,17 @@ import { Loader } from '@/components/atoms/loader/Loader';
 type FollowButtonProps = {
   userID: string;
   className?: string;
+  loaderClassName?: string;
 };
 
 type FollowMutation = Pick<followers, 'from' | 'to'>;
 
-export const FollowButton = ({ userID, className }: FollowButtonProps) => {
+export const FollowButton = ({ userID, className, loaderClassName }: FollowButtonProps) => {
   const currentUser = useUser();
-  const { data, isFollowing } = useProfile(userID);
+  const { isFollowing, isLoading } = useProfile(userID);
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation(
+  const { mutate, isLoading: isMutationLoading } = useMutation(
     async ({ from, to }: FollowMutation) => {
       const url = `/follow?from=${from}&to=${to}`;
       if (isFollowing) {
@@ -33,14 +34,16 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
     },
     {
       onSettled: async () => {
-        await queryClient.invalidateQueries(['profile', { username: data?.username }]);
-        queryClient.invalidateQueries(['profile', { id: userID }]);
+        await queryClient.invalidateQueries(['profile']);
         queryClient.invalidateQueries(['post']);
       },
     }
   );
 
   const onClick = () => {
+    if (isMutationLoading) {
+      return;
+    }
     if (currentUser?.id) {
       mutate({ from: currentUser?.id, to: userID });
     }
@@ -51,8 +54,8 @@ export const FollowButton = ({ userID, className }: FollowButtonProps) => {
     return null;
   }
 
-  if (isLoading) {
-    return <Loader variant='small' className={styles.loader} />;
+  if (isLoading || isMutationLoading) {
+    return <Loader variant='small' className={loaderClassName} />;
   }
 
   return (

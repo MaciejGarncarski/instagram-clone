@@ -32,8 +32,8 @@ export const SearchResult = ({ data }: SearchResultProps) => {
       <div className={styles.container}>
         <UserAvatar userID={id} className={styles.avatar} />
         <div>
-          <h3>{full_name}</h3>
-          <p>@{username}</p>
+          <h3>@{username}</h3>
+          <p>{full_name}</p>
         </div>
         {canShowFollowBtn && <FollowButton userID={id} />}
       </div>

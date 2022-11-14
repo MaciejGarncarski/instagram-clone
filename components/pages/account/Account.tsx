@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 import { namedComponent } from '@/lib/namedComponent';
-import { useProfileByUsername } from '@/hooks/useProfileByUsername';
+import { useProfileByUsername } from '@/hooks/profile/useProfileByUsername';
 
 import styles from './account.module.scss';
 
@@ -79,6 +79,7 @@ export const Account = () => {
         <section aria-labelledby='user account' className={styles.account}>
           <UserAvatar
             userID={id}
+            editable={isOwner}
             variant='big-border'
             className={clsx(!isOwner && styles['avatar--columns'], styles.avatar)}
           />
@@ -107,7 +108,11 @@ export const Account = () => {
               edit profile
             </Link>
           )}
-          <FollowButton userID={data.profile.id} className={styles.followBtn} />
+          <FollowButton
+            userID={data.profile.id}
+            loaderClassName={styles.followLoader}
+            className={styles.followBtn}
+          />
           {isOwner && <AccountSettings />}
         </section>
         <h3 className={styles.heading}>Posts</h3>

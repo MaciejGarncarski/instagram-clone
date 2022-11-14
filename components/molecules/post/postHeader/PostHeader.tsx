@@ -47,7 +47,9 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
           </Link>
         )}
       </div>
-      {user?.id !== author_id && <FollowButton userID={author_id} />}
+      {user?.id !== author_id && (
+        <FollowButton loaderClassName={styles.loader} userID={author_id} />
+      )}
       {canShowSettings && (
         <PostSettings
           id={id}

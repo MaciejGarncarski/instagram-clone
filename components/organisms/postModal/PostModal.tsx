@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { usePostModal } from '@/hooks/usePostModal';
+import { usePostModal } from '@/hooks/posts/usePostModal';
 
 import styles from './postModal.module.scss';
 
@@ -65,7 +65,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
           animate={{ opacity: 1, transition: { duration: 0.65, delay: 0.2 } }}
           initial={{ opacity: 0.75 }}
         >
-          {!isImgLoaded && <Loader />}
+          {!isImgLoaded && <Loader className={styles.loader} />}
           <Image
             width={700}
             height={700}

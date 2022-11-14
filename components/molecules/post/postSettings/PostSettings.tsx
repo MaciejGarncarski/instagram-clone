@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 
 import { useDeletePost } from '@/hooks/posts/useDeletePost';
-import { usePostModalButtons } from '@/hooks/usePostModalButtons';
+import { usePostModalButtons } from '@/hooks/posts/usePostModalButtons';
 
 import styles from './postSettings.module.scss';
 

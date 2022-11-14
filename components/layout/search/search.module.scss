@@ -24,6 +24,8 @@
 
   @include common.breakpoint('lg') {
     max-width: unset;
+    padding: 1.5rem;
+    padding-left: 1rem;
   }
 }
 
