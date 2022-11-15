@@ -36,20 +36,24 @@
   grid-template-rows: auto 1fr auto;
   align-items: flex-start;
 
-  @include common.breakpoint('xl') {
-    grid-template-rows: auto 1fr auto;
-    grid-template-columns: auto 1fr;
-    border-radius: var(--radius-medium);
-    width: clamp(70rem, 70%, 300rem);
-    height: 80vh;
+  @include common.breakpoint('sm') {
     overflow: hidden;
+    width: 90%;
+  }
+
+  @include common.breakpoint('xl') {
+    grid-template-columns: minmax(30rem, 105rem) minmax(40rem, 1fr);
+    grid-template-rows: auto 1fr auto;
+    width: clamp(70rem, 70%, 300rem);
+    height: 90vh;
+    max-height: none;
   }
 }
 
 .loader {
   grid-row: 2 / 3;
 
-  @include common.breakpoint('lg') {
+  @include common.breakpoint('sm') {
     margin: 0 calc(12vw + 5rem);
   }
 }
@@ -57,7 +61,7 @@
 .image {
   position: relative;
   grid-row: 2 / 3;
-  background-color: var(--bg-color);
+  background-color: var(--text-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,17 +77,18 @@
     object-fit: contain;
   }
 
-  @include common.breakpoint('xl') {
+  @include common.breakpoint('sm') {
+    display: flex;
+  }
+
+  @include common.breakpoint('lg') {
     grid-row: 1 / 5;
     border-right: var(--gray-border);
     border-bottom: none;
-    display: flex;
 
     & > img {
-      width: 100%;
       max-height: unset;
       object-fit: contain;
-      height: 100%;
     }
   }
 }

@@ -52,8 +52,8 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
       <motion.div
         role='dialog'
         className={styles.modal}
-        initial={{ opacity: 0.75, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0.75, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{
           type: 'spring',
           damping: 10,
