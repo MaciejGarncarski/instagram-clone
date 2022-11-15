@@ -1,7 +1,7 @@
 @use '/styles/common.scss';
 
 .list {
-  padding: 1rem 2rem;
+  padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -16,13 +16,12 @@
 
 .item {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
   grid-template-columns: auto 1fr;
   word-break: break-all;
-  align-items: center;
+  align-items: flex-start;
 
   @include common.breakpoint('sm') {
-    gap: 2rem;
   }
 }
 

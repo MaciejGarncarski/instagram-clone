@@ -22,7 +22,7 @@ export const HomePage = () => {
   });
 
   if (!data?.pages || isLoading || isFallback) {
-    return <Loader variant='margins' />;
+    return <Loader className={styles.loader} />;
   }
 
   const allPosts = data.pages.flatMap((el) => el.posts);

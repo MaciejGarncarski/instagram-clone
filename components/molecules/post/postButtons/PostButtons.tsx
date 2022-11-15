@@ -46,6 +46,8 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const { handleLike, isLikedByUser } = usePostLike(id, data?.likesData);
   const user = useUser();
 
+  const postLikes = data?.post._count.posts_likes;
+
   const showModal = () => {
     setPostModalOpen(true);
   };
@@ -98,34 +100,42 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   };
 
   return (
-    <div className={styles.buttons}>
-      {buttonsData.map(({ icon, alt, className, onClick }) => {
-        return (
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileFocus={{ scale: 1.1 }}
-            onClick={onClick ? onClick : () => null}
-            key={alt}
-            type='button'
-            className={clsx(styles.button, className ?? '')}
-          >
-            <span className='visually-hidden'>{alt}</span>
-            {icon}
-          </motion.button>
-        );
-      })}
-      {loginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
-      {postModalOpen && <PostModal setIsOpen={setPostModalOpen} id={id} />}
-      {shareModalOpen && (
-        <Modal setIsOpen={setShareModalOpen}>
-          <Modal.Button isFirst onClick={handleCopy} disabled={isCopied}>
-            <BiCopyAlt /> {isCopied ? 'copied!' : 'copy'}
-          </Modal.Button>
-          <Modal.Button isLast onClick={() => setShareModalOpen(false)}>
-            <BiCheck />
-            ok
-          </Modal.Button>
-        </Modal>
+    <div className={styles.container}>
+      <div className={styles.buttons}>
+        {buttonsData.map(({ icon, alt, className, onClick }) => {
+          return (
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileFocus={{ scale: 1.1 }}
+              onClick={onClick ? onClick : () => null}
+              key={alt}
+              type='button'
+              className={clsx(styles.button, className ?? '')}
+            >
+              <span className='visually-hidden'>{alt}</span>
+              {icon}
+            </motion.button>
+          );
+        })}
+        {loginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
+        {postModalOpen && <PostModal setIsOpen={setPostModalOpen} id={id} />}
+        {shareModalOpen && (
+          <Modal setIsOpen={setShareModalOpen}>
+            <Modal.Button isFirst onClick={handleCopy} disabled={isCopied}>
+              <BiCopyAlt /> {isCopied ? 'copied!' : 'copy'}
+            </Modal.Button>
+            <Modal.Button isLast onClick={() => setShareModalOpen(false)}>
+              <BiCheck />
+              ok
+            </Modal.Button>
+          </Modal>
+        )}
+      </div>
+      {postLikes !== 0 && postLikes && (
+        <p className={styles.likes}>
+          <span className={styles.bold}>{postLikes}</span>
+          <span>{postLikes > 1 ? 'likes' : 'like'}</span>
+        </p>
       )}
     </div>
   );

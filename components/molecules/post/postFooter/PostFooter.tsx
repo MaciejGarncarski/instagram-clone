@@ -32,12 +32,6 @@ export const PostFooter = ({ id, showDescription }: PostFooterProps) => {
 
   return (
     <footer className={styles.footer}>
-      {posts_likes !== 0 && posts_likes && (
-        <p className={styles.likes}>
-          <span className={styles.bold}>{posts_likes}</span>
-          <span>{posts_likes > 1 ? 'likes' : 'like'}</span>
-        </p>
-      )}
       {showDescription && <PostDescription id={id} />}
       <time dateTime={postDate} className={styles.created}>
         {createdAt}

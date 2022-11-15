@@ -9,26 +9,9 @@
   font-size: 0.85em;
 
   @include common.breakpoint('lg') {
+    padding: 0 2rem;
     padding-bottom: 2rem;
   }
-}
-
-.bold {
-  font-weight: 500;
-}
-
-.likes {
-  display: flex;
-  gap: 0.25rem;
-  font-weight: 500;
-}
-
-.like {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  cursor: pointer;
 }
 
 .count {
