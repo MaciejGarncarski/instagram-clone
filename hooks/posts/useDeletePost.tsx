@@ -16,7 +16,7 @@ export const useDeletePost = () => {
   const [, setModalOpen] = useAtom(postModalAtom);
 
   const postMutation = useMutation(({ post_id }: DeletePostMutation) => {
-    return apiClient.post('/posts/post', { type: 'REMOVE', post_id });
+    return apiClient.post('/posts/post', { type: 'REMOVE', postID: post_id });
   });
 
   const handleDelete = async (post_id: number) => {

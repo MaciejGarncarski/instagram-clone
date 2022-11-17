@@ -16,7 +16,7 @@ export const useAddPost = () => {
   return useMutation(async ({ uuid, imageFile, description, location }: AddPostMutation) => {
     return apiClient.postForm('/posts/post', {
       type: 'CREATE',
-      author_id: user?.id,
+      authorID: user?.id,
       imageFile,
       uuid,
       location,

@@ -1,9 +1,9 @@
 import { posts_likes } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import { useState } from 'react';
 
+import { apiClient } from '@/lib/apiClient';
 import { SinglePostData } from '@/hooks/posts/usePostData';
 
 type PostLike = {
@@ -52,13 +52,13 @@ export const usePostLike = (id: number, data?: posts_likes) => {
   const postLike = useMutation(
     ({ user_id, post_id, dislike }: PostLike) => {
       if (dislike) {
-        return axios.patch('/api/posts/postLike', {
+        return apiClient.patch('/posts/postLike', {
           user_id,
           post_id,
         });
       }
 
-      return axios.post('/api/posts/postLike', {
+      return apiClient.post('/posts/postLike', {
         user_id,
         post_id,
       });
