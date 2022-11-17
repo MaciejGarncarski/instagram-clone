@@ -92,3 +92,11 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
 });
 
 export default handler;
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '32mb',
+    },
+  },
+};
