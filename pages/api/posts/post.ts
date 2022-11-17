@@ -1,11 +1,10 @@
-import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 } from 'uuid';
 
 import { prisma } from '@/utils/db';
 import { imageKit } from '@/utils/imageKit';
 
-const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     method,
     body: { description, location, postID, type, author_id, post_id, imageFile },
@@ -28,7 +27,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
       });
       res.status(200).send('success');
     } catch (e) {
-      res.status(400);
+      res.status(400).send(e);
     }
   }
 
@@ -55,7 +54,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
       });
       res.status(200).send(200);
     } catch (e) {
-      res.status(400).send(400);
+      res.status(400).send(e);
     }
   }
 
@@ -86,10 +85,10 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
 
       res.status(200).send(200);
     } catch (e) {
-      res.status(400).send(400);
+      res.status(400).send(e);
     }
   }
-});
+};
 
 export default handler;
 
