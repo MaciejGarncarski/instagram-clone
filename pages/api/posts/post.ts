@@ -9,6 +9,11 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
   const { description, location, postID, type, authorID, imageFile } = req.body;
   const uuid = v4();
 
+  if (req.method !== 'POST') {
+    res.status(405).send(405);
+    return;
+  }
+
   if (type === 'UPDATE') {
     try {
       await prisma.posts.update({
