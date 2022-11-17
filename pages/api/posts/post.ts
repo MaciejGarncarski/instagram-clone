@@ -40,7 +40,7 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
         fileName: `post.webp`,
         folder: `${author_id}/posts/${uuid}`,
       });
-      const result = await prisma.posts.create({
+      await prisma.posts.create({
         data: {
           img: uploadedImage.url,
           file_id: uploadedImage.fileId,
