@@ -2,7 +2,7 @@
 import { RefObject, SetStateAction, useRef, useState } from 'react';
 import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
 
-import { useNewPost } from '@/hooks/posts/useNewPost';
+import { useImageInput } from '@/hooks/posts/useImageInput';
 import { useAvatarInput } from '@/hooks/useAvatarInput';
 import { useCreateImage } from '@/hooks/useCreateImage';
 
@@ -24,15 +24,13 @@ export const UserAvatarModal = ({
   setImgSrc,
   imgRef,
 }: UserAvatarModalProps) => {
-  const { uploadNewImage } = useAvatarInput();
-
   const [crop, setCrop] = useState<Crop | undefined>(undefined);
   const [completedCrop, setCompletedCrop] = useState<PixelCrop | null>(null);
-  const [newImg, setNewImg] = useState<Blob | null>(null);
+  const [newImg, setNewImg] = useState<string | null>(null);
 
+  const { uploadNewImage } = useAvatarInput();
+  const { onImageLoad } = useImageInput({ aspect: 1, setCrop, setImgSrc });
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-
-  const { onImageLoad } = useNewPost({ aspect: 1, setCrop, setImgSrc });
 
   useCreateImage({ imgRef, previewCanvasRef, completedCrop, setNewImg });
 
@@ -68,7 +66,7 @@ export const UserAvatarModal = ({
             cancel
           </Button>
           <Button
-            onClick={() => uploadNewImage(newImg, resetState)}
+            onClick={() => uploadNewImage({ avatarBase64: newImg, resetState })}
             type='button'
             variant='gradient'
           >

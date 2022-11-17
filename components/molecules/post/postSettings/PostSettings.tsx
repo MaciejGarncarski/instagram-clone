@@ -16,11 +16,10 @@ import { Modal } from '@/components/organisms/modal/Modal';
 type PostSettingsProps = {
   author_id: string;
   id: number;
-  img_uuid: string;
   changeSettingsLayout?: boolean;
 };
 
-export const PostSettings = ({ changeSettingsLayout, id, img_uuid }: PostSettingsProps) => {
+export const PostSettings = ({ changeSettingsLayout, id }: PostSettingsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +33,7 @@ export const PostSettings = ({ changeSettingsLayout, id, img_uuid }: PostSetting
       return;
     }
     buttonRef.current.disabled = true;
-    handleDelete(id, img_uuid);
+    handleDelete(id);
     buttonRef.current.disabled = false;
   };
 

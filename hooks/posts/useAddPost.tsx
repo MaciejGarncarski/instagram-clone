@@ -5,22 +5,22 @@ import { apiClient } from '@/lib/apiClient';
 
 type AddPostMutation = {
   description: string;
-  publicUrl: string;
   uuid: string;
   location?: string;
+  imageFile: string;
 };
 
 export const useAddPost = () => {
   const user = useUser();
 
-  return useMutation(async ({ description, publicUrl, uuid, location }: AddPostMutation) => {
-    return apiClient.patch('/posts/post', {
+  return useMutation(async ({ uuid, imageFile, description, location }: AddPostMutation) => {
+    return apiClient.postForm('/posts/post', {
       type: 'CREATE',
       author_id: user?.id,
-      description,
-      publicUrl,
+      imageFile,
       uuid,
       location,
+      description,
     });
   });
 };

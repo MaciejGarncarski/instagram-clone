@@ -3,13 +3,13 @@ import { Crop } from 'react-image-crop';
 
 import { centerAspectCrop } from '@/lib/centerAspect';
 
-type UseNewPostProps = {
+type UseImageInputProps = {
   aspect: number;
   setImgSrc?: (update: SetStateAction<string>) => void;
   setCrop?: (update?: SetStateAction<Crop | undefined>) => void;
 };
 
-export const useNewPost = ({ aspect, setImgSrc, setCrop }: UseNewPostProps) => {
+export const useImageInput = ({ aspect, setImgSrc, setCrop }: UseImageInputProps) => {
   const handleImg = (ev: ChangeEvent<HTMLInputElement>) => {
     if (!ev.target.files) {
       return;

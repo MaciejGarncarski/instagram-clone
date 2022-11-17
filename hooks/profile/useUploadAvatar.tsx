@@ -1,22 +1,27 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+
+import { apiClient } from '@/lib/apiClient';
 
 type Mutation = {
-  publicUrl: string;
+  avatarBase64: string;
 };
 
-export const useUpdateAvatar = () => {
+export type AvatarRequest = {
+  id: string;
+  type: 'UPDATE' | 'REMOVE';
+  avatarBase64?: string;
+};
+
+export const useUploadAvatar = () => {
   const queryClient = useQueryClient();
   const user = useUser();
 
   return useMutation(
-    ({ publicUrl }: Mutation) => {
-      const now = new Date().getTime();
-      const uncachedIMG = `${publicUrl}?cache_bust=${now}`;
-      return axios.post('/api/accounts/avatar', {
-        id: user?.id,
-        avatarURL: uncachedIMG,
+    ({ avatarBase64 }: Mutation) => {
+      return apiClient.postForm<null, null, AvatarRequest>('/accounts/avatar', {
+        id: user?.id ?? '',
+        avatarBase64,
         type: 'UPDATE',
       });
     },

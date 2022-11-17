@@ -50,15 +50,11 @@ export const Post = ({ id }: PostProps) => {
     };
   }, []);
 
-  if (!postData) {
+  if (!postData || !postData.post) {
     return null;
   }
 
   const { author_id, img, author } = postData.post;
-
-  if (!author_id) {
-    return null;
-  }
 
   const isOwner = author_id === user?.id;
   const canShowSettings = isOwner || userData?.role === 'ADMIN';

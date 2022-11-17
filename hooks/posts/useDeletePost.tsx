@@ -1,4 +1,3 @@
-import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { toast } from 'react-toastify';
@@ -15,26 +14,16 @@ type DeletePostMutation = {
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   const [, setModalOpen] = useAtom(postModalAtom);
-  const { supabaseClient } = useSessionContext();
 
   const postMutation = useMutation(({ post_id }: DeletePostMutation) => {
     return apiClient.post('/posts/post', { type: 'REMOVE', post_id });
   });
 
-  const handleDelete = async (post_id: number, img_uuid: string) => {
+  const handleDelete = async (post_id: number) => {
     const postDeleting = toast.loading('Deleting post...');
-
-    const { error } = await supabaseClient.storage
-      .from('post-images')
-      .remove([`${img_uuid}/img.webp`]);
 
     const updateToastError = () =>
       updateToast({ toastId: postDeleting, text: 'Could not delete post.', type: 'error' });
-
-    if (error) {
-      updateToastError();
-      return;
-    }
 
     postMutation.mutate(
       { post_id },

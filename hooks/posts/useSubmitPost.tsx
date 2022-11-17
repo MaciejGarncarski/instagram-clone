@@ -39,36 +39,12 @@ export const useSubmitPost = () => {
       return;
     }
 
-    const { data } = await supabaseClient.storage
-      .from('post-images')
-      .upload(`${uuid}/img.webp`, newImg, {
-        cacheControl: '10800',
-        upsert: false,
-      });
-
-    if (!data?.path) {
-      updateToast({ toastId: toastId.current, text: 'Could not add post', type: 'error' });
-      return;
-    }
-
-    const {
-      data: { publicUrl },
-    } = supabaseClient.storage.from('post-images').getPublicUrl(data.path);
-
-    if (!publicUrl) {
-      updateToast({
-        toastId: toastId.current,
-        text: 'Something went wrong, try again later',
-        type: 'error',
-      });
-    }
-
     if (isLoading) {
       return;
     }
 
     mutate(
-      { description, publicUrl, uuid, location },
+      { uuid, imageFile: newImg, description, location },
       {
         onSuccess: () => {
           setImgSrc('');

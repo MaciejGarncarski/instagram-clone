@@ -27,7 +27,7 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
     return null;
   }
 
-  const { author, author_id, location, img_uuid } = postData.post;
+  const { author, author_id, location } = postData.post;
   const changeSettingsLayout = data?.role === 'ADMIN' && author_id !== user?.id;
 
   return (
@@ -51,12 +51,7 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
         <FollowButton loaderClassName={styles.loader} userID={author_id} />
       )}
       {canShowSettings && (
-        <PostSettings
-          id={id}
-          author_id={author_id}
-          img_uuid={img_uuid}
-          changeSettingsLayout={changeSettingsLayout}
-        />
+        <PostSettings id={id} author_id={author_id} changeSettingsLayout={changeSettingsLayout} />
       )}
     </header>
   );

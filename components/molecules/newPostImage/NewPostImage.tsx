@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import { useRef } from 'react';
 import ReactCrop from 'react-image-crop';
 
-import { useNewPost } from '@/hooks/posts/useNewPost';
+import { useImageInput } from '@/hooks/posts/useImageInput';
 import { useCreateImage } from '@/hooks/useCreateImage';
 
 import styles from './newPostImage.module.scss';
@@ -43,7 +43,7 @@ export const NewPostImage = () => {
 
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const { handleImg, onImageLoad } = useNewPost({ aspect, setCrop, setImgSrc });
+  const { handleImg, onImageLoad } = useImageInput({ aspect, setCrop, setImgSrc });
 
   useCreateImage({ imgRef, previewCanvasRef, completedCrop, setNewImg });
 

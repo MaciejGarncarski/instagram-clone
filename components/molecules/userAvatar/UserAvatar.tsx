@@ -2,7 +2,7 @@
 import clsx from 'clsx';
 import { ChangeEvent, forwardRef, useRef, useState } from 'react';
 
-import { useNewPost } from '@/hooks/posts/useNewPost';
+import { useImageInput } from '@/hooks/posts/useImageInput';
 
 import styles from './userAvatar.module.scss';
 
@@ -27,7 +27,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
     const [imgSrc, setImgSrc] = useState<string>('');
     const imgRef = useRef<HTMLImageElement>(null);
 
-    const { handleImg } = useNewPost({ aspect: 1, setImgSrc });
+    const { handleImg } = useImageInput({ aspect: 1, setImgSrc });
 
     const onChange = (ev: ChangeEvent<HTMLInputElement>) => {
       if (!ev.target.files || !ev.target.files[0]) {
