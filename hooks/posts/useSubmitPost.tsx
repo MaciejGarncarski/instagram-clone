@@ -1,4 +1,3 @@
-import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
 import { useCallback, useRef } from 'react';
@@ -15,7 +14,6 @@ import { NewPostValues } from '@/components/organisms/createPostModal/CreatePost
 import { completedCropAtom, cropAtom, imgSrcAtom, newImgAtom } from '@/store/store';
 
 export const useSubmitPost = () => {
-  const { supabaseClient } = useSessionContext();
   const { mutate, isLoading, isIdle } = useAddPost();
   const [, setIsAddPostOpen] = useAtom(createPostModalAtom);
   const queryClient = useQueryClient();
@@ -57,6 +55,16 @@ export const useSubmitPost = () => {
           }
           updateToast({ toastId: toastId.current, text: 'Uploaded!', type: 'success' });
           queryClient.invalidateQueries(['homepage posts']);
+        },
+        onError: () => {
+          if (!toastId.current) {
+            return;
+          }
+          updateToast({
+            toastId: toastId.current,
+            text: 'Could not upload new post',
+            type: 'error',
+          });
         },
       }
     );

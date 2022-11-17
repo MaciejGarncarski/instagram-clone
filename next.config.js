@@ -12,6 +12,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    loader: 'imgix',
+    path: 'https://ik.imagekit.io/798lkemwe/',
     allowFutureImage: true,
     domains: [`${process.env.NEXT_PUBLIC_SUPABASE_URL_START}.supabase.co`, 'ik.imagekit.io'],
   },

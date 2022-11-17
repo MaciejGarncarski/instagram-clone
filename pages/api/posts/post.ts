@@ -1,10 +1,11 @@
+import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 } from 'uuid';
 
 import { prisma } from '@/utils/db';
 import { imageKit } from '@/utils/imageKit';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     method,
     body: { description, location, postID, type, author_id, post_id, imageFile },
@@ -26,8 +27,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
       res.status(200).send('success');
-    } catch (e) {
-      res.status(400).send(e);
+    } catch (err) {
+      res.status(500).json({ statusCode: 500, message: err });
     }
   }
 
@@ -39,7 +40,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         fileName: `post.webp`,
         folder: `${author_id}/posts/${uuid}`,
       });
-      await prisma.posts.create({
+      const result = await prisma.posts.create({
         data: {
           img: uploadedImage.url,
           file_id: uploadedImage.fileId,
@@ -52,9 +53,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           id: true,
         },
       });
-      res.status(200).send(200);
-    } catch (e) {
-      res.status(400).send(e);
+
+      res.status(200).send('success');
+    } catch (err) {
+      res.status(500).json({ statusCode: 500, message: err });
     }
   }
 
@@ -84,18 +86,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       });
 
       res.status(200).send(200);
-    } catch (e) {
-      res.status(400).send(e);
+    } catch (err) {
+      res.status(500).json({ statusCode: 500, message: err });
     }
   }
-};
+});
 
 export default handler;
 
 export const config = {
   api: {
-    bodyParser: {
-      sizeLimit: '12mb',
-    },
+    bodyParser: false,
   },
 };
