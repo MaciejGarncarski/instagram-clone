@@ -9,7 +9,7 @@ import { imageKit } from '@/utils/imageKit';
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const body: AvatarRequest = req.body;
-  const { avatarBase64, id, type } = body;
+  const { avatar, id, type } = body;
   const uuid = v4();
 
   if (method !== 'POST') {
@@ -48,14 +48,19 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
   }
 
   if (type === 'UPDATE') {
-    if (!avatarBase64) {
-      res.status(404).send('No avatarBase64 provided.');
+    if (!avatar) {
+      res.status(404).send('No avatar provided.');
+      return;
+    }
+
+    if (typeof avatar !== 'string') {
+      res.status(404).send('Provide proper file type');
       return;
     }
 
     try {
       const uploadedAvatar = await imageKit.upload({
-        file: avatarBase64,
+        file: avatar,
         fileName: `avatar.webp`,
         folder: `${id}/avatars/${uuid}`,
       });

@@ -1,26 +1,29 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import { imageBase64 } from '@/hooks/posts/useAddPost';
 import { useUploadAvatar } from '@/hooks/profile/useUploadAvatar';
 
 type UploadNewImage = {
-  avatarBase64: string | null;
+  avatarBlob: Blob | null;
   resetState: () => void;
 };
 
 export const useAvatarInput = () => {
   const { mutate } = useUploadAvatar();
 
-  const uploadNewImage = async ({ avatarBase64, resetState }: UploadNewImage) => {
-    if (!avatarBase64) {
+  const uploadNewImage = async ({ avatarBlob, resetState }: UploadNewImage) => {
+    if (!avatarBlob) {
       toast.error('No file selected');
       return;
     }
 
+    const avatar = await imageBase64(avatarBlob);
+
     const addingImage = toast.loading('Uploading new image...');
 
     mutate(
-      { avatarBase64 },
+      { avatar },
       {
         onError: (error) => {
           if (axios.isAxiosError(error)) {

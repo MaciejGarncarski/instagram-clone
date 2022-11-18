@@ -20,10 +20,9 @@ export const useSubmitPost = () => {
   const toastId = useRef<Id | null>(null);
 
   const [, setCompletedCrop] = useAtom(completedCropAtom);
-  const [, setNewImg] = useAtom(newImgAtom);
   const [, setImgSrc] = useAtom(imgSrcAtom);
   const [, setCrop] = useAtom(cropAtom);
-  const [newImg] = useAtom(newImgAtom);
+  const [newImg, setNewImg] = useAtom(newImgAtom);
 
   const notify = useCallback(() => {
     toastId.current = toast.loading('Uploading new post...');

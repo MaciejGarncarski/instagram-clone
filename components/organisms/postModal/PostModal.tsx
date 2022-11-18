@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import type { ImageLoaderProps } from 'next/image';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -20,6 +21,17 @@ import { PostHeader } from '@/components/molecules/post/postHeader/PostHeader';
 type PostModalProps = {
   id: number;
   setIsOpen: (isOpen: boolean) => void;
+};
+
+export const imageKitLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  if (src[0] === '/') src = src.slice(1);
+  const params = [`w-${width}`];
+  if (quality) {
+    params.push(`q-${quality}`);
+  }
+  const paramsString = params.join(',');
+
+  return `${src}?tr=${paramsString}`;
 };
 
 export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
@@ -72,6 +84,7 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
             src={img}
             alt={`${author.username}'s post`}
             priority
+            loader={imageKitLoader}
             className={clsx(isImgLoaded ? styles.visible : styles.hidden)}
             onLoad={() => setIsImgLoaded(true)}
           />

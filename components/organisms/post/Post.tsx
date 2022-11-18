@@ -15,6 +15,7 @@ import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
 import { PostFooter } from '@/components/molecules/post/postFooter/PostFooter';
 import { PostHeader } from '@/components/molecules/post/postHeader/PostHeader';
+import { imageKitLoader } from '@/components/organisms/postModal/PostModal';
 
 type PostProps = {
   id: number;
@@ -73,6 +74,7 @@ export const Post = ({ id }: PostProps) => {
         <Image
           className={clsx(styles['post-img'], !isImgLoaded && 'visually-hidden')}
           src={img}
+          loader={imageKitLoader}
           alt={`${author.username}'s post`}
           width={300}
           height={270}

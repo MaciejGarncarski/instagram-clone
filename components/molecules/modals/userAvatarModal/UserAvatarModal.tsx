@@ -26,7 +26,7 @@ export const UserAvatarModal = ({
 }: UserAvatarModalProps) => {
   const [crop, setCrop] = useState<Crop | undefined>(undefined);
   const [completedCrop, setCompletedCrop] = useState<PixelCrop | null>(null);
-  const [newImg, setNewImg] = useState<string | null>(null);
+  const [newImg, setNewImg] = useState<Blob | null>(null);
 
   const { uploadNewImage } = useAvatarInput();
   const { onImageLoad } = useImageInput({ aspect: 1, setCrop, setImgSrc });
@@ -66,7 +66,7 @@ export const UserAvatarModal = ({
             cancel
           </Button>
           <Button
-            onClick={() => uploadNewImage({ avatarBase64: newImg, resetState })}
+            onClick={() => uploadNewImage({ avatarBlob: newImg, resetState })}
             type='button'
             variant='gradient'
           >

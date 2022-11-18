@@ -69,7 +69,5 @@ export async function canvasPreview(
     );
   });
 
-  const toBase = canvas.toDataURL('image/webp', 0.8);
-
-  return { toBase, toBlob };
+  return { toBlob };
 }

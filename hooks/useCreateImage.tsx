@@ -7,7 +7,7 @@ export type UseCreateImageProps = {
   imgRef: RefObject<HTMLImageElement>;
   previewCanvasRef: RefObject<HTMLCanvasElement>;
   completedCrop: PixelCrop | null;
-  setNewImg: (update: SetStateAction<string | null>) => void;
+  setNewImg: (update: SetStateAction<Blob | null>) => void;
 };
 
 export const useCreateImage = ({
@@ -26,13 +26,13 @@ export const useCreateImage = ({
       ) {
         return;
       }
-      const { toBase } = await canvasPreview(
+      const { toBlob } = await canvasPreview(
         imgRef.current,
         previewCanvasRef.current,
         completedCrop
       );
 
-      setNewImg(toBase);
+      setNewImg(await toBlob);
     };
     createImg();
   }, [completedCrop, imgRef, previewCanvasRef, setNewImg]);

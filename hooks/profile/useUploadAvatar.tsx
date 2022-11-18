@@ -4,13 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/lib/apiClient';
 
 type Mutation = {
-  avatarBase64: string;
+  avatar: string | ArrayBuffer | null;
 };
 
 export type AvatarRequest = {
   id: string;
   type: 'UPDATE' | 'REMOVE';
-  avatarBase64?: string;
+  avatar?: string | ArrayBuffer | null;
 };
 
 export const useUploadAvatar = () => {
@@ -18,10 +18,10 @@ export const useUploadAvatar = () => {
   const user = useUser();
 
   return useMutation(
-    ({ avatarBase64 }: Mutation) => {
+    ({ avatar }: Mutation) => {
       return apiClient.postForm<null, null, AvatarRequest>('/accounts/avatar', {
         id: user?.id ?? '',
-        avatarBase64,
+        avatar,
         type: 'UPDATE',
       });
     },
