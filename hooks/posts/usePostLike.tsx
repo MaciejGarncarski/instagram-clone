@@ -1,7 +1,6 @@
 import { posts_likes } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 
 import { apiClient } from '@/lib/apiClient';
 import { SinglePostData } from '@/hooks/posts/usePostData';
@@ -40,13 +39,10 @@ const updateFn = (oldData?: SinglePostData, newData?: PostLike) => {
 export const usePostLike = (id: number, data?: posts_likes) => {
   const user = useUser();
   const queryClient = useQueryClient();
-  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(
-    (data && data?.user_id === user?.id) ?? false
-  );
-
+  const isLikedByUser = data?.user_id === user?.id;
   const onSuccess = () => {
-    setIsLikedByUser((prev) => !prev);
     queryClient.invalidateQueries(['post', id]);
+    queryClient.invalidateQueries(['homepage posts']);
   };
 
   const postLike = useMutation(

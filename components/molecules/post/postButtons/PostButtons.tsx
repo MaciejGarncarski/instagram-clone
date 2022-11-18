@@ -45,9 +45,7 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const { data } = usePostData(id);
   const { handleLike, isLikedByUser } = usePostLike(id, data?.likesData);
   const user = useUser();
-
   const postLikes = data?.post._count.posts_likes;
-
   const showModal = () => {
     setPostModalOpen(true);
   };
