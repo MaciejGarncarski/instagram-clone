@@ -1,7 +1,7 @@
 @use '/styles/common.scss';
 
 .modal {
-  background-color: var(--bg-color);
+  background-color: rgb(var(--bg-primary));
   border-radius: var(--radius-medium);
   padding: 2rem 0;
 

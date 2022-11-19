@@ -6,20 +6,21 @@
   bottom: 0;
   left: 0;
   display: flex;
-  justify-content: space-evenly;
   padding: 0.75rem 0;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  background-color: var(--white);
+  background-color: rgb(var(--bg-white));
   z-index: 2;
-  box-shadow: 0 -1px 3px 0 rgb(0, 0, 0, 0.15);
-  border-top: var(--gray-border);
+  box-shadow: var(--shadow-primary);
+  border-top: var(--border-primary-small);
 
   @include common.breakpoint('xl') {
+    justify-content: flex-end;
     background: transparent;
+    width: auto;
     position: static;
     padding: 0;
-    width: auto;
     gap: 2.5rem;
     box-shadow: none;
     border-top: none;
@@ -28,6 +29,7 @@
 
 .menu {
   list-style: none;
+  flex-grow: 1;
 }
 
 .icon {
@@ -37,7 +39,7 @@
   align-items: center;
   font-size: var(--nav-icon-size);
   transition: color var(--transition-slow);
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
 }
 
 .link {
@@ -69,13 +71,13 @@
 
     &:hover svg,
     &:focus svg {
-      color: var(--white);
+      color: rgb(var(--color-white));
     }
   }
 }
 
 .button {
-  color: var(--white);
+  color: rgb(var(--color-white));
   font-weight: 700;
   text-decoration: none;
   background-image: var(--gradient);
@@ -85,5 +87,5 @@
 
 .text {
   font-weight: 700;
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
 }

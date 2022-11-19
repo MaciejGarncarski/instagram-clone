@@ -16,9 +16,10 @@
   align-items: center;
   text-align: center;
   font-weight: 500;
-  background-color: var(--bg-color);
-  border-block: var(--gray-border);
-  color: var(--text-color);
+  background-color: rgb(var(--bg-primary));
+  border-top: var(--border-primary-medium);
+  border-bottom: var(--border-primary-medium);
+  color: rgb(var(--text-primary));
   padding: 0 3rem;
   font-size: 2rem;
   gap: 1rem;
@@ -41,7 +42,7 @@
 
   &:focus {
     border: 0;
-    box-shadow: inset 0 0 0 5px var(--primary-color);
+    box-shadow: inset 0 0 0 5px rgb(var(--color-primary));
   }
 
   & > svg {
@@ -59,6 +60,7 @@
 
 @mixin modal-item-corners {
   &--first {
+    border-top-color: transparent;
     border-bottom-color: transparent;
     border-radius: var(--radius-medium) var(--radius-medium) 0 0;
   }
@@ -66,6 +68,7 @@
   @include common.breakpoint('sm') {
     &--last {
       border-top-color: transparent;
+      border-bottom-color: transparent;
       border-radius: 0 0 var(--radius-medium) var(--radius-medium);
     }
   }

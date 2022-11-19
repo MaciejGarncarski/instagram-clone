@@ -9,8 +9,6 @@ import { useAddComment } from '@/hooks/posts/useAddComment';
 
 import styles from './postComment.module.scss';
 
-import { Button } from '@/components/atoms/button/Button';
-
 type PostCommentProps = {
   id: number;
   className?: string;
@@ -63,9 +61,9 @@ export const PostComment = forwardRef<HTMLTextAreaElement, PostCommentProps>(
           onChange={handleChange}
           spellCheck='true'
         />
-        <Button type='submit' disabled={textAreaValue.trim() === ''} className={styles.button}>
+        <button type='submit' disabled={textAreaValue.trim() === ''} className={styles.button}>
           post
-        </Button>
+        </button>
       </form>
     );
   }

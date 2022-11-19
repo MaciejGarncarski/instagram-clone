@@ -33,7 +33,7 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
   return (
     <header className={clsx(borderBottom && styles.border, styles.author)}>
       <Link href={`/${author.username}/`} className={styles.avatarLink}>
-        <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
+        <UserAvatar userID={author_id} className={styles.avatar} />
       </Link>
       <div className={styles.links}>
         <Link href={`/${author.username}/`} className={styles.link}>

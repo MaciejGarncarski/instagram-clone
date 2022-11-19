@@ -1,7 +1,7 @@
 @use '/styles/common.scss';
 
 .list {
-  background-color: var(--white);
+  background-color: rgb(var(--color-white));
   border-radius: var(--radius-small);
   display: flex;
   justify-content: center;
@@ -27,7 +27,7 @@
   font-size: 7rem;
 
   > svg {
-    color: var(--white);
+    color: rgb(var(--color-white));
   }
 
   &:hover {
@@ -36,10 +36,10 @@
 
   &:hover,
   &:focus {
-    background-color: var(--white);
+    background-color: rgb(var(--color-white));
 
     > svg {
-      color: var(--text-color);
+      color: rgb(var(--text-primary));
     }
   }
 }

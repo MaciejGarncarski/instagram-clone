@@ -22,7 +22,7 @@ export const Search = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={styles.form}>
       <label className={styles.label}>
         <button className={styles.button}>
           <span className='visually-hidden'>Search</span>

@@ -11,10 +11,9 @@ import { Loader } from '@/components/atoms/loader/Loader';
 
 type AvatarImageProps = {
   userID: string;
-  sizes?: string;
 };
 
-export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
+export const AvatarImage = ({ userID }: AvatarImageProps) => {
   const { data, isLoading, isError } = useProfile(userID);
 
   const [isImgLoaded, setIsImgLoaded] = useState<boolean>(false);
@@ -30,7 +29,7 @@ export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
       {(!isImgLoaded || isLoading) && <Loader variant={['margins', 'small']} />}
       <Image
         fill
-        sizes={sizes ? sizes : '100'}
+        sizes='sizes="(max-width: 768px) 7rem"'
         className={clsx(styles.image, isImgLoaded && styles.visible)}
         src={avatar_url}
         alt={`${username}'s profile picture`}

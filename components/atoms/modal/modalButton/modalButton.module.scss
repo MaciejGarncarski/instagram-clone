@@ -15,17 +15,13 @@
     background-color: rgb(222, 222, 222);
   }
 
-  &--last {
-    border-top: none;
-  }
-
   &--red {
     font-weight: 700;
-    color: var(--error-color);
+    color: rgb(var(--color-error));
 
     & > svg,
     & > path {
-      color: var(--error-color);
+      color: rgb(var(--color-error));
     }
   }
 }

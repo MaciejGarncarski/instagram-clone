@@ -9,7 +9,7 @@
 
   @include common.breakpoint('lg') {
     margin-top: 0.5rem;
-    border-top: var(--gray-border);
+    border-top: var(--border-primary-small);
   }
 }
 
@@ -29,7 +29,7 @@
   outline: none;
 
   &:focus {
-    box-shadow: 0 0 0 2px inset var(--primary-color);
+    box-shadow: 0 0 0 2px inset rgb(var(--color-primary));
   }
 
   &::-webkit-scrollbar {
@@ -41,7 +41,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
+    background-color: rgb(var(--color-primary));
     border-radius: 10px;
     border: 3px solid transparent;
   }
@@ -57,9 +57,20 @@
   justify-self: center;
   align-self: center;
   border-radius: var(--radius-small);
-  padding: 0.3rem 1.5rem;
+  color: rgb(var(--color-primary));
+  font-weight: 700;
+  text-transform: capitalize;
 
   &::first-letter {
     text-transform: unset;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
   }
 }

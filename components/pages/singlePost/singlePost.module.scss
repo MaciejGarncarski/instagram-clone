@@ -4,9 +4,9 @@
   margin: 0 1.5rem;
   margin-top: 4rem;
   border-radius: var(--radius-small);
-  border: var(--gray-border);
+  border: var(--border-primary-small);
   box-shadow: var(--box-shadow);
-  background-color: var(--white);
+  background-color: rgb(var(--color-white));
   display: grid;
 }
 
@@ -20,11 +20,11 @@
 }
 
 .right {
-  border-top: var(--gray-border);
+  border-top: var(--border-primary-small);
   width: 100%;
 
   @include common.breakpoint('xl') {
-    border-left: var(--gray-border);
+    border-left: var(--border-primary-small);
     border-top: none;
   }
 }
@@ -33,7 +33,7 @@
   display: flex;
   padding: 2rem 1.5rem;
   gap: 1.5rem;
-  border-bottom: var(--gray-border);
+  border-bottom: var(--border-primary-small);
 
   align-items: center;
 }

@@ -66,14 +66,16 @@ export const Nav = () => {
             </li>
           );
         })}
-        <button
-          type='button'
-          className={clsx(styles.item, styles.icon, styles.link)}
-          onClick={openCreatePostModal}
-        >
-          <CgAddR />
-          <span className='visually-hidden'>add new post</span>
-        </button>
+        <li>
+          <button
+            type='button'
+            className={clsx(styles.item, styles.icon, styles.link)}
+            onClick={openCreatePostModal}
+          >
+            <CgAddR />
+            <span className='visually-hidden'>add new post</span>
+          </button>
+        </li>
         <AccountLink />
         <AnimatePresence>{isAddPostOpen && <CreatePostModal />}</AnimatePresence>
       </ul>

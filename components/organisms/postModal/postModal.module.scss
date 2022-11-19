@@ -27,7 +27,7 @@
 }
 
 .modal {
-  background-color: var(--bg-color);
+  background-color: rgb(var(--bg-primary));
   border-radius: var(--radius-small);
   width: 90%;
   min-height: 60vh;
@@ -61,12 +61,12 @@
 .image {
   position: relative;
   grid-row: 2 / 3;
-  background-color: var(--text-color);
+  background-color: rgb(var(--text-primary));
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border-bottom: var(--gray-border);
+  border-bottom: var(--border-primary-small);
   height: 100%;
   display: none;
 
@@ -83,7 +83,7 @@
 
   @include common.breakpoint('lg') {
     grid-row: 1 / 5;
-    border-right: var(--gray-border);
+    border-right: var(--border-primary-small);
     border-bottom: none;
 
     & > img {

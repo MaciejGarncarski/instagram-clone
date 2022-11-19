@@ -3,7 +3,7 @@
 .button {
   padding: 0.5rem 2rem;
   border-radius: var(--radius-small);
-  --btn-color: var(--primary-color);
+  --btn-color: rgb(var(--color-primary));
   background: var(--btn-color);
   letter-spacing: 0.5px;
   color: white;
@@ -20,7 +20,7 @@
   }
 
   &--red {
-    --btn-color: var(--error-color);
+    --btn-color: rgb(var(--color-error));
   }
 
   &--gradient {

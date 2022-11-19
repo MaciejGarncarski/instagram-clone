@@ -21,17 +21,19 @@ export const Layout = ({ children }: LayoutProps) => {
         Skip to main content
       </a>
 
-      <nav className={styles.nav}>
-        <h1 className={styles.heading}>
-          <Link href='/' className={styles.link}>
-            Delaygram
-          </Link>
-        </h1>
-        {user?.id && <Search />}
-        <Nav />
-      </nav>
+      <div className={styles.navContainer}>
+        <nav className={styles.nav}>
+          <h1 className={styles.heading}>
+            <Link href='/' className={styles.link}>
+              Delaygram
+            </Link>
+          </h1>
+          {user?.id && <Search />}
+          <Nav />
+        </nav>
+      </div>
       <ToastContainer closeButton={true} theme='light' autoClose={2200} position='bottom-right' />
-      {children}
+      <div className={styles.components}>{children}</div>
     </div>
   );
 };
