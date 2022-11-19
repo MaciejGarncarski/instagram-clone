@@ -30,14 +30,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             id: 'desc',
           },
         },
+      },
+    });
 
-        _count: {
-          select: {
-            posts: true,
-            fromUser: true,
-            toUser: true,
-          },
-        },
+    const postsCount = await prisma.posts.aggregate({
+      where: {
+        author_id: prismaData?.id,
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    const followingCount = await prisma.followers.aggregate({
+      where: {
+        from: prismaData?.id,
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    const followersCount = await prisma.followers.aggregate({
+      where: {
+        to: prismaData?.id,
+      },
+      _count: {
+        id: true,
       },
     });
 
@@ -48,7 +67,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).send({ profile: prismaData, isFollowing: Boolean(isFollowing) });
+    const count = {
+      followers: followersCount._count.id,
+      following: followingCount._count.id,
+      posts: postsCount._count.id,
+    };
+
+    res.status(200).send({ profile: prismaData, isFollowing: Boolean(isFollowing), count });
   } catch (e) {
     res.status(400).send(`Wrong api call`);
   }

@@ -47,12 +47,13 @@ export const Account = () => {
     return <Loader variant='margins' />;
   }
 
-  const { bio, username, full_name, _count, website, profile_id, id } = data.profile;
+  const { bio, username, full_name, website, profile_id, id } = data.profile;
+  const { followers, following, posts } = data.count;
   const isOwner = id === user?.id;
 
   const statsData: Array<StatsData> = [
     {
-      number: _count.posts,
+      number: posts,
       text: 'posts',
       onClick: () =>
         window.scrollBy({
@@ -61,12 +62,12 @@ export const Account = () => {
         }),
     },
     {
-      number: _count.fromUser,
+      number: following,
       text: 'following',
       onClick: () => setAccountModal('following'),
     },
     {
-      number: _count.toUser,
+      number: followers,
       text: 'followers',
       onClick: () => setAccountModal('followers'),
     },

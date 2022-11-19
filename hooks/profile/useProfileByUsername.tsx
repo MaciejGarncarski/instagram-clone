@@ -6,14 +6,13 @@ import { apiClient } from '@/lib/apiClient';
 export type Following = boolean | null;
 
 type ProfileByUsername = {
-  profile: profiles & {
-    _count: {
-      posts: number;
-      fromUser: number;
-      toUser: number;
-    };
-  };
+  profile: profiles;
   isFollowing: Following;
+  count: {
+    following: number;
+    followers: number;
+    posts: number;
+  };
 };
 
 export const useProfileByUsername = (username: string) => {
