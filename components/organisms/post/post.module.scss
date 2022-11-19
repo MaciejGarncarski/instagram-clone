@@ -1,11 +1,11 @@
 @use '/styles/common.scss';
 
 .container {
-  background-color: var(--white);
+  background-color: rgb(var(--bg-white));
   width: 95%;
   box-shadow: var(--box-shadow);
   padding-bottom: 2rem;
-  border: var(--gray-border);
+  border: var(--border-primary-small);
   border-radius: var(--radius-small);
 
   @include common.breakpoint('sm') {

@@ -148,7 +148,7 @@
 
 .button {
   grid-row: 2 / 3;
-  grid-column: 2 / 3;
+  grid-column: 2 / 4;
 
   @include common.breakpoint('lg') {
     grid-row: 1 / 1;
@@ -180,17 +180,18 @@ button.followBtn {
 
 .edit {
   @extend .button;
-  background-color: var(--primary-color);
+  background-color: rgb(var(--color-primary));
   border-radius: var(--radius-small);
-  display: flex;
+  padding: 0.5rem 2rem;
   justify-self: flex-start;
   align-items: flex-start;
-  padding: 0.5rem 2rem;
+  display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  color: var(--white);
+  color: rgb(var(--color-white));
   text-decoration: none;
+  text-align: center;
+  text-transform: capitalize;
   font-weight: 600;
 
   @include common.breakpoint('lg') {

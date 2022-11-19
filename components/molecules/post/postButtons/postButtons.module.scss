@@ -28,7 +28,7 @@
 }
 
 .modal {
-  background-color: var(--white);
+  background-color: rgb(var(--color-white));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +41,7 @@
 .container {
   display: flex;
   padding: 1rem 1.5rem;
-  border-top: var(--gray-border);
+  border-top: var(--border-primary-small);
   flex-direction: column;
 }
 

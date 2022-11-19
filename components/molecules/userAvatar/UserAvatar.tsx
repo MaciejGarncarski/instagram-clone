@@ -18,11 +18,10 @@ type UserAvatarProps = {
   className?: string;
   editable?: boolean;
   userID: string;
-  sizes?: string;
 } & AvatarVariant;
 
 export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
-  ({ className, editable, userID, sizes, variant }, ref) => {
+  ({ className, editable, userID, variant }, ref) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [imgSrc, setImgSrc] = useState<string>('');
     const imgRef = useRef<HTMLImageElement>(null);
@@ -53,7 +52,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
             <span className={styles.overlay} title='change avatar'>
               <EditIcon size={50} className={styles.icon} />
             </span>
-            <AvatarImage sizes={sizes} userID={userID} />
+            <AvatarImage userID={userID} />
           </label>
           {isEditing && (
             <UserAvatarModal
@@ -69,7 +68,7 @@ export const UserAvatar = forwardRef<HTMLInputElement, UserAvatarProps>(
 
     return (
       <div className={clsx(className, variant && styles[variant], styles.container)}>
-        <AvatarImage sizes={sizes} userID={userID} />
+        <AvatarImage userID={userID} />
       </div>
     );
   }

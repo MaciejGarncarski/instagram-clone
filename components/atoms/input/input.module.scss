@@ -18,7 +18,7 @@
   transform: translateY(-1rem);
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--primary-color);
+  color: rgb(var(--color-primary));
 
   @include common.breakpoint('lg') {
     font-size: 2.2rem;
@@ -28,7 +28,7 @@
 }
 
 .input {
-  background: var(--bg-color);
+  background: rgb(var(--bg-primary));
   border: 3px solid rgb(0, 0, 0, 0.4);
   border-radius: var(--radius-small);
   box-shadow: var(--box-shadow), var(--shadow-color) 0 0 0 4px;
@@ -53,26 +53,26 @@
 
   &:focus,
   &--dirty {
-    border-color: var(--primary-color);
+    border-color: rgb(var(--color-primary));
   }
 
   &:focus {
-    --shadow-color: rgb(var(--primary-color-rgb), 0.95);
+    --shadow-color: rgb(var(--color-primary), 0.95);
   }
 
   &--error {
-    border-color: var(--error-color);
+    border-color: rgb(var(--color-error));
 
     & ~ .label {
-      color: var(--error-color);
+      color: rgb(var(--color-error));
     }
 
     &:focus {
-      --shadow-color: rgb(var(--error-color-rgb), 0.6);
-      border-color: var(--error-color);
+      --shadow-color: rgb(var(--color-error), 0.6);
+      border-color: rgb(var(--color-error));
 
       & ~ .label {
-        color: var(--error-color);
+        color: rgb(var(--color-error));
       }
     }
   }
@@ -130,7 +130,7 @@
   padding-top: 1.5em;
   box-shadow: var(--box-shadow);
   border-radius: 0.6rem;
-  border: 3px solid var(--primary-color);
+  border: 3px solid rgb(var(--color-primary));
 }
 
 .text-area {
@@ -152,7 +152,7 @@
     outline: none;
     border-top-left-radius: var(--radius-small);
     border-top-right-radius: var(--radius-small);
-    border-color: var(--primary-color);
+    border-color: rgb(var(--color-primary));
 
     & + .label {
       @include label-active;

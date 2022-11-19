@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BiUser } from 'react-icons/bi';
@@ -12,27 +11,20 @@ export const AccountLink = () => {
 
   const url = `/${data?.username}`;
 
-  if (data?.avatar_url) {
-    return (
-      <li className={styles.item}>
-        <Link href={url} className={styles.link}>
-          <Image
-            className={clsx(styles.img, styles.border)}
-            src={data?.avatar_url}
-            width={70}
-            height={70}
-            alt={`${data.username} account`}
-          />
-          <span className='visually-hidden'>{data.username} account</span>
-        </Link>
-      </li>
-    );
-  }
-
   return (
     <li className={styles.item}>
       <Link href={url} className={styles.link}>
-        <BiUser />
+        {data?.avatar_url && (
+          <Image
+            className={styles.avatar}
+            width={30}
+            height={30}
+            priority
+            src={data.avatar_url}
+            alt={`${data.username}`}
+          />
+        )}
+        {!data?.avatar_url && <BiUser className={styles.avatar} />}
         <span className='visually-hidden'>user account</span>
       </Link>
     </li>

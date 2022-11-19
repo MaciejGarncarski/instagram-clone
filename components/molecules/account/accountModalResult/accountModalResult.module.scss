@@ -6,7 +6,7 @@
   align-items: center;
 
   padding: 1.5rem 2rem;
-  border-top: var(--gray-border);
+  border-top: var(--border-primary-small);
 
   &:first-child {
     border-top: none;
@@ -22,7 +22,7 @@
 }
 
 .link {
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
   text-decoration: none;
   font-weight: 700;
   grid-row: 2 / 3;
@@ -50,5 +50,5 @@
 .loader {
   width: 100%;
   padding: 3rem 0;
-  border-top: var(--gray-border);
+  border-top: var(--border-primary-small);
 }

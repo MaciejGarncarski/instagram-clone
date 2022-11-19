@@ -21,15 +21,15 @@
   }
 
   & > svg {
-    color: var(--bg-color);
+    color: rgb(var(--bg-primary));
   }
 
   &:focus,
   &:hover {
-    background-color: var(--bg-color);
+    background-color: rgb(var(--bg-primary));
 
     & > svg {
-      color: var(--text-color);
+      color: rgb(var(--text-primary));
     }
   }
 
