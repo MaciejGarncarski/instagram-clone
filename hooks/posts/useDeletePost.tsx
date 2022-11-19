@@ -1,47 +1,35 @@
-import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import { useAtom } from 'jotai';
 import { toast } from 'react-toastify';
 
+import { apiClient } from '@/lib/apiClient';
 import { updateToast } from '@/lib/updateToast';
 
 import { postModalAtom } from '@/store/store';
 
-type AddPostMutation = {
+type DeletePostMutation = {
   post_id: number;
 };
 
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   const [, setModalOpen] = useAtom(postModalAtom);
-  const { supabaseClient } = useSessionContext();
 
-  const postMutation = useMutation(({ post_id }: AddPostMutation) => {
-    return axios.post('/api/posts/deletePost', { post_id });
+  const postMutation = useMutation(({ post_id }: DeletePostMutation) => {
+    return apiClient.post('/posts/post', { type: 'REMOVE', postID: post_id });
   });
 
-  const handleDelete = async (post_id: number, img_uuid: string) => {
+  const handleDelete = async (post_id: number) => {
     const postDeleting = toast.loading('Deleting post...');
-
-    const { error } = await supabaseClient.storage
-      .from('post-images')
-      .remove([`${img_uuid}/img.webp`]);
 
     const updateToastError = () =>
       updateToast({ toastId: postDeleting, text: 'Could not delete post.', type: 'error' });
-
-    if (error) {
-      updateToastError();
-      return;
-    }
 
     postMutation.mutate(
       { post_id },
       {
         onSuccess: async () => {
-          await queryClient.invalidateQueries(['posts']);
-          await queryClient.invalidateQueries(['posts count']);
+          await queryClient.invalidateQueries(['homepage posts']);
           await queryClient.invalidateQueries(['account posts']);
           toast.update(postDeleting, {
             render: 'Post deleted!',

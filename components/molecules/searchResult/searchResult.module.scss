@@ -13,7 +13,7 @@
 
 .link {
   width: 100%;
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
   text-decoration: none;
 
   @include common.breakpoint('lg') {
@@ -25,7 +25,7 @@
   box-shadow: var(--box-shadow);
   background-color: #fff;
   border-radius: var(--radius-small);
-  border: var(--gray-border);
+  border: var(--border-primary-small);
   display: flex;
   align-items: center;
   margin: 0 1rem;

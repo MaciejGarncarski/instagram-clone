@@ -10,7 +10,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  if (method === 'PUT') {
+  const isFollowing = await prisma.followers.findFirst({
+    where: {
+      from: query.from,
+      to: query.to,
+    },
+  });
+
+  if (method === 'PUT' && isFollowing) {
+    res.status(400).send('Follow already exists.');
+  }
+
+  if (method === 'PUT' && !isFollowing) {
     try {
       await prisma.followers.create({
         data: {

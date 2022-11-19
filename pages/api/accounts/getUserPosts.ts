@@ -32,7 +32,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).send(posts);
+    const postsCount = await prisma.posts.aggregate({
+      where: {
+        author_id: additionalData.id,
+      },
+      _count: {
+        id: true,
+      },
+    });
+
+    res.status(200).send({ posts, postsCount });
   } catch (e) {
     res.status(400).send('400');
   }

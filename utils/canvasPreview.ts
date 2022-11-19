@@ -54,7 +54,7 @@ export async function canvasPreview(
 
   ctx.restore();
 
-  return new Promise<Blob>((resolve) => {
+  const toBlob = new Promise<Blob>((resolve) => {
     canvas.toBlob(
       async (file) => {
         if (file) {
@@ -68,4 +68,6 @@ export async function canvasPreview(
       0.65
     );
   });
+
+  return { toBlob };
 }

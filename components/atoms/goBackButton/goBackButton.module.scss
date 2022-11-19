@@ -9,17 +9,17 @@
   gap: 1rem;
   border-radius: var(--radius-small);
   font-weight: 700;
-  color: var(--bg-color);
+  color: rgb(var(--bg-primary));
   margin: 0 auto;
   margin-top: 3rem;
   margin-bottom: 4rem;
 
   @include common.breakpoint('lg') {
-    margin: 0 0 8rem 3rem;
+    margin: 0 0 8rem 1.5rem;
   }
 
   & > svg {
-    color: var(--bg-color);
+    color: rgb(var(--bg-primary));
   }
 
   &:hover {

@@ -4,23 +4,22 @@ import { useRef, useState } from 'react';
 import { BsThreeDots } from 'react-icons/bs';
 
 import { useDeletePost } from '@/hooks/posts/useDeletePost';
-import { usePostModalButtons } from '@/hooks/usePostModalButtons';
+import { usePostModalButtons } from '@/hooks/posts/usePostModalButtons';
 
 import styles from './postSettings.module.scss';
 
 import { CancelIcon } from '@/components/atoms/icons/CancelIcon';
 import { DeleteIcon } from '@/components/atoms/icons/DeleteIcon';
-import { PostEditModal } from '@/components/molecules/post/postEditModal/PostEditModal';
+import { PostEditModal } from '@/components/molecules/modals/postEditModal/PostEditModal';
 import { Modal } from '@/components/organisms/modal/Modal';
 
 type PostSettingsProps = {
   author_id: string;
   id: number;
-  img_uuid: string;
   changeSettingsLayout?: boolean;
 };
 
-export const PostSettings = ({ changeSettingsLayout, id, img_uuid }: PostSettingsProps) => {
+export const PostSettings = ({ changeSettingsLayout, id }: PostSettingsProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -34,7 +33,7 @@ export const PostSettings = ({ changeSettingsLayout, id, img_uuid }: PostSetting
       return;
     }
     buttonRef.current.disabled = true;
-    handleDelete(id, img_uuid);
+    handleDelete(id);
     buttonRef.current.disabled = false;
   };
 

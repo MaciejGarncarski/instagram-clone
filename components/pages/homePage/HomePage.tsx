@@ -1,20 +1,17 @@
 import { AnimatePresence } from 'framer-motion';
-import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import { namedComponent } from '@/lib/namedComponent';
 import { useGetPosts } from '@/hooks/posts/useGetPosts';
 
 import styles from './homePage.module.scss';
 
 import { Loader } from '@/components/atoms/loader/Loader';
-
-const Post = dynamic(() => {
-  return namedComponent(import('@/components/organisms/post/Post'), 'Post');
-});
+import { Post } from '@/components/organisms/post/Post';
 
 export const HomePage = () => {
   const { data, isError, isLoading, hasNextPage, fetchNextPage } = useGetPosts();
+  const { isFallback } = useRouter();
 
   const [sentryRef] = useInfiniteScroll({
     loading: isLoading,
@@ -24,11 +21,11 @@ export const HomePage = () => {
     rootMargin: '0px 0px 600px 0px',
   });
 
-  if (!data?.pages || isLoading) {
+  if (!data?.pages || isLoading || isFallback) {
     return <Loader className={styles.loader} />;
   }
 
-  const allPosts = data?.pages.flatMap((post) => post);
+  const allPosts = data.pages.flatMap((el) => el.posts);
 
   if (allPosts.length < 1) {
     return <h2>No posts yet.</h2>;

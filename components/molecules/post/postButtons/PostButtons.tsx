@@ -1,12 +1,14 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ReactNode, useState } from 'react';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { BiBookmark, BiCheck, BiCopyAlt } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 
+import { namedComponent } from '@/lib/namedComponent';
 import { usePostData } from '@/hooks/posts/usePostData';
 import { usePostLike } from '@/hooks/posts/usePostLike';
 
@@ -15,7 +17,6 @@ import styles from './postButtons.module.scss';
 import { Button } from '@/components/atoms/button/Button';
 import { CommentIcon } from '@/components/atoms/icons/CommentIcon';
 import { ShareIcon } from '@/components/atoms/icons/ShareIcon';
-import { LoginModal } from '@/components/organisms/loginModal/LoginModal';
 import { Modal } from '@/components/organisms/modal/Modal';
 import { PostModal } from '@/components/organisms/postModal/PostModal';
 
@@ -31,6 +32,10 @@ type ButtonProps = {
   commentCallback?: () => void;
 };
 
+const LoginModal = dynamic(() =>
+  namedComponent(import('@/components/organisms/loginModal/LoginModal'), 'LoginModal')
+);
+
 export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const [postModalOpen, setPostModalOpen] = useState<boolean>(false);
   const [loginModalOpen, setLoginModalOpen] = useState<boolean>(false);
@@ -40,7 +45,7 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   const { data } = usePostData(id);
   const { handleLike, isLikedByUser } = usePostLike(id, data?.likesData);
   const user = useUser();
-
+  const postLikes = data?.post._count.posts_likes;
   const showModal = () => {
     setPostModalOpen(true);
   };
@@ -93,34 +98,42 @@ export const PostButtons = ({ id, commentCallback }: ButtonProps) => {
   };
 
   return (
-    <div className={styles.buttons}>
-      {buttonsData.map(({ icon, alt, className, onClick }) => {
-        return (
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileFocus={{ scale: 1.1 }}
-            onClick={onClick ? onClick : () => null}
-            key={alt}
-            type='button'
-            className={clsx(styles.button, className ?? '')}
-          >
-            <span className='visually-hidden'>{alt}</span>
-            {icon}
-          </motion.button>
-        );
-      })}
-      {loginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
-      {postModalOpen && <PostModal setIsOpen={setPostModalOpen} id={id} />}
-      {shareModalOpen && (
-        <Modal setIsOpen={setShareModalOpen}>
-          <Modal.Button isFirst onClick={handleCopy} disabled={isCopied}>
-            <BiCopyAlt /> {isCopied ? 'copied!' : 'copy'}
-          </Modal.Button>
-          <Modal.Button isLast onClick={() => setShareModalOpen(false)}>
-            <BiCheck />
-            ok
-          </Modal.Button>
-        </Modal>
+    <div className={styles.container}>
+      <div className={styles.buttons}>
+        {buttonsData.map(({ icon, alt, className, onClick }) => {
+          return (
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileFocus={{ scale: 1.1 }}
+              onClick={onClick ? onClick : () => null}
+              key={alt}
+              type='button'
+              className={clsx(styles.button, className ?? '')}
+            >
+              <span className='visually-hidden'>{alt}</span>
+              {icon}
+            </motion.button>
+          );
+        })}
+        {loginModalOpen && <LoginModal setIsOpen={setLoginModalOpen} />}
+        {postModalOpen && <PostModal setIsOpen={setPostModalOpen} id={id} />}
+        {shareModalOpen && (
+          <Modal setIsOpen={setShareModalOpen}>
+            <Modal.Button isFirst onClick={handleCopy} disabled={isCopied}>
+              <BiCopyAlt /> {isCopied ? 'copied!' : 'copy'}
+            </Modal.Button>
+            <Modal.Button isLast onClick={() => setShareModalOpen(false)}>
+              <BiCheck />
+              ok
+            </Modal.Button>
+          </Modal>
+        )}
+      </div>
+      {postLikes !== 0 && postLikes && (
+        <p className={styles.likes}>
+          <span className={styles.bold}>{postLikes}</span>
+          <span>{postLikes > 1 ? 'likes' : 'like'}</span>
+        </p>
       )}
     </div>
   );

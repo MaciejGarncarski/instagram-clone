@@ -1,13 +1,13 @@
 @use '/styles/common.scss';
 
 .list {
-  padding: 1rem 2rem;
+  padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   font-size: 1.5rem;
 
-  @include common.breakpoint('sm') {
+  @include common.breakpoint('lg') {
     font-size: 2.5rem;
     gap: 2.5rem;
     padding: 1.5rem 2rem;
@@ -16,14 +16,10 @@
 
 .item {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
   grid-template-columns: auto 1fr;
   word-break: break-all;
-  align-items: center;
-
-  @include common.breakpoint('sm') {
-    gap: 2rem;
-  }
+  align-items: flex-start;
 }
 
 .avatar {
@@ -31,7 +27,7 @@
   width: var(--size);
   height: var(--size);
 
-  @include common.breakpoint('sm') {
+  @include common.breakpoint('lg') {
     --size: 4rem;
   }
 }

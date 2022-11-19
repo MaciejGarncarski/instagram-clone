@@ -1,4 +1,4 @@
-import { Terms } from '@/components/molecules/terms/Terms';
+import { Terms } from '@/components/pages/terms/Terms';
 
 const TermsPage = () => {
   return <Terms />;

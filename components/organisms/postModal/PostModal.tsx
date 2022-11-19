@@ -1,32 +1,47 @@
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import type { ImageLoaderProps } from 'next/image';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { usePostModal } from '@/hooks/usePostModal';
+import { usePostModal } from '@/hooks/posts/usePostModal';
 
 import styles from './postModal.module.scss';
 
-import { CloseModalButton } from '@/components/atoms/closeModalButton/CloseModalButton';
+import { Loader } from '@/components/atoms/loader/Loader';
+import { CloseModalButton } from '@/components/atoms/modal/closeModalButton/CloseModalButton';
 import { ModalContainer } from '@/components/atoms/modal/modalContainer/ModalContainer';
+import { PostModalComments } from '@/components/molecules/modals/postModalComments/PostModalComments';
 import { PostButtons } from '@/components/molecules/post/postButtons/PostButtons';
 import { PostComment } from '@/components/molecules/post/postComment/PostComment';
 import { PostFooter } from '@/components/molecules/post/postFooter/PostFooter';
 import { PostHeader } from '@/components/molecules/post/postHeader/PostHeader';
-import { PostModalComments } from '@/components/molecules/postModalComments/PostModalComments';
 
 type PostModalProps = {
   id: number;
   setIsOpen: (isOpen: boolean) => void;
 };
 
+export const imageKitLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  if (src[0] === '/') src = src.slice(1);
+  const params = [`w-${width}`];
+  if (quality) {
+    params.push(`q-${quality}`);
+  }
+  const paramsString = params.join(',');
+
+  return `${src}?tr=${paramsString}`;
+};
+
 export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
+  const [isImgLoaded, setIsImgLoaded] = useState<boolean>(false);
   const parent = document.querySelector('.post-modal') as HTMLDivElement;
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
   const { commentsData, user, postData, currentUser } = usePostModal(id);
 
   const canShowSettings = user?.id === postData?.post?.author_id || currentUser?.role === 'ADMIN';
-  const allComments = commentsData?.pages.flatMap((comment) => comment);
+  const allComments = commentsData?.pages.flat(Infinity);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -49,12 +64,31 @@ export const PostModal = ({ id, setIsOpen }: PostModalProps) => {
       <motion.div
         role='dialog'
         className={styles.modal}
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0.75 }}
+        initial={{ opacity: 0.75, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          type: 'spring',
+          damping: 10,
+          stiffness: 80,
+        }}
       >
-        <div className={styles.image}>
-          <Image width={700} height={700} src={img} alt={`${author.username}'s post`} priority />
-        </div>
+        <motion.div
+          className={styles.image}
+          animate={{ opacity: 1, transition: { duration: 0.65, delay: 0.2 } }}
+          initial={{ opacity: 0.75 }}
+        >
+          {!isImgLoaded && <Loader className={styles.loader} />}
+          <Image
+            width={700}
+            height={700}
+            src={img}
+            alt={`${author.username}'s post`}
+            priority
+            loader={imageKitLoader}
+            className={clsx(isImgLoaded ? styles.visible : styles.hidden)}
+            onLoad={() => setIsImgLoaded(true)}
+          />
+        </motion.div>
         <CloseModalButton handleClose={closeModal} />
         <PostHeader id={id} canShowSettings={canShowSettings} borderBottom />
         <PostModalComments id={id} allComments={allComments} />

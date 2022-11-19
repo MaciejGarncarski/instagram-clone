@@ -1,9 +1,8 @@
 import { posts_likes } from '@prisma/client';
 import { useUser } from '@supabase/auth-helpers-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import { useState } from 'react';
 
+import { apiClient } from '@/lib/apiClient';
 import { SinglePostData } from '@/hooks/posts/usePostData';
 
 type PostLike = {
@@ -40,44 +39,38 @@ const updateFn = (oldData?: SinglePostData, newData?: PostLike) => {
 export const usePostLike = (id: number, data?: posts_likes) => {
   const user = useUser();
   const queryClient = useQueryClient();
-  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(
-    (data && data?.user_id === user?.id) ?? false
-  );
-
+  const isLikedByUser = data?.user_id === user?.id;
   const onSuccess = () => {
-    setIsLikedByUser((prev) => !prev);
-    queryClient.invalidateQueries(['single post', id]);
+    queryClient.invalidateQueries(['post', id]);
+    queryClient.invalidateQueries(['homepage posts']);
   };
 
   const postLike = useMutation(
     ({ user_id, post_id, dislike }: PostLike) => {
       if (dislike) {
-        return axios.patch('/api/posts/postLike', {
+        return apiClient.patch('/posts/postLike', {
           user_id,
           post_id,
         });
       }
 
-      return axios.post('/api/posts/postLike', {
+      return apiClient.post('/posts/postLike', {
         user_id,
         post_id,
       });
     },
     {
       onMutate: async (newLike) => {
-        await queryClient.cancelQueries(['single post', newLike.post_id]);
-        const previousLike = queryClient.getQueryData<SinglePostData>([
-          'single post',
-          newLike.post_id,
-        ]);
-        queryClient.setQueryData<SinglePostData>(['single post', newLike.post_id], (oldData) =>
+        await queryClient.cancelQueries(['post', newLike.post_id]);
+        const previousLike = queryClient.getQueryData<SinglePostData>(['post', newLike.post_id]);
+        queryClient.setQueryData<SinglePostData>(['post', newLike.post_id], (oldData) =>
           updateFn(oldData, newLike)
         );
         return { previousLike, newLike };
       },
       onError: (err, newLike, context) => {
         queryClient.setQueryData<SinglePostData>(
-          ['single post', context?.newLike.post_id],
+          ['post', context?.newLike.post_id],
           context?.previousLike
         );
       },

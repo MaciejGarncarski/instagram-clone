@@ -26,8 +26,13 @@ export const useCreateImage = ({
       ) {
         return;
       }
-      const newImg = await canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
-      setNewImg(newImg);
+      const { toBlob } = await canvasPreview(
+        imgRef.current,
+        previewCanvasRef.current,
+        completedCrop
+      );
+
+      setNewImg(await toBlob);
     };
     createImg();
   }, [completedCrop, imgRef, previewCanvasRef, setNewImg]);

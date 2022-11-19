@@ -41,7 +41,7 @@ export const AccountPost = ({ postID, userID }: PostProps) => {
   const user = useUser();
 
   const { data } = useAccountPosts(userID);
-  const allPosts = data?.pages.flatMap((post) => post);
+  const allPosts = data?.pages.flatMap((el) => el.posts);
   const postData = allPosts?.find((post) => post.id === postID);
 
   const onClick = () => {

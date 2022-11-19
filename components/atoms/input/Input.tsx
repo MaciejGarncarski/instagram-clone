@@ -38,7 +38,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           <label htmlFor={label} className={clsx(styles.label, isDirty && styles['label--dirty'])}>
             <span className={styles['label-text']}>{label}</span>
-            {optional && <span className={styles.optional}>(optional)</span>}
+            {optional && <span className={styles.optional}>&nbsp;(optional)</span>}
           </label>
           {type === 'password' && (
             <button type='button' className={styles.toggler} onClick={handleShow}>

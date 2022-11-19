@@ -3,11 +3,16 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  border: 2px solid rgb(var(--color-primary));
   border-radius: 50%;
 }
 
+.big-border {
+  border-width: 4px;
+}
+
 .error {
-  color: var(--error-color);
+  color: rgb(var(--color-error));
   font-weight: 700;
   text-align: center;
 }
@@ -22,13 +27,13 @@
 
 .label:hover > .overlay,
 .input:focus + .label > .overlay {
-  background-color: rgb(var(--primary-color-rgb), 0.8);
+  background-color: rgb(var(--color-primary), 0.8);
   opacity: 1;
   cursor: pointer;
 }
 
 .input:focus + .label {
-  box-shadow: var(--text-color) 0 0 0 4px;
+  box-shadow: rgb(var(--text-primary)) 0 0 0 4px;
   transition: all var(--transition-fast);
 }
 
@@ -36,7 +41,6 @@
   position: relative;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: var(--primary-color) 0 0 0 2px;
   height: 100%;
   width: 100%;
 }

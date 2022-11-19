@@ -12,4 +12,8 @@
   @include common.breakpoint-max('lg') {
     margin-top: 5rem;
   }
+
+  @include common.breakpoint('lg') {
+    gap: 1rem;
+  }
 }

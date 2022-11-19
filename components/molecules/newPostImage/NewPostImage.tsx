@@ -2,10 +2,9 @@
 import clsx from 'clsx';
 import { useAtom } from 'jotai';
 import { useRef } from 'react';
-import { CgAddR } from 'react-icons/cg';
 import ReactCrop from 'react-image-crop';
 
-import { useNewPost } from '@/hooks/posts/useNewPost';
+import { useImageInput } from '@/hooks/posts/useImageInput';
 import { useCreateImage } from '@/hooks/useCreateImage';
 
 import styles from './newPostImage.module.scss';
@@ -44,7 +43,7 @@ export const NewPostImage = () => {
 
   const imgRef = useRef<HTMLImageElement>(null);
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const { handleImg, onImageLoad } = useNewPost({ aspect, setCrop, setImgSrc });
+  const { handleImg, onImageLoad } = useImageInput({ aspect, setCrop, setImgSrc });
 
   useCreateImage({ imgRef, previewCanvasRef, completedCrop, setNewImg });
 
@@ -97,8 +96,7 @@ export const NewPostImage = () => {
       )}
       {imgSrc === '' && (
         <label className={styles.label} htmlFor='file'>
-          <CgAddR size={50} />
-          <p>Add image here</p>
+          select from comptuer
         </label>
       )}
     </>

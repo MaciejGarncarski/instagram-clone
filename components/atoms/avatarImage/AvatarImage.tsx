@@ -1,4 +1,6 @@
+import clsx from 'clsx';
 import Image from 'next/image';
+import { useState } from 'react';
 import { BiUser } from 'react-icons/bi';
 
 import { useProfile } from '@/hooks/profile/useProfile';
@@ -9,15 +11,12 @@ import { Loader } from '@/components/atoms/loader/Loader';
 
 type AvatarImageProps = {
   userID: string;
-  sizes?: string;
 };
 
-export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
+export const AvatarImage = ({ userID }: AvatarImageProps) => {
   const { data, isLoading, isError } = useProfile(userID);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  const [isImgLoaded, setIsImgLoaded] = useState<boolean>(false);
 
   if (isError || !data?.avatar_url) {
     return <BiUser className={styles.placeholder} />;
@@ -26,13 +25,17 @@ export const AvatarImage = ({ userID, sizes }: AvatarImageProps) => {
   const { avatar_url, username } = data;
 
   return (
-    <Image
-      fill
-      sizes={sizes ? sizes : '100'}
-      className={styles.image}
-      src={avatar_url}
-      alt={`${username}'s profile picture`}
-      priority
-    />
+    <>
+      {(!isImgLoaded || isLoading) && <Loader variant={['margins', 'small']} />}
+      <Image
+        fill
+        sizes='sizes="(max-width: 768px) 7rem"'
+        className={clsx(styles.image, isImgLoaded && styles.visible)}
+        src={avatar_url}
+        alt={`${username}'s profile picture`}
+        onLoad={() => setIsImgLoaded(true)}
+        priority
+      />
+    </>
   );
 };
