@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
@@ -25,21 +24,13 @@ export const HomePage = () => {
     return <Loader className={styles.loader} />;
   }
 
-  const allPosts = data.pages.flatMap((el) => el.posts);
-
-  if (allPosts.length < 1) {
-    return <h2>No posts yet.</h2>;
-  }
-
   return (
     <main id='main' className={styles.container}>
-      {allPosts && data && (
-        <AnimatePresence>
-          {allPosts.map(({ id, author_id }) => {
-            return <Post key={`${id}, ${author_id}`} id={id} />;
-          })}
-        </AnimatePresence>
-      )}
+      {data.pages.map((page) => {
+        return page.posts.map(({ id, author_id }) => {
+          return <Post key={`${id}, ${author_id}`} id={id} />;
+        });
+      })}
       {(isLoading || hasNextPage) && (
         <div ref={sentryRef}>
           <Loader />

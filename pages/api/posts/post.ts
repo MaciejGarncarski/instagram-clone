@@ -33,12 +33,12 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
 
   if (type === 'CREATE') {
     try {
-      console.log(imageFile);
       const uploadedImage = await imageKit.upload({
         file: imageFile,
         fileName: `post.webp`,
         folder: `${authorID}/posts/${uuid}`,
       });
+      console.log(uploadedImage);
       await prisma.posts.create({
         data: {
           img: uploadedImage.url,

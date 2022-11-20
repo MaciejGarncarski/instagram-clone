@@ -26,7 +26,7 @@ export const useAddPost = () => {
   return useMutation(async ({ uuid, imageFile, description, location }: AddPostMutation) => {
     const image = await imageBase64(imageFile);
 
-    return apiClient.postForm('/posts/post', {
+    return apiClient.post('/posts/post', {
       type: 'CREATE',
       authorID: user?.id,
       imageFile: image,
