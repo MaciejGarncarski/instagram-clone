@@ -1,13 +1,11 @@
 import { withApiAuth } from '@supabase/auth-helpers-nextjs';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { v4 } from 'uuid';
 
 import { prisma } from '@/utils/db';
 import { imageKit } from '@/utils/imageKit';
 
 const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) => {
-  const { description, location, postID, type, authorID, imageFile } = req.body;
-  const uuid = v4();
+  const { description, location, postID, type } = req.body;
 
   if (req.method !== 'POST') {
     res.status(405).send(405);
@@ -25,34 +23,6 @@ const handler = withApiAuth(async (req: NextApiRequest, res: NextApiResponse) =>
           location,
         },
       });
-      res.status(200).send('success');
-    } catch (err) {
-      res.status(500).json({ statusCode: 500, message: err });
-    }
-  }
-
-  if (type === 'CREATE') {
-    try {
-      const uploadedImage = await imageKit.upload({
-        file: imageFile,
-        fileName: `post.webp`,
-        folder: `${authorID}/posts/${uuid}`,
-      });
-      console.log(uploadedImage);
-      await prisma.posts.create({
-        data: {
-          img: uploadedImage.url,
-          file_id: uploadedImage.fileId,
-          description,
-          author_id: authorID,
-          location,
-        },
-        select: {
-          created_at: true,
-          id: true,
-        },
-      });
-
       res.status(200).send('success');
     } catch (err) {
       res.status(500).json({ statusCode: 500, message: err });
@@ -96,6 +66,7 @@ export default handler;
 
 export const config = {
   api: {
+    responseLimit: '12mb',
     bodyParser: {
       sizeLimit: '32mb',
     },
