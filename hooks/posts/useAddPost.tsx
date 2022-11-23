@@ -5,7 +5,6 @@ import { apiClient } from '@/lib/apiClient';
 
 type AddPostMutation = {
   description: string;
-  uuid: string;
   location?: string;
   imageFile: Blob;
 };
@@ -23,14 +22,12 @@ export const imageBase64 = async (blob: Blob) =>
 export const useAddPost = () => {
   const user = useUser();
 
-  return useMutation(async ({ uuid, imageFile, description, location }: AddPostMutation) => {
+  return useMutation(async ({ imageFile, description, location }: AddPostMutation) => {
     const image = await imageBase64(imageFile);
 
-    return apiClient.postForm('/posts/post', {
-      type: 'CREATE',
+    return apiClient.post('/posts/upload', {
       authorID: user?.id,
       imageFile: image,
-      uuid,
       location,
       description,
     });

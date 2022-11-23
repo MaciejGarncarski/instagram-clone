@@ -19,7 +19,7 @@ export const useUploadAvatar = () => {
 
   return useMutation(
     ({ avatar }: Mutation) => {
-      return apiClient.postForm<null, null, AvatarRequest>('/accounts/avatar', {
+      return apiClient.post<null, null, AvatarRequest>('/accounts/avatar', {
         id: user?.id ?? '',
         avatar,
         type: 'UPDATE',
