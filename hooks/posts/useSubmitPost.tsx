@@ -3,7 +3,6 @@ import { useAtom } from 'jotai';
 import { useCallback, useRef } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { Id, toast } from 'react-toastify';
-import { v4 } from 'uuid';
 
 import { updateToast } from '@/lib/updateToast';
 import { useAddPost } from '@/hooks/posts/useAddPost';
@@ -30,7 +29,6 @@ export const useSubmitPost = () => {
 
   const onSubmit: SubmitHandler<NewPostValues> = async ({ description, location }) => {
     notify();
-    const uuid = v4();
 
     if (!toastId.current || !newImg) {
       return;
@@ -41,7 +39,7 @@ export const useSubmitPost = () => {
     }
 
     mutate(
-      { uuid, imageFile: newImg, description, location },
+      { imageFile: newImg, description, location },
       {
         onSuccess: () => {
           setImgSrc('');
