@@ -1,19 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { POST_PER_SCROLL } from '@/hooks/posts/useGetPosts';
 import { prisma } from '@/utils/db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') {
-    res.status(405).send('Only POST requests allowed');
+  const {
+    query: { skip },
+    method,
+  } = req;
+
+  const skipNumber = Number(skip);
+  const takeNumber = POST_PER_SCROLL;
+
+  if (method !== 'GET') {
+    res.status(405).send('Only GET requests allowed');
     return;
   }
 
-  const { skip, take } = req.body;
-
   try {
     const posts = await prisma.posts.findMany({
-      skip,
-      take,
+      skip: skipNumber * takeNumber,
+      take: takeNumber,
 
       include: {
         author: true,
@@ -29,7 +36,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).send(posts);
+    const { _count } = await prisma.posts.aggregate({
+      _count: {
+        id: true,
+      },
+    });
+
+    const postsCount = _count.id;
+
+    const canLoadMore = postsCount > (skipNumber + 1) * POST_PER_SCROLL;
+
+    const nextCursor = canLoadMore ? skipNumber + 1 : null;
+
+    res.status(200).send({ posts, postsCount, cursor: nextCursor });
   } catch (e) {
     res.status(400).send('400');
   }

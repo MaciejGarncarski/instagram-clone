@@ -5,11 +5,8 @@
   align-items: center;
   justify-content: flex-start;
   gap: 1em;
-  padding: 1rem 1.5rem;
   padding-bottom: 0;
   width: 100%;
-
-  border-top: var(--gray-border);
 }
 
 .last {
@@ -31,7 +28,7 @@
 }
 
 .modal {
-  background-color: var(--white);
+  background-color: rgb(var(--color-white));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,4 +36,30 @@
   gap: 4rem;
   padding: 3rem;
   border-radius: var(--radius-medium);
+}
+
+.container {
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-top: var(--border-primary-small);
+  flex-direction: column;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.likes {
+  display: flex;
+  gap: 0.25rem;
+  margin-left: 0.25rem;
+  font-weight: 500;
+}
+
+.like {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
 }

@@ -13,7 +13,7 @@ const nextConfig = {
   swcMinify: true,
   images: {
     allowFutureImage: true,
-    domains: [`${process.env.NEXT_PUBLIC_SUPABASE_URL_START}.supabase.co`],
+    domains: [`${process.env.NEXT_PUBLIC_SUPABASE_URL_START}.supabase.co`, 'ik.imagekit.io'],
   },
 };
 

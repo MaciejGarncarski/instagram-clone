@@ -5,10 +5,10 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  min-height: 100vh;
   padding-bottom: 6rem;
-  width: 100%;
+  min-height: 100vh;
   margin-top: 2rem;
+  width: 100%;
   gap: 2rem;
 
   @include common.breakpoint('sm') {
@@ -43,24 +43,24 @@
 }
 
 .author {
-  color: var(--primary-color);
+  color: rgb(var(--color-primary));
 }
 
 .avatar {
   border-radius: 50%;
-  border: 2px solid var(--primary-color);
+  border: 2px solid rgb(var(--color-primary));
 }
 
 .figcaption {
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
 }
 
 .img {
   box-shadow: var(--box-shadow);
   border-radius: 1rem;
-  border: 1px solid var(--primary-color);
+  border: 1px solid rgb(var(--color-primary));
 }
 
 .loader {
-  margin-top: 14rem;
+  margin: 8rem auto 0 auto;
 }

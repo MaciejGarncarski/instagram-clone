@@ -1,11 +1,11 @@
 import { GoBackButton } from '@/components/atoms/goBackButton/GoBackButton';
-import { SpecificPost } from '@/components/pages/specificPost/SpecificPost';
+import { SinglePost } from '@/components/pages/singlePost/SinglePost';
 
 const PostPage = () => {
   return (
     <>
       <GoBackButton />
-      <SpecificPost />
+      <SinglePost />
     </>
   );
 };

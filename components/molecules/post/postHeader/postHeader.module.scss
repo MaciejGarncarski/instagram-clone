@@ -7,7 +7,7 @@
   align-items: center;
   gap: 2rem;
   grid-row: 1 / 2;
-  border-bottom: var(--gray-border);
+  border-bottom: var(--border-primary-small);
 
   @include common.breakpoint('sm') {
     padding: 1.2rem 1.5rem;
@@ -15,7 +15,7 @@
 }
 
 .border {
-  border-bottom: var(--gray-border);
+  border-bottom: var(--border-primary-small);
 }
 
 .links {
@@ -55,7 +55,7 @@ div.avatar {
 
 .link {
   text-decoration: none;
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -72,4 +72,8 @@ div.avatar {
   }
 
   font-weight: 500;
+}
+
+.loader {
+  margin-left: auto;
 }

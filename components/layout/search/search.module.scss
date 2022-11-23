@@ -3,8 +3,7 @@
 .label {
   display: flex;
   border-radius: var(--radius-small);
-  border: var(--gray-border);
-  background-color: #fff;
+  background-color: rgb(var(--bg-secondary));
 
   @include common.breakpoint('lg') {
     align-items: stretch;
@@ -24,6 +23,8 @@
 
   @include common.breakpoint('lg') {
     max-width: unset;
+    padding: 1.1rem 1.5rem;
+    padding-left: 1rem;
   }
 }
 
@@ -32,12 +33,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 1rem;
-  padding-right: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1rem;
 
   background-color: transparent;
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: flex-end;
+
+  @include common.breakpoint('lg') {
+    justify-content: center;
   }
 }

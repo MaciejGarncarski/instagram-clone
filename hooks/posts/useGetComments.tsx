@@ -1,23 +1,26 @@
-import { posts_comments, Prisma, profiles } from '@prisma/client';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { posts_comments, profiles } from '@prisma/client';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { COMMENTS_COUNT_URL, getCount } from '@/lib/getCount';
 import { getInfiniteData } from '@/lib/getInfiniteData';
 
-export type Comments = posts_comments & {
-  user: profiles;
+export type Comments = {
+  comments: Array<
+    posts_comments & {
+      user: profiles;
+    }
+  >;
+  commentsCount: {
+    _count: {
+      id: number;
+    };
+  };
 };
 
 export const COMMENTS_PER_SCROLL = 8;
 
 export const useGetComments = (id: number) => {
-  const commentsCountData = useQuery<Prisma.AggregatePosts_comments>(
-    ['comments count', { post_id: id }],
-    () => getCount(COMMENTS_COUNT_URL, id)
-  );
-
   return useInfiniteQuery(
-    ['comments', { post_id: id }],
+    ['comments', id],
     ({ pageParam = 0 }) =>
       getInfiniteData<Comments>({
         url: '/comments/getComments',
@@ -28,9 +31,8 @@ export const useGetComments = (id: number) => {
         },
       }),
     {
-      getNextPageParam: (_, allComments) => {
-        const commentsCount = commentsCountData.data?._count?.id;
-
+      getNextPageParam: (prevComment, allComments) => {
+        const commentsCount = prevComment.commentsCount._count.id;
         if (!commentsCount) {
           return undefined;
         }

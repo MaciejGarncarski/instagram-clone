@@ -1,20 +1,11 @@
 @use '/styles/common.scss';
 
 .link {
-  display: flex;
+  padding: 1rem;
   position: relative;
-  width: 100%;
-
-  & > svg {
-    border-radius: 50%;
-    border: 2px solid var(--primary-color);
-    font-size: var(--nav-icon-size);
-    background-color: var(--bg-color);
-  }
-
-  @include common.breakpoint('lg') {
-    padding: 0.75rem;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &::before {
     content: '';
@@ -34,15 +25,25 @@
   &:focus::before {
     transform: scale(1);
   }
+
+  &:hover svg,
+  &:focus svg {
+    color: rgb(var(--color-white));
+  }
+
+  &:hover,
+  &:focus {
+    border-color: rgb(var(--bg-white));
+  }
+
+  svg {
+    background-color: rgb(var(--bg-white));
+  }
 }
 
-.border {
-  border: 2px solid var(--primary-color);
+.avatar {
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
+  border: 2px solid rgb(var(--color-primary));
   border-radius: 50%;
-}
-
-.img {
-  border-radius: 50%;
-  max-width: var(--nav-icon-size);
-  max-height: var(--nav-icon-size);
 }

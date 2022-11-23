@@ -3,18 +3,22 @@ import { useUser } from '@supabase/auth-helpers-react';
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient } from '@/lib/apiClient';
+import { Following } from '@/hooks/profile/useProfileByUsername';
 
-export type Profile = profiles & {
-  posts: posts[];
-  fromUser: followers[];
-  toUser: followers[];
-  _count: {
-    posts: number;
-    posts_likes: number;
-    posts_comments: number;
-    toUser: number;
-    fromUser: number;
+export type Profile = {
+  profile: profiles & {
+    posts: posts[];
+    fromUser: followers[];
+    toUser: followers[];
+    _count: {
+      posts: number;
+      posts_likes: number;
+      posts_comments: number;
+      toUser: number;
+      fromUser: number;
+    };
   };
+  isFollowing: Following;
 };
 
 export const useProfile = (userID?: string) => {
@@ -36,5 +40,8 @@ export const useProfile = (userID?: string) => {
     }
   );
 
-  return { ...profile };
+  const profileData = profile.data?.profile;
+  const isFollowing = profile.data?.isFollowing;
+
+  return { ...profile, data: profileData, isFollowing };
 };

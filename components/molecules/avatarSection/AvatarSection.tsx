@@ -11,7 +11,7 @@ import { Button } from '@/components/atoms/button/Button';
 import { Loader } from '@/components/atoms/loader/Loader';
 import { UserAvatar } from '@/components/molecules/userAvatar/UserAvatar';
 
-import { AvatarModal } from '../avatarModal/AvatarModal';
+import { AvatarModal } from '../modals/avatarModal/AvatarModal';
 
 export const AvatarSection = () => {
   const [modalOpen, setModalOpen] = useState(false);

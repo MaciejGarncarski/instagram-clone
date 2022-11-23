@@ -2,8 +2,9 @@
 @use '/styles/common.scss';
 
 .button {
-  @include mixins.modal-item;
   @include mixins.modal-button-link;
+  @include mixins.modal-item;
+  @include mixins.modal-item-corners;
 
   &:hover {
     cursor: pointer;
@@ -14,15 +15,13 @@
     background-color: rgb(222, 222, 222);
   }
 
-  @include mixins.modal-item-corners;
-
   &--red {
     font-weight: 700;
-    color: var(--error-color);
+    color: rgb(var(--color-error));
 
     & > svg,
     & > path {
-      color: var(--error-color);
+      color: rgb(var(--color-error));
     }
   }
 }

@@ -27,13 +27,13 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
     return null;
   }
 
-  const { author, author_id, location, img_uuid } = postData.post;
+  const { author, author_id, location } = postData.post;
   const changeSettingsLayout = data?.role === 'ADMIN' && author_id !== user?.id;
 
   return (
     <header className={clsx(borderBottom && styles.border, styles.author)}>
       <Link href={`/${author.username}/`} className={styles.avatarLink}>
-        <UserAvatar userID={author_id} className={styles.avatar} sizes='40' />
+        <UserAvatar userID={author_id} className={styles.avatar} />
       </Link>
       <div className={styles.links}>
         <Link href={`/${author.username}/`} className={styles.link}>
@@ -47,14 +47,11 @@ export const PostHeader = ({ canShowSettings, id, borderBottom }: PostHeaderProp
           </Link>
         )}
       </div>
-      {user?.id !== author_id && <FollowButton userID={author_id} />}
+      {user?.id !== author_id && (
+        <FollowButton loaderClassName={styles.loader} userID={author_id} />
+      )}
       {canShowSettings && (
-        <PostSettings
-          id={id}
-          author_id={author_id}
-          img_uuid={img_uuid}
-          changeSettingsLayout={changeSettingsLayout}
-        />
+        <PostSettings id={id} author_id={author_id} changeSettingsLayout={changeSettingsLayout} />
       )}
     </header>
   );

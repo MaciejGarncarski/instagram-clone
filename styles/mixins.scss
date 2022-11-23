@@ -16,8 +16,10 @@
   align-items: center;
   text-align: center;
   font-weight: 500;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: rgb(var(--bg-primary));
+  border-top: var(--border-primary-medium);
+  border-bottom: var(--border-primary-medium);
+  color: rgb(var(--text-primary));
   padding: 0 3rem;
   font-size: 2rem;
   gap: 1rem;
@@ -36,12 +38,11 @@
 @mixin modal-button-link {
   outline: none;
   text-transform: capitalize;
-  border-block: var(--gray-border);
   flex: 1 0 7.5rem;
 
   &:focus {
     border: 0;
-    box-shadow: inset 0 0 0 5px var(--primary-color);
+    box-shadow: inset 0 0 0 5px rgb(var(--color-primary));
   }
 
   & > svg {
@@ -59,11 +60,15 @@
 
 @mixin modal-item-corners {
   &--first {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
     border-radius: var(--radius-medium) var(--radius-medium) 0 0;
   }
 
   @include common.breakpoint('sm') {
     &--last {
+      border-top-color: transparent;
+      border-bottom-color: transparent;
       border-radius: 0 0 var(--radius-medium) var(--radius-medium);
     }
   }
@@ -71,7 +76,6 @@
 
 @mixin overlay {
   background-color: rgba(30, 30, 30, 0.8);
-  backdrop-filter: blur(2px);
   width: 100%;
   height: 100%;
   position: fixed;

@@ -9,14 +9,15 @@
 
   @include common.breakpoint('lg') {
     margin-top: 0.5rem;
-    border-top: var(--gray-border);
+    border-top: var(--border-primary-small);
   }
 }
 
 .input {
-  padding: 1rem;
+  margin: 0.5rem 0;
+  padding: 1rem 0.5rem;
   font-family: inherit;
-  resize: none;
+  resize: vertical;
   font-size: 1em;
   background: transparent;
   min-height: 5rem;
@@ -28,7 +29,7 @@
   outline: none;
 
   &:focus {
-    box-shadow: 0 0 0 2px inset var(--primary-color);
+    box-shadow: 0 0 0 2px inset rgb(var(--color-primary));
   }
 
   &::-webkit-scrollbar {
@@ -40,14 +41,14 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
+    background-color: rgb(var(--color-primary));
     border-radius: 10px;
     border: 3px solid transparent;
   }
 
   @include common.breakpoint('lg') {
-    padding: 2rem 1rem;
-    height: 7rem;
+    padding: 1rem 1rem;
+    height: 6rem;
     max-height: 13rem;
   }
 }
@@ -56,5 +57,20 @@
   justify-self: center;
   align-self: center;
   border-radius: var(--radius-small);
-  padding: 0.5rem 2rem;
+  color: rgb(var(--color-primary));
+  font-weight: 700;
+  text-transform: capitalize;
+
+  &::first-letter {
+    text-transform: unset;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 }

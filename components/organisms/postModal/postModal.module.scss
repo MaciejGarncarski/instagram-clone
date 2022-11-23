@@ -27,58 +27,78 @@
 }
 
 .modal {
-  background-color: var(--bg-color);
+  background-color: rgb(var(--bg-primary));
   border-radius: var(--radius-small);
   width: 90%;
   min-height: 60vh;
   max-height: 85vh;
-  overflow-y: scroll;
   display: grid;
   grid-template-rows: auto 1fr auto;
   align-items: flex-start;
 
-  @include common.breakpoint('xl') {
-    border-radius: var(--radius-medium);
-    width: min(85%, 158rem);
-    height: 80vh;
+  @include common.breakpoint('sm') {
     overflow: hidden;
-    grid-template-columns: 1.75fr 1fr;
+    width: 90%;
+  }
+
+  @include common.breakpoint('xl') {
+    grid-template-columns: minmax(30rem, 105rem) minmax(40rem, 1fr);
     grid-template-rows: auto 1fr auto;
+    width: clamp(70rem, 70%, 300rem);
+    height: 90vh;
+    max-height: none;
+  }
+}
+
+.loader {
+  grid-row: 2 / 3;
+
+  @include common.breakpoint('sm') {
+    margin: 0 calc(12vw + 5rem);
   }
 }
 
 .image {
   position: relative;
   grid-row: 2 / 3;
-  background-color: var(--bg-color);
+  background-color: rgb(var(--text-primary));
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: var(--gray-border);
+  flex-direction: column;
+  border-bottom: var(--border-primary-small);
   height: 100%;
   display: none;
 
   & > img {
-    width: 100%;
     max-height: 30rem;
     height: 100%;
+    width: 100%;
     object-fit: contain;
   }
 
-  @include common.breakpoint('xl') {
+  @include common.breakpoint('sm') {
+    display: flex;
+  }
+
+  @include common.breakpoint('lg') {
     grid-row: 1 / 5;
-    border-right: var(--gray-border);
+    border-right: var(--border-primary-small);
     border-bottom: none;
-    width: 100%;
-    display: initial;
 
     & > img {
-      width: 100%;
       max-height: unset;
       object-fit: contain;
-      height: 100%;
     }
   }
+}
+
+.visible {
+  display: initial;
+}
+
+.hidden {
+  display: none;
 }
 
 .post {

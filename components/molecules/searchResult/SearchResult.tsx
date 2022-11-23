@@ -18,10 +18,7 @@ const MotionLink = motion(Link);
 export const SearchResult = ({ data }: SearchResultProps) => {
   const user = useUser();
   const { id, username, full_name } = data;
-
   const canShowFollowBtn = user?.id !== id;
-
-  console.log(id, user?.id);
   return (
     <MotionLink
       variants={articleVariant}
@@ -35,8 +32,8 @@ export const SearchResult = ({ data }: SearchResultProps) => {
       <div className={styles.container}>
         <UserAvatar userID={id} className={styles.avatar} />
         <div>
-          <h3>{full_name}</h3>
-          <p>@{username}</p>
+          <h3>@{username}</h3>
+          <p>{full_name}</p>
         </div>
         {canShowFollowBtn && <FollowButton userID={id} />}
       </div>

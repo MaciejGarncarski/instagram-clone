@@ -10,30 +10,35 @@
 }
 
 :root {
-  --bg-color: rgb(250, 250, 250);
-  --text-color: hsl(0, 0%, 14%);
-  --primary-color: hsl(175, 79%, 38%);
-  --primary-color-rgb: 51, 204, 153;
-  --secondary-color: hsl(180, 50%, 70%);
-  --error-color: hsl(5, 85%, 47%);
-  --error-color-rgb: 210, 58, 45;
-  --warning-color: hsl(36, 100%, 50%);
-  --white: #fff;
+  --color-primary: 51, 204, 173;
+  --color-secondary: 140, 217, 217;
+  --color-error: 210, 58, 45;
+  --color-warning: 255, 153, 0;
+  --color-white: 255, 255, 255;
 
-  --gradient-first-color: #2aa8da;
-  --gradient-second-color: #05daa5;
-  --gradient: linear-gradient(140deg, var(--gradient-first-color), var(--gradient-second-color));
+  --text-primary: 36, 36, 36;
+  --bg-primary: 250, 250, 250;
+  --bg-secondary: 239, 239, 239;
+  --bg-white: 255, 255, 255;
+
+  --border-primary: 219, 219, 219;
+
+  --gradient-start: #2aa8da;
+  --gradient-end: #05daa5;
+  --gradient: linear-gradient(140deg, var(--gradient-start), var(--gradient-end));
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  --box-shadow: 0 2px 8px rgb(0 0 0 / 16%);
-  --gray-border: 1px solid rgb(30, 30, 30, 0.3);
+  --shadow-primary: 0 2px 7px rgb(0, 0, 0, 0.1);
+
+  --border-primary-small: 1px solid rgb(var(--border-primary));
+  --border-primary-medium: 3px solid rgb(var(--border-primary));
 
   --radius-small: 0.6rem;
-  --radius-medium: 0.85rem;
+  --radius-medium: 0.9rem;
 
-  --nav-icon-size: 3rem;
+  --nav-icon-size: 2.5rem;
 
   @include common.breakpoint('lg') {
     --radius-small: 0.8rem;
@@ -56,15 +61,33 @@ html {
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-size: clamp(100%, calc(1rem + 2vw), 22px);
+  background-color: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
+  font-size: clamp(100%, calc(1rem + 2vw), 20px);
   scroll-behavior: smooth;
   min-height: 100vh;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-primary));
+  border-radius: 10px;
+  border: 3px solid transparent;
+
+  &:hover {
+    background-color: rgb(var(--color-secondary));
+  }
+}
+
 svg {
-  color: var(--text-color);
+  color: rgb(var(--text-primary));
 }
 
 input,
@@ -108,16 +131,16 @@ div.Toastify__toast-container {
 }
 
 div.Toastify__toast {
-  --toastify-color-success: var(--primary-color);
+  --toastify-color-success: rgb(var(--color-primary));
   --toastify-color-progress-success: linear-gradient(
     to right,
     rgb(0, 101, 233, 0.7),
-    var(--primary-color)
+    rgb(var(--color-primary))
   );
-  --toastify-icon-color-success: var(--primary-color);
-  --toastify-text-color-light: var(--text-color);
+  --toastify-icon-color-success: rgb(var(--color-primary));
+  --toastify-text-color-light: rgb(var(--text-primary));
   --toastify-color-light: #fff;
-  border: var(--gray-border);
+  border: var(--border-primary-small);
   border-radius: var(--radius-medium);
   width: 85%;
   margin: 0 auto;
@@ -129,13 +152,13 @@ div.Toastify__toast {
   }
 
   &--error {
-    --toastify-color-error: var(--error-color);
-    --toastify-color-progress-error: var(--error-color);
-    --toastify-icon-color-error: var(--error-color);
-    --border-color: var(--error-color);
+    --toastify-color-error: rgb(var(--color-error));
+    --toastify-color-progress-error: rgb(var(--color-error));
+    --toastify-icon-color-error: rgb(var(--color-error));
+    --border-color: rgb(var(--color-error));
   }
 }
 
 div.ReactCrop__crop-selection {
-  border: 2px solid var(--secondary-color);
+  border: 2px solid rgb(var(--color-secondary));
 }

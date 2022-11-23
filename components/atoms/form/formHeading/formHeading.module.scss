@@ -1,7 +1,7 @@
 .heading {
   font-weight: 900;
-
-  color: var(--primary-color);
+  margin-bottom: 3rem;
+  color: rgb(var(--color-primary));
 
   &::first-letter {
     text-transform: uppercase;

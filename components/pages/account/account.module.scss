@@ -2,46 +2,36 @@
 @use '/styles/mixins.scss';
 
 .account {
-  width: 70%;
-  margin: 0 auto;
-  margin-top: 5rem;
-  margin-bottom: 4rem;
-  row-gap: 2rem;
   display: grid;
+  grid-template-columns: auto 2fr 0.5fr;
+  grid-template-rows: auto auto auto;
+  padding: 0 2.5rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  column-gap: calc(1rem + 3vw);
+  row-gap: 2rem;
 
-  @include common.breakpoint('sm') {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1rem;
-    padding-left: 3rem;
-    gap: 6rem;
-    padding-right: 2rem;
-  }
-
-  @include common.breakpoint('xl') {
-    padding-left: 6rem;
-    padding-right: 5rem;
-    gap: 12rem;
-    margin: 0;
-    margin-bottom: 9rem;
-    margin-left: 4rem;
+  @include common.breakpoint('lg') {
+    padding: 0 3rem;
+    grid-template-columns: auto 2fr auto;
+    grid-template-rows: auto 5rem auto;
+    margin-top: 0;
+    margin-bottom: 10rem;
+    row-gap: 1.5rem;
+    column-gap: 8rem;
   }
 }
 
 .avatar {
-  width: 10rem;
-  height: 10rem;
-  justify-self: center;
-
-  &--columns {
-    grid-column: 1 / 3;
-  }
+  --size: 9rem;
+  width: var(--size);
+  height: var(--size);
+  grid-row: 1 / 3;
+  align-self: center;
 
   @include common.breakpoint('lg') {
-    width: 20rem;
-    height: 20rem;
+    grid-row: 1 / 4;
+    --size: 20rem;
   }
 }
 
@@ -51,24 +41,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 2;
-  width: 100%;
-  grid-column: 1 / 3;
-
-  @include common.breakpoint('lg') {
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: auto;
-    gap: 3rem;
-  }
 }
 
 .name {
@@ -97,10 +69,12 @@
 .username {
   font-size: 3rem;
   font-weight: 400;
-  text-align: center;
+  grid-row: 1 / 1;
+  grid-column: 2 / 3;
+  align-self: flex-start;
 
   @include common.breakpoint('lg') {
-    font-size: 5rem;
+    font-size: 4rem;
     text-align: left;
   }
 }
@@ -112,23 +86,20 @@
 .bio {
   max-width: 40ch;
   word-break: break-all;
-  margin-top: 2rem;
-  text-align: center;
+  grid-column: 1 / 4;
+  padding: 1rem;
 
   @include common.breakpoint('lg') {
     margin-top: 0;
+    grid-column: 2 / 3;
     text-align: left;
+    padding: 0;
   }
 }
 
 .bioText {
   font-weight: 400;
   text-align: left;
-  padding: 1rem;
-
-  @include common.breakpoint('lg') {
-    padding: 0;
-  }
 }
 
 .buttons {
@@ -143,11 +114,17 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-column: 1 / 4;
+  grid-row: 3 / 4;
   justify-content: center;
+  margin-top: 1rem;
 
   @include common.breakpoint('lg') {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
     gap: 3rem;
     display: flex;
+    margin: 0;
     justify-content: flex-start;
   }
 }
@@ -169,17 +146,65 @@
   font-weight: 700;
 }
 
-button.followBtn {
-  align-self: center;
-  justify-self: center;
+.button {
   grid-row: 2 / 3;
-  grid-column: 1 / 3;
+  grid-column: 2 / 4;
+
+  @include common.breakpoint('lg') {
+    grid-row: 1 / 1;
+    grid-column: 3 / 4;
+  }
+}
+
+button.followBtn {
+  @extend .button;
   margin-left: 0;
-  font-size: 2.5rem;
+  align-self: flex-start;
+  justify-self: flex-start;
+  font-size: 2rem;
+  padding: 0.5rem 2rem;
 
   @include common.breakpoint('lg') {
     margin-left: auto;
     font-size: 3rem;
     padding: 0.7rem 2.5rem;
+  }
+}
+
+.followLoader {
+  grid-row: 1 / 1;
+  margin: 0;
+  margin-right: 3.5rem;
+  margin-top: 1rem;
+}
+
+.edit {
+  @extend .button;
+  background-color: rgb(var(--color-primary));
+  border-radius: var(--radius-small);
+  padding: 0.5rem 2rem;
+  justify-self: flex-start;
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(var(--color-white));
+  text-decoration: none;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 600;
+
+  @include common.breakpoint('lg') {
+    display: none;
+  }
+}
+
+.heading {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 4rem;
+
+  @include common.breakpoint('lg') {
+    display: none;
   }
 }

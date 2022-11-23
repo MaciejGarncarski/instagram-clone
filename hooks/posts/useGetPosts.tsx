@@ -1,10 +1,9 @@
-import { posts, Prisma, profiles } from '@prisma/client';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { posts, profiles } from '@prisma/client';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getCount, POSTS_COUNT_URL } from '@/lib/getCount';
-import { getInfiniteData, POSTS_DATA_URL } from '@/lib/getInfiniteData';
+import { apiClient } from '@/lib/apiClient';
 
-export type Posts = posts & {
+export type Post = posts & {
   author: profiles;
   _count: {
     posts_likes: number;
@@ -12,30 +11,35 @@ export type Posts = posts & {
   };
 };
 
+export type Posts = {
+  posts: (posts & {
+    _count: {
+      posts_likes: number;
+      posts_comments: number;
+    };
+    author: profiles;
+  })[];
+  postsCount: {
+    _count: {
+      id: number;
+    };
+  };
+  cursor: number | null;
+};
+
 export const POST_PER_SCROLL = 4;
 
 export const useGetPosts = () => {
-  const postsCount = useQuery<Prisma.AggregatePosts>(['posts count'], () =>
-    getCount(POSTS_COUNT_URL)
-  );
-
   return useInfiniteQuery(
-    ['posts'],
-    ({ pageParam = 0 }) =>
-      getInfiniteData<Posts>({ url: POSTS_DATA_URL, pageParam, perScroll: POST_PER_SCROLL }),
+    ['homepage posts'],
+    async ({ pageParam = 0 }) => {
+      const { data } = await apiClient.get<Posts>(`/posts/getPosts?skip=${pageParam}`);
+      return data;
+    },
     {
-      getNextPageParam: (_, allPosts) => {
-        const postCount = postsCount.data?._count?.id;
-
-        if (!postCount) {
-          return undefined;
-        }
-
-        if (postCount <= allPosts.length * POST_PER_SCROLL) {
-          return undefined;
-        }
-
-        return allPosts.length * POST_PER_SCROLL;
+      refetchOnWindowFocus: false,
+      getNextPageParam: (prevPosts) => {
+        return prevPosts.cursor ?? undefined;
       },
     }
   );

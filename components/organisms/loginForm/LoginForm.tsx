@@ -46,8 +46,8 @@ export const LoginForm = () => {
     }
 
     await queryClient.invalidateQueries(['profile', { id: data?.id }]);
+    await router.replace('/');
     toast.success('Logged in!');
-    router.replace('/');
   };
 
   return (
